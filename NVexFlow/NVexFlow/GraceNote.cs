@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {
     //GraceNote
@@ -10,7 +6,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class GraceNote:StaveNote
+            public class GraceNote : StaveNote
             {
 
                 #region 属性字段
@@ -18,7 +14,7 @@ namespace NVexFlow
                 object glyph;
                 object slash;
                 bool slur;
-                double width; 
+                double width;
                 #endregion
 
 
@@ -46,7 +42,7 @@ namespace NVexFlow
                 }
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

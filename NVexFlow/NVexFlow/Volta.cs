@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {
     public partial class Vex
     {
         public partial class Flow
         {
-            public class Volta:StaveModifier
+            public class Volta : StaveModifier
             {
                 #region 属性字段
                 public enum VoltaType
@@ -55,7 +51,7 @@ namespace NVexFlow
                 {
                     get { return font; }
                     set { font = value; }
-                } 
+                }
                 #endregion
 
 
@@ -81,9 +77,9 @@ namespace NVexFlow
 
                 public void Draw(Stave stave, double x)
                 { }
-                
+
                 #endregion
-                
+
 
             }
 

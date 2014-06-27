@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -12,7 +9,7 @@ namespace NVexFlow
             public class StaveConnector
             {
 
-                public static class StaveConnectorType 
+                public static class StaveConnectorType
                 {
                     public static int SINGLE_RIGHT = 0;
                     public static int SINGLE_LEFT = 1;
@@ -25,8 +22,8 @@ namespace NVexFlow
                     public static int THIN_DOUBLE = 7;
                 }
 
-                public StaveConnector(object top_stave,object  bottom_stave)
-                { Init(top_stave,bottom_stave); }
+                public StaveConnector(object top_stave, object bottom_stave)
+                { Init(top_stave, bottom_stave); }
 
                 public void Init(object top_stave, object bottom_stave)
                 { }
@@ -42,7 +39,8 @@ namespace NVexFlow
 
                 public int Type
                 {
-                    set {
+                    set
+                    {
                         if (type >= StaveConnectorType.SINGLE_RIGHT &&
     type <= StaveConnectorType.THIN_DOUBLE)
                         {
@@ -54,7 +52,7 @@ namespace NVexFlow
 
                 string text;
                 IList<object> text_options;
-                public StaveConnector SetText(string text,IList<object> text_options)
+                public StaveConnector SetText(string text, IList<object> text_options)
                 {
                     return this;
                 }
@@ -63,18 +61,21 @@ namespace NVexFlow
 
                 public object Font
                 {
-                    set {
+                    set
+                    {
                         //
-                        font = value; }
+                        font = value;
+                    }
                 }
 
                 double x_shift;
 
                 public double X_shift
                 {
-                    set {
+                    set
+                    {
                         double x_shift;
-                        if (double.TryParse(value.ToString(),out x_shift) == false)
+                        if (double.TryParse(value.ToString(), out x_shift) == false)
                         { }
                         else
                         {

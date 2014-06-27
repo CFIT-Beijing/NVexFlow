@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {
     public partial class Vex
     {
         public partial class Flow
         {
-            public class NoteHead:Note
+            public class NoteHead : Note
             {
                 #region 静态
                 public static void DrawSlashNoteHead(object ctx, object duration, double x, double y, int stemDirection)
-                { } 
+                { }
                 #endregion
 
 
@@ -97,7 +93,7 @@ namespace NVexFlow
                     set { y = value; }
                 }
 
-                
+
 
                 public override Stave Stave
                 {
@@ -110,7 +106,7 @@ namespace NVexFlow
                         base.Stave = value;
                     }
                 }
-                
+
                 #endregion
 
 
@@ -152,7 +148,7 @@ namespace NVexFlow
                 }
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

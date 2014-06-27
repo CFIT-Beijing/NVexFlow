@@ -1,8 +1,5 @@
-﻿using System;
+﻿using NVexFlow.MODEL;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NVexFlow.MODEL;
 
 namespace NVexFlow
 {
@@ -11,7 +8,7 @@ namespace NVexFlow
         public partial class Flow
         {
 
-            public class Clef:StaveModifier
+            public class Clef : StaveModifier
             {
                 #region 静态
                 private static IDictionary<string, MODEL.ClefType> types = new Dictionary<string, MODEL.ClefType>() 
@@ -30,7 +27,7 @@ namespace NVexFlow
 
 
                 #region 属性字段
-                ClefType clef; 
+                ClefType clef;
                 #endregion
 
 
@@ -47,7 +44,7 @@ namespace NVexFlow
                 { }
 
                 public void AddEndModifier(Stave stave)
-                { } 
+                { }
                 #endregion
             }
         }

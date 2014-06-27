@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -9,7 +6,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class TabStave:Stave
+            public class TabStave : Stave
             {
                 #region 属性字段
 
@@ -27,8 +24,8 @@ namespace NVexFlow
                 private double spacing_between_lines_px;
                 private int num_lines;
                 private int top_text_position;
-                private IList<object> options; 
-	#endregion
+                private IList<object> options;
+                #endregion
 
 
                 #region 方法
@@ -51,7 +48,7 @@ namespace NVexFlow
                 public TabStave AddTabGlyph()
                 {
                     return null;
-                } 
+                }
                 #endregion
 
 

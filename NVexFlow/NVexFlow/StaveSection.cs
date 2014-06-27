@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//StaveSection
     public partial class Vex
     {
         public partial class Flow
         {
-            public class StaveSection:Modifier
+            public class StaveSection : Modifier
             {
                 #region 属性字段
                 Font font;
@@ -51,7 +47,7 @@ namespace NVexFlow
                 {
                     get { return section; }
                     set { section = value; }
-                } 
+                }
                 #endregion
 
 
@@ -72,10 +68,10 @@ namespace NVexFlow
                 }
 
                 public void Draw(object stave, double shift_x)
-                { } 
+                { }
                 #endregion
 
-                
+
 
             }
         }

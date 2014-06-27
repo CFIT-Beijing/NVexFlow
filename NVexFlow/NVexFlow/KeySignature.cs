@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//KeySignature
     public partial class Vex
     {
         public partial class Flow
         {
-            public class KeySignature:Modifier
+            public class KeySignature : Modifier
             {
                 #region 静态
                 public static void AccidentalList(string acc)
-                { } 
+                { }
                 #endregion
 
 
                 #region 属性字段
                 object accList;
-                int glyphFontScale; 
+                int glyphFontScale;
                 #endregion
 
 
@@ -46,7 +42,7 @@ namespace NVexFlow
                 }
 
                 public void ConvertAccLines(string clef, string code)
-                { } 
+                { }
                 #endregion
             }
         }

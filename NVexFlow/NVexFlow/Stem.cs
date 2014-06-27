@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//Stem
@@ -18,9 +15,9 @@ namespace NVexFlow
 
                 public static int UP = 1;
                 public static int Down = -1;
-                  // Theme
-  //Stem.WIDTH = Vex.Flow.STEM_WIDTH;
-  //Stem.HEIGHT = Vex.Flow.STEM_HEIGHT;
+                // Theme
+                //Stem.WIDTH = Vex.Flow.STEM_WIDTH;
+                //Stem.HEIGHT = Vex.Flow.STEM_HEIGHT;
                 public static double WIDTH;
                 public static double HEIGHT;
 

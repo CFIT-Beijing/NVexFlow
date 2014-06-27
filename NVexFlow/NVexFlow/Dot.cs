@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {
     public partial class Vex
@@ -38,7 +34,7 @@ namespace NVexFlow
                         //  this.setWidth(3);
                         //}
                     }
-                } 
+                }
                 #endregion
 
 
@@ -62,7 +58,7 @@ namespace NVexFlow
 
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

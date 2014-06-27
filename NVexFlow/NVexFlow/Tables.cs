@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -30,7 +27,7 @@ namespace NVexFlow
 
             public static IDictionary<string, object> keyPropertiesNoteGlyph;
 
-            
+
             public static IDictionary<int, string> integerToNoteTable = new Dictionary<int, string>()
                 {
                     {0, "C"},
@@ -111,7 +108,7 @@ namespace NVexFlow
 
             public static IDictionary<string, string> durationAliases;
 
-            public static object DurationToGlyph(object duration,object type)
+            public static object DurationToGlyph(object duration, object type)
             {
                 return null;
             }
@@ -125,7 +122,7 @@ namespace NVexFlow
 
             public static class Tables
             {
-                
+
             }
         }
     }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//TickContext
@@ -37,7 +34,7 @@ namespace NVexFlow
                     set { padding = value; }
                 }
 
-                double width;                
+                double width;
                 public double Width
                 {
                     get
@@ -89,8 +86,10 @@ namespace NVexFlow
                 public object CurrentTick
                 {
                     get { return currentTick; }
-                    set { currentTick = value;
-                    this.preFormatted = false;
+                    set
+                    {
+                        currentTick = value;
+                        this.preFormatted = false;
                     }
                 }
 

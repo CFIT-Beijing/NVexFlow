@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//StaveHairpin
@@ -11,7 +8,7 @@ namespace NVexFlow
         {
             public class StaveHairpin
             {
-                public StaveHairpin(IList<object> notes,object type)
+                public StaveHairpin(IList<object> notes, object type)
                 {
                     Init(notes, type);
                 }
@@ -39,7 +36,8 @@ namespace NVexFlow
 
                 public Modifier.ModifierPosition Position
                 {
-                    set {
+                    set
+                    {
                         if (value == Modifier.ModifierPosition.ABOVE || value == Modifier.ModifierPosition.BELOW)
                         {
                             position = value;
@@ -52,9 +50,10 @@ namespace NVexFlow
                 public object RenderOptions
                 {
 
-                    set { 
+                    set
+                    {
                         //需要重写
-                        renderOptions = value; 
+                        renderOptions = value;
                     }
                 }
 
@@ -62,9 +61,10 @@ namespace NVexFlow
 
                 public IList<object> Notes
                 {
-                    set {
+                    set
+                    {
                         //需要重写
-                        notes = value; 
+                        notes = value;
                     }
                 }
 

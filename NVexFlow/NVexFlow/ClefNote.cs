@@ -1,8 +1,5 @@
-﻿using System;
+﻿using NVexFlow.MODEL;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NVexFlow.MODEL;
 
 namespace NVexFlow
 {
@@ -10,7 +7,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class ClefNote:Note
+            public class ClefNote : Note
             {
                 #region 属性字段
                 private ClefType clef;
@@ -78,7 +75,7 @@ namespace NVexFlow
                 public void Draw()
                 {
 
-                } 
+                }
                 #endregion
             }
         }

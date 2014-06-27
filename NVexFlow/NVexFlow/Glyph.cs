@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -38,13 +35,13 @@ namespace NVexFlow
                 {
                     get { return height; }
                     set { height = value; }
-                }         
+                }
             }
 
 
             public class Glyph
             {
-                public static void LoadMetrics(object font,string code,object cache)
+                public static void LoadMetrics(object font, string code, object cache)
                 { }
 
                 public static void RenderOutline(object ctx, object outline, object scale, double x_pos, double y_pos)
@@ -76,9 +73,11 @@ namespace NVexFlow
                 public IList<object> Options
                 {
 
-                    set { 
+                    set
+                    {
                         //重写
-                        options = value; }
+                        options = value;
+                    }
                 }
 
                 object context;
@@ -90,9 +89,9 @@ namespace NVexFlow
                 }
 
 
-                public Glyph(string code, object point,IList<object> options)
+                public Glyph(string code, object point, IList<object> options)
                 {
-                
+
                 }
 
                 public Metrics GetMetrics()
@@ -109,10 +108,10 @@ namespace NVexFlow
                 public void RenderToStave(double x)
                 { }
 
-    //setXShift: function(xShift) { this.xShift = xShift; return this; },
-    //setYShift: function(yShift) { this.yShift = yShift; return this; },
-    //setContext: function(context) { this.context = context; return this; },
-    //getContext: function() { return this.context; },
+                //setXShift: function(xShift) { this.xShift = xShift; return this; },
+                //setYShift: function(yShift) { this.yShift = yShift; return this; },
+                //setContext: function(context) { this.context = context; return this; },
+                //getContext: function() { return this.context; },
             }
         }
     }

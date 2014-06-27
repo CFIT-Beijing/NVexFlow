@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//Accidental
     public partial class Vex
@@ -22,14 +18,14 @@ namespace NVexFlow
                 object parenLeft;
                 object parenRight;
                 double width;
-                
+
                 #endregion
-      
+
 
                 #region 方法
                 public Accidental(object type)
                 {
-                    
+
                     Init(type);
                 }
 
@@ -46,7 +42,7 @@ namespace NVexFlow
                 }
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

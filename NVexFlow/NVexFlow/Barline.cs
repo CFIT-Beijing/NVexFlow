@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//Barline
     public partial class Vex
     {
         public partial class Flow
         {
-            public class Barline:StaveModifier
+            public class Barline : StaveModifier
             {
                 #region 属性字段
                 public enum BarlineType
@@ -61,7 +57,7 @@ namespace NVexFlow
                 { }
 
                 public void DrawRepeatBar(object stave, double x, object begin)
-                { } 
+                { }
                 #endregion
             }
         }

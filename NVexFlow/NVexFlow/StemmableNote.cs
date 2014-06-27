@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//StemmableNote
     public partial class Vex
@@ -143,7 +139,7 @@ namespace NVexFlow
                         //
                         return yForBottomText;
                     }
-                } 
+                }
                 #endregion
 
 
@@ -165,7 +161,7 @@ namespace NVexFlow
                 }
 
                 public virtual void DrawStem()
-                { } 
+                { }
                 #endregion
             }
         }

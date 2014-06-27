@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//GhostNote
     public partial class Vex
     {
         public partial class Flow
         {
-            public class GhostNote:StemmableNote
+            public class GhostNote : StemmableNote
             {
                 #region 属性字段
                 double width;
@@ -22,7 +18,7 @@ namespace NVexFlow
                     }
                 }
 
-                
+
                 #endregion
 
 
@@ -56,7 +52,7 @@ namespace NVexFlow
                 {
                     this.PreFormatted = true;
                     return this;
-                } 
+                }
                 #endregion
             }
         }

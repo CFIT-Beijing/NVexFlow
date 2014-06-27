@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {
     public partial class Vex
@@ -37,7 +33,7 @@ namespace NVexFlow
                     return new BoundingBox(that.X, that.Y, that.W, that.H);
                 }
 
-                public void Draw(object ctx,double x,double y)
+                public void Draw(object ctx, double x, double y)
                 { }
 
                 public BoundingBox MergeWith(BoundingBox boundingBox, object ctx)

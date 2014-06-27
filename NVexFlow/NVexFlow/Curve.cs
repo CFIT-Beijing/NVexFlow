@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//Curve
@@ -16,12 +13,12 @@ namespace NVexFlow
                     NEAR_HEAD,
                     NEAR_TOP
                 }
-                public Curve(object from,object to,IList<object> options)
+                public Curve(object from, object to, IList<object> options)
                 { }
 
                 public void Init(object from, object to, IList<object> options)
-                { 
-                
+                {
+
                 }
 
                 private object context;
@@ -33,11 +30,11 @@ namespace NVexFlow
 
                 private object from;
                 private object to;
-                public Curve SerNotes(object from,object to)
+                public Curve SerNotes(object from, object to)
                 {
                     if (from == null && to == null)
-                    { 
-                    //vex.runTimeError..................
+                    {
+                        //vex.runTimeError..................
                     }
                     this.from = from;
                     this.to = to;

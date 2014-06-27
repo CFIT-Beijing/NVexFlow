@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -9,11 +6,11 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class TabTie:StaveTie
+            public class TabTie : StaveTie
             {
 
                 #region 属性字段
-                object renderOptions; 
+                object renderOptions;
                 #endregion
 
 
@@ -40,7 +37,7 @@ namespace NVexFlow
                 public static TabTie CreatePulloff(IList<object> notes)
                 {
                     return new TabTie(notes, "P");
-                } 
+                }
                 #endregion
             }
         }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace NVexFlow
 {//CanvasContext
@@ -132,7 +129,7 @@ namespace NVexFlow
                     return null;
                 }
 
-                public object MoveTo(double x,double y)
+                public object MoveTo(double x, double y)
                 {
                     return null;
                 }
@@ -150,7 +147,7 @@ namespace NVexFlow
                 public object QuadraticCurveTo(double x1, double y1, double x2, double y2)
                 {
                     return null;
-                } 
+                }
 
 
 
@@ -186,8 +183,8 @@ namespace NVexFlow
                 {
                     return null;
                 }
- 
-                public object FillText(string text,double x,double y)
+
+                public object FillText(string text, double x, double y)
                 {
                     return null;
                 }

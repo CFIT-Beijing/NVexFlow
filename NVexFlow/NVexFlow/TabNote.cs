@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -9,7 +6,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class TabNote:StemmableNote
+            public class TabNote : StemmableNote
             {
                 #region 属性字段
                 bool ghost;
@@ -133,7 +130,7 @@ namespace NVexFlow
                 public static object GetPartialStemLines(double stem_y, object unused_strings, object stave, object stem_direction)
                 {
                     return null;
-                } 
+                }
                 #endregion
             }
         }

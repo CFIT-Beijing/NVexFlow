@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//Renderer
     public partial class Vex
@@ -11,7 +7,7 @@ namespace NVexFlow
         {
             public class Renderer
             {
-                public Renderer(object sel,object backend)
+                public Renderer(object sel, object backend)
                 {
                     Init(sel, backend);
                 }
@@ -34,7 +30,7 @@ namespace NVexFlow
                 public static bool USE_CANVAS_PROXY = false;
 
                 public static object BuildContext(object sel,
-      object backend,double width,double height,object background)
+      object backend, double width, double height, object background)
                 {
                     return null;
                 }
@@ -43,7 +39,7 @@ namespace NVexFlow
        double width, double height, object background)
                 {
                     return null;
-                //return Renderer.buildContext(sel, Renderer.Backends.CANVAS, width, height, background);
+                    //return Renderer.buildContext(sel, Renderer.Backends.CANVAS, width, height, background);
                 }
 
 
@@ -59,13 +55,13 @@ namespace NVexFlow
                     return ctx;
                 }
 
-                public static void DrawDashedLine(object context,double fromX,double fromY,double toX,double toY,object dashPattern)
+                public static void DrawDashedLine(object context, double fromX, double fromY, double toX, double toY, object dashPattern)
                 { }
 
                 public void Init(object sel, object backend)
                 { }
 
-                public Renderer Resize(double width,double height)
+                public Renderer Resize(double width, double height)
                 {
                     return this;
                 }

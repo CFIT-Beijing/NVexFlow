@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -14,7 +11,7 @@ namespace NVexFlow
                 public static int LOCATION_TOP = 1;
                 public static int LOCATION_BOTTOM = -1;
 
-                public Tuplet(IList<object> notes,IList<object> options)
+                public Tuplet(IList<object> notes, IList<object> options)
                 { }
 
                 public void Init(IList<object> notes, IList<object> options)
@@ -75,9 +72,11 @@ namespace NVexFlow
                 public object Beats_occupied
                 {
                     get { return beats_occupied; }
-                    set { 
+                    set
+                    {
                         //
-                        beats_occupied = value; }
+                        beats_occupied = value;
+                    }
                 }
 
                 public void ResolveGlyphs()

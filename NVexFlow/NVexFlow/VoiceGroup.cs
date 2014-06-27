@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -9,7 +6,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class VoiceGroup 
+            public class VoiceGroup
             {
                 public VoiceGroup()
                 {

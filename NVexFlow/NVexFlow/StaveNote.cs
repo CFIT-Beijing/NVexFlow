@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//StaveNote
@@ -9,11 +6,11 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class StaveNote:StemmableNote
+            public class StaveNote : StemmableNote
             {
                 #region 静态
                 public static int STEM_UP = Vex.Flow.Stem.UP;
-                public static int STEM_DOWN = Vex.Flow.Stem.Down; 
+                public static int STEM_DOWN = Vex.Flow.Stem.Down;
                 #endregion
 
 
@@ -56,7 +53,7 @@ namespace NVexFlow
                     {
                         base.Stave = value;
                     }
-                } 
+                }
                 #endregion
 
 
@@ -237,7 +234,7 @@ namespace NVexFlow
 
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

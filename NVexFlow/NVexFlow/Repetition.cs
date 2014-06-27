@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//Repetition
     public partial class Vex
     {
         public partial class Flow
         {
-            public class Repetition:StaveModifier
+            public class Repetition : StaveModifier
             {
                 #region 属性字段
                 public enum RepetitionType
@@ -92,7 +88,7 @@ namespace NVexFlow
                 public Repetition DrawSymbolText(Stave stave, double x)
                 {
                     return this;
-                } 
+                }
                 #endregion
             }
         }

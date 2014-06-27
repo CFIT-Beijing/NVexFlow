@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -9,7 +6,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class Bend:Modifier
+            public class Bend : Modifier
             {
                 #region 属性字段
                 private double xShift;
@@ -38,7 +35,7 @@ namespace NVexFlow
                 public string Text
                 {
                     get { return text; }
-                } 
+                }
                 #endregion
 
 
@@ -59,7 +56,7 @@ namespace NVexFlow
 
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

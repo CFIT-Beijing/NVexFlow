@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//StaveModifier
@@ -18,7 +15,7 @@ namespace NVexFlow
                 {
                     get { return padding; }
                     set { padding = value; }
-                } 
+                }
                 #endregion
 
 
@@ -83,7 +80,7 @@ namespace NVexFlow
                 {
                     //  throw new Vex.RERR("MethodNotImplemented",
                     //      "addEndModifier() not implemented for this stave modifier.");
-                } 
+                }
                 #endregion
 
             }

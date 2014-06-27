@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -304,9 +301,9 @@ namespace NVexFlow
                 }
 
                 public Stave SetConfigForLines(object lines_configuration)
-                { return null; } 
+                { return null; }
                 #endregion
-   
+
             }
         }
     }

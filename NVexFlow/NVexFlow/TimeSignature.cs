@@ -1,8 +1,5 @@
-﻿using System;
+﻿using NVexFlow.MODEL;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NVexFlow.MODEL;
 
 namespace NVexFlow
 {//TimeSignature
@@ -22,7 +19,7 @@ namespace NVexFlow
                 {
                     get { return TimeSignature.glyphs; }
                     set { TimeSignature.glyphs = value; }
-                } 
+                }
                 #endregion
 
 
@@ -40,7 +37,7 @@ namespace NVexFlow
                 public TimeSig TimeSig
                 {
                     get { return timeSig; }
-                } 
+                }
                 #endregion
 
 
@@ -80,7 +77,7 @@ namespace NVexFlow
                 public Glyph MakeTimeSignatureGlyph(object topNums, object botNums)
                 {
                     return null;
-                } 
+                }
                 #endregion
             }
         }

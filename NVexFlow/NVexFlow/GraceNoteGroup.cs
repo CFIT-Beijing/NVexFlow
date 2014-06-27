@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//GraceNoteGroup
@@ -9,7 +6,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class GraceNoteGroup:Modifier
+            public class GraceNoteGroup : Modifier
             {
                 #region 属性字段
                 private bool preFormatted;
@@ -47,7 +44,7 @@ namespace NVexFlow
 
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

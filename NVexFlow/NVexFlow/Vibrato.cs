@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//Vibrato
     public partial class Vex
     {
         public partial class Flow
         {
-            public class Vibrato:Modifier
+            public class Vibrato : Modifier
             {
 
                 #region 属性字段
@@ -48,7 +44,7 @@ namespace NVexFlow
 
 
                 public override void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

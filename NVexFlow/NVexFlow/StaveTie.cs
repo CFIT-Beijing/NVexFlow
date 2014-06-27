@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//StaveTie
@@ -68,7 +65,7 @@ namespace NVexFlow
                     if (this.first_note == null && this.last_note == null)
                     { return true; }
                     return false;
-                } 
+                }
                 #endregion
 
 
@@ -103,7 +100,7 @@ namespace NVexFlow
                 { }
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

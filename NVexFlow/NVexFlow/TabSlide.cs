@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//TabSlide
@@ -9,7 +6,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class TabSlide:TabTie
+            public class TabSlide : TabTie
             {
                 #region 静态
                 public static TabSlide CreateSlideUp(IList<object> notes)
@@ -24,7 +21,7 @@ namespace NVexFlow
                 }
 
                 public static int SLIDE_UP = 1;
-                public static int SLIDE_DOWN = -1; 
+                public static int SLIDE_DOWN = -1;
                 #endregion
 
 
@@ -50,7 +47,7 @@ namespace NVexFlow
                 public void RenderTie(IList<object> @params)
                 { }
 
-                
+
                 #endregion
             }
         }

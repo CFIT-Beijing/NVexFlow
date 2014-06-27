@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {
     public partial class Vex
     {
         public partial class Flow
         {
-            public class StringNumber:Modifier
+            public class StringNumber : Modifier
             {
 
                 #region 属性字段
@@ -67,7 +63,7 @@ namespace NVexFlow
                 public object Dashed
                 {
                     set { dashed = value; }
-                } 
+                }
                 #endregion
 
 
@@ -83,7 +79,7 @@ namespace NVexFlow
 
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//Music
@@ -15,7 +12,7 @@ namespace NVexFlow
 
                 public static IList<string> roots = new List<string>() { "c", "d", "e", "f", "g", "a", "b" };
                 public static IList<int> root_values = new List<int>() { 0, 2, 4, 5, 7, 9, 11 };
-                public static IDictionary<string,int> root_indices=new Dictionary<string,int>();
+                public static IDictionary<string, int> root_indices = new Dictionary<string, int>();
                 public static IList<string> canonical_notes = new List<string>();
                 public static IList<string> diatonic_intervals = new List<string>();
                 public static IDictionary<string, object> diatonic_accidentals = new Dictionary<string, object>();
@@ -89,7 +86,7 @@ namespace NVexFlow
                     return "";
                 }
 
-                public IList<object> GetScaleTones(object key,object intervals)
+                public IList<object> GetScaleTones(object key, object intervals)
                 {
                     return null;
                 }

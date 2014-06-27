@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace NVexFlow
 {
@@ -37,7 +36,7 @@ namespace NVexFlow
 
         public static IList<object> SortAndUnique(IList<object> arr, IComparer<object> cmp, Delegate eq)
         {
-            return null;;
+            return null;
         }
 
         public static bool Contains<T>(IList<T> arr, T a)

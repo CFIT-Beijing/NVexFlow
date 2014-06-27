@@ -1,8 +1,5 @@
-﻿using System;
+﻿using NVexFlow.MODEL;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NVexFlow.MODEL;
 
 namespace NVexFlow
 {
@@ -31,7 +28,7 @@ namespace NVexFlow
                     set { width = value; }
                 }
 
-                private bool ignoreTicks = false; 
+                private bool ignoreTicks = false;
 
 
 
@@ -68,7 +65,7 @@ namespace NVexFlow
                 public void Draw()
                 {
 
-                } 
+                }
                 #endregion
             }
         }

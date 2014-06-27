@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace NVexFlow
 {//StaveTempo
     public partial class Vex
     {
         public partial class Flow
         {
-            public class StaveTempo:StaveModifier
+            public class StaveTempo : StaveModifier
             {
                 #region 属性字段
 
@@ -35,7 +31,7 @@ namespace NVexFlow
                 public double ShiftY
                 {
                     set { shiftY = value; }
-                } 
+                }
                 #endregion
 
 
@@ -49,7 +45,7 @@ namespace NVexFlow
 
 
                 public void Draw(Stave stave, double shift_x)
-                { } 
+                { }
                 #endregion
             }
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -149,7 +146,7 @@ namespace NVexFlow
                     return this;
                 }
 
-                public void Draw(object context,object stave)
+                public void Draw(object context, object stave)
                 { }
             }
         }

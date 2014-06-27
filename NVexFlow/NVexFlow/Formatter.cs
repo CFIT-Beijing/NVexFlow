@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -23,7 +20,7 @@ namespace NVexFlow
                 object tContexts;
                 object mContexts;
 
-                
+
 
 
 
@@ -55,11 +52,11 @@ namespace NVexFlow
 
 
                 public object CreateContexts(IList<object> voices, object context_type, object add_fn)
-                {  
+                {
                     return null;
                 }
 
-                public static object FormatAndDraw(object ctx,object stave,IList<object> notes,IList<object> @params)
+                public static object FormatAndDraw(object ctx, object stave, IList<object> notes, IList<object> @params)
                 {
                     return null;
                 }
@@ -99,12 +96,12 @@ namespace NVexFlow
                 public Formatter JoinVoices(IList<object> voices)
                 { return null; }
 
-                public Formatter Format(IList<object> voices,double justifyWidth,IList<object> options)
+                public Formatter Format(IList<object> voices, double justifyWidth, IList<object> options)
                 {
                     return null;
                 }
 
-                public Formatter FormatToStave(IList<object> voices,object stave,IList<object> options)
+                public Formatter FormatToStave(IList<object> voices, object stave, IList<object> options)
                 {
                     return null;
                 }

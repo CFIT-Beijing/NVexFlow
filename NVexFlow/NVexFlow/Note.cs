@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -194,7 +191,7 @@ namespace NVexFlow
                 {
                     Init(note_struct);
                 }
-                
+
 
                 public virtual void Init(object noteStruct)
                 {

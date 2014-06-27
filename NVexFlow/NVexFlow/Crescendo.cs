@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//Crescendo
@@ -9,12 +6,12 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class Crescendo:Note
+            public class Crescendo : Note
             {
 
                 #region 静态
                 public static void RenderHairpin(object ctx, IList<object> @params)
-                { } 
+                { }
                 #endregion
 
 
@@ -37,7 +34,7 @@ namespace NVexFlow
                 public double Height
                 {
                     set { height = value; }
-                } 
+                }
                 #endregion
 
 
@@ -62,7 +59,7 @@ namespace NVexFlow
                 }
 
                 public void Draw()
-                { } 
+                { }
                 #endregion
             }
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow
 {//StaveText
@@ -9,7 +6,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class StaveText:Modifier
+            public class StaveText : Modifier
             {
                 #region 属性字段
                 double width;
@@ -46,7 +43,7 @@ namespace NVexFlow
                 public string Text
                 {
                     set { text = value; }
-                } 
+                }
                 #endregion
 
 
@@ -62,7 +59,7 @@ namespace NVexFlow
 
 
                 public void Draw(Stave stave)
-                { } 
+                { }
                 #endregion
             }
         }
