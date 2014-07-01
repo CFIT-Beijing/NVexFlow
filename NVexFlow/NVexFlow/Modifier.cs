@@ -5,7 +5,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class Modifier
+            public abstract class Modifier
             {
                 #region 属性字段
                 private double width;
@@ -109,8 +109,7 @@ namespace NVexFlow
 
 
 
-                public virtual void Draw()
-                { }
+                public abstract void Draw();
 
 
                 #endregion

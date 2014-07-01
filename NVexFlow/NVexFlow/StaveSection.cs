@@ -67,6 +67,11 @@ namespace NVexFlow
                     this.font = new Font() { Family = "sans-serif", Size = 12, Weight = "bold" };
                 }
 
+                public override void Draw()
+                {
+                    throw new System.NotImplementedException();
+                }
+
                 public void Draw(object stave, double shift_x)
                 { }
                 #endregion

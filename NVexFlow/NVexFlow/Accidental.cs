@@ -41,7 +41,7 @@ namespace NVexFlow
                     return null;
                 }
 
-                public void Draw()
+                public override void Draw()
                 { }
                 #endregion
             }

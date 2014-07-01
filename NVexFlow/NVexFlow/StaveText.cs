@@ -56,7 +56,10 @@ namespace NVexFlow
                 public void Init(string text, ModifierPosition position, IList<object> options)
                 { }
 
-
+                public override void Draw()
+                {
+                    throw new System.NotImplementedException();
+                }
 
                 public void Draw(Stave stave)
                 { }

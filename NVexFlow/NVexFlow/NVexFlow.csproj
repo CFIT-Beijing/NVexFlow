@@ -91,7 +91,6 @@
     <Compile Include="TabSlide.cs" />
     <Compile Include="TabStave.cs" />
     <Compile Include="TabTie.cs" />
-    <Compile Include="Test.cs" />
     <Compile Include="TextNote.cs" />
     <Compile Include="Tickable.cs" />
     <Compile Include="TickContext.cs" />

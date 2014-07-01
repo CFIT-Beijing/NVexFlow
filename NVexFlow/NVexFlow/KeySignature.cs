@@ -5,7 +5,7 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class KeySignature : Modifier
+            public class KeySignature : StaveModifier
             {
                 #region 静态
                 public static void AccidentalList(string acc)
