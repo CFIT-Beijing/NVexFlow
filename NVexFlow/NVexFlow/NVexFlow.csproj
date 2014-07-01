@@ -13,8 +13,8 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile328</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,9 +33,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="Accidental.cs" />
     <Compile Include="Annotation.cs" />
@@ -94,6 +91,7 @@
     <Compile Include="TabSlide.cs" />
     <Compile Include="TabStave.cs" />
     <Compile Include="TabTie.cs" />
+    <Compile Include="Test.cs" />
     <Compile Include="TextNote.cs" />
     <Compile Include="Tickable.cs" />
     <Compile Include="TickContext.cs" />
