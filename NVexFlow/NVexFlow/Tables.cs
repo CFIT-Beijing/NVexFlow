@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -64,12 +65,12 @@ namespace NVexFlow
             public static IDictionary<string, object> articulationCodesArticulations;
 
 
-            public static object AccidentalCodes(string acc)
+            public static AccAccidental AccidentalCodes(string acc)
             {
                 return null;
             }
 
-            public static IDictionary<string, object> accidentalCodesAccidentals;
+            public static IDictionary<string, AccAccidental> accidentalCodesAccidentals;
 
 
 
@@ -117,7 +118,10 @@ namespace NVexFlow
 
             public static object TIME4_4;
 
-
+            public static int TextWidth(object text)
+            {
+                return 6 * text.ToString().Length;
+            }
 
 
             public static class Tables

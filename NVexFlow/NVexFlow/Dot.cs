@@ -18,8 +18,8 @@ namespace NVexFlow
                     get { return radius; }
                     set { radius = value; }
                 }
-                private object note;
-                public override object Note
+                private Note note;
+                public override Note Note
                 {
                     get
                     {
