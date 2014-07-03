@@ -35,6 +35,7 @@ namespace NVexFlow
                     ABOVE = 3,
                     BELOW = 4
                 }
+                #region Prototype Methods
                 /// <summary>
                 /// The constructor sets initial widhts and constants.
                 /// </summary>
@@ -71,19 +72,7 @@ namespace NVexFlow
                     get { return width; }
                     set { width = value; }
                 }
-
-                private CanvasContext context;
-                /// <summary>
-                /// Get and set rendering context.
-                /// </summary>
-                public virtual CanvasContext Context
-                {
-                    get { return context; }
-                    set { context = value; }
-                }
-
                 private double width;
-
                 /// <summary>
                 /// Get and set attached note (`StaveNote`, `TabNote`, etc.)
                 /// </summary>
@@ -102,7 +91,15 @@ namespace NVexFlow
                     set { index = value; }
                 }
                 private object index;
-
+                /// <summary>
+                /// Get and set rendering context.
+                /// </summary>
+                public virtual CanvasContext Context
+                {
+                    get { return context; }
+                    set { context = value; }
+                }
+                private CanvasContext context;
                 /// <summary>
                 /// Every modifier must be part of a `ModifierContext`.
                 /// </summary>
@@ -162,6 +159,7 @@ namespace NVexFlow
                 /// Render the modifier onto the canvas.
                 /// </summary>
                 public abstract void Draw();
+                #endregion
             }
         }
     }
