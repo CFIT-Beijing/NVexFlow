@@ -71,7 +71,7 @@ namespace NVexFlow
                     get { return width; }
                     set { width = value; }
                 }
-<<<<<<< HEAD
+
                 private CanvasContext context;
                 /// <summary>
                 /// Get and set rendering context.
@@ -81,10 +81,9 @@ namespace NVexFlow
                     get { return context; }
                     set { context = value; }
                 }
-                private Note note;
-=======
+
                 private double width;
->>>>>>> origin/master
+
                 /// <summary>
                 /// Get and set attached note (`StaveNote`, `TabNote`, etc.)
                 /// </summary>
@@ -103,15 +102,7 @@ namespace NVexFlow
                     set { index = value; }
                 }
                 private object index;
-                /// <summary>
-                /// Get and set rendering context.
-                /// </summary>
-                public virtual object Context
-                {
-                    get { return context; }
-                    set { context = value; }
-                }
-                private object context;
+
                 /// <summary>
                 /// Every modifier must be part of a `ModifierContext`.
                 /// </summary>
