@@ -43,11 +43,11 @@ namespace NVexFlow
                     get { return width; }
                     set { width = value; }
                 }
-                private object context;
+                private CanvasContext context;
                 /// <summary>
                 /// Get and set rendering context.
                 /// </summary>
-                public virtual object Context
+                public virtual CanvasContext Context
                 {
                     get { return context; }
                     set { context = value; }

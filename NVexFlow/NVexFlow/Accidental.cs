@@ -23,10 +23,10 @@ namespace NVexFlow
                 object index;
                 Modifier.ModifierPosition position;
                 RenderOptions renderOptions;
-                AccAccidental accidental;
+                AccidentalModel accidental;
                 bool cautionary;
-                AccAccidental parenLeft;
-                AccAccidental parenRight;
+                AccidentalModel parenLeft;
+                AccidentalModel parenRight;
                 double width;
 
                 #endregion

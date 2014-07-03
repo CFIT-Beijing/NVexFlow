@@ -57,20 +57,20 @@ namespace NVexFlow
                 return null;
             }
 
-            public static object articulationCodes(string artic)
+            public static ArticulationModel articulationCodes(string artic)
             {
                 return null;
             }
 
-            public static IDictionary<string, object> articulationCodesArticulations;
+            public static IDictionary<string, ArticulationModel> articulationCodesArticulations;
 
 
-            public static AccAccidental AccidentalCodes(string acc)
+            public static AccidentalModel AccidentalCodes(string acc)
             {
                 return null;
             }
 
-            public static IDictionary<string, AccAccidental> accidentalCodesAccidentals;
+            public static IDictionary<string, AccidentalModel> accidentalCodesAccidentals;
 
 
 

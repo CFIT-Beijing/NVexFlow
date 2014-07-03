@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NVexFlow.Model
 {
-    public class AccAccidental
+    public class AccidentalModel
     {
         string code;
 

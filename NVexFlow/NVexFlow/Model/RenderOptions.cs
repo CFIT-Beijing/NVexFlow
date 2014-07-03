@@ -23,5 +23,34 @@ namespace NVexFlow.Model
             get { return strokePx; }
             set { strokePx = value; }
         }
+
+        double lineWidth;
+
+        public double LineWidth
+        {
+            get { return lineWidth; }
+            set { lineWidth = value; }
+        }
+        string lineStyle;
+
+        public string LineStyle
+        {
+            get { return lineStyle; }
+            set { lineStyle = value; }
+        }
+        double bendWidth;
+
+        public double BendWidth
+        {
+            get { return bendWidth; }
+            set { bendWidth = value; }
+        }
+        double releaseWidth;
+
+        public double ReleaseWidth
+        {
+            get { return releaseWidth; }
+            set { releaseWidth = value; }
+        }
     }
 }
