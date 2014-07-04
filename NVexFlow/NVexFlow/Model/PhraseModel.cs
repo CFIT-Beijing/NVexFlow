@@ -22,9 +22,9 @@ namespace NVexFlow.Model
             get { return text; }
             set { text = value; }
         }
-        double width;
+        double? width;
 
-        public double Width
+        public double? Width
         {
             get { return width; }
             set {
