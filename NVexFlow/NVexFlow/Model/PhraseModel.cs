@@ -27,7 +27,18 @@ namespace NVexFlow.Model
         public double Width
         {
             get { return width; }
-            set { width = value; }
+            set {
+                width = value;
+                isWidthInit = true;
+            }
+        }
+
+        bool isWidthInit;
+
+        public bool IsWidthInit
+        {
+            get { return isWidthInit; }
+            set { isWidthInit = value; }
         }
 
         double drawWidth;

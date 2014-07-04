@@ -1,22 +1,50 @@
 ﻿
+using NVexFlow.Model;
 namespace NVexFlow
 {//Vibrato
     public partial class Vex
     {
         public partial class Flow
         {
+            /// <summary>
+            /// This class implements vibratos.
+            /// </summary>
             public class Vibrato : Modifier
             {
+                #region 方法
+                public Vibrato()
+                {
+                    Init();
+                }
+
+                public override void Init()
+                {
+                    this.harsh = false;
+                    this.position = Vex.Flow.Modifier.ModifierPosition.RIGHT;
+                    this.renderOptions = new RenderOptions()
+                    {
+                        VibratoWidth = 20,
+                        WaveHeight = 6,
+                        WaveWidth = 4,
+                        WaveGirth = 2
+                    };
+                    this.VibratoWidth = this.renderOptions.VibratoWidth;
+
+                }
+
+
+                public override void Draw()
+                { }
+                #endregion
+
 
                 #region 属性字段
-                private bool harsh;
 
                 public bool Harsh
                 {
                     set { harsh = value; }
                 }
-
-                private double vibratoWidth;
+                private bool harsh;
 
                 public double VibratoWidth
                 {
@@ -26,25 +54,13 @@ namespace NVexFlow
                         base.Width = this.vibratoWidth;
                     }
                 }
+                private double vibratoWidth;
+
+                
 
                 Modifier.ModifierPosition position;
-                object renderOptions;
+                RenderOptions renderOptions;
 
-                #endregion
-
-
-                #region 方法
-                public Vibrato()
-                {
-                    Init();
-                }
-
-                public override void Init()
-                { }
-
-
-                public override void Draw()
-                { }
                 #endregion
             }
         }

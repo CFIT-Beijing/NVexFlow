@@ -134,18 +134,7 @@ namespace NVexFlow
                     for (int i = 0; i < this.phrase.Count(); i++)
                     {
                         PhraseModel bend = this.phrase[i];
-                        //此处有语义问题
-                        /*JS是这么写的：if ('width' in bend)
-                         * 意思是，如果（bend对象赋值了width属性）
-                         * 
-                         * c#中
-                         * int i;
-                         *不给i赋值， i的默认值就是零。但是不能说i=0就代表i没有被赋值。
-                         *
-                         * 也就是说，按照程序的角度来翻译，把if ('width' in bend)翻译成if (bend.Width != 0)是不对的，因为c#的属性不是动态的。但是此处结合业务含义，结合他要表达的意思，应该可以这么翻译？
-                         * 
-                         * */
-                        if (bend.Width != 0)
+                        if (bend.IsWidthInit)
                         {
                             totalWidth += bend.Width;
                         }

@@ -52,5 +52,43 @@ namespace NVexFlow.Model
             get { return releaseWidth; }
             set { releaseWidth = value; }
         }
+
+        double vibratoWidth;
+
+        public double VibratoWidth
+        {
+            get { return vibratoWidth; }
+            set { vibratoWidth = value; }
+        }
+        double waveHeight;
+
+        public double WaveHeight
+        {
+            get { return waveHeight; }
+            set { waveHeight = value; }
+        }
+        double waveWidth;
+
+        public double WaveWidth
+        {
+            get { return waveWidth; }
+            set { waveWidth = value; }
+        }
+        double waveGirth;
+
+        public double WaveGirth
+        {
+            get { return waveGirth; }
+            set { waveGirth = value; }
+        }
+
+        double strokeSpacing;
+
+        public double StrokeSpacing
+        {
+            get { return strokeSpacing; }
+            set { strokeSpacing = value; }
+        }
+
     }
 }
