@@ -33,7 +33,7 @@ namespace NVexFlow.Model
             }
         }
 
-        bool isWidthInit;
+        bool isWidthInit=false;
 
         public bool IsWidthInit
         {
