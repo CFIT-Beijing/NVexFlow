@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {//StaveText
@@ -8,53 +9,32 @@ namespace NVexFlow
         {
             public class StaveText : Modifier
             {
-                #region 属性字段
-                double width;
-                Modifier.ModifierPosition position;
-                object options;
-
-                private string staveTxt;
-
-                public string StaveTxt
-                {
-                    set { staveTxt = value; }
-                }
-                private double shiftX;
-
-                public double ShiftX
-                {
-                    set { shiftX = value; }
-                }
-                private double shiftY;
-
-                public double ShiftY
-                {
-                    set { shiftY = value; }
-                }
-                private Font font;
-
-                public Font Font
-                {
-                    //Vex.Merge(this.font, font);
-                    set { font = value; }
-                }
-                private string text;
-
-                public string Text
-                {
-                    set { text = value; }
-                }
-                #endregion
-
-
                 #region 方法
-                public StaveText(string text, ModifierPosition position, IList<object> options)
+                public StaveText(string text, ModifierPosition position, StaveTextOptions options)
                 {
                     Init(text, position, options);
                 }
 
-                public void Init(string text, ModifierPosition position, IList<object> options)
-                { }
+                public void Init(string text, ModifierPosition position, StaveTextOptions options)
+                {
+                    base.Width = 16;
+                    this.text = text;
+                    this.position = position;
+                    this.options = new StaveTextOptions()
+                    {
+                        ShiftX = 0,
+                        ShiftY = 0,
+                        Justification = Vex.Flow.TextNote.TextNoteJustification.CENTER
+                    };
+
+                    Vex.Merge(this.options, options);
+                    this.font = new Font()
+                    {
+                        Family = "times",
+                        Size = 16,
+                        Weight = "normal"
+                    };
+                }
 
                 public override void Draw()
                 {
@@ -63,6 +43,53 @@ namespace NVexFlow
 
                 public void Draw(Stave stave)
                 { }
+                #endregion
+
+
+                #region 属性字段
+                
+                public string StaveTxt
+                {
+                    set { this.text = value; }
+                }
+                private string text;
+
+
+                public double ShiftX
+                {
+                    set { shiftX = value; }
+                }
+                private double shiftX;
+
+
+               
+                public double ShiftY
+                {
+                    set { shiftY = value; }
+                }
+                private double shiftY;
+
+
+
+                public Font Font
+                {
+                    set
+                    {
+                        Vex.Merge(this.font, value);
+                    }
+
+                }
+                private Font font;
+
+                public string Text
+                {
+                    set { this.text = value; }
+                }
+
+
+
+                Modifier.ModifierPosition position;
+                StaveTextOptions options;
                 #endregion
             }
         }

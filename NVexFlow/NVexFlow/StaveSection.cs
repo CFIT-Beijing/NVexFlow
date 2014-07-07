@@ -7,50 +7,6 @@ namespace NVexFlow
         {
             public class StaveSection : Modifier
             {
-                #region 属性字段
-                Font font;
-
-                public Font Font
-                {
-                    get { return font; }
-                    set { font = value; }
-                }
-
-                double width;
-                Modifier.ModifierPosition position;
-
-                double x;
-
-                public double X
-                {
-                    get { return x; }
-                    set { x = value; }
-                }
-
-                double shiftX;
-
-                public double ShiftX
-                {
-                    get { return shiftX; }
-                    set { shiftX = value; }
-                }
-                double shiftY;
-
-                public double ShiftY
-                {
-                    get { return shiftY; }
-                    set { shiftY = value; }
-                }
-                object section;
-
-                public object Section
-                {
-                    get { return section; }
-                    set { section = value; }
-                }
-                #endregion
-
-
                 #region 方法
                 public StaveSection(object section, double x, double shift_y)
                 {
@@ -63,7 +19,7 @@ namespace NVexFlow
                     this.shiftX = 0;
                     this.shiftY = shift_y;
                     this.x = x;
-                    this.Position = ModifierPosition.ABOVE;
+                    this.position = ModifierPosition.ABOVE;
                     this.font = new Font() { Family = "sans-serif", Size = 12, Weight = "bold" };
                 }
 
@@ -77,7 +33,35 @@ namespace NVexFlow
                 #endregion
 
 
+                #region 属性字段
+                public object Section
+                {
+                    set { section = value; }
+                }
+                object section;
 
+                
+
+                public double ShiftX
+                {
+                    set { shiftX = value; }
+                }
+                double shiftX;
+                
+
+                public double ShiftY
+                {
+                    set { shiftY = value; }
+                }
+                double shiftY;
+
+
+
+                Font font;
+                Modifier.ModifierPosition position;
+                double x;
+                
+                #endregion
             }
         }
 

@@ -23,7 +23,7 @@ namespace NVexFlow
                     this.position = Modifier.ModifierPosition.RIGHT;
 
                     this.radius = 2;
-                    this.Width = 5;
+                    base.Width = 5;
                     this.dotShiftY = 0;
                 }
 
@@ -35,18 +35,6 @@ namespace NVexFlow
 
 
                 #region 属性字段
-                double width;
-                double dotShiftY;
-                object index;
-                Modifier.ModifierPosition position;
-
-                public double Radius
-                {
-                    get { return radius; }
-                    set { radius = value; }
-                }
-                private double radius;
-
                 public override Note Note
                 {
                     set
@@ -60,6 +48,20 @@ namespace NVexFlow
                     }
                 }
                 private Note note;
+            
+
+                public double DotShiftY
+                {
+                    set { dotShiftY = value; }
+                }
+                double dotShiftY;
+
+
+                object index;
+                Modifier.ModifierPosition position;
+                private double radius;
+
+
                 #endregion
             }
         }

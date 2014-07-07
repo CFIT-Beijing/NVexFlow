@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace NVexFlow
 {
@@ -9,6 +10,20 @@ namespace NVexFlow
         public static IList<object> Merge(IList<object> objs1, IList<object> objs2)
         {
             return objs1.Concat(objs2).ToList();
+        }
+
+        //Type类型元数据和其他项目中的Type不一样，可能是项目目标框架的原因？
+        // C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETPortable\v4.5\Profile\Profile7\System.Runtime.dll
+        // C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll
+        public static T Merge<T>(T destination, T source)
+        {
+            Type type = typeof(T);
+            var pros = type.GetRuntimeProperties();
+            foreach (var pro in pros)
+            {
+                pro.SetValue(destination, pro.GetValue(source));
+            }
+            return destination;
         }
 
         public static double Min(double a, double b)

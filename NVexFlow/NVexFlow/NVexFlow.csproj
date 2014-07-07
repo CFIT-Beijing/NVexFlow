@@ -66,6 +66,7 @@
     <Compile Include="Model\NoteStruct.cs" />
     <Compile Include="Model\PhraseModel.cs" />
     <Compile Include="Model\RenderOptions.cs" />
+    <Compile Include="Model\StaveTextOptions.cs" />
     <Compile Include="Model\StrokeOptions.cs" />
     <Compile Include="Model\TimeSig.cs" />
     <Compile Include="Modifier.cs" />
@@ -109,6 +110,9 @@
     <Compile Include="Voice.cs" />
     <Compile Include="VoiceGroup.cs" />
     <Compile Include="Volta.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Doc\备注.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

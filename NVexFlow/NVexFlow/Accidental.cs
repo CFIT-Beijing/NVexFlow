@@ -16,22 +16,7 @@ namespace NVexFlow
             // See `tests/accidental_tests.js` for usage examples.
             /// </summary>
             public class Accidental : Modifier
-            {
-                #region 属性字段
-                Note note;
-                string type;
-                object index;
-                Modifier.ModifierPosition position;
-                RenderOptions renderOptions;
-                AccidentalModel accidental;
-                bool cautionary;
-                AccidentalModel parenLeft;
-                AccidentalModel parenRight;
-                double width;
-
-                #endregion
-
-                
+            {                
                 #region 方法
                 //An `Accidental` inherits from `Modifier`, and is formatted within a ModifierContext`.
 
@@ -70,28 +55,10 @@ namespace NVexFlow
                     this.parenRight = null;
 
                     // Initial width is set from table.
-                    this.Width = this.accidental.Width;
+                    base.Width = this.accidental.Width;
                 }
 
-                /// <summary>
-                /// Attach this accidental to `note`, which must be a `StaveNote`.
-                /// </summary>
-                /// <param name="note"></param>
-                public void SerNote(Note note)
-                {
-                    if (note == null)
-                    {
-                        throw new Exception("ArgumentError,Bad note value: " + this.note);
-                    }
-                    this.note = note;
 
-                    // Accidentals attached to grace notes are rendered smaller.
-                    if (this.note is GraceNote)
-                    {
-                        this.renderOptions.FontScale = 25;
-                        this.Width = this.accidental.GracenoteWidth;
-                    }
-                }
 
                 /// <summary>
                 /// If called, draws parenthesis around accidental.
@@ -115,6 +82,42 @@ namespace NVexFlow
                 /// </summary>
                 public override void Draw()
                 { }
+                #endregion
+
+
+                #region 属性字段
+
+                /// <summary>
+                /// Attach this accidental to `note`, which must be a `StaveNote`.
+                /// </summary>
+                public override Note Note
+                {
+                    set
+                    {
+                        if (value == null)
+                        {
+                            throw new Exception("ArgumentError,Bad note value: " + this.note);
+                        }
+                        this.note = value;
+
+                        // Accidentals attached to grace notes are rendered smaller.
+                        if (this.note is GraceNote)
+                        {
+                            this.renderOptions.FontScale = 25;
+                            this.Width = this.accidental.GracenoteWidth;
+                        }
+                    }
+                }
+                Note note;               
+                object index;
+                string type;
+                Modifier.ModifierPosition position;
+                RenderOptions renderOptions;
+                AccidentalModel accidental;
+                bool cautionary;
+                AccidentalModel parenLeft;
+                AccidentalModel parenRight;
+
                 #endregion
             }
         }

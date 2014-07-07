@@ -18,21 +18,6 @@ namespace NVexFlow
             /// </summary>
             public class Articulation : Modifier
             {
-                #region 属性字段
-                Note note;
-                object index;
-                string type;
-                Modifier.ModifierPosition position;
-                RenderOptions renderOptions;
-                ArticulationModel articulation;
-                double width;
-                public override double Width
-                {
-                    set { this.width = value; }
-                }
-                #endregion
-
-
                 #region 方法
                 public Articulation(string type)
                 {
@@ -52,7 +37,7 @@ namespace NVexFlow
                         throw new Exception("ArgumentError,Articulation not found: '" + this.type + "'");
                     }
                     // Default width comes from articulation table.
-                    this.Width = this.articulation.Width;
+                    base.Width = this.articulation.Width;
                 }
 
                 /// <summary>
@@ -61,6 +46,19 @@ namespace NVexFlow
                 public override void Draw()
                 { }
                 #endregion
+
+
+                #region 属性字段
+                Note note;
+                object index;
+                string type;
+                Modifier.ModifierPosition position;
+                RenderOptions renderOptions;
+                ArticulationModel articulation;
+                #endregion
+
+
+              
             }
         }
     }

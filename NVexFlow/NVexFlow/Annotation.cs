@@ -7,77 +7,6 @@ namespace NVexFlow
         {
             public class Annotation : Modifier
             {
-                #region 枚举
-                public enum AnnotationJustify
-                {
-                    LEFT,
-                    CENTER,
-                    RIGHT,
-                    CENTER_STEM
-                }
-
-                public enum AnnotationVerticalJustify
-                {
-                    TOP,
-                    CENTER,
-                    BOTTOM,
-                    CENTER_STEM
-                } 
-                #endregion
-
-
-                #region 属性字段
-                double width;
-                Note note;
-                object index;
-                string text;
-                int textLine;
-                /// <summary>
-                /// Set the vertical position of the text relative to the stave.
-                /// </summary>
-                public override int TextLine
-                {
-                    set
-                    {
-                        base.TextLine = value;
-                    }
-                }
-                Font font;
-                
-                /// <summary>
-                /// Set font family, size, and weight. E.g., `Arial`, `10pt`, `Bold`.
-                /// </summary>
-                public Font Font
-                {
-                    set
-                    {
-                        font = value;
-                    }
-                }
-
-                object verticalJustification;
-                /// <summary>
-                /// Set vertical position of text (above or below stave). `just` must be  a value in `Annotation.VerticalJustify`.
-                /// </summary>
-                public object VerticalJustification
-                {
-                    set { verticalJustification = value; }
-                }
-
-                object justification;
-                /// <summary>
-                /// Get and set horizontal justification. `justification` is a value in  `Annotation.Justify`.
-                /// </summary>
-                public object Justification
-                {
-                    get { return justification; }
-                    set { justification = value; }
-                }
-
-
-                #endregion
-
-
                 #region 方法
                 //Annotations inherit from `Modifier` and is positioned correctly when in a `ModifierContext`.
 
@@ -101,7 +30,7 @@ namespace NVexFlow
                     this.font = new Font() { Family = "Arial", Size = 10, Weight = "" };
 
                     //// The default width is calculated from the text.
-                    this.Width = Vex.Flow.TextWidth(text);
+                    base.Width = Vex.Flow.TextWidth(text);
                 }
 
                 /// <summary>
@@ -110,6 +39,82 @@ namespace NVexFlow
                 public override void Draw()
                 { }
                 #endregion
+
+
+                #region 枚举
+                public enum AnnotationJustify
+                {
+                    LEFT,
+                    CENTER,
+                    RIGHT,
+                    CENTER_STEM
+                }
+
+                public enum AnnotationVerticalJustify
+                {
+                    TOP,
+                    CENTER,
+                    BOTTOM,
+                    CENTER_STEM
+                } 
+                #endregion
+
+
+                #region 属性字段
+                
+                /// <summary>
+                /// Set the vertical position of the text relative to the stave.
+                /// </summary>
+                public override int TextLine
+                {
+                    set
+                    {
+                        base.TextLine = value;
+                    }
+                }
+                int textLine;
+
+
+                /// <summary>
+                /// Set font family, size, and weight. E.g., `Arial`, `10pt`, `Bold`.
+                /// </summary>
+                public Font Font
+                {
+                    set
+                    {
+                        font = value;
+                    }
+                }
+                Font font;
+
+                
+                /// <summary>
+                /// Set vertical position of text (above or below stave). `just` must be  a value in `Annotation.VerticalJustify`.
+                /// </summary>
+                public Annotation.AnnotationVerticalJustify VerticalJustification
+                {
+                    set { verticalJustification = value; }
+                }
+                Annotation.AnnotationVerticalJustify verticalJustification;
+
+
+                
+                /// <summary>
+                /// Get and set horizontal justification. `justification` is a value in  `Annotation.Justify`.
+                /// </summary>
+                public Annotation.AnnotationJustify Justification
+                {
+                    get { return justification; }
+                    set { justification = value; }
+                }
+                Annotation.AnnotationJustify justification;
+
+
+
+                Note note;
+                object index;
+                string text;
+                #endregion             
             }
         }
     }

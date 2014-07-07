@@ -22,23 +22,14 @@ namespace NVexFlow.Model
             get { return text; }
             set { text = value; }
         }
-        double width;
+        double? width;
 
-        public double Width
+        public double? Width
         {
             get { return width; }
             set {
                 width = value;
-                isWidthInit = true;
             }
-        }
-
-        bool isWidthInit;
-
-        public bool IsWidthInit
-        {
-            get { return isWidthInit; }
-            set { isWidthInit = value; }
         }
 
         double drawWidth;

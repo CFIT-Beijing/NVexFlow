@@ -22,7 +22,7 @@ namespace NVexFlow
                     this.lastNote = null;
                     this.index = null;
                     this.stringNumber = number;
-                    this.Width = 20;
+                    base.Width = 20;
 
                     this.position = Modifier.ModifierPosition.ABOVE;  // Default position above stem or note head
 
@@ -34,7 +34,12 @@ namespace NVexFlow
                     this.leg = Vex.Flow.Renderer.RendererLineEndType.NONE;   // draw upward/downward leg at the of extension line
 
                     this.radius = 8;
-                    this.font = new Font() { Family = "sans-serif", Size = 10, Weight = "bold" };
+                    this.font = new Font()
+                    {
+                        Family = "sans-serif",
+                        Size = 10,
+                        Weight = "bold"
+                    };
                 }
 
 
@@ -72,10 +77,9 @@ namespace NVexFlow
                 object index;
 
 
-                double width;
-                Renderer.RendererLineEndType leg;
+                
 
-                public Renderer.RendererLineEndType Leg
+                public Renderer.RendererLineEndType LineEndType
                 {
                     set
                     {
@@ -83,8 +87,10 @@ namespace NVexFlow
                         { this.leg = value; }
                     }
                 }
-                Font font;
-                int radius;
+                Renderer.RendererLineEndType leg;
+
+
+                
 
                 public override ModifierPosition Position
                 {
@@ -110,8 +116,7 @@ namespace NVexFlow
                 }
                 string stringNumber;
 
-                double xShift;
-                double yShift;
+                
                 
 
                 public double XOffset
@@ -127,19 +132,25 @@ namespace NVexFlow
                 }
                 double yOffset;
 
-                object lastNote;
+                
 
                 public object LastNote
                 {
                     set { this.lastNote = value; }
                 }
+                object lastNote;
 
-                object dashed;
-
-                public object Dashed
+                
+                public bool Dashed
                 {
                     set { this.dashed = value; }
                 }
+                bool dashed;
+
+                Font font;
+                int radius;
+                double xShift;
+                double yShift;
                 #endregion              
             }
         }
