@@ -90,7 +90,11 @@ namespace NVexFlow
                     for (int i = 0; i < this.phrase.Count(); i++)
                     {
                         PhraseModel bend = this.phrase[i];
+<<<<<<< HEAD
                         if (bend.Width != null)
+=======
+                        if (bend.Width.HasValue)
+>>>>>>> origin/master
                         {
                             totalWidth += bend.Width.Value;
                         }
@@ -99,7 +103,11 @@ namespace NVexFlow
                             double additionalWidth = (bend.Type == BendType.UP) ?
                               this.renderOptions.BendWidth : this.renderOptions.ReleaseWidth;
                             bend.Width = Vex.Max(additionalWidth, MeasureText(bend.Text)) + 3;
+<<<<<<< HEAD
                             bend.DrawWidth = bend.Width.Value / 2;
+=======
+                            bend.DrawWidth = bend.Width.Value/ 2;
+>>>>>>> origin/master
                             totalWidth += bend.Width.Value;
                         }
                     }
