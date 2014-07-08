@@ -1,7 +1,11 @@
 ﻿已经完成的类：
 Vex
-Modifier
+
+
+Modifier:
+Modifier,Tremolo,Vibrato,FretHandFinger,Stroke,StringNumber,StaveText,StaveSection,GraceNoteGroup,FretHandFinger,Dot,Bend,Articulation,Annotation,Accidental
+
 
 Modifier分支未完成的有：
-GraceNoteGroup,FretHandFinger,
-index属性暂时不知道什么意思。
+1、index属性暂时不知道什么意思
+2、Draw方法
