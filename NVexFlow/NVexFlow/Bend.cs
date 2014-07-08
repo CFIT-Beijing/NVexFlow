@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using NVexFlow.Model;
 
@@ -102,7 +103,7 @@ namespace NVexFlow
                         {
                             double additionalWidth = (bend.Type == BendType.UP) ?
                               this.renderOptions.BendWidth : this.renderOptions.ReleaseWidth;
-                            bend.Width = Vex.Max(additionalWidth, MeasureText(bend.Text)) + 3;
+                                bend.Width =Math.Max(additionalWidth, MeasureText(bend.Text)) + 3;
 
                             bend.DrawWidth = bend.Width.Value / 2;
 
