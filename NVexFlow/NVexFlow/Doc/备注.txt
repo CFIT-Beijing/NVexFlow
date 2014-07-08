@@ -1,10 +1,24 @@
 ﻿已经完成的类：
-Vex
+{
+    Vex//本阶段可以了
 
-
-Modifier:
-Modifier,Tremolo,Vibrato,FretHandFinger,Stroke,StringNumber,StaveText,StaveSection,GraceNoteGroup,FretHandFinger,Dot,Bend,Articulation,Annotation,Accidental
-
+    Modifier及其衍生类:
+        Modifier,//本阶段可以了
+        Tremolo,//本阶段可以了
+        Vibrato,
+        FretHandFinger,
+        Stroke,
+        StringNumber,
+        StaveText,
+        StaveSection,
+        GraceNoteGroup,
+        FretHandFinger,
+        Dot,
+        Bend,
+        Articulation,
+        Annotation,
+        Accidental
+}
 
 Modifier分支未完成的有：
 1、index属性暂时不知道什么意思

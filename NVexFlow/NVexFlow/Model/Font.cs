@@ -1,28 +1,18 @@
-﻿
-namespace NVexFlow
+﻿namespace NVexFlow
 {
     public class Font
     {
-        string family;
-
         public string Family
         {
-            get { return family; }
-            set { family = value; }
+            get; set;
         }
-        int size;
-
         public int Size
         {
-            get { return size; }
-            set { size = value; }
+            get; set;
         }
-        string weight;
-
         public string Weight
         {
-            get { return weight; }
-            set { weight = value; }
+            get; set;
         }
     }
 }
