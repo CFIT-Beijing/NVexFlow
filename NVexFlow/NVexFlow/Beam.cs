@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -8,6 +9,13 @@ namespace NVexFlow
         {
             public class Beam
             {
+                BeamRenderOptions renderOptions;
+
+                public BeamRenderOptions RenderOptions
+                {
+                    get { return renderOptions; }
+                    set { renderOptions = value; }
+                }
                 object context;
 
                 public object Context
@@ -24,12 +32,14 @@ namespace NVexFlow
 
                 object breakOnIndices;
 
-                public Beam(IList<object> notes, object autoStem)
+
+
+                public Beam(IList<Tickable> notes, bool? autoStem)
                 {
                     Init(notes, autoStem);
                 }
 
-                public void Init(IList<object> notes, object autoStem)
+                public void Init(IList<Tickable> notes, bool? autoStem)
                 { }
 
                 public object GetBeamCount()

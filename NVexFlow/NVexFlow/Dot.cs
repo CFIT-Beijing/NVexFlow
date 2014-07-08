@@ -43,7 +43,7 @@ namespace NVexFlow
                         if (this.note is GraceNote)
                         {
                             this.radius *= 0.50;
-                            this.Width = 3;
+                            base.Width = 3;
                         }
                     }
                 }

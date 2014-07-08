@@ -112,7 +112,7 @@ namespace NVexFlow
                             totalWidth += bend.Width.Value;
                         }
                     }
-                    this.Width = totalWidth + this.xShift;
+                    base.Width = totalWidth + this.xShift;
                     return this;
                 }
 

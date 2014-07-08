@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -15,10 +16,10 @@ namespace NVexFlow
                     SOFT,
                     FULL
                 }
-                public Voice(object time)
+                public Voice(VoiceTimeModel time)
                 { Init(time); }
 
-                public void Init(object time)
+                public void Init(VoiceTimeModel time)
                 { }
 
                 IList<object> totalTicks;
@@ -122,12 +123,11 @@ namespace NVexFlow
 
                 VoiceMode strict;
 
-                public VoiceMode Strict
+                public bool Strict
                 {
                     set
                     {
-                        if (value == VoiceMode.STRICT || value == VoiceMode.SOFT)
-                        { this.strict = value; }
+                        this.mode = value? Voice.VoiceMode.STRICT : Voice.VoiceMode.SOFT;
                     }
                 }
 
@@ -141,7 +141,7 @@ namespace NVexFlow
                     return this;
                 }
 
-                public Voice AddTickables(IList<object> tickables)
+                public Voice AddTickables(IList<Tickable> tickables)
                 {
                     return this;
                 }
