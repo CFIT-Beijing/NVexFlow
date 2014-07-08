@@ -1,6 +1,9 @@
-﻿using System;
+﻿//对应tremolo.js
+//框架：    已完成
+//类型定义：存在改进空间
+//原js：    存在改进空间
+using System;
 using NVexFlow.Model;
-
 namespace NVexFlow
 {
     public partial class Vex

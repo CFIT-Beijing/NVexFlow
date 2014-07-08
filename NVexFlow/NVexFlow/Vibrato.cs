@@ -1,7 +1,11 @@
-﻿using System;
+﻿//对应vibrato.js
+//框架：    已完成
+//类型定义：存在改进空间
+//原js：    存在改进空间
+using System;
 using NVexFlow.Model;
 namespace NVexFlow
-{//Vibrato
+{
     public partial class Vex
     {
         public partial class Flow
@@ -16,7 +20,6 @@ namespace NVexFlow
                 {
                     Init();
                 }
-
                 public override void Init()
                 {
                     this.harsh=false;
@@ -43,7 +46,6 @@ namespace NVexFlow
                         harsh=value;
                     }
                 }
-                private bool harsh;
                 public double VibratoWidth
                 {
                     set
@@ -52,7 +54,6 @@ namespace NVexFlow
                         this.Width=this.vibratoWidth;
                     }
                 }
-                private double vibratoWidth;
                 public override void Draw()
                 {
                     throw new NotImplementedException();
@@ -60,6 +61,8 @@ namespace NVexFlow
                 #endregion
                 #region 隐含的字段
                 protected RenderOptions renderOptions;
+                protected bool harsh;
+                protected double vibratoWidth;
                 #endregion
             }
         }

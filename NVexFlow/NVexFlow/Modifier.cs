@@ -22,6 +22,7 @@ namespace NVexFlow
             /// </summary>
             public abstract class Modifier
             {
+                #region js直译部分
                 //严格按照JS文件顺序翻译
                 //现在先保持JS分开构造函数Modifier()和初始化函数Init()的形式
                 //下一阶段合并构造函数，不再出现单独的Init()
@@ -87,7 +88,6 @@ namespace NVexFlow
                         width=value;
                     }
                 }
-                protected double width;
                 /// <summary>
                 /// Get and set attached note (`StaveNote`, `TabNote`, etc.)
                 /// </summary>
@@ -102,7 +102,6 @@ namespace NVexFlow
                         note=value;
                     }
                 }
-                protected Note note;
                 /// <summary>
                 /// Get and set note index, which is a specific note in a chord.
                 /// </summary>
@@ -117,7 +116,6 @@ namespace NVexFlow
                         index=value;
                     }
                 }
-                protected object index;
                 /// <summary>
                 /// Get and set rendering context.
                 /// </summary>
@@ -132,7 +130,6 @@ namespace NVexFlow
                         context=value;
                     }
                 }
-                protected CanvasContext context;
                 /// <summary>
                 /// Every modifier must be part of a `ModifierContext`.
                 /// </summary>
@@ -147,7 +144,6 @@ namespace NVexFlow
                         modifierContext=value;
                     }
                 }
-                protected object modifierContext;
                 /// <summary>
                 /// Get and set articulation position.
                 /// </summary>
@@ -162,7 +158,6 @@ namespace NVexFlow
                         position=value;
                     }
                 }
-                protected ModifierPosition position;
                 /// <summary>
                 /// Set the `text_line` for the modifier.
                 /// </summary>
@@ -173,7 +168,6 @@ namespace NVexFlow
                         textLine=value;
                     }
                 }
-                protected int textLine;
                 /// <summary>
                 /// Shift modifier down `y` pixels. Negative values shift up.
                 /// </summary>
@@ -184,7 +178,6 @@ namespace NVexFlow
                         yShift=value;
                     }
                 }
-                protected double yShift;
                 /// <summary>
                 /// Shift modifier `x` pixels in the direction of the modifier. Negative values shift reverse.
                 /// </summary>
@@ -205,11 +198,22 @@ namespace NVexFlow
                         }
                     }
                 }
-                protected double xShift;
                 /// <summary>
                 /// Render the modifier onto the canvas.
                 /// </summary>
                 public abstract void Draw();
+                #endregion
+                #region 隐含的字段
+                protected double width;
+                protected CanvasContext context;
+                protected Note note;
+                protected object index;
+                protected int textLine;
+                protected ModifierPosition position;
+                protected object modifierContext;
+                protected double xShift;
+                protected double yShift;
+                #endregion
             }
         }
     }
