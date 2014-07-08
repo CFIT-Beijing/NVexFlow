@@ -5,7 +5,7 @@
     Modifier及其衍生类:
         Modifier,//本阶段可以了
         Tremolo,//本阶段可以了
-        Vibrato,
+        Vibrato,//本阶段可以了
         FretHandFinger,
         Stroke,
         StringNumber,

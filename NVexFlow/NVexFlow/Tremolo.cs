@@ -54,15 +54,12 @@ namespace NVexFlow
                 }
                 #endregion
                 #region 隐含的字段
-                int num;
-                Note note;
-                object index;
-                ModifierPosition position;
-                string code;
-                int shiftRight;
-                int ySpacing;
-                RenderOptions renderOptions;
-                Font font;
+                protected int num;
+                protected string code;
+                protected int shiftRight;
+                protected int ySpacing;
+                protected RenderOptions renderOptions;
+                protected Font font;
                 #endregion
             }
         }

@@ -39,7 +39,6 @@ namespace NVexFlow
                     ABOVE = 3,
                     BELOW = 4
                 }
-                #region Prototype Methods
                 /// <summary>
                 /// The constructor sets initial widhts and constants.
                 /// </summary>
@@ -88,7 +87,7 @@ namespace NVexFlow
                         width=value;
                     }
                 }
-                private double width;
+                protected double width;
                 /// <summary>
                 /// Get and set attached note (`StaveNote`, `TabNote`, etc.)
                 /// </summary>
@@ -103,7 +102,7 @@ namespace NVexFlow
                         note=value;
                     }
                 }
-                private Note note;
+                protected Note note;
                 /// <summary>
                 /// Get and set note index, which is a specific note in a chord.
                 /// </summary>
@@ -118,7 +117,7 @@ namespace NVexFlow
                         index=value;
                     }
                 }
-                private object index;
+                protected object index;
                 /// <summary>
                 /// Get and set rendering context.
                 /// </summary>
@@ -133,7 +132,7 @@ namespace NVexFlow
                         context=value;
                     }
                 }
-                private CanvasContext context;
+                protected CanvasContext context;
                 /// <summary>
                 /// Every modifier must be part of a `ModifierContext`.
                 /// </summary>
@@ -148,7 +147,7 @@ namespace NVexFlow
                         modifierContext=value;
                     }
                 }
-                private object modifierContext;
+                protected object modifierContext;
                 /// <summary>
                 /// Get and set articulation position.
                 /// </summary>
@@ -163,7 +162,7 @@ namespace NVexFlow
                         position=value;
                     }
                 }
-                private ModifierPosition position;
+                protected ModifierPosition position;
                 /// <summary>
                 /// Set the `text_line` for the modifier.
                 /// </summary>
@@ -174,7 +173,7 @@ namespace NVexFlow
                         textLine=value;
                     }
                 }
-                private int textLine;
+                protected int textLine;
                 /// <summary>
                 /// Shift modifier down `y` pixels. Negative values shift up.
                 /// </summary>
@@ -185,7 +184,7 @@ namespace NVexFlow
                         yShift=value;
                     }
                 }
-                private double yShift;
+                protected double yShift;
                 /// <summary>
                 /// Shift modifier `x` pixels in the direction of the modifier. Negative values shift reverse.
                 /// </summary>
@@ -206,12 +205,11 @@ namespace NVexFlow
                         }
                     }
                 }
-                private double xShift;
+                protected double xShift;
                 /// <summary>
                 /// Render the modifier onto the canvas.
                 /// </summary>
                 public abstract void Draw();
-                #endregion
             }
         }
     }
