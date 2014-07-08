@@ -93,10 +93,10 @@ namespace NVexFlow
                     return null;
                 }
 
-                public Formatter JoinVoices(IList<object> voices)
+                public Formatter JoinVoices(IList<Voice> voices)
                 { return null; }
 
-                public Formatter Format(IList<object> voices, double justifyWidth, IList<object> options)
+                public Formatter Format(IList<Voice> voices, double justifyWidth, IList<object> options)
                 {
                     return null;
                 }

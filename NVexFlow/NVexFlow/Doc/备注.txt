@@ -1,2 +1,2 @@
 ﻿Modifier分支未完成的有：
-GraceNoteGroup,FretHandFinger,
+index属性暂时不知道什么意思。

@@ -60,6 +60,7 @@
     <Compile Include="KeySignature.cs" />
     <Compile Include="Model\AccidentalModel.cs" />
     <Compile Include="Model\ArticulationModel.cs" />
+    <Compile Include="Model\BeamRenderOptions.cs" />
     <Compile Include="Model\ClefType.cs" />
     <Compile Include="Model\Font.cs" />
     <Compile Include="Model\Glyphs.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Model\StaveTextOptions.cs" />
     <Compile Include="Model\StrokeOptions.cs" />
     <Compile Include="Model\TimeSig.cs" />
+    <Compile Include="Model\VoiceTimeModel.cs" />
     <Compile Include="Modifier.cs" />
     <Compile Include="ModifierContext.cs" />
     <Compile Include="Music.cs" />

@@ -73,7 +73,7 @@ namespace NVexFlow
                     double widthAdjust = (this.type == "##" || this.type == "bb") ? 6 : 4;
 
                     // Make sure `width` accomodates for parentheses.
-                    this.Width = this.parenLeft.Width + this.accidental.Width + this.parenRight.Width - widthAdjust;
+                    base.Width = this.parenLeft.Width + this.accidental.Width + this.parenRight.Width - widthAdjust;
                     return this;
                 }
 
@@ -104,7 +104,7 @@ namespace NVexFlow
                         if (this.note is GraceNote)
                         {
                             this.renderOptions.FontScale = 25;
-                            this.Width = this.accidental.GracenoteWidth;
+                            base.Width = this.accidental.GracenoteWidth;
                         }
                     }
                 }
