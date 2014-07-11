@@ -172,7 +172,12 @@ namespace NVexFlow
                 public virtual void PreFormat()
                 { }
 
-
+                public virtual string Category
+                {
+                    get {
+                        return "";
+                    }
+                }
 
                 public virtual void ApplyTickMultiplier(object numerator, object denominator)
                 { }

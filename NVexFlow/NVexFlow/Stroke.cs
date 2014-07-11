@@ -12,11 +12,22 @@ namespace NVexFlow
             /// </summary>
             public class Stroke : Modifier
             {
-                #region 方法
+                #region js直译部分
                 public Stroke(StrokeType type, StrokeOptions options)
                 {
                     Init(type, options);
                 }
+
+
+                public enum StrokeType
+                {
+                    BRUSH_DOWN = 1,
+                    BRUSH_UP = 2,
+                    ROLL_DOWN = 3,    // Arpegiated chord
+                    ROLL_UP = 4,          // Arpegiated chord
+                    RASQUEDO_DOWN = 5,
+                    RASQUEDO_UP = 6
+                } 
 
 
                 public void Init(StrokeType type, StrokeOptions options)
@@ -25,9 +36,9 @@ namespace NVexFlow
                     this.options = options;
                     // multi voice - span stroke across all voices if true
 
-                    if (options.AllVoices!=null)
+                    if (options.allVoices!=null)
                     {
-                        this.allVoices = this.options.AllVoices;
+                        this.allVoices = this.options.allVoices;
                     }
                     else
                     {
@@ -57,8 +68,32 @@ namespace NVexFlow
                         Weight = "bold italic"
                     };
 
-                    base.XShift = 0;
-                    base.Width = 10;
+                    this.XShift = 0;
+                    this.Width = 10;
+                }
+
+
+                public override string Category
+                {
+                    get
+                    {
+                        return "strokes";
+                    }
+                }
+
+
+                public override Modifier.ModifierPosition Position
+                {
+                    get
+                    {
+                        return this.Position;
+                    }
+                }
+
+
+                public object AddEndNote
+                {
+                    set { noteEnd = value; }
                 }
 
 
@@ -67,47 +102,13 @@ namespace NVexFlow
                 #endregion
 
 
-                #region 枚举
-                public enum StrokeType
-                {
-                    BRUSH_DOWN = 1,
-                    BRUSH_UP = 2,
-                    ROLL_DOWN = 3,    // Arpegiated chord
-                    ROLL_UP = 4,          // Arpegiated chord
-                    RASQUEDO_DOWN = 5,
-                    RASQUEDO_UP = 6
-                } 
-                #endregion
 
-
-                #region 属性字段
-                public override Modifier.ModifierPosition Position
-                {
-                    get
-                    {
-                        return this.Position;
-                    }
-                }
-                Modifier.ModifierPosition position;
-
-                public object AddEndNote
-                {
-                    set { noteEnd = value; }
-                }
-                object noteEnd;
-
-                StrokeOptions options;
-                bool? allVoices;
-                Note note;
-                object index;
-                
-                StrokeType type;
-                Font font;
-                RenderOptions renderOptions;
-
-
-
-
+                #region 隐含的字段
+                protected object noteEnd;
+                protected StrokeOptions options;
+                protected bool? allVoices;
+                protected StrokeType type;
+                protected RenderOptions renderOptions;
                 #endregion
 
 

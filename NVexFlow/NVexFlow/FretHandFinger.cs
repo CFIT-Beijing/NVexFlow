@@ -10,7 +10,7 @@ namespace NVexFlow
             /// </summary>
             public class FretHandFinger : Modifier
             {
-                #region 方法
+                #region js直译部分
                 public FretHandFinger(object number)
                 {
                     Init(number);
@@ -36,12 +36,15 @@ namespace NVexFlow
                 }
 
 
-                public override void Draw()
-                { }
-                #endregion
+                public override string Category
+                {
+                    get
+                    {
+                        return "frethandfinger";
+                    }
+                }
 
 
-                #region 属性字段
                 public override Note Note
                 {
                     get
@@ -53,7 +56,7 @@ namespace NVexFlow
                         this.Note = value;
                     }
                 }
-                Note note;
+
 
                 public override object Index
                 {
@@ -66,7 +69,7 @@ namespace NVexFlow
                         this.Index = value;
                     }
                 }
-                object index;
+
 
                 public override ModifierPosition Position
                 {
@@ -82,33 +85,36 @@ namespace NVexFlow
                         }
                     }
                 }
-                ModifierPosition position;
 
-                private object finger;
+
                 //JS属性名叫做FretHandFinger，和类名冲突了
                 public object Finger
                 {
                     set { this.finger = value; }
                 }
 
+
                 public double OffsetX
                 {
                     set { this.xOffset = value; }
                 }
-                private double xOffset;
 
 
                 public double OffsetY
                 {
                     set { this.yOffset = value; }
                 }
-                private double yOffset;
 
 
-                private Font font;             
-                private double width;                
-                private double xShift;
-                private double yShift;
+                public override void Draw()
+                { }
+                #endregion
+
+
+                #region 隐含的字段
+                private object finger;           
+                protected double xOffset;    
+                protected double yOffset;
                 #endregion
             }
         }

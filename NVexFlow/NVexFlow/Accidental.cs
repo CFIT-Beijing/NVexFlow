@@ -16,8 +16,8 @@ namespace NVexFlow
             // See `tests/accidental_tests.js` for usage examples.
             /// </summary>
             public class Accidental : Modifier
-            {                
-                #region 方法
+            {
+                #region js直译部分
                 //An `Accidental` inherits from `Modifier`, and is formatted within a ModifierContext`.
 
                 /// <summary>
@@ -28,6 +28,7 @@ namespace NVexFlow
                 {
                     Init(type);
                 }
+
 
                 /// <summary>
                 ///Create accidental. `type` can be a value from the `Vex.Flow.accidentalCodes.accidentals` table in `tables.js`. For  example: `#`, `##`, `b`, `n`, etc.
@@ -55,37 +56,18 @@ namespace NVexFlow
                     this.parenRight = null;
 
                     // Initial width is set from table.
-                    base.Width = this.accidental.Width;
+                    this.Width = this.accidental.width;
                 }
 
 
-
-                /// <summary>
-                /// If called, draws parenthesis around accidental.
-                /// </summary>
-                /// <returns></returns>
-                public Accidental SetAsCautionary()
+                public override string Category
                 {
-                    this.cautionary = true;
-                    this.renderOptions.FontScale = 28;
-                    this.parenLeft = Vex.Flow.AccidentalCodes("{");
-                    this.parenRight = Vex.Flow.AccidentalCodes("}");
-                    double widthAdjust = (this.type == "##" || this.type == "bb") ? 6 : 4;
-
-                    // Make sure `width` accomodates for parentheses.
-                    base.Width = this.parenLeft.Width + this.accidental.Width + this.parenRight.Width - widthAdjust;
-                    return this;
+                    get
+                    {
+                        return "accidentals";
+                    }
                 }
 
-                /// <summary>
-                /// Render accidental onto canvas.
-                /// </summary>
-                public override void Draw()
-                { }
-                #endregion
-
-
-                #region 属性字段
 
                 /// <summary>
                 /// Attach this accidental to `note`, which must be a `StaveNote`.
@@ -101,23 +83,48 @@ namespace NVexFlow
                         this.note = value;
 
                         // Accidentals attached to grace notes are rendered smaller.
-                        if (this.note is GraceNote)
+                        if (this.note.Category == "gracenotes")
                         {
                             this.renderOptions.FontScale = 25;
-                            base.Width = this.accidental.GracenoteWidth;
+                            this.Width = this.accidental.gracenoteWidth;
                         }
                     }
                 }
-                Note note;               
-                object index;
-                string type;
-                Modifier.ModifierPosition position;
-                RenderOptions renderOptions;
-                AccidentalModel accidental;
-                bool cautionary;
-                AccidentalModel parenLeft;
-                AccidentalModel parenRight;
 
+
+                /// <summary>
+                /// If called, draws parenthesis around accidental.
+                /// </summary>
+                /// <returns></returns>
+                public Accidental SetAsCautionary()
+                {
+                    this.cautionary = true;
+                    this.renderOptions.FontScale = 28;
+                    this.parenLeft = Vex.Flow.AccidentalCodes("{");
+                    this.parenRight = Vex.Flow.AccidentalCodes("}");
+                    double widthAdjust = (this.type == "##" || this.type == "bb") ? 6 : 4;
+
+                    // Make sure `width` accomodates for parentheses.
+                    this.Width = this.parenLeft.width + this.accidental.width + this.parenRight.width - widthAdjust;
+                    return this;
+                }
+
+
+                /// <summary>
+                /// Render accidental onto canvas.
+                /// </summary>
+                public override void Draw()
+                { }
+                #endregion
+
+
+                #region 隐含的字段
+                string type;
+                RenderOptions renderOptions;
+                AccidentalOpts accidental;
+                bool cautionary;
+                AccidentalOpts parenLeft;
+                AccidentalOpts parenRight;
                 #endregion
             }
         }

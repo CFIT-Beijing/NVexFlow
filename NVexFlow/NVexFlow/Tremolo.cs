@@ -24,7 +24,6 @@ namespace NVexFlow
                 }
                 public void Init(int num)
                 {
-                    base.Init();
                     this.num=num;
                     this.note=null;
                     this.index=null;

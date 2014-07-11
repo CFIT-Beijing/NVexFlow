@@ -1,7 +1,6 @@
 ﻿已经完成的类：
 {
     Vex//本阶段可以了
-
     Modifier及其衍生类:
         Modifier,//本阶段可以了
         Tremolo,//本阶段可以了

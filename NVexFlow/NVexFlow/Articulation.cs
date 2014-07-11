@@ -18,11 +18,13 @@ namespace NVexFlow
             /// </summary>
             public class Articulation : Modifier
             {
-                #region 方法
+                #region js直译部分
                 public Articulation(string type)
                 {
                     Init(type);
                 }
+
+
                 // Create a new articulation of type `type`, which is an entry in `Vex.Flow.articulationCodes` in `tables.js`.
                 public void Init(string type)
                 {
@@ -37,8 +39,17 @@ namespace NVexFlow
                         throw new Exception("ArgumentError,Articulation not found: '" + this.type + "'");
                     }
                     // Default width comes from articulation table.
-                    base.Width = this.articulation.Width;
+                    Width = this.articulation.width;
                 }
+
+                public override string Category
+                {
+                    get
+                    {
+                        return "articulations";
+                    }
+                }
+
 
                 /// <summary>
                 /// Render articulation in position next to note.
@@ -48,13 +59,10 @@ namespace NVexFlow
                 #endregion
 
 
-                #region 属性字段
-                Note note;
-                object index;
-                string type;
-                Modifier.ModifierPosition position;
-                RenderOptions renderOptions;
-                ArticulationModel articulation;
+                #region 隐含的字段
+                protected string type;
+                protected RenderOptions renderOptions;
+                protected ArticulationOpts articulation;
                 #endregion
 
 

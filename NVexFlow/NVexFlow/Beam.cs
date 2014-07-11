@@ -9,9 +9,9 @@ namespace NVexFlow
         {
             public class Beam
             {
-                BeamRenderOptions renderOptions;
+                BeamRenderOpts renderOptions;
 
-                public BeamRenderOptions RenderOptions
+                public BeamRenderOpts RenderOptions
                 {
                     get { return renderOptions; }
                     set { renderOptions = value; }

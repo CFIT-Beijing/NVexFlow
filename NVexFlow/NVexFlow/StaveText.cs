@@ -10,21 +10,21 @@ namespace NVexFlow
             public class StaveText : Modifier
             {
                 #region 方法
-                public StaveText(string text, ModifierPosition position, StaveTextOptions options)
+                public StaveText(string text, ModifierPosition position, StaveTextOpts options)
                 {
                     Init(text, position, options);
                 }
 
-                public void Init(string text, ModifierPosition position, StaveTextOptions options)
+                public void Init(string text, ModifierPosition position, StaveTextOpts options)
                 {
-                    base.Width = 16;
+                    this.Width = 16;
                     this.text = text;
                     this.position = position;
-                    this.options = new StaveTextOptions()
+                    this.options = new StaveTextOpts()
                     {
-                        ShiftX = 0,
-                        ShiftY = 0,
-                        Justification = Vex.Flow.TextNote.TextNoteJustification.CENTER
+                        shiftX = 0,
+                        shiftY = 0,
+                        justification = Vex.Flow.TextNote.TextNoteJustification.CENTER
                     };
 
                     Vex.Merge(this.options, options);
@@ -89,7 +89,7 @@ namespace NVexFlow
 
 
                 Modifier.ModifierPosition position;
-                StaveTextOptions options;
+                StaveTextOpts options;
                 #endregion
             }
         }

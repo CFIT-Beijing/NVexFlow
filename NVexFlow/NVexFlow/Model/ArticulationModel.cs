@@ -6,51 +6,14 @@ using System.Threading.Tasks;
 
 namespace NVexFlow.Model
 {
-    public class ArticulationModel
+
+    public class ArticulationOpts
     {
-
-        string code;
-
-        public string Code
-        {
-            get { return code; }
-            set { code = value; }
-        }
-        double width;
-
-        public double Width
-        {
-            get { return width; }
-            set { width = value; }
-        }
-        double shiftRight;
-
-        public double ShiftRight
-        {
-            get { return shiftRight; }
-            set { shiftRight = value; }
-        }
-        double shiftUp;
-
-        public double ShiftUp
-        {
-            get { return shiftUp; }
-            set { shiftUp = value; }
-        }
-        double shiftDown;
-
-        public double ShiftDown
-        {
-            get { return shiftDown; }
-            set { shiftDown = value; }
-        }
-        bool betweenLines;
-
-        public bool BetweenLines
-        {
-            get { return betweenLines; }
-            set { betweenLines = value; }
-        }
-
+        public string code;
+        public double width;
+        public double shiftRight;
+        public double shiftUp;
+        public double shiftDown;
+        public bool betweenLines;
     }
 }

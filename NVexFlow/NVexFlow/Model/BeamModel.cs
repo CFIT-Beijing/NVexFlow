@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace NVexFlow.Model
 {
-    public class BeamRenderOptions
+
+    public class BeamRenderOpts:RenderOptions
     {
         double beamWidth;
 

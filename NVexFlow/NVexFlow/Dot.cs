@@ -10,11 +10,12 @@ namespace NVexFlow
             /// </summary>
             public class Dot : Modifier
             {
-                #region 方法
+                #region js直译部分
                 public Dot()
                 {
                     Init();
                 }
+
 
                 public override void Init()
                 {
@@ -23,18 +24,11 @@ namespace NVexFlow
                     this.position = Modifier.ModifierPosition.RIGHT;
 
                     this.radius = 2;
-                    base.Width = 5;
+                    this.Width = 5;
                     this.dotShiftY = 0;
                 }
 
 
-
-                public override void Draw()
-                { }
-                #endregion
-
-
-                #region 属性字段
                 public override Note Note
                 {
                     set
@@ -43,25 +37,35 @@ namespace NVexFlow
                         if (this.note is GraceNote)
                         {
                             this.radius *= 0.50;
-                            base.Width = 3;
+                            this.Width = 3;
                         }
                     }
                 }
-                private Note note;
-            
+
+
+                public override string Category
+                {
+                    get
+                    {
+                        return "dots";
+                    }
+                }
+
 
                 public double DotShiftY
                 {
                     set { dotShiftY = value; }
                 }
-                double dotShiftY;
 
 
-                object index;
-                Modifier.ModifierPosition position;
-                private double radius;
+                public override void Draw()
+                { }
+                #endregion
 
 
+                #region 隐含的字段
+                protected double dotShiftY;
+                protected double radius;
                 #endregion
             }
         }

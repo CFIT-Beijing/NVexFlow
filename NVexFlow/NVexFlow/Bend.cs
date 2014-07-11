@@ -51,10 +51,15 @@ namespace NVexFlow
             /// </summary>
             public class Bend : Modifier
             {
-                #region 方法
+                #region js直译部分
                 public Bend(string text, bool release, IList<PhraseModel> phrase)
                 {
                     Init(text, release, phrase);
+                }
+
+                public enum BendType
+                {
+                    UP, DOWN
                 }
 
                 public void Init(string text, bool release, IList<PhraseModel> phrase)
@@ -63,7 +68,7 @@ namespace NVexFlow
                     this.xShift = 0;
                     this.release = release || false;
                     this.font = "10pt Arial";
-                    this.renderOptions = new RenderOptions() { LineWidth = 1.5, LineStyle = "#777777", BendWidth = 8, ReleaseWidth = 8 };
+                    this.renderOptions = new BendRenderOpts() { LineWidth = 1.5, LineStyle = "#777777", BendWidth = 8, ReleaseWidth = 8 };
                     if (phrase != null)
                     {
                         this.phrase = phrase;
@@ -72,18 +77,50 @@ namespace NVexFlow
                     {
                         // Backward compatibility
                         this.phrase = new List<PhraseModel>() {
-                         new PhraseModel(){Type=BendType.UP,Text=this.text}
+                         new PhraseModel(){type=BendType.UP,text=this.text}
                      };
                         if (this.release)
                         {
                             this.phrase.Add(
-                                new PhraseModel() { Type = BendType.DOWN, Text = string.Empty }
+                                new PhraseModel() { type = BendType.DOWN, text = string.Empty }
                                 );
                         }
                     }
 
                     this.UpdateWidth();
                 }
+
+                
+
+                public override double XShift
+                {
+                    set
+                    {
+                        this.xShift = value;
+                        UpdateWidth();
+                    }
+                }
+
+                public string Font
+                {
+                    set { font = value; }
+                }
+                
+
+                public override string Category
+                {
+                    get
+                    {
+                        return "bends";
+                    }
+                }
+
+
+                public string Text
+                {
+                    get { return text; }
+                }
+
 
                 public Bend UpdateWidth()
                 {
@@ -92,29 +129,29 @@ namespace NVexFlow
                     {
                         PhraseModel bend = this.phrase[i];
 
-                        if (bend.Width != null)
+                        if (bend.width != null)
 
-                        if (bend.Width.HasValue)
+                            if (bend.width.HasValue)
+                            {
+                                totalWidth += bend.width.Value;
+                            }
+                            else
+                            {
+                                double additionalWidth = (bend.type == BendType.UP) ?
+                                  this.renderOptions.BendWidth : this.renderOptions.ReleaseWidth;
+                                bend.width = Math.Max(additionalWidth, MeasureText(bend.text)) + 3;
 
-                        {
-                            totalWidth += bend.Width.Value;
-                        }
-                        else
-                        {
-                            double additionalWidth = (bend.Type == BendType.UP) ?
-                              this.renderOptions.BendWidth : this.renderOptions.ReleaseWidth;
-                                bend.Width =Math.Max(additionalWidth, MeasureText(bend.Text)) + 3;
+                                bend.drawWidth = bend.width.Value / 2;
 
-                            bend.DrawWidth = bend.Width.Value / 2;
+                                bend.drawWidth = bend.width.Value / 2;
 
-                            bend.DrawWidth = bend.Width.Value/ 2;
-
-                            totalWidth += bend.Width.Value;
-                        }
+                                totalWidth += bend.width.Value;
+                            }
                     }
-                    base.Width = totalWidth + this.xShift;
+                    this.Width = totalWidth + this.xShift;
                     return this;
                 }
+
 
                 private double MeasureText(string text)
                 {
@@ -139,42 +176,14 @@ namespace NVexFlow
                 #endregion
 
 
-                #region 枚举
-                public enum BendType
-                {
-                    UP, DOWN
-                }
-                #endregion
 
 
-                #region 属性字段
-
-                public override double XShift
-                {
-                    set
-                    {
-                        this.xShift = value;
-                        UpdateWidth();
-                    }
-                }
-                double xShift;
-
-
-                public string Font
-                {
-                    set { font = value; }
-                }
-                string font;
-
-                public string Text
-                {
-                    get { return text; }
-                }
-                string text;
-
-                RenderOptions renderOptions;
-                IList<PhraseModel> phrase;
-                bool release;
+                #region 隐含的字段
+                protected string text;
+                protected string font;
+                protected BendRenderOpts renderOptions;
+                protected IList<PhraseModel> phrase;
+                protected bool release;
                 #endregion          
             }
         }

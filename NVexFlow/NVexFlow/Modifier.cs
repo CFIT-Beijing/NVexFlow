@@ -203,6 +203,8 @@ namespace NVexFlow
                 /// </summary>
                 public abstract void Draw();
                 #endregion
+
+
                 #region 隐含的字段
                 protected double width;
                 protected CanvasContext context;
@@ -213,6 +215,8 @@ namespace NVexFlow
                 protected object modifierContext;
                 protected double xShift;
                 protected double yShift;
+                //每个子类都有font字段，是不是放到抽象类里？还是按照js的放到每个类里？
+                protected Font font;
                 #endregion
             }
         }

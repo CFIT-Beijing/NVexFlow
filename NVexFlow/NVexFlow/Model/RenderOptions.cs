@@ -14,22 +14,7 @@
         {
             get; set;
         }
-        public double LineWidth
-        {
-            get; set;
-        }
-        public string LineStyle
-        {
-            get; set;
-        }
-        public double BendWidth
-        {
-            get; set;
-        }
-        public double ReleaseWidth
-        {
-            get; set;
-        }
+
         public double VibratoWidth
         {
             get; set;

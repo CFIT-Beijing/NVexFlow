@@ -9,11 +9,12 @@ namespace NVexFlow
         {
             public class GraceNoteGroup : Modifier
             {
-                #region 方法
+                #region js直译部分
                 public GraceNoteGroup(IList<Tickable> graceNotes, bool config)
                 {
                     Init(graceNotes, config);
                 }
+
 
                 public void Init(IList<Tickable> graceNotes, bool showSlur)
                 {
@@ -40,7 +41,6 @@ namespace NVexFlow
                 }
 
 
-
                 public void PreFormat()
                 {
                     if (this.preFormatted)
@@ -48,17 +48,18 @@ namespace NVexFlow
                         return;
                     }
                     this.formatter.JoinVoices(new List<Voice>() { this.voice }).Format(new List<Voice>() { this.voice }, 0, null);
-                    base.Width = this.formatter.MinTotalWidth;
+                    this.Width = this.formatter.MinTotalWidth;
 
                     this.preFormatted = true;
                 }
+
 
                 public GraceNoteGroup BeamNotes()
                 {
                     if (this.graceNotes.Count() > 1)
                     {
                         Beam beam = new Beam(this.graceNotes, null);
-                        beam.RenderOptions = new BeamRenderOptions()
+                        beam.RenderOptions = new BeamRenderOpts()
                         {
                             BeamWidth = 3,
                             PartialBeamLength = 4
@@ -69,12 +70,6 @@ namespace NVexFlow
                 }
 
 
-                public override void Draw()
-                { }
-                #endregion
-
-
-                #region 属性字段
                 public override Note Note
                 {
                     set
@@ -82,7 +77,15 @@ namespace NVexFlow
                         this.Note = value;
                     }
                 }
-                Note note;
+
+
+                public override string Category
+                {
+                    get
+                    {
+                        return "gracenotegroups"; 
+                    }
+                }
 
 
                 public override double Width
@@ -96,7 +99,6 @@ namespace NVexFlow
                         this.width = value;
                     }
                 }
-                double width;
 
 
                 public override double XShift
@@ -106,21 +108,21 @@ namespace NVexFlow
                         this.xShift = value;
                     }
                 }
-                double xShift;
 
 
-
-                private bool preFormatted;
-                private Beam beam;
-                Modifier.ModifierPosition position;
-                object index;
-                IList<Tickable> graceNotes;             
-                bool showSlur;
-                object slur;
-                Formatter formatter;
-                Voice voice;
+                public override void Draw()
+                { }
+                #endregion
 
 
+                #region 隐含的字段
+                protected bool preFormatted;
+                protected Beam beam;
+                protected IList<Tickable> graceNotes;
+                protected bool showSlur;
+                protected object slur;
+                protected Formatter formatter;
+                protected Voice voice;
                 #endregion
 
 

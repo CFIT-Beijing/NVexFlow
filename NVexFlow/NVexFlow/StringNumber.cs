@@ -10,7 +10,7 @@ namespace NVexFlow
             /// </summary>
             public class StringNumber : Modifier
             {
-                #region 方法
+                #region js直译部分
                 public StringNumber(string number)
                 {
                     Init(number);
@@ -22,7 +22,7 @@ namespace NVexFlow
                     this.lastNote = null;
                     this.index = null;
                     this.stringNumber = number;
-                    base.Width = 20;
+                    this.Width = 20;
 
                     this.position = Modifier.ModifierPosition.ABOVE;  // Default position above stem or note head
 
@@ -43,13 +43,15 @@ namespace NVexFlow
                 }
 
 
+                public override string Category
+                {
+                    get
+                    {
+                        return "stringnumber"; 
+                    }
+                }
 
-                public override void Draw()
-                { }
-                #endregion
 
-
-                #region 属性字段
                 public override Note Note
                 {
                     get
@@ -61,7 +63,7 @@ namespace NVexFlow
                         this.Note = value;
                     }
                 }
-                Note note;
+
 
                 public override object Index
                 {
@@ -74,10 +76,7 @@ namespace NVexFlow
                         this.Index = value;
                     }
                 }
-                object index;
 
-
-                
 
                 public Renderer.RendererLineEndType LineEndType
                 {
@@ -87,16 +86,13 @@ namespace NVexFlow
                         { this.leg = value; }
                     }
                 }
-                Renderer.RendererLineEndType leg;
 
-
-                
 
                 public override ModifierPosition Position
                 {
                     get
                     {
-                        return base.Position;
+                        return this.Position;
                     }
                     set
                     {
@@ -106,51 +102,52 @@ namespace NVexFlow
                         }
                     }
                 }
-                ModifierPosition position;
 
-                
 
                 public string String_Number
                 {
                     set { this.stringNumber = value; }
                 }
-                string stringNumber;
 
-                
-                
 
                 public double XOffset
                 {
                     set { this.xOffset = value; }
                 }
-                double xOffset;
                 
 
                 public double YOffset
                 {
                     set { this.yOffset = value; }
                 }
-                double yOffset;
-
                 
+
 
                 public object LastNote
                 {
                     set { this.lastNote = value; }
                 }
-                object lastNote;
-
                 
+
                 public bool Dashed
                 {
                     set { this.dashed = value; }
                 }
-                bool dashed;
 
-                Font font;
-                int radius;
-                double xShift;
-                double yShift;
+                
+                public override void Draw()
+                { }
+                #endregion
+
+
+                #region 隐含的字段
+                protected double xOffset;
+                protected double yOffset;
+                protected object lastNote;
+                protected bool dashed;
+                protected Renderer.RendererLineEndType leg;
+                protected string stringNumber;
+                protected int radius;
                 #endregion              
             }
         }

@@ -7,13 +7,36 @@ namespace NVexFlow
         {
             public class Annotation : Modifier
             {
-                #region 方法
                 //Annotations inherit from `Modifier` and is positioned correctly when in a `ModifierContext`.
-
+                #region js直译部分                
+                /// <summary>
+                /// Create a new `Annotation` with the string `text`.
+                /// </summary>
+                /// <param name="text"></param>
                 public Annotation(string text)
                 {
                     Init(text);
                 }
+
+
+                /// <summary>
+                /// Text annotations can be positioned and justified relative to the note.
+                /// </summary>
+                public enum AnnotationJustify
+                {
+                    LEFT,
+                    CENTER,
+                    RIGHT,
+                    CENTER_STEM
+                }
+                public enum AnnotationVerticalJustify
+                {
+                    TOP,
+                    CENTER,
+                    BOTTOM,
+                    CENTER_STEM
+                } 
+
 
                 /// <summary>
                 /// Create a new `Annotation` with the string `text`.
@@ -30,38 +53,21 @@ namespace NVexFlow
                     this.font = new Font() { Family = "Arial", Size = 10, Weight = "" };
 
                     //// The default width is calculated from the text.
-                    base.Width = Vex.Flow.TextWidth(text);
+                    Width = Vex.Flow.TextWidth(text);
                 }
+
 
                 /// <summary>
-                /// Render text beside the note.
+                /// Return the modifier type. Used by the `ModifierContext` to calculate layout.
                 /// </summary>
-                public override void Draw()
-                { }
-                #endregion
-
-
-                #region 枚举
-                public enum AnnotationJustify
+                public override string Category
                 {
-                    LEFT,
-                    CENTER,
-                    RIGHT,
-                    CENTER_STEM
+                    get
+                    {
+                        return "annotations"; 
+                    }
                 }
 
-                public enum AnnotationVerticalJustify
-                {
-                    TOP,
-                    CENTER,
-                    BOTTOM,
-                    CENTER_STEM
-                } 
-                #endregion
-
-
-                #region 属性字段
-                
                 /// <summary>
                 /// Set the vertical position of the text relative to the stave.
                 /// </summary>
@@ -69,10 +75,9 @@ namespace NVexFlow
                 {
                     set
                     {
-                        base.TextLine = value;
+                        TextLine = value;
                     }
                 }
-                int textLine;
 
 
                 /// <summary>
@@ -85,9 +90,8 @@ namespace NVexFlow
                         font = value;
                     }
                 }
-                Font font;
 
-                
+
                 /// <summary>
                 /// Set vertical position of text (above or below stave). `just` must be  a value in `Annotation.VerticalJustify`.
                 /// </summary>
@@ -95,10 +99,8 @@ namespace NVexFlow
                 {
                     set { verticalJustification = value; }
                 }
-                Annotation.AnnotationVerticalJustify verticalJustification;
 
 
-                
                 /// <summary>
                 /// Get and set horizontal justification. `justification` is a value in  `Annotation.Justify`.
                 /// </summary>
@@ -107,13 +109,20 @@ namespace NVexFlow
                     get { return justification; }
                     set { justification = value; }
                 }
-                Annotation.AnnotationJustify justification;
 
 
+                /// <summary>
+                /// Render text beside the note.
+                /// </summary>
+                public override void Draw()
+                { }
+                #endregion
 
-                Note note;
-                object index;
-                string text;
+
+                #region 属性字段            
+                protected Annotation.AnnotationVerticalJustify verticalJustification;
+                protected Annotation.AnnotationJustify justification;
+                protected string text;
                 #endregion             
             }
         }
