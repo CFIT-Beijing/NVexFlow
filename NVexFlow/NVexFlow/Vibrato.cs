@@ -25,12 +25,12 @@ namespace NVexFlow
                     this.harsh=false;
                     this.position=Vex.Flow.Modifier.ModifierPosition.RIGHT;
                     this.renderOptions=new RenderOptions() {
-                        VibratoWidth=20,
-                        WaveHeight=6,
-                        WaveWidth=4,
-                        WaveGirth=2
+                        vibratoWidth=20,
+                        waveHeight=6,
+                        waveWidth=4,
+                        waveGirth=2
                     };
-                    this.VibratoWidth=this.renderOptions.VibratoWidth;
+                    this.VibratoWidth=this.renderOptions.vibratoWidth;
                 }
                 public override string Category
                 {

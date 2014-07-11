@@ -30,9 +30,9 @@ namespace NVexFlow
                     Vex.Merge(this.options, options);
                     this.font = new Font()
                     {
-                        Family = "times",
-                        Size = 16,
-                        Weight = "normal"
+                        family = "times",
+                        size = 16,
+                        weight = "normal"
                     };
                 }
 

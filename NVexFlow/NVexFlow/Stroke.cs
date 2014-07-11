@@ -55,17 +55,17 @@ namespace NVexFlow
 
                     this.renderOptions = new RenderOptions()
                     {
-                        FontScale = 38,
-                        StrokePx = 3,
-                        StrokeSpacing = 10
+                        fontScale = 38,
+                        strokePx = 3,
+                        strokeSpacing = 10
                     };
 
 
                     this.font = new Font()
                     {
-                        Family = "serif",
-                        Size = 10,
-                        Weight = "bold italic"
+                        family = "serif",
+                        size = 10,
+                        weight = "bold italic"
                     };
 
                     this.XShift = 0;

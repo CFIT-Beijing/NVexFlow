@@ -2,17 +2,8 @@
 {
     public class Font
     {
-        public string Family
-        {
-            get; set;
-        }
-        public int Size
-        {
-            get; set;
-        }
-        public string Weight
-        {
-            get; set;
-        }
+        public string family;
+        public int size;
+        public string weight;
     }
 }

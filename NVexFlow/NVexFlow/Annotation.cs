@@ -50,7 +50,7 @@ namespace NVexFlow
                     this.text = text;
                     this.justification = Annotation.AnnotationJustify.CENTER;
                     this.verticalJustification = Annotation.AnnotationVerticalJustify.TOP;
-                    this.font = new Font() { Family = "Arial", Size = 10, Weight = "" };
+                    this.font = new Font() { family = "Arial", size = 10, weight = "" };
 
                     //// The default width is calculated from the text.
                     Width = Vex.Flow.TextWidth(text);

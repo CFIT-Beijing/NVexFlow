@@ -36,9 +36,9 @@ namespace NVexFlow
                     this.radius = 8;
                     this.font = new Font()
                     {
-                        Family = "sans-serif",
-                        Size = 10,
-                        Weight = "bold"
+                        family = "sans-serif",
+                        size = 10,
+                        weight = "bold"
                     };
                 }
 

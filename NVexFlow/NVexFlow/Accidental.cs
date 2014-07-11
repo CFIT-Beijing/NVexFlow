@@ -41,7 +41,7 @@ namespace NVexFlow
                     this.index = null;
                     this.type = type;
                     this.position = Modifier.ModifierPosition.LEFT;
-                    this.renderOptions = new RenderOptions() { FontScale = 38, StrokePx = 3 };
+                    this.renderOptions = new RenderOptions() { fontScale = 38, strokePx = 3 };
 
 
                     this.accidental = Vex.Flow.AccidentalCodes(this.type);
@@ -85,7 +85,7 @@ namespace NVexFlow
                         // Accidentals attached to grace notes are rendered smaller.
                         if (this.note.Category == "gracenotes")
                         {
-                            this.renderOptions.FontScale = 25;
+                            this.renderOptions.fontScale = 25;
                             this.Width = this.accidental.gracenoteWidth;
                         }
                     }
@@ -99,7 +99,7 @@ namespace NVexFlow
                 public Accidental SetAsCautionary()
                 {
                     this.cautionary = true;
-                    this.renderOptions.FontScale = 28;
+                    this.renderOptions.fontScale = 28;
                     this.parenLeft = Vex.Flow.AccidentalCodes("{");
                     this.parenRight = Vex.Flow.AccidentalCodes("}");
                     double widthAdjust = (this.type == "##" || this.type == "bb") ? 6 : 4;

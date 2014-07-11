@@ -68,7 +68,7 @@ namespace NVexFlow
                     this.xShift = 0;
                     this.release = release || false;
                     this.font = "10pt Arial";
-                    this.renderOptions = new BendRenderOpts() { LineWidth = 1.5, LineStyle = "#777777", BendWidth = 8, ReleaseWidth = 8 };
+                    this.renderOptions = new BendRenderOpts() { lineWidth = 1.5, lineStyle = "#777777", bendWidth = 8, releaseWidth = 8 };
                     if (phrase != null)
                     {
                         this.phrase = phrase;
@@ -138,7 +138,7 @@ namespace NVexFlow
                             else
                             {
                                 double additionalWidth = (bend.type == BendType.UP) ?
-                                  this.renderOptions.BendWidth : this.renderOptions.ReleaseWidth;
+                                  this.renderOptions.bendWidth : this.renderOptions.releaseWidth;
                                 bend.width = Math.Max(additionalWidth, MeasureText(bend.text)) + 3;
 
                                 bend.drawWidth = bend.width.Value / 2;

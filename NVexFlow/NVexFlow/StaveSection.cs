@@ -21,7 +21,7 @@ namespace NVexFlow
                     this.shiftY = shift_y;
                     this.x = x;
                     this.position = ModifierPosition.ABOVE;
-                    this.font = new Font() { Family = "sans-serif", Size = 12, Weight = "bold" };
+                    this.font = new Font() { family = "sans-serif", size = 12, weight = "bold" };
                 }
 
 

@@ -33,14 +33,14 @@ namespace NVexFlow
                     this.shiftRight=-2;
                     this.ySpacing=4;
                     this.renderOptions=new RenderOptions() {
-                        FontScale=35,
-                        StrokePx=3,
-                        StrokeSpacing=10
+                        fontScale=35,
+                        strokePx=3,
+                        strokeSpacing=10
                     };
                     this.font=new Font() {
-                        Family="Arial",
-                        Size=16,
-                        Weight=string.Empty
+                        family="Arial",
+                        size=16,
+                        weight=string.Empty
                     };
                 }
                 public override string Category

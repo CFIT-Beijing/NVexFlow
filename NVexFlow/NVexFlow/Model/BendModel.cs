@@ -16,25 +16,9 @@ namespace NVexFlow.Model
 
     public class BendRenderOpts : RenderOptions
     {
-        public double LineWidth
-        {
-            get;
-            set;
-        }
-        public string LineStyle
-        {
-            get;
-            set;
-        }
-        public double BendWidth
-        {
-            get;
-            set;
-        }
-        public double ReleaseWidth
-        {
-            get;
-            set;
-        }
+        public double lineWidth;
+        public string lineStyle;
+        public double bendWidth;
+        public double releaseWidth;
     }
 }

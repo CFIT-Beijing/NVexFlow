@@ -32,9 +32,9 @@ namespace NVexFlow
                     this.formatter = new Vex.Flow.Formatter();
                     this.voice = new Vex.Flow.Voice(new VoiceTimeModel()
                     {
-                        NumBeats = 4,
-                        NumValue = 4,
-                        Resolution = Vex.Flow.RESOLUTION
+                        numBeats = 4,
+                        numValue = 4,
+                        resolution = Vex.Flow.RESOLUTION
                     });
                     this.voice.Strict = false;
                     this.voice.AddTickables(graceNotes);

@@ -32,7 +32,7 @@ namespace NVexFlow
                     this.index = null;
                     this.type = type;
                     this.position = Modifier.ModifierPosition.BELOW;
-                    this.renderOptions = new RenderOptions() { FontScale = 38 };
+                    this.renderOptions = new RenderOptions() { fontScale = 38 };
                     this.articulation = Vex.Flow.articulationCodes(this.type);
                     if (this.articulation == null)
                     {

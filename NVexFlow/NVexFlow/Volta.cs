@@ -69,9 +69,9 @@ namespace NVexFlow
                     this.number = number;
                     this.font = new Font()
                     {
-                        Family = "sans-serif",
-                        Size = 9,
-                        Weight = "bold"
+                        family = "sans-serif",
+                        size = 9,
+                        weight = "bold"
                     };
                 }
 
