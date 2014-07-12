@@ -1,22 +1,21 @@
 ﻿已经完成的类：
 {
-    Vex//本阶段可以了
+    Vex//里程碑1阶段可以了
     Modifier及其衍生类:
-        Modifier,//本阶段可以了
-        Tremolo,//本阶段可以了
-        Vibrato,//本阶段可以了
-        FretHandFinger,
-        Stroke,
-        StringNumber,
-        StaveText,
-        StaveSection,
-        GraceNoteGroup,
-        FretHandFinger,
-        Dot,
-        Bend,
-        Articulation,
-        Annotation,
-        Accidental
+        Modifier,//里程碑1阶段可以了
+        Tremolo,//里程碑1阶段可以了
+        Vibrato,//里程碑1阶段可以了
+        FretHandFinger,//里程碑1阶段可以了
+        Stroke,//里程碑1阶段可以了
+        StringNumber,//里程碑1阶段可以了
+        StaveText,//未达到里程碑1阶段标准
+        StaveSection,//里程碑1阶段可以了
+        GraceNoteGroup,//未达到里程碑1阶段标准
+        Dot,//里程碑1阶段可以了
+        Bend,//里程碑1阶段可以了
+        Articulation,//里程碑1阶段可以了
+        Annotation,//里程碑1阶段可以了
+        Accidental//里程碑1阶段可以了
 }
 
 Modifier分支未完成的有：

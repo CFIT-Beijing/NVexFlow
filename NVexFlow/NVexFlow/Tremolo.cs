@@ -1,4 +1,4 @@
-﻿//对应tremolo.js
+﻿//对应 tremolo.js
 //框架：    已完成
 //类型定义：存在改进空间
 //原js：    存在改进空间
@@ -25,6 +25,7 @@ namespace NVexFlow
                 public void Init(int num)
                 {
                     this.num=num;
+                    //里程碑2阶段去掉这类重复初始化
                     this.note=null;
                     this.index=null;
                     //JS原文是Modifier.ModifierPosition.CENTER;可是枚举里没有Center选项
@@ -61,7 +62,8 @@ namespace NVexFlow
                 protected int shiftRight;
                 protected int ySpacing;
                 protected RenderOptions renderOptions;
-                protected Font font;
+                //搬到modifier中统一定义过了
+                //protected Font font;
                 #endregion
             }
         }

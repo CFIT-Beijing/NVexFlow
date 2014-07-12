@@ -1,6 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿//对应 bend.js
+//框架：    已完成
+//类型定义：存在改进空间
+//原js：    存在改进空间
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using NVexFlow.Model;
 
 namespace NVexFlow
@@ -11,7 +15,6 @@ namespace NVexFlow
         {
             /// <summary>
             ///  This class implements bends.
-
             /**
                @constructor
 
@@ -49,64 +52,75 @@ namespace NVexFlow
                  }]
              */
             /// </summary>
-            public class Bend : Modifier
+            public class Bend:Modifier
             {
                 #region js直译部分
-                public Bend(string text, bool release, IList<PhraseModel> phrase)
+                public Bend(string text,bool release,IList<PhraseModel> phrase)
                 {
-                    Init(text, release, phrase);
+                    Init(text,release,phrase);
                 }
-
                 public enum BendType
                 {
-                    UP, DOWN
+                    UP = 0,
+                    DOWN = 1
                 }
-
-                public void Init(string text, bool release, IList<PhraseModel> phrase)
+                public void Init(string text,bool release,IList<PhraseModel> phrase)
                 {
-                    this.text = text;
-                    this.xShift = 0;
-                    this.release = release || false;
-                    this.font = "10pt Arial";
-                    this.renderOptions = new BendRenderOpts() { lineWidth = 1.5, lineStyle = "#777777", bendWidth = 8, releaseWidth = 8 };
-                    if (phrase != null)
+                    this.text=text;
+                    this.xShift=0;
+                    this.release=release||false;
+                    //字体类型不兼容父类
+                    //this.font="10pt Arial";
+                    this.font=new Font() {
+                        family="Arial",
+                        size=10,
+                        weight=string.Empty
+                    };
+                    this.renderOptions=new BendRenderOpts() {
+                        lineWidth=1.5,
+                        lineStyle="#777777",
+                        bendWidth=8,
+                        releaseWidth=8
+                    };
+                    if(phrase!=null)
                     {
-                        this.phrase = phrase;
+                        this.phrase=phrase;
                     }
                     else
                     {
                         // Backward compatibility
-                        this.phrase = new List<PhraseModel>() {
-                         new PhraseModel(){type=BendType.UP,text=this.text}
-                     };
-                        if (this.release)
+                        this.phrase=new List<PhraseModel>();
+                        this.phrase.Add(
+                            new PhraseModel() {
+                                type=BendType.UP,
+                                text=this.text
+                            });
+                        if(this.release)
                         {
                             this.phrase.Add(
-                                new PhraseModel() { type = BendType.DOWN, text = string.Empty }
-                                );
+                                new PhraseModel() {
+                                    type=BendType.DOWN,
+                                    text=string.Empty
+                                });
                         }
                     }
-
                     this.UpdateWidth();
                 }
-
-                
-
                 public override double XShift
                 {
                     set
                     {
-                        this.xShift = value;
+                        this.xShift=value;
                         UpdateWidth();
                     }
                 }
-
-                public string Font
+                public Font Font
                 {
-                    set { font = value; }
+                    set
+                    {
+                        font=value;
+                    }
                 }
-                
-
                 public override string Category
                 {
                     get
@@ -114,77 +128,64 @@ namespace NVexFlow
                         return "bends";
                     }
                 }
-
-
                 public string Text
                 {
-                    get { return text; }
+                    get
+                    {
+                        return text;
+                    }
                 }
-
-
                 public Bend UpdateWidth()
                 {
                     double totalWidth = 0;
-                    for (int i = 0; i < this.phrase.Count(); i++)
+                    for(int i = 0;
+                    i<this.phrase.Count();
+                    i++)
                     {
-                        PhraseModel bend = this.phrase[i];
-
-                        if (bend.width != null)
-
-                            if (bend.width.HasValue)
-                            {
-                                totalWidth += bend.width.Value;
-                            }
-                            else
-                            {
-                                double additionalWidth = (bend.type == BendType.UP) ?
-                                  this.renderOptions.bendWidth : this.renderOptions.releaseWidth;
-                                bend.width = Math.Max(additionalWidth, MeasureText(bend.text)) + 3;
-
-                                bend.drawWidth = bend.width.Value / 2;
-
-                                bend.drawWidth = bend.width.Value / 2;
-
-                                totalWidth += bend.width.Value;
-                            }
+                        var bend = this.phrase[i];
+                        if(bend.width.HasValue)
+                        {
+                            totalWidth+=bend.width.Value;
+                        }
+                        else
+                        {
+                            double additionalWidth = (bend.type==BendType.UP) ?
+                              this.renderOptions.bendWidth : this.renderOptions.releaseWidth;
+                            bend.width=Math.Max(additionalWidth,MeasureText(bend.text))+3;
+                            bend.drawWidth=bend.width.Value/2;
+                            bend.drawWidth=bend.width.Value/2;
+                            totalWidth+=bend.width.Value;
+                        }
                     }
-                    this.Width = totalWidth + this.xShift;
+                    this.Width=totalWidth+this.xShift;
                     return this;
                 }
-
-
                 private double MeasureText(string text)
                 {
                     double textWidth;
-                    if (this.Context != null)
+                    if(this.Context!=null)
                     {
-                        //textWidth= that.context.measureText(text).width;
-                        //此处还不知道context.measureText(text)返回什么，除了width属性还有什么等等，暂且赋值为零。
-                        textWidth = 0;
+                        textWidth=this.context.MeasureText(text).width;
                     }
                     else
                     {
-                        textWidth = Vex.Flow.TextWidth(text);
+                        textWidth=Vex.Flow.TextWidth(text);
                     }
-
-                    return textWidth; ;
+                    return textWidth;
                 }
 
-
                 public override void Draw()
-                { }
+                {
+                    throw new NotImplementedException();
+                }
                 #endregion
-
-
-
 
                 #region 隐含的字段
                 protected string text;
-                protected string font;
                 protected BendRenderOpts renderOptions;
                 protected IList<PhraseModel> phrase;
                 protected bool release;
-                #endregion          
+                #endregion
             }
         }
     }

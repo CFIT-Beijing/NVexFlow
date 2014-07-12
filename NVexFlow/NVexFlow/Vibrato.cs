@@ -1,4 +1,4 @@
-﻿//对应vibrato.js
+﻿//对应 vibrato.js
 //框架：    已完成
 //类型定义：存在改进空间
 //原js：    存在改进空间
@@ -20,7 +20,7 @@ namespace NVexFlow
                 {
                     Init();
                 }
-                public override void Init()
+                public new void Init()
                 {
                     this.harsh=false;
                     this.position=Vex.Flow.Modifier.ModifierPosition.RIGHT;

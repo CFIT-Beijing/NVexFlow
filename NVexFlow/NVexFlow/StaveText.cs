@@ -1,38 +1,39 @@
-﻿using System.Collections.Generic;
+﻿//对应 stavetext.js
+//框架：    未完成
+//类型定义：存在改进空间
+//原js：    存在改进空间
+using System;
 using NVexFlow.Model;
-
 namespace NVexFlow
-{//StaveText
+{
     public partial class Vex
     {
         public partial class Flow
         {
-            public class StaveText : Modifier
+            public class StaveText:Modifier
             {
                 #region 方法
-                public StaveText(string text, ModifierPosition position, StaveTextOpts options)
+                public StaveText(string text,ModifierPosition position,StaveTextOpts options)
                 {
-                    Init(text, position, options);
+                    Init(text,position,options);
                 }
 
-                public void Init(string text, ModifierPosition position, StaveTextOpts options)
+                public void Init(string text,ModifierPosition position,StaveTextOpts options)
                 {
-                    this.Width = 16;
-                    this.text = text;
-                    this.position = position;
-                    this.options = new StaveTextOpts()
-                    {
-                        shiftX = 0,
-                        shiftY = 0,
-                        justification = Vex.Flow.TextNote.TextNoteJustification.CENTER
+                    this.Width=16;
+                    this.text=text;
+                    this.position=position;
+                    this.options=new StaveTextOpts() {
+                        shiftX=0,
+                        shiftY=0,
+                        justification=Vex.Flow.TextNote.TextNoteJustification.CENTER
                     };
 
-                    Vex.Merge(this.options, options);
-                    this.font = new Font()
-                    {
-                        family = "times",
-                        size = 16,
-                        weight = "normal"
+                    Vex.Merge(this.options,options);
+                    this.font=new Font() {
+                        family="times",
+                        size=16,
+                        weight="normal"
                     };
                 }
 
@@ -42,30 +43,40 @@ namespace NVexFlow
                 }
 
                 public void Draw(Stave stave)
-                { }
+                {
+                }
                 #endregion
 
 
                 #region 属性字段
-                
+
                 public string StaveTxt
                 {
-                    set { this.text = value; }
+                    set
+                    {
+                        this.text=value;
+                    }
                 }
                 private string text;
 
 
                 public double ShiftX
                 {
-                    set { shiftX = value; }
+                    set
+                    {
+                        shiftX=value;
+                    }
                 }
                 private double shiftX;
 
 
-               
+
                 public double ShiftY
                 {
-                    set { shiftY = value; }
+                    set
+                    {
+                        shiftY=value;
+                    }
                 }
                 private double shiftY;
 
@@ -75,7 +86,7 @@ namespace NVexFlow
                 {
                     set
                     {
-                        Vex.Merge(this.font, value);
+                        Vex.Merge(this.font,value);
                     }
 
                 }
@@ -83,7 +94,10 @@ namespace NVexFlow
 
                 public string Text
                 {
-                    set { this.text = value; }
+                    set
+                    {
+                        this.text=value;
+                    }
                 }
 
 

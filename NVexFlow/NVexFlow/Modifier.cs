@@ -1,7 +1,9 @@
-﻿//对应modifier.js
+﻿//对应 modifier.js
 //框架：    已完成
 //类型定义：存在改进空间
 //原js：    存在改进空间
+using System;
+
 namespace NVexFlow
 {
     public partial class Vex
@@ -44,7 +46,7 @@ namespace NVexFlow
                 /// The constructor sets initial widhts and constants.
                 /// </summary>
                 public virtual void Init()
-                {
+                {//C#缺省初始化可以替代这个初始化，里程碑2阶段省去这个初始化
                     //暂时不理会初始化函数顺序和属性get/set顺序不同问题
                     //以后再完善这些细节一致性，进一步增加代码可读性
                     this.width=0;
@@ -201,9 +203,11 @@ namespace NVexFlow
                 /// <summary>
                 /// Render the modifier onto the canvas.
                 /// </summary>
-                public abstract void Draw();
+                public virtual void Draw()
+                {//曾在StaveSection这样不适用无参数draw的子类
+                    throw new NotImplementedException();
+                }
                 #endregion
-
 
                 #region 隐含的字段
                 protected double width;

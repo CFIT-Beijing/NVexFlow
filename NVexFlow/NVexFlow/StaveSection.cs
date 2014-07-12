@@ -1,30 +1,35 @@
-﻿
+﻿//对应 stavesection.js
+//框架：    已完成
+//类型定义：存在改进空间
+//原js：    存在改进空间
+using System;
 namespace NVexFlow
-{//StaveSection
+{
     public partial class Vex
     {
         public partial class Flow
         {
-            public class StaveSection : Modifier
+            public class StaveSection:Modifier
             {
                 #region js直译部分
-                public StaveSection(object section, double x, double shift_y)
+                public StaveSection(object section,double x,double shift_y)
                 {
-                    Init(section, x, shift_y);
+                    Init(section,x,shift_y);
                 }
-
-
-                public void Init(object section, double x, double shift_y)
+                public void Init(object section,double x,double shift_y)
                 {
-                    this.section = section;
-                    this.shiftX = 0;
-                    this.shiftY = shift_y;
-                    this.x = x;
-                    this.position = ModifierPosition.ABOVE;
-                    this.font = new Font() { family = "sans-serif", size = 12, weight = "bold" };
+                    this.width=16;
+                    this.section=section;
+                    this.position=ModifierPosition.ABOVE;
+                    this.x=x;
+                    this.shiftX=0;
+                    this.shiftY=shift_y;
+                    this.font=new Font() {
+                        family="sans-serif",
+                        size=12,
+                        weight="bold"
+                    };
                 }
-
-
                 public override string Category
                 {
                     get
@@ -32,44 +37,39 @@ namespace NVexFlow
                         return "stavesection";
                     }
                 }
-
-
                 public object Section
                 {
-                    set { section = value; }
+                    set
+                    {
+                        section=value;
+                    }
                 }
-
-
                 public double ShiftX
                 {
-                    set { shiftX = value; }
+                    set
+                    {
+                        shiftX=value;
+                    }
                 }
-
-
                 public double ShiftY
                 {
-                    set { shiftY = value; }
+                    set
+                    {
+                        shiftY=value;
+                    }
                 }
-
-
-                public override void Draw()
+                public void Draw(object stave,double shift_x)
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
-
-                public void Draw(object stave, double shift_x)
-                { }
                 #endregion
-
-
                 #region 隐含的字段
                 protected object section;
                 protected double shiftX;
                 protected double shiftY;
-                protected double x;           
+                protected double x;
                 #endregion
             }
         }
-
     }
 }
