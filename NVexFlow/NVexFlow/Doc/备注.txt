@@ -8,7 +8,7 @@
         FretHandFinger,//里程碑1阶段可以了
         Stroke,//里程碑1阶段可以了
         StringNumber,//里程碑1阶段可以了
-        StaveText,//未达到里程碑1阶段标准                     这个改完了
+        StaveText,//里程碑1阶段可以了
         StaveSection,//里程碑1阶段可以了
         GraceNoteGroup,//未达到里程碑1阶段标准          这个类哪里需要改？新版本vexFlow我下了，没看出问题来。
         Dot,//里程碑1阶段可以了

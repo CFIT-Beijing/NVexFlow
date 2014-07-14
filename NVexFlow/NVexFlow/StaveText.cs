@@ -1,5 +1,5 @@
 ﻿//对应 stavetext.js
-//框架：    未完成
+//框架：    已完成
 //类型定义：存在改进空间
 //原js：    存在改进空间
 using System;
@@ -12,7 +12,7 @@ namespace NVexFlow
         {
             public class StaveText:Modifier
             {
-                #region 方法
+                #region js直译部分
                 public StaveText(string text,ModifierPosition position,StaveTextOpts options)
                 {
                     Init(text,position,options);
@@ -46,50 +46,47 @@ namespace NVexFlow
                 {
                     set
                     {
-                        this.text = value;
+                        this.text=value;
                     }
                 }
                 public double ShiftX
                 {
                     set
                     {
-                        shiftX = value;
+                        shiftX=value;
                     }
                 }
                 public double ShiftY
                 {
                     set
                     {
-                        shiftY = value;
+                        shiftY=value;
                     }
                 }
                 public Font Font
                 {
                     set
                     {
-                        Vex.Merge(this.font, value);
+                        Vex.Merge(this.font,value);
                     }
                 }
                 public string Text
                 {
                     set
                     {
-                        this.text = value;
+                        this.text=value;
                     }
-                }
-                public override void Draw()
-                {
-                    throw new System.NotImplementedException();
                 }
                 public void Draw(Stave stave)
                 {
+                    throw new NotImplementedException();
                 }
                 #endregion
 
 
-                #region 属性字段
-                protected string text;            
-                protected double shiftX;         
+                #region 隐含的字段
+                protected string text;
+                protected double shiftX;
                 protected double shiftY;
                 protected StaveTextOpts options;
                 #endregion

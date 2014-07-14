@@ -220,6 +220,7 @@ namespace NVexFlow
                 protected double xShift;
                 protected double yShift;
                 //每个子类都有font字段，是不是放到抽象类里？还是按照js的放到每个类里？
+                //放这里可以，不过这个是里程碑2的工作任务了。
                 protected Font font;
                 #endregion
             }
