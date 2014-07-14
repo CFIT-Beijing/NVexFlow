@@ -17,7 +17,6 @@ namespace NVexFlow
                 {
                     Init(text,position,options);
                 }
-
                 public void Init(string text,ModifierPosition position,StaveTextOpts options)
                 {
                     this.Width=16;
@@ -36,12 +35,52 @@ namespace NVexFlow
                         weight="normal"
                     };
                 }
-
+                public override string Category
+                {
+                    get
+                    {
+                        return "stavetext";
+                    }
+                }
+                public string StaveTxt
+                {
+                    set
+                    {
+                        this.text = value;
+                    }
+                }
+                public double ShiftX
+                {
+                    set
+                    {
+                        shiftX = value;
+                    }
+                }
+                public double ShiftY
+                {
+                    set
+                    {
+                        shiftY = value;
+                    }
+                }
+                public Font Font
+                {
+                    set
+                    {
+                        Vex.Merge(this.font, value);
+                    }
+                }
+                public string Text
+                {
+                    set
+                    {
+                        this.text = value;
+                    }
+                }
                 public override void Draw()
                 {
                     throw new System.NotImplementedException();
                 }
-
                 public void Draw(Stave stave)
                 {
                 }
@@ -49,61 +88,10 @@ namespace NVexFlow
 
 
                 #region 属性字段
-
-                public string StaveTxt
-                {
-                    set
-                    {
-                        this.text=value;
-                    }
-                }
-                private string text;
-
-
-                public double ShiftX
-                {
-                    set
-                    {
-                        shiftX=value;
-                    }
-                }
-                private double shiftX;
-
-
-
-                public double ShiftY
-                {
-                    set
-                    {
-                        shiftY=value;
-                    }
-                }
-                private double shiftY;
-
-
-
-                public Font Font
-                {
-                    set
-                    {
-                        Vex.Merge(this.font,value);
-                    }
-
-                }
-                private Font font;
-
-                public string Text
-                {
-                    set
-                    {
-                        this.text=value;
-                    }
-                }
-
-
-
-                Modifier.ModifierPosition position;
-                StaveTextOpts options;
+                protected string text;            
+                protected double shiftX;         
+                protected double shiftY;
+                protected StaveTextOpts options;
                 #endregion
             }
         }

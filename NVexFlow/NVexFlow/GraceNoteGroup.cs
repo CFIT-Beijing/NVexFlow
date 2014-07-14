@@ -41,30 +41,29 @@ namespace NVexFlow
                     this.voice.Strict=false;
                     this.voice.AddTickables(graceNotes);
                 }
-                //里程碑1阶段统一使用下面的vexflow版本
-                //https://github.com/0xfe/vexflow/commit/373c8400f05dff7de7481793d32f77a1286974fb
                 public void PreFormat()
-                {//vexflow版本不同
-                    throw new NotImplementedException();
-                    //if(this.preFormatted)
-                    //    return;
-                    //this.formatter.JoinVoices(new List<Voice>() { this.voice }).Format(new List<Voice>() { this.voice },0,null);
-                    //this.Width=this.formatter.MinTotalWidth;
-                    //this.preFormatted=true;
+                {
+                    if (this.preFormatted)
+                    {
+                        return;
+                    }
+                    this.formatter.JoinVoices(new List<Voice>() { this.voice }).Format(new List<Voice>() { this.voice }, 0, null);
+                    this.Width = this.formatter.MinTotalWidth;
+                    this.preFormatted = true;
                 }
                 public GraceNoteGroup BeamNotes()
-                {//vexflow版本不同
-                    throw new NotImplementedException();
-                    //if(this.graceNotes.Count()>1)
-                    //{
-                    //    Beam beam = new Beam(this.graceNotes,null);
-                    //    beam.RenderOptions=new BeamRenderOpts() {
-                    //        BeamWidth=3,
-                    //        PartialBeamLength=4
-                    //    };
-                    //    this.beam=beam;
-                    //}
-                    //return this;
+                {
+                    if(this.graceNotes.Count()>1)
+                    {
+                        Beam beam = new Beam(this.graceNotes, null);
+                        beam.RenderOptions = new BeamRenderOpts()
+                        {
+                            BeamWidth = 3,
+                            PartialBeamLength = 4
+                        };
+                        this.beam = beam;
+                    }
+                    return this;
                 }
                 public override Note Note
                 {

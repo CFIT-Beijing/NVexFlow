@@ -2,15 +2,15 @@
 {
     Vex//里程碑1阶段可以了
     Modifier及其衍生类:
-        Modifier,//里程碑1阶段可以了
+        Modifier,//里程碑1阶段可以了                            这个类你再看一下，本身没有font字段，我看每个子类都有font，就把font加到这个类里了。你看看合不合适
         Tremolo,//里程碑1阶段可以了
         Vibrato,//里程碑1阶段可以了
         FretHandFinger,//里程碑1阶段可以了
         Stroke,//里程碑1阶段可以了
         StringNumber,//里程碑1阶段可以了
-        StaveText,//未达到里程碑1阶段标准
+        StaveText,//未达到里程碑1阶段标准                     这个改完了
         StaveSection,//里程碑1阶段可以了
-        GraceNoteGroup,//未达到里程碑1阶段标准
+        GraceNoteGroup,//未达到里程碑1阶段标准          这个类哪里需要改？新版本vexFlow我下了，没看出问题来。
         Dot,//里程碑1阶段可以了
         Bend,//里程碑1阶段可以了
         Articulation,//里程碑1阶段可以了
@@ -21,3 +21,4 @@
 Modifier分支未完成的有：
 1、index属性暂时不知道什么意思
 2、Draw方法
+
