@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿//对应 note.js
+using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -53,7 +55,7 @@ namespace NVexFlow
                 }
 
 
-                private Stave stave;
+                protected Stave stave;
 
                 public override bool PreFormatted
                 {
@@ -187,13 +189,13 @@ namespace NVexFlow
 
 
                 #region 方法
-                public Note(object note_struct)
+                public Note(NoteStruct note_struct)
                 {
                     Init(note_struct);
                 }
 
 
-                public virtual void Init(object noteStruct)
+                private void Init(NoteStruct noteStruct)
                 {
 
 

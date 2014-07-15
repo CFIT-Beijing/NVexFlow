@@ -1,5 +1,6 @@
 ﻿using NVexFlow.MODEL;
 using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {//TimeSignature
@@ -48,7 +49,7 @@ namespace NVexFlow
                 }
 
 
-                public void Init(string timeSpec, double customPadding)
+                private void Init(string timeSpec, double customPadding)
                 {
                     double padding = customPadding == 0 ? padding = 15 : padding = customPadding;
                     this.Padding = padding;

@@ -61,7 +61,7 @@ namespace NVexFlow
                     Init(type, number, x, y_shift);
                 }
 
-                public void Init(VoltaType type, int number, double x, double y_shift)
+                private void Init(VoltaType type, int number, double x, double y_shift)
                 {
                     this.type = type;
                     this.x = x;

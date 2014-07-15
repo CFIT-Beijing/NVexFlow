@@ -58,7 +58,7 @@ namespace NVexFlow
                 public static void DrawDashedLine(object context, double fromX, double fromY, double toX, double toY, object dashPattern)
                 { }
 
-                public void Init(object sel, object backend)
+                private void Init(object sel, object backend)
                 { }
 
                 public Renderer Resize(double width, double height)

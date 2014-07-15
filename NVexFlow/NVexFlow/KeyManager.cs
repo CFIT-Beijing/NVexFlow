@@ -19,7 +19,7 @@ namespace NVexFlow
                     Init(key);
                 }
 
-                public void Init(object key)
+                private void Init(object key)
                 { }
 
                 public void Reset()

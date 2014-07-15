@@ -26,7 +26,7 @@ namespace NVexFlow
                     Init();
                 }
 
-                public void Init()
+                private void Init()
                 {
                     this.padding = 10;
                 }

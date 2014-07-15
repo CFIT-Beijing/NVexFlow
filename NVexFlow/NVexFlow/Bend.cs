@@ -64,7 +64,7 @@ namespace NVexFlow
                     UP = 0,
                     DOWN = 1
                 }
-                public void Init(string text,bool release,IList<PhraseModel> phrase)
+                private void Init(string text,bool release,IList<PhraseModel> phrase)
                 {
                     this.text=text;
                     this.xShift=0;

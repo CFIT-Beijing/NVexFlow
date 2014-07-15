@@ -1,4 +1,5 @@
-﻿
+﻿////对应 ghostnote.js
+using NVexFlow.Model;
 namespace NVexFlow
 {//GhostNote
     public partial class Vex
@@ -23,13 +24,13 @@ namespace NVexFlow
 
 
                 #region 方法
-                public GhostNote(object duration)
+                public GhostNote(NoteStruct duration)
                     : base(duration)
                 {
 
                 }
 
-                public override void Init(object parameter)
+                private void Init(object parameter)
                 {
                     if (parameter == null)
                     { }

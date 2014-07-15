@@ -39,7 +39,7 @@ namespace NVexFlow
                 public StaveTempo(object tempo, double x, double shift_y)
                 { }
 
-                public void Init(object tempo, double x, double shift_y)
+                private void Init(object tempo, double x, double shift_y)
                 { }
 
 

@@ -26,7 +26,7 @@ namespace NVexFlow
                     Init(notes);
                 }
 
-                public void Init(IList<object> notes)
+                private void Init(IList<object> notes)
                 { }
 
                 object context;

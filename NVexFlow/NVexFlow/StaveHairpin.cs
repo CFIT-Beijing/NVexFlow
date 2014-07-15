@@ -22,7 +22,7 @@ namespace NVexFlow
                 public static void FormatByTicksAndDraw(object ctx, object formatter, IList<object> notes, object type, object position, IList<object> options)
                 { }
 
-                public void Init(IList<object> notes, object type)
+                private void Init(IList<object> notes, object type)
                 { }
 
                 object context;

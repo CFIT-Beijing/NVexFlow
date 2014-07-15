@@ -20,7 +20,7 @@ namespace NVexFlow
                 {
                     Init(number);
                 }
-                public void Init(object number)
+                private void Init(object number)
                 {
                     this.note=null;
                     this.index=null;

@@ -11,7 +11,7 @@ namespace NVexFlow
                 public TickContext()
                 { }
 
-                public void Init()
+                private void Init()
                 { }
 
                 object context;

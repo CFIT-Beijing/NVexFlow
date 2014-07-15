@@ -21,7 +21,7 @@ namespace NVexFlow
                     Init(number);
                 }
 
-                public void Init(string number)
+                private void Init(string number)
                 {
                     this.note=null;
                     this.lastNote=null;

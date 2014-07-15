@@ -25,7 +25,7 @@ namespace NVexFlow
                 public StaveConnector(object top_stave, object bottom_stave)
                 { Init(top_stave, bottom_stave); }
 
-                public void Init(object top_stave, object bottom_stave)
+                private void Init(object top_stave, object bottom_stave)
                 { }
 
                 object ctx;

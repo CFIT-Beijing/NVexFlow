@@ -22,3 +22,11 @@ Modifier分支未完成的有：
 1、index属性暂时不知道什么意思
 2、Draw方法
 
+GraceNote:StaveNote
+GhostNote  StaveNote  TabNote: StemmableNote:Note
+TimeSigNote  TextNote NoteHead  Crescendo  ClefNote  BarNote:Note
+Note:Tickable
+
+父类构造函数的参数组成：
+{ keys: ["a/3"], duration: "q", stem_direction: 1 }  {glyph: "f", duration: "16"}  {duration: "4",line: 3 }
+

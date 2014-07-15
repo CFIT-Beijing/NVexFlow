@@ -22,7 +22,7 @@ namespace NVexFlow
                 {
                     Init(num);
                 }
-                public void Init(int num)
+                private void Init(int num)
                 {
                     this.num=num;
                     //里程碑2阶段去掉这类重复初始化

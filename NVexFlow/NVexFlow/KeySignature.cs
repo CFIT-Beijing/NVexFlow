@@ -25,7 +25,7 @@ namespace NVexFlow
                     Init(keySpec);
                 }
 
-                public void Init(object keySpec)
+                private void Init(object keySpec)
                 {
 
                 }

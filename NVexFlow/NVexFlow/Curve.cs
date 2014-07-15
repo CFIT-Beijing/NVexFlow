@@ -16,7 +16,7 @@ namespace NVexFlow
                 public Curve(object from, object to, IList<object> options)
                 { }
 
-                public void Init(object from, object to, IList<object> options)
+                private void Init(object from, object to, IList<object> options)
                 {
 
                 }

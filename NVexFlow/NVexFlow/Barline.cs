@@ -37,7 +37,7 @@ namespace NVexFlow
                     Init(type, x);
                 }
 
-                public void Init(BarlineType type, double x)
+                private void Init(BarlineType type, double x)
                 { }
 
 

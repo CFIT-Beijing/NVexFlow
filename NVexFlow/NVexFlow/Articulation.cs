@@ -25,7 +25,7 @@ namespace NVexFlow
                     Init(type);
                 }
                 // Create a new articulation of type `type`, which is an entry in `Vex.Flow.articulationCodes` in `tables.js`.
-                public void Init(string type)
+                private void Init(string type)
                 {
                     this.note=null;
                     this.index=null;

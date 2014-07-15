@@ -17,7 +17,7 @@ namespace NVexFlow
                 {
                     Init(text,position,options);
                 }
-                public void Init(string text,ModifierPosition position,StaveTextOpts options)
+                private void Init(string text,ModifierPosition position,StaveTextOpts options)
                 {
                     this.Width=16;
                     this.text=text;

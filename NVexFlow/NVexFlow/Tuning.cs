@@ -20,7 +20,7 @@ namespace NVexFlow
                     {"eb", "Eb/5,Bb/4,Gb/4,Db/4,Ab/3,Db/3"}
                 };
 
-                public void Init(string tuningString)
+                private void Init(string tuningString)
                 { }
 
                 public int NoteToInteger(string noteString)

@@ -64,7 +64,7 @@ namespace NVexFlow
                     Init(type, x, y_shift);
                 }
 
-                public void Init(object type, double x, double y_shift)
+                private void Init(object type, double x, double y_shift)
                 { }
 
 

@@ -1,4 +1,5 @@
-﻿
+﻿////对应 notehead.js
+using NVexFlow.Model;
 namespace NVexFlow
 {
     public partial class Vex
@@ -111,14 +112,14 @@ namespace NVexFlow
 
 
                 #region 方法
-                public NoteHead(object head_options)
+                public NoteHead(NoteStruct head_options)
                     : base(head_options)
                 {
 
                     Init(head_options);
                 }
 
-                public override void Init(object head_options)
+                private void Init(NoteStruct head_options)
                 { }
 
 

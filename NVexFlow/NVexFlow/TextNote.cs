@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -49,13 +50,13 @@ namespace NVexFlow
 
                 #region 方法
 
-                public TextNote(object text_struct)
+                public TextNote(NoteStruct text_struct)
                     : base(text_struct)
                 {
                     Init(text_struct);
                 }
 
-                public void Init(object text_struct)
+                private void Init(NoteStruct text_struct)
                 { }
 
 

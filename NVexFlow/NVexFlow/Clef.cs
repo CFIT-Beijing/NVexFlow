@@ -1,5 +1,6 @@
-﻿using NVexFlow.MODEL;
+﻿
 using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -11,14 +12,14 @@ namespace NVexFlow
             public class Clef : StaveModifier
             {
                 #region 静态
-                private static IDictionary<string, MODEL.ClefType> types = new Dictionary<string, MODEL.ClefType>() 
+                private static IDictionary<string, ClefType> types = new Dictionary<string, ClefType>() 
                 {
-                    {"treble",new MODEL.ClefType(){Code="v83",Point=40,Line=3}},
-                    {"bass",new MODEL.ClefType(){Code="v79",Point=40,Line=1}}
+                    {"treble",new ClefType(){code="v83",point=40,line=3}},
+                    {"bass",new ClefType(){code="v79",point=40,line=1}}
                     //...
                 };
 
-                public static IDictionary<string, MODEL.ClefType> Types
+                public static IDictionary<string, ClefType> Types
                 {
                     get { return Clef.types; }
                     set { Clef.types = value; }
@@ -37,7 +38,7 @@ namespace NVexFlow
                     Init(clef);
                 }
 
-                public void Init(string clef)
+                private void Init(string clef)
                 { }
 
                 public void AddModifier(Stave stave)

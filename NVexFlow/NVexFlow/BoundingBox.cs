@@ -9,7 +9,7 @@ namespace NVexFlow
             {
                 public BoundingBox(double x, double y, double w, double h)
                 { }
-                public void Init(double x, double y, double w, double h)
+                private void Init(double x, double y, double w, double h)
                 {
                     this.x = x;
                     this.y = y;

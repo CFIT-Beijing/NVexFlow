@@ -21,7 +21,7 @@ namespace NVexFlow
                 public static double WIDTH;
                 public static double HEIGHT;
 
-                public void Init(IList<object> options)
+                private void Init(IList<object> options)
                 { }
 
                 private object x_begin;

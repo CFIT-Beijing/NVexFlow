@@ -1,4 +1,5 @@
-﻿
+﻿////对应 stemmablenote.js
+using NVexFlow.Model;
 namespace NVexFlow
 {//StemmableNote
     public partial class Vex
@@ -144,12 +145,12 @@ namespace NVexFlow
 
 
                 #region 方法
-                public StemmableNote(object note_struct)
+                public StemmableNote(NoteStruct note_struct)
                     : base(note_struct)
                 {
                     Init(note_struct);
                 }
-                public override void Init(object note_struct)
+                private void Init(NoteStruct note_struct)
                 {
 
                 }

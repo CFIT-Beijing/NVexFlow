@@ -1,6 +1,6 @@
 ﻿
 
-namespace NVexFlow.MODEL
+namespace NVexFlow.Model
 {
     public class TimeSig
     {

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿//对应 Tickable.js
+
+using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -11,55 +13,39 @@ namespace NVexFlow
 
                 #region 属性字段
                 private object context;
-
-                public virtual object Context
-                {
-                    set { context = value; }
-                }
-
                 private object boundingBox;
-
-                public virtual object BoundingBox
-                {
-                    get { return null; }
-                }
-
                 private Fraction ticks;
-
-                public virtual Fraction Ticks
-                {
-                    get { return ticks; }
-                }
-
                 private bool ignoreTicks;
+                private double width;
+                private double xShift;
+                private object voice;
+                private object tuplet;
+                private object modifierContext;
+                private bool preFormatted;
+                private IList<object> modifiers;
+                private object tickContext;
+                private bool postFormatted;
+                private double intrinsicTicks;
+                private Fraction tickMultiplier;
 
                 public virtual bool ShouldIgnoreTicks()
                 {
                     return this.ignoreTicks;
                 }
-
-                private double width;
-
                 public virtual double Width
                 {
                     get { return width; }
                 }
-                private double xShift;
-
                 public virtual double XShift
                 {
                     set { xShift = value; }
                 }
-
-                private object voice;
 
                 public virtual object Voice
                 {
                     get { return voice; }
                     set { voice = value; }
                 }
-
-                private object tuplet;
 
                 public virtual object Tuplet
                 {
@@ -71,19 +57,10 @@ namespace NVexFlow
                     }
                 }
 
-                private object modifierContext;
-
-                private bool preFormatted;
-
                 public virtual bool PreFormatted
                 {
                     set { this.preFormatted = value; }
                 }
-
-                private IList<object> modifiers;
-
-                private object tickContext;
-
                 public virtual object TickContext
                 {
                     set
@@ -92,8 +69,6 @@ namespace NVexFlow
                         this.preFormatted = false;
                     }
                 }
-
-                private bool postFormatted;
                 public virtual Tickable PostFormat()
                 {
                     if (this.postFormatted == true)
@@ -103,9 +78,6 @@ namespace NVexFlow
                     this.postFormatted = true;
                     return this;
                 }
-
-                private double intrinsicTicks;
-
                 public virtual double IntrinsicTicks
                 {
                     get { return intrinsicTicks; }
@@ -115,14 +87,10 @@ namespace NVexFlow
                         intrinsicTicks = value;
                     }
                 }
-
-                private Fraction tickMultiplier;
-
                 public virtual Fraction TickMultiplier
                 {
                     get { return tickMultiplier; }
                 }
-
                 #endregion
 
 
@@ -130,10 +98,8 @@ namespace NVexFlow
                 public Tickable()
                 {
                     Init();
-
                 }
-
-                public virtual void Init()
+                private void Init()
                 {
                     this.intrinsicTicks = 0;
                     this.tickMultiplier = new Fraction(1, 1);
@@ -150,9 +116,18 @@ namespace NVexFlow
                     this.ignoreTicks = false;
                     this.context = null;
                 }
-
-
-
+                public virtual object Context
+                {
+                    set { context = value; }
+                }
+                public virtual object BoundingBox
+                {
+                    get { return null; }
+                }
+                public virtual Fraction Ticks
+                {
+                    get { return ticks; }
+                }
                 public virtual void AddToModifierContext(object mc)
                 {
                     this.modifierContext = mc;

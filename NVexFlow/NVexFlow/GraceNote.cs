@@ -1,4 +1,5 @@
 ﻿
+using NVexFlow.Model;
 namespace NVexFlow
 {
     //GraceNote
@@ -19,7 +20,7 @@ namespace NVexFlow
 
 
                 #region 方法
-                public GraceNote(object note_struct)
+                public GraceNote(NoteStruct note_struct)
                     : base(note_struct)
                 {
                     //this.renderOptions.glyph_font_scale = 22;

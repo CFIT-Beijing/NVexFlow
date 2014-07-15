@@ -29,7 +29,7 @@ namespace NVexFlow
                     RASQUEDO_DOWN = 5,
                     RASQUEDO_UP = 6
                 }
-                public void Init(StrokeType type,StrokeOptions options)
+                private void Init(StrokeType type,StrokeOptions options)
                 {
                     this.note=null;
                     this.options=options;

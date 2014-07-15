@@ -21,7 +21,7 @@ namespace NVexFlow
                 public static double Height = 400;
 
                 object vexFlowCanvasContext;
-                public void Init(object context)
+                private void Init(object context)
                 {
                 }
 

@@ -1,4 +1,4 @@
-﻿using NVexFlow.MODEL;
+﻿using NVexFlow.Model;
 using System.Collections.Generic;
 
 namespace NVexFlow
@@ -38,10 +38,10 @@ namespace NVexFlow
 
                 #region 方法
                 public TimeSigNote(string timeSpec, double customPadding)
-                    : base(new KeyValuePair<string, string>("duration", "b"))
+                    : base(new NoteStruct() { duration="b"})
                 { }
 
-                public void Init(string timeSpec, double customPadding)
+                private void Init(string timeSpec, double customPadding)
                 {
                     TimeSignature timeSignature = new Vex.Flow.TimeSignature(timeSpec, customPadding);
                     this.timeSig = timeSignature.TimeSig;

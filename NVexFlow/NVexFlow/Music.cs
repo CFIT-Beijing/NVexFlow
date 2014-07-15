@@ -33,7 +33,7 @@ namespace NVexFlow
                     Init();
                 }
 
-                public void Init()
+                private void Init()
                 { }
 
                 public bool IsValidNoteValue(object note)

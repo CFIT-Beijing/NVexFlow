@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿////对应 stavenote.js
+using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {//StaveNote
@@ -59,7 +61,7 @@ namespace NVexFlow
 
                 #region 方法
 
-                public StaveNote(object note_struct)
+                public StaveNote(NoteStruct note_struct)
                     : base(note_struct)
                 {
 
@@ -67,7 +69,7 @@ namespace NVexFlow
 
                 }
 
-                public override void Init(object note_struct)
+                private void Init(NoteStruct note_struct)
                 {
 
                 }

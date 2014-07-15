@@ -19,7 +19,7 @@ namespace NVexFlow
                 public Voice(VoiceTimeModel time)
                 { Init(time); }
 
-                public void Init(VoiceTimeModel time)
+                private void Init(VoiceTimeModel time)
                 { }
 
                 IList<object> totalTicks;

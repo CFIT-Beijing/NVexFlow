@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {//Crescendo
@@ -39,7 +40,7 @@ namespace NVexFlow
 
 
                 #region 方法
-                public Crescendo(object note_struct)
+                public Crescendo(NoteStruct note_struct)
                     : base(note_struct)
                 {
                     Init(note_struct);
@@ -47,7 +48,7 @@ namespace NVexFlow
 
 
 
-                public void Init(object note_struct)
+                private void Init(NoteStruct note_struct)
                 { }
 
 

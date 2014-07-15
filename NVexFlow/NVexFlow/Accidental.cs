@@ -27,7 +27,7 @@ namespace NVexFlow
                 /// <summary>
                 /// Create accidental. `type` can be a value from the  `Vex.Flow.accidentalCodes.accidentals` table in `tables.js`. For  example: `#`, `##`, `b`, `n`, etc.
                 /// </summary>
-                public void Init(string type)
+                private void Init(string type)
                 {
                     this.note=null;
                     // The `index` points to a specific note in a chord.

@@ -16,7 +16,7 @@ namespace NVexFlow
                 {
                     Init(section,x,shift_y);
                 }
-                public void Init(object section,double x,double shift_y)
+                private void Init(object section,double x,double shift_y)
                 {
                     this.width=16;
                     this.section=section;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -41,11 +42,11 @@ namespace NVexFlow
 
                 #region 方法
 
-                public TabNote(object tab_struct, object draw_stem)
+                public TabNote(NoteStruct tab_struct, object draw_stem)
                     : base(tab_struct)
                 { Init(tab_struct, draw_stem); }
 
-                public void Init(object tab_struct, object draw_stem)
+                private void Init(object tab_struct, object draw_stem)
                 { }
 
                 public void UpdateWidth()

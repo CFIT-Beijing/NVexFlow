@@ -19,7 +19,7 @@ namespace NVexFlow
                 {
                     Init(graceNotes,showSlur);
                 }
-                public void Init(IList<Tickable> graceNotes,bool showSlur)
+                private void Init(IList<Tickable> graceNotes,bool showSlur)
                 {
                     this.note=null;
                     this.index=null;

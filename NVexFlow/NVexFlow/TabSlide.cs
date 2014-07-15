@@ -41,7 +41,7 @@ namespace NVexFlow
 
 
 
-                public void Init(IList<object> notes, object direction)
+                private void Init(IList<object> notes, object direction)
                 { }
 
                 public void RenderTie(IList<object> @params)

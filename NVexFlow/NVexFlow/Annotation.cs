@@ -42,7 +42,7 @@ namespace NVexFlow
                 /// <summary>
                 /// Create a new `Annotation` with the string `text`.
                 /// </summary>
-                public void Init(string text)
+                private void Init(string text)
                 {
                     this.note=null;
                     this.index=null;

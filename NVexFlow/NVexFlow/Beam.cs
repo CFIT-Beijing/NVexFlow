@@ -39,7 +39,7 @@ namespace NVexFlow
                     Init(notes, autoStem);
                 }
 
-                public void Init(IList<Tickable> notes, bool? autoStem)
+                private void Init(IList<Tickable> notes, bool? autoStem)
                 { }
 
                 public object GetBeamCount()

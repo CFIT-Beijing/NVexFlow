@@ -14,7 +14,7 @@ namespace NVexFlow
                 public Tuplet(IList<object> notes, IList<object> options)
                 { }
 
-                public void Init(IList<object> notes, IList<object> options)
+                private void Init(IList<object> notes, IList<object> options)
                 { }
 
                 public void Attach()
