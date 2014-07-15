@@ -10,7 +10,7 @@
         StringNumber,//里程碑1阶段可以了
         StaveText,//里程碑1阶段可以了
         StaveSection,//里程碑1阶段可以了
-        GraceNoteGroup,//未达到里程碑1阶段标准          这个类哪里需要改？新版本vexFlow我下了，没看出问题来。
+        GraceNoteGroup,//未达到里程碑1阶段标准            这里方法参数没错。js在调用方法的时候不必按照方法签名给参数，所以最后一个参数他没给，我就给了个null。具体的方法定义在formatter最下面。
         Dot,//里程碑1阶段可以了
         Bend,//里程碑1阶段可以了
         Articulation,//里程碑1阶段可以了
@@ -22,6 +22,8 @@ Modifier分支未完成的有：
 1、index属性暂时不知道什么意思
 2、Draw方法
 
+
+//////////////////////////////////////////tickable分支//////////////////////////////////////////
 GraceNote:StaveNote
 GhostNote  StaveNote  TabNote: StemmableNote:Note
 TimeSigNote  TextNote NoteHead  Crescendo  ClefNote  BarNote:Note
