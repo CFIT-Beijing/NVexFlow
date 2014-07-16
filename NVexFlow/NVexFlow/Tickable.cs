@@ -12,7 +12,7 @@ namespace NVexFlow
             {
 
                 #region 属性字段
-                private object context;
+                private CanvasContext context;
                 private object boundingBox;
                 private Fraction ticks;
                 private bool ignoreTicks;
@@ -116,7 +116,7 @@ namespace NVexFlow
                     this.ignoreTicks = false;
                     this.context = null;
                 }
-                public virtual object Context
+                public virtual CanvasContext Context
                 {
                     set { context = value; }
                 }

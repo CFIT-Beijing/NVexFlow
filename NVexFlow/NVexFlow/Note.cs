@@ -11,7 +11,7 @@ namespace NVexFlow
             public class Note : Tickable
             {
                 #region 属性字段
-                private double width;
+                protected double width;
 
                 public virtual double Width
                 {
@@ -25,15 +25,15 @@ namespace NVexFlow
 
                 public bool preFormatted { get; set; }
 
-                double xShift;
+                protected double xShift;
 
                 public virtual double X_shift
                 {
                     set { xShift = value; }
                 }
 
-                double x;
-
+                protected double x;
+                
                 public virtual double X
                 {
                     get
@@ -41,12 +41,16 @@ namespace NVexFlow
                         return x;
                         //
                     }
+                    set
+                    {
+                        this.x = value;
+                    }
                 }
 
-                double leftModPx;
-                double rightModPx;
+                protected double leftModPx;
+                protected double rightModPx;
 
-                object playNote;
+                protected object playNote;
 
                 public object PlayNote
                 {
@@ -75,7 +79,7 @@ namespace NVexFlow
                     }
                 }
 
-                double extraLeftPx;
+                protected double extraLeftPx;
 
                 public double ExtraLeftPx
                 {
@@ -83,7 +87,7 @@ namespace NVexFlow
                     set { extraLeftPx = value; }
                 }
 
-                double extraRightPx;
+                protected double extraRightPx;
 
                 public double ExtraRightPx
                 {
@@ -91,21 +95,21 @@ namespace NVexFlow
                     set { extraRightPx = value; }
                 }
 
-                bool ignoreTicks;
+                protected bool ignoreTicks;
 
                 public bool ShouldIgnore_ticks
                 {
                     get { return ignoreTicks; }
                 }
 
-                object lineNumber;
+                protected object lineNumber;
 
                 public object LineNumber
                 {
                     get { return 0; }
                 }
 
-                object lineForRest;
+                protected object lineForRest;
 
                 public object LineForRest
                 {
@@ -114,7 +118,7 @@ namespace NVexFlow
 
 
 
-                object glyph;
+                protected object glyph;
 
                 public virtual object Glyph
                 {
@@ -122,7 +126,7 @@ namespace NVexFlow
                 }
 
 
-                IList<object> ys;
+                protected IList<object> ys;
 
                 public IList<object> Ys
                 {
@@ -134,7 +138,7 @@ namespace NVexFlow
                     set { ys = value; }
                 }
 
-                object voice;
+                protected object voice;
                 public override object Voice
                 {
                     get
@@ -150,16 +154,16 @@ namespace NVexFlow
                     }
                 }
 
-                IList<object> positions;
+                protected IList<object> positions;
 
-                object duration;
+                protected object duration;
 
                 public object Duration
                 {
                     get { return duration; }
                 }
 
-                int dots;
+                protected int dots;
 
                 public int Dots
                 {
@@ -167,7 +171,7 @@ namespace NVexFlow
                 }
 
 
-                object noteType;
+                protected object noteType;
 
                 public object NoteType
                 {
@@ -181,9 +185,9 @@ namespace NVexFlow
                     set { modifierContext = value; }
                 }
 
-                object context;
+                protected CanvasContext context;
 
-                object renderOptions;
+                protected object renderOptions;
 
                 #endregion
 
@@ -255,9 +259,12 @@ namespace NVexFlow
                     return 0;
                 }
 
-                public virtual double GetAbsoluteX()
+                public virtual double AbsoluteX
                 {
-                    return 0;
+                    get
+                    {
+                        return 0;
+                    }
                 }
 
                 #endregion

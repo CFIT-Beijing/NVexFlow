@@ -13,6 +13,6 @@ namespace NVexFlow.Model
         public string duration;
         public int stemDirection;
         public string glyph;
-        public int line;
+        public int? line;
     }
 }
