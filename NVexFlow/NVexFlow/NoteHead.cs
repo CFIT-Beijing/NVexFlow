@@ -132,7 +132,10 @@ namespace NVexFlow
                         //var x = !this.preFormatted ? this.x : getAbsoluteX.call(this);
 
                         //return x + (this.displaced ? this.width * this.stem_direction : 0);
-
+                        //*************************************************************************************//
+                        //var getAbsoluteX = NoteHead.superclass.getAbsoluteX;
+                        //getAbsoluteX.call(this);
+                        //用父类的方法，通过子类的字段得到一个x，说明子类父类字段的值不一致。
                         return 0;
                     }
                 }

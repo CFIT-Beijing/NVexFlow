@@ -36,10 +36,9 @@ namespace NVexFlow
                     {
                         //var superclass = Vex.Flow.ClefNote.superclass;
                         //superclass.setStave.call(this, stave);
-                        //这里的意思是，这样显示的声明，才说明我要在子类的方法中调用父类的赋值方法。
-                        //目前我们的做法是不管他是否这样显示的声明，通通忽略base和this的差异，一律使用base的protected的stave？这就是上次说的翻译时语义上存在差异，但是执行结果不一定受影响，主要还是看他后面怎么用的
+                        //这里的意思是，调用父类的方法，为子类stave字段赋值。赋值完成后，父类的该字段不应该受影响。（父类子类都有stave字段，值不一样）
 
-                        this.stave = value;//这里的stave是父类的protected的stave，在这里这样用是对的，但是其他地方我们也都是这样用的
+                        this.stave = value;
                     }
                 }
                 public BoundingBox BoundingBox
