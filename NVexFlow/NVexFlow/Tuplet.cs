@@ -67,15 +67,15 @@ namespace NVexFlow
                     set { num_notes = value; }
                 }
 
-                object beats_occupied;
+                int beatsOccupied;
 
-                public object Beats_occupied
+                public int BeatsOccupied
                 {
-                    get { return beats_occupied; }
+                    get { return beatsOccupied; }
                     set
                     {
                         //
-                        beats_occupied = value;
+                        beatsOccupied = value;
                     }
                 }
 

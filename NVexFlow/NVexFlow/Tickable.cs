@@ -1,5 +1,6 @@
 ﻿//对应 Tickable.js
 
+using System;
 using System.Collections.Generic;
 
 namespace NVexFlow
@@ -10,91 +11,7 @@ namespace NVexFlow
         {
             public class Tickable
             {
-
-                #region 属性字段
-                private CanvasContext context;
-                private object boundingBox;
-                private Fraction ticks;
-                private bool ignoreTicks;
-                private double width;
-                private double xShift;
-                private object voice;
-                private object tuplet;
-                private object modifierContext;
-                private bool preFormatted;
-                private IList<object> modifiers;
-                private object tickContext;
-                private bool postFormatted;
-                private double intrinsicTicks;
-                private Fraction tickMultiplier;
-
-                public virtual bool ShouldIgnoreTicks()
-                {
-                    return this.ignoreTicks;
-                }
-                public virtual double Width
-                {
-                    get { return width; }
-                }
-                public virtual double XShift
-                {
-                    set { xShift = value; }
-                }
-
-                public virtual object Voice
-                {
-                    get { return voice; }
-                    set { voice = value; }
-                }
-
-                public virtual object Tuplet
-                {
-                    get { return tuplet; }
-                    set
-                    {
-                        //需要重写
-                        tuplet = value;
-                    }
-                }
-
-                public virtual bool PreFormatted
-                {
-                    set { this.preFormatted = value; }
-                }
-                public virtual object TickContext
-                {
-                    set
-                    {
-                        tickContext = value;
-                        this.preFormatted = false;
-                    }
-                }
-                public virtual Tickable PostFormat()
-                {
-                    if (this.postFormatted == true)
-                    {
-                        return null;
-                    }
-                    this.postFormatted = true;
-                    return this;
-                }
-                public virtual double IntrinsicTicks
-                {
-                    get { return intrinsicTicks; }
-                    set
-                    {
-                        //需要重写
-                        intrinsicTicks = value;
-                    }
-                }
-                public virtual Fraction TickMultiplier
-                {
-                    get { return tickMultiplier; }
-                }
-                #endregion
-
-
-                #region 方法
+                #region js直译部分
                 public Tickable()
                 {
                     Init();
@@ -118,7 +35,7 @@ namespace NVexFlow
                 }
                 public virtual CanvasContext Context
                 {
-                    set { context = value; }
+                    set { this.context = value; }
                 }
                 public virtual object BoundingBox
                 {
@@ -126,36 +43,147 @@ namespace NVexFlow
                 }
                 public virtual Fraction Ticks
                 {
-                    get { return ticks; }
+                    get { return this.ticks; }
                 }
-                public virtual void AddToModifierContext(object mc)
+                public virtual bool ShouldIgnoreTicks()
+                {
+                    return this.ignoreTicks;
+                }
+                public virtual double Width
+                {
+                    get { return this.width; }
+                }
+                public virtual double XShift
+                {
+                    set { xShift = value; }
+                }
+                public virtual object Voice
+                {
+                    get
+                    {
+                        if (this.voice == null)
+                        {
+                            throw new Exception("NoVoice, Tickable has no voice.");//抛出异常是否需要封装？new Vex.RERR（“XXXXXXXXXXXX”）？
+                        }
+                        return this.voice;
+                    }
+                    set { this.voice = value; }
+                }
+                public virtual Tuplet Tuplet
+                {
+                    get { return this.tuplet; }
+                    set
+                    {
+                        // Detach from previous tuplet
+                        int noteCount;
+                        int beatsOccupied;
+                        if (this.tuplet != null)
+                        {
+                            noteCount = this.tuplet.NotesCount;
+                            beatsOccupied = this.tuplet.BeatsOccupied;
+                            // Revert old multiplier
+                            this.ApplyTickMultiplier(noteCount, beatsOccupied);
+                        }
+
+                        // Attach to new tuplet
+                        if (value != null)
+                        {
+                            noteCount = value.NotesCount;
+                            beatsOccupied = value.BeatsOccupied;
+                            this.ApplyTickMultiplier(beatsOccupied,noteCount);
+                        }
+
+                        this.tuplet = value;
+                    }
+                }
+                /** optional, if tickable has modifiers **/
+                public virtual void AddToModifierContext(ModifierContext mc)
                 {
                     this.modifierContext = mc;
+                    // Add modifiers to modifier context (if any)
                     this.preFormatted = false;
                 }
-
-
                 public virtual Tickable AddModifier(object mod)
                 {
                     this.modifiers.Add(mod);
                     this.preFormatted = false;
                     return this;
                 }
-
-
-
-                public virtual void PreFormat()
-                { }
-
-                public virtual string Category
+                public virtual object TickContext
                 {
-                    get {
-                        return "";
+                    set
+                    {
+                        this.tickContext = value;
+                        this.preFormatted = false;
                     }
                 }
+                public virtual void PreFormat()
+                {
+                    if (this.preFormatted == false)
+                    {
+                        this.width = 0;
+                        if (this.modifierContext != null)
+                        {
+                            this.modifierContext.PreFormat();
+                            this.width += this.modifierContext.Width;
+                        }
+                    }
+                }
+                public virtual Tickable PostFormat()
+                {
+                    if (this.postFormatted == false)
+                    {
+                        this.postFormatted = true;
+                    }                    
+                    return this;
+                }
+                public virtual double IntrinsicTicks
+                {
+                    get { return intrinsicTicks; }
+                    set
+                    {
+                        this.intrinsicTicks = value;
+                        this.ticks = this.tickMultiplier.Clone().Multiply(this.intrinsicTicks, null);
+                    }
+                }
+                public virtual Fraction TickMultiplier
+                {
+                    get { return tickMultiplier; }
+                }
+                public virtual void ApplyTickMultiplier(int numerator, int denominator)
+                {
+                    this.tickMultiplier.Multiply(numerator, denominator);
+                    this.ticks = this.tickMultiplier.Clone().Multiply(this.intrinsicTicks, null);
+                }
+                #endregion
 
-                public virtual void ApplyTickMultiplier(object numerator, object denominator)
-                { }
+
+                #region 隐含字段
+                protected CanvasContext context;
+                protected Fraction ticks;
+                protected bool ignoreTicks;
+                protected double width;
+                protected double xShift;
+                protected object voice;
+                protected Tuplet tuplet;
+                protected ModifierContext modifierContext;
+                protected bool preFormatted;
+                protected IList<object> modifiers;
+                protected object tickContext;
+                protected bool postFormatted;
+                protected double intrinsicTicks;
+                protected Fraction tickMultiplier;
+
+
+
+
+
+                public virtual bool PreFormatted
+                {
+                    set { this.preFormatted = value; }
+                }
+
+
                 #endregion
             }
         }

@@ -71,7 +71,7 @@ namespace NVexFlow
 
 
 
-                public override void AddToModifierContext(object mc)
+                public override void AddToModifierContext(ModifierContext mc)
                 {
                     base.AddToModifierContext(mc);
                 }

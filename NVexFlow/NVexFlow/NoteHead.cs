@@ -67,7 +67,7 @@ namespace NVexFlow
 
                 private void Init(NoteStruct head_options)
                 { }
-                public override string Category
+                public string Category
                 {
                     get
                     {
