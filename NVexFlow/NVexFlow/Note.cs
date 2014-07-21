@@ -1,4 +1,5 @@
-﻿//对应 note.js
+﻿using System;
+//对应 note.js
 using System.Collections.Generic;
 using NVexFlow.Model;
 
@@ -8,50 +9,101 @@ namespace NVexFlow
     {
         public partial class Flow
         {
-            public class Note : Tickable
+            // [VexFlow](http://vexflow.com) - Copyright (c) Mohit Muthanna 2010.
+            //
+            // ## Description
+            //
+            // This file implements an abstract interface for notes and chords that
+            // are rendered on a stave. Notes have some common properties: All of them
+            // have a value (e.g., pitch, fret, etc.) and a duration (quarter, half, etc.)
+            //
+            // Some notes have stems, heads, dots, etc. Most notational elements that
+            // surround a note are called *modifiers*, and every note has an associated
+            // array of them. All notes also have a rendering context and belong to a stave.
+            public abstract class Note : Tickable
             {
-                #region 属性字段
-                protected double width;
+                #region js直译部分
+                // To create a new note you need to provide a `note_struct`, which consists
+                // of the following fields:
+                //
+                // `type`: The note type (e.g., `r` for rest, `s` for slash notes, etc.)
+                // `dots`: The number of dots, which affects the duration.
+                // `duration`: The time length (e.g., `q` for quarter, `h` for half, `8` for eighth etc.)
+                //
+                // The range of values for these parameters are available in `src/tables.js`.
 
-                public virtual double Width
+                /// <summary>
+                /// Every note is a tickable, i.e., it can be mutated by the `Formatter` class for positioning and layout.
+                /// </summary>
+                /// <param name="note_struct"></param>
+                public Note(NoteStruct note_struct)
                 {
-                    get
-                    {
-                        //
-                        return width;
-                    }
-                    set { width = value; }
+                    Init(note_struct);
                 }
 
-                public bool preFormatted { get; set; }
-
-                protected double xShift;
-
-                public virtual double X_shift
+                /// <summary>
+                /// See constructor above for how to create a note.
+                /// </summary>
+                /// <param name="noteStruct"></param>
+                private void Init(NoteStruct noteStruct)
                 {
-                    set { xShift = value; }
-                }
-
-                protected double x;
-                
-                public virtual double X
-                {
-                    get
+                    if (noteStruct == null)
                     {
-                        return x;
-                        //
+                        throw new Exception("BadArguments,Note must have valid initialization data to identifyduration and type.");
                     }
-                    set
-                    {
-                        this.x = value;
-                    }
+      // Parse `note_struct` and get note properties.
+
+      //var initData = Vex.Flow.parseNoteData(note_struct);
+      //if (!initData) {
+      //  throw new Vex.RuntimeError("BadArguments",
+      //      "Invalid note initialization object: " + JSON.stringify(note_struct));
+      //}
+
+      //// Set note properties from parameters.
+      //this.duration = initData.duration;
+      //this.dots = initData.dots;
+      //this.noteType = initData.type;
+      //this.setIntrinsicTicks(initData.ticks);
+      //this.modifiers = [];
+
+      //// Get the glyph code for this note from the font.
+      //this.glyph = Vex.Flow.durationToGlyph(this.duration, this.noteType);
+
+      //if (this.positions &&
+      //    (typeof(this.positions) != "object" || !this.positions.length)) {
+      //  throw new Vex.RuntimeError(
+      //    "BadArguments", "Note keys must be array type.");
+      //}
+
+      //// Note to play for audio players.
+      //this.playNote = null;
+
+      //// Positioning contexts used by the Formatter.
+      //this.tickContext = null;    // The current tick context.
+      //this.modifierContext = null;
+      //this.ignore_ticks = false;
+
+      //// Positioning variables
+      //this.width = 0;             // Width in pixels calculated after preFormat
+      //this.extraLeftPx = 0;       // Extra room on left for offset note head
+      //this.extraRightPx = 0;      // Extra room on right for offset note head
+      //this.x_shift = 0;           // X shift from tick context X
+      //this.left_modPx = 0;        // Max width of left modifiers
+      //this.right_modPx = 0;       // Max width of right modifiers
+      //this.voice = null;          // The voice that this note is in
+      //this.preFormatted = false;  // Is this note preFormatted?
+      //this.ys = [];               // list of y coordinates for each note
+      //                            // we need to hold on to these for ties and beams.
+
+      //// The render surface.
+      //this.context = null;
+      //this.stave = null;
+      //this.render_options = {
+      //  annotation_spacing: 5,
+      //  stave_padding: 12
+      //};
+
                 }
-
-                protected double leftModPx;
-                protected double rightModPx;
-
-                protected object playNote;
-
                 public object PlayNote
                 {
                     get { return playNote; }
@@ -59,15 +111,15 @@ namespace NVexFlow
                 }
 
 
-                protected Stave stave;
-
-                public override bool PreFormatted
+                public bool IsRest()
                 {
-                    set
-                    {
-                        //
-                        preFormatted = value;
-                    }
+                    return false;
+                }
+
+
+                public Note AddStroke(object index, object stroke)
+                {
+                    return this;
                 }
                 public virtual Stave Stave
                 {
@@ -78,56 +130,39 @@ namespace NVexFlow
                         stave = value;
                     }
                 }
-
-                protected double extraLeftPx;
-
+                public override CanvasContext Context
+                {
+                    set
+                    {
+                        base.Context = value;
+                    }
+                }
                 public double ExtraLeftPx
                 {
                     get { return extraLeftPx; }
                     set { extraLeftPx = value; }
                 }
-
-                protected double extraRightPx;
-
                 public double ExtraRightPx
                 {
                     get { return extraRightPx; }
                     set { extraRightPx = value; }
                 }
-
-                protected bool ignoreTicks;
-
                 public bool ShouldIgnore_ticks
                 {
                     get { return ignoreTicks; }
                 }
-
-                protected object lineNumber;
-
                 public object LineNumber
                 {
                     get { return 0; }
                 }
-
-                protected object lineForRest;
-
                 public object LineForRest
                 {
                     get { return 0; }
                 }
-
-
-
-                protected object glyph;
-
                 public virtual object Glyph
                 {
                     get { return glyph; }
                 }
-
-
-                protected IList<object> ys;
-
                 public IList<object> Ys
                 {
                     get
@@ -137,8 +172,17 @@ namespace NVexFlow
                     }
                     set { ys = value; }
                 }
-
-                protected object voice;
+                public virtual double GetYForTopText(object text_line)
+                {
+                    return 0;
+                }
+                public override object BoundingBox
+                {
+                    get
+                    {
+                        return base.BoundingBox;
+                    }
+                }
                 public override object Voice
                 {
                     get
@@ -153,83 +197,22 @@ namespace NVexFlow
                         this.preFormatted = false;
                     }
                 }
+                public override object TickContext
+                {
+                    set
+                    {
+                        base.TickContext = value;
+                    }
+                }
 
-                protected IList<object> positions;
-
-                protected object duration;
-
+                public object GetTickContext()
+                {
+                    return null;
+                }
                 public object Duration
                 {
                     get { return duration; }
                 }
-
-                protected int dots;
-
-                public int Dots
-                {
-                    get { return dots; }
-                }
-
-
-                protected object noteType;
-
-                public object NoteType
-                {
-                    get { return noteType; }
-                }
-
-                object modifierContext;
-
-                public object ModifierContext
-                {
-                    set { modifierContext = value; }
-                }
-
-                protected CanvasContext context;
-
-                protected object renderOptions;
-
-
-                /// <summary>
-                /// js文件没有这个属性。在Modifier分支里有一个属性叫Note，暂时写成了Note类型。为了让不同的Note都能点儿出Category，先在父类里加入了Category
-                /// </summary>
-                public virtual string Category
-                {
-                    get
-                    {
-                        return "";
-                    }
-                }
-                #endregion
-
-
-                #region 方法
-                public Note(NoteStruct note_struct)
-                {
-                    Init(note_struct);
-                }
-
-
-                private void Init(NoteStruct noteStruct)
-                {
-
-
-                }
-
-
-
-                public bool IsRest()
-                {
-                    return false;
-                }
-
-
-                public Note AddStroke(object index, object stroke)
-                {
-                    return this;
-                }
-
-
                 public bool IsDotted()
                 {
                     return (this.dots > 0);
@@ -240,13 +223,23 @@ namespace NVexFlow
                 {
                     return false;
                 }
-
+                public int Dots
+                {
+                    get { return dots; }
+                }
+                public object NoteType
+                {
+                    get { return noteType; }
+                }
 
                 public Note SetBeam()
                 {
                     return this;
                 }
-
+                public ModifierContext ModifierContext
+                {
+                    set { modifierContext = value; }
+                }
 
                 public Note AddModifier(object modifier, object index)
                 {
@@ -254,20 +247,46 @@ namespace NVexFlow
                 }
 
 
-                public object GetModifierStartXY()
+                public object ModifierStartXY
                 {
-                    return null;
+                    get { return null; }
                 }
 
-                public object GetMetrics()
+                public object Metrics
                 {
-                    return null;
+                    get
+                    {
+                        return null;
+                    }
                 }
 
-
-                public virtual double GetYForTopText(object text_line)
+                public override double Width
                 {
-                    return 0;
+                    get
+                    {
+                        //
+                        return width;
+                    }
+                }
+                public Note SetWidth()
+                {
+                    return this;
+                }
+
+                public override double XShift
+                {
+                    set
+                    {
+                        base.XShift = value;
+                    }
+                }
+                public virtual double X
+                {
+                    get
+                    {
+                        return x;
+                        //
+                    }
                 }
 
                 public virtual double AbsoluteX
@@ -277,16 +296,43 @@ namespace NVexFlow
                         return 0;
                     }
                 }
-
+                public override bool PreFormatted
+                {
+                    set
+                    {
+                        //
+                        preFormatted = value;
+                    }
+                }
                 #endregion
 
 
+                #region 隐含字段
+                protected double x;
+                protected double leftModPx;
+                protected double rightModPx;
+                protected object playNote;
+                protected Stave stave;
+                protected double extraLeftPx;
+                protected double extraRightPx;
+                protected object lineNumber;
+                protected object lineForRest;
+                protected object glyph;
+                protected IList<object> ys;
+                protected IList<object> positions;
+                protected object duration;
+                protected int dots;
+                protected object noteType;
+                protected object renderOptions;
+                /// <summary>
+                /// js文件没有这个属性。在Modifier分支里有一个属性叫Note，暂时写成了Note类型。为了让不同的Note都能点儿出Category，先在父类里加入了Category
+                /// </summary>
+                public abstract string Category
+                {
+                    get;
+                }
 
-
-
-
-
-
+                #endregion
             }
         }
 

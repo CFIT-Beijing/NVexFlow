@@ -164,6 +164,11 @@ namespace NVexFlow
                 public virtual void DrawStem()
                 { }
                 #endregion
+
+                public override string Category
+                {
+                    get { throw new System.NotImplementedException(); }
+                }
             }
         }
 

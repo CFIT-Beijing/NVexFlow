@@ -9,7 +9,7 @@ namespace NVexFlow
             public class NoteHead : Note
             {
                 #region 方法
-                public NoteHead(NoteStruct head_options)
+                public NoteHead(NoteHeadStruct head_options)
                     : base(head_options)
                 {
                     Init(head_options);
@@ -65,9 +65,9 @@ namespace NVexFlow
                     //ctx.setLineWidth(1);
                 }
 
-                private void Init(NoteStruct head_options)
+                private void Init(NoteHeadStruct head_options)
                 { }
-                public string Category
+                public override string Category
                 {
                     get
                     {
@@ -106,9 +106,9 @@ namespace NVexFlow
                 }
                 public override double X
                 {
-                    set
+                    get
                     {
-                        this.x = value;
+                        return base.X;
                     }
                 }
                 public double Y

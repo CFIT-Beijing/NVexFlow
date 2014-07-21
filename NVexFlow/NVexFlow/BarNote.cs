@@ -21,7 +21,7 @@ namespace NVexFlow
             {
                 #region js直译部分
                 public BarNote()
-                    : base(new NoteStruct() { duration = "b" })
+                    : base(new BarNoteStruct() { duration = "b" })
                 {
                     Init();
                 }
@@ -40,7 +40,7 @@ namespace NVexFlow
                     this.ignoreTicks = true;
                     this.type = Barline.BarlineType.SINGLE;
                     //// Set width to width of relevant `Barline`.
-                    this.Width = this.metrics.widths[this.type];
+                    //this.Width = this.metrics.widths[this.type];
                 }
                 /// <summary>
                 /// Get and set the type of Bar note. `type` must be one of `Vex.Flow.Barline.type`.
@@ -51,7 +51,7 @@ namespace NVexFlow
                     set
                     {
                         this.type = value;
-                        this.Width = this.metrics.widths[this.type];
+                        //this.Width = this.metrics.widths[this.type];
                     }
                 }
                 public BoundingBox GetBoundingBox()
@@ -83,6 +83,11 @@ namespace NVexFlow
                 protected Model.Metrics metrics;
                 protected bool ignoreTicks;
                 #endregion
+
+                public override string Category
+                {
+                    get { throw new System.NotImplementedException(); }
+                }
             }
         }
     }

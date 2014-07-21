@@ -24,8 +24,10 @@ namespace NVexFlow
 
                 public override double Width
                 {
-                    get { return width; }
-                    set { width = value; }
+                    get
+                    {
+                        return base.Width;
+                    }
                 }
 
                 private bool ignoreTicks = false;
@@ -45,7 +47,7 @@ namespace NVexFlow
                 {
                     TimeSignature timeSignature = new Vex.Flow.TimeSignature(timeSpec, customPadding);
                     this.timeSig = timeSignature.TimeSig;
-                    this.Width = this.timeSig.Glyph.GetMetrics().Width;
+                    //this.Width = this.timeSig.Glyph.GetMetrics().Width;
 
                     //// Note properties
                     this.ignoreTicks = true;
@@ -67,6 +69,11 @@ namespace NVexFlow
 
                 }
                 #endregion
+
+                public override string Category
+                {
+                    get { throw new System.NotImplementedException(); }
+                }
             }
         }
     }

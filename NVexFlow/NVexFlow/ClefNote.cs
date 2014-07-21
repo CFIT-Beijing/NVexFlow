@@ -12,7 +12,7 @@ namespace NVexFlow
             {
                 #region js直译部分
                 public ClefNote(string clef)
-                    : base(new NoteStruct() { duration="b"})
+                    : base(new ClefNoteStruct() { duration="b"})
                 { }
                 private void Init(string clef)
                 {
@@ -27,7 +27,7 @@ namespace NVexFlow
                     {
                         this.clef = value;//外界这样赋值  this.clef= Vex.Flow.Clef.Types["treble"];
                         this.glyph = new Glyph(this.clef.code, this.clef.point, null);
-                        this.Width = this.glyph.GetMetrics().Width;
+                        //this.Width = this.glyph.GetMetrics().Width;
                     }
                 }
                 public override Stave Stave
@@ -67,6 +67,11 @@ namespace NVexFlow
                 private Glyph glyph;
                 private bool ignoreTicks;
                 #endregion
+
+                public override string Category
+                {
+                    get { throw new System.NotImplementedException(); }
+                }
             }
         }
     }

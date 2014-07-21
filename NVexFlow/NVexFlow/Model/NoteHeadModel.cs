@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace NVexFlow.Model
 {
+    public class NoteHeadStruct : NoteStruct
+    {
+        public int? line;
+    }
+
     /// <summary>
     /// `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
     /// </summary>

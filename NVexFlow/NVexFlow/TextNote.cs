@@ -68,6 +68,11 @@ namespace NVexFlow
 
                 public void Draw() { }
                 #endregion
+
+                public override string Category
+                {
+                    get { throw new System.NotImplementedException(); }
+                }
             }
         }
     }

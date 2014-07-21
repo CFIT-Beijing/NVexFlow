@@ -8,11 +8,22 @@ namespace NVexFlow.Model
 {
     public class NoteStruct
     {
-        //{ keys: ["a/3"], duration: "q", stem_direction: 1 }
-        public IList<string> keys;
         public string duration;
-        public int stemDirection;
-        public string glyph;
-        public int? line;
+        //{ keys: ["a/3"], duration: "q", stem_direction: 1 }
+        //public IList<string> keys;
+       
+        //public int stemDirection;
+        //public string glyph;
+        //public int? line;
     }
+
+
+
+
+
+    
+
+
+
+
 }
