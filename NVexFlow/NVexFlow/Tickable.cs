@@ -137,7 +137,7 @@ namespace NVexFlow
                     }                    
                     return this;
                 }
-                public virtual double IntrinsicTicks
+                public virtual int IntrinsicTicks
                 {
                     get { return intrinsicTicks; }
                     set
@@ -171,7 +171,7 @@ namespace NVexFlow
                 protected IList<object> modifiers;
                 protected object tickContext;
                 protected bool postFormatted;
-                protected double intrinsicTicks;
+                protected int intrinsicTicks;
                 protected Fraction tickMultiplier;
 
 

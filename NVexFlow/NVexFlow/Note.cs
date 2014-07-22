@@ -51,58 +51,53 @@ namespace NVexFlow
                     {
                         throw new Exception("BadArguments,Note must have valid initialization data to identifyduration and type.");
                     }
-      // Parse `note_struct` and get note properties.
+                    // Parse `note_struct` and get note properties.
 
-      //var initData = Vex.Flow.parseNoteData(note_struct);
-      //if (!initData) {
-      //  throw new Vex.RuntimeError("BadArguments",
-      //      "Invalid note initialization object: " + JSON.stringify(note_struct));
-      //}
+                    NoteInitData initData = Vex.Flow.ParseNoteData(noteStruct);
+                    if (initData == null)
+                    {
+                        throw new Exception("BadArguments,Invalid note initialization object: ");
+                        //  throw new Vex.RuntimeError("BadArguments",
+                        //      "Invalid note initialization object: " + JSON.stringify(note_struct));
+                    }
+                    // Set note properties from parameters.
+                    this.duration = initData.duration;
+                    this.dots = initData.dots;
+                    this.noteType = initData.type;
+                    this.IntrinsicTicks = initData.ticks;
+                    this.modifiers = new List<object>();
+                    // Get the glyph code for this note from the font.
+                    this.glyph = Vex.Flow.DurationToGlyph(this.duration, this.noteType);
+                    if (this.positions != null)
+                    {
+                        if (!(this.positions is IEnumerable<object>) || this.positions.Count <= 0)
+                        {
+                            throw new Exception("BadArguments,Note keys must be array type.");
+                        }
+                    }
+                    // Note to play for audio players.
+                    this.playNote = null;
+                    // Positioning contexts used by the Formatter.
+                    this.tickContext = null;    // The current tick context.
+                    this.modifierContext = null;
+                    this.ignoreTicks = false;
 
-      //// Set note properties from parameters.
-      //this.duration = initData.duration;
-      //this.dots = initData.dots;
-      //this.noteType = initData.type;
-      //this.setIntrinsicTicks(initData.ticks);
-      //this.modifiers = [];
+                    // Positioning variables
+                    this.width = 0;             // Width in pixels calculated after preFormat
+                    this.extraLeftPx = 0;       // Extra room on left for offset note head
+                    this.extraRightPx = 0;      // Extra room on right for offset note head
+                    this.xShift = 0;           // X shift from tick context X
+                    this.leftModPx = 0;        // Max width of left modifiers
+                    this.rightModPx = 0;       // Max width of right modifiers
+                    this.voice = null;          // The voice that this note is in
+                    this.preFormatted = false;  // Is this note preFormatted?
+                    this.ys = new List<object>();               // list of y coordinates for each note
+                                                // we need to hold on to these for ties and beams.
 
-      //// Get the glyph code for this note from the font.
-      //this.glyph = Vex.Flow.durationToGlyph(this.duration, this.noteType);
-
-      //if (this.positions &&
-      //    (typeof(this.positions) != "object" || !this.positions.length)) {
-      //  throw new Vex.RuntimeError(
-      //    "BadArguments", "Note keys must be array type.");
-      //}
-
-      //// Note to play for audio players.
-      //this.playNote = null;
-
-      //// Positioning contexts used by the Formatter.
-      //this.tickContext = null;    // The current tick context.
-      //this.modifierContext = null;
-      //this.ignore_ticks = false;
-
-      //// Positioning variables
-      //this.width = 0;             // Width in pixels calculated after preFormat
-      //this.extraLeftPx = 0;       // Extra room on left for offset note head
-      //this.extraRightPx = 0;      // Extra room on right for offset note head
-      //this.x_shift = 0;           // X shift from tick context X
-      //this.left_modPx = 0;        // Max width of left modifiers
-      //this.right_modPx = 0;       // Max width of right modifiers
-      //this.voice = null;          // The voice that this note is in
-      //this.preFormatted = false;  // Is this note preFormatted?
-      //this.ys = [];               // list of y coordinates for each note
-      //                            // we need to hold on to these for ties and beams.
-
-      //// The render surface.
-      //this.context = null;
-      //this.stave = null;
-      //this.render_options = {
-      //  annotation_spacing: 5,
-      //  stave_padding: 12
-      //};
-
+                    // The render surface.
+                    this.context = null;
+                    this.stave = null;
+                    this.renderOptions = new NoteRenderOpts() { annotationSpacing=5,stavePadding=12};
                 }
                 public object PlayNote
                 {
@@ -320,10 +315,10 @@ namespace NVexFlow
                 protected object glyph;
                 protected IList<object> ys;
                 protected IList<object> positions;
-                protected object duration;
+                protected string duration;
                 protected int dots;
-                protected object noteType;
-                protected object renderOptions;
+                protected string noteType;
+                protected NoteRenderOpts renderOptions;
                 /// <summary>
                 /// js文件没有这个属性。在Modifier分支里有一个属性叫Note，暂时写成了Note类型。为了让不同的Note都能点儿出Category，先在父类里加入了Category
                 /// </summary>

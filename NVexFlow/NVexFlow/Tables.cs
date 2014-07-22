@@ -85,15 +85,94 @@ namespace NVexFlow
             public static void Unicode()
             { }
 
-            public static object ParseNoteDurationString(string duration)
+            public static NoteInitData ParseNoteDurationString(string duration)
             {
+                //              if (typeof(durationString) !== "string") {
+                //  return null;
+                //}
+
+                //var regexp = /(\d+|[a-z])(d*)([nrhms]|$)/;
+
+                //var result = regexp.exec(durationString);
+                //if (!result) {
+                //  return null;
+                //}
+
+                //var duration = result[1];
+                //var dots = result[2].length;
+                //var type = result[3];
+
+                //if (type.length === 0) {
+                //  type = "n";
+                //}
+
+                //return {
+                //  duration: duration,
+                //  dots: dots,
+                //  type: type
+                //};
                 return null;
             }
 
 
 
-            public static object ParseNoteData(object noteData)
+            public static NoteInitData ParseNoteData(NoteStruct noteData)
             {
+                //              var duration = noteData.duration;
+
+                //// Preserve backwards-compatibility
+                //var durationStringData = Vex.Flow.parseNoteDurationString(duration);
+                //if (!durationStringData) {
+                //  return null;
+                //}
+
+                //var ticks = Vex.Flow.durationToTicks(durationStringData.duration);
+                //if (ticks == null) {
+                //  return null;
+                //}
+
+                //var type = noteData.type;
+
+                //if (type) {
+                //  if (!(type === "n" || type === "r" || type === "h" ||
+                //        type === "m" || type === "s")) {
+                //    return null;
+                //  }
+                //} else {
+                //  type = durationStringData.type;
+                //  if (!type) {
+                //    type = "n";
+                //  }
+                //}
+
+                //var dots = 0;
+                //if (noteData.dots) {
+                //  dots = noteData.dots;
+                //} else {
+                //  dots = durationStringData.dots;
+                //}
+
+                //if (typeof(dots) !== "number") {
+                //  return null;
+                //}
+
+                //var currentTicks = ticks;
+
+                //for (var i = 0; i < dots; i++) {
+                //  if (currentTicks <= 1) {
+                //    return null;
+                //  }
+
+                //  currentTicks = currentTicks / 2;
+                //  ticks += currentTicks;
+                //}
+
+                //return {
+                //  duration: durationStringData.duration,
+                //  type: type,
+                //  dots: dots,
+                //  ticks: ticks
+                //};
                 return null;
             }
 
@@ -109,7 +188,7 @@ namespace NVexFlow
 
             public static IDictionary<string, string> durationAliases;
 
-            public static object DurationToGlyph(object duration, object type)
+            public static object DurationToGlyph(string duration, string type)
             {
                 return null;
             }
