@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NVexFlow
 {
@@ -37,7 +38,7 @@ namespace NVexFlow
                     this.pixelsPerTick = 0;
 
                     // Total number of ticks in the voice.
-                    this.totalTicks = new Vex.Flow.Fraction(0, 1);
+                    this.totalTicks = new Fraction(0, 1);
 
                     // Arrays of tick and modifier contexts.
                     this.tContexts = null;

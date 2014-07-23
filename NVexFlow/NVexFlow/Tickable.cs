@@ -137,13 +137,13 @@ namespace NVexFlow
                     }                    
                     return this;
                 }
-                public virtual double IntrinsicTicks
+                public virtual Fraction IntrinsicTicks
                 {
                     get { return intrinsicTicks; }
                     set
                     {
                         this.intrinsicTicks = value;
-                        this.ticks = this.tickMultiplier.Clone().Multiply(this.intrinsicTicks, null);
+                        this.ticks = this.tickMultiplier*this.intrinsicTicks;
                     }
                 }
                 public virtual Fraction TickMultiplier
@@ -152,8 +152,8 @@ namespace NVexFlow
                 }
                 public virtual void ApplyTickMultiplier(int numerator, int denominator)
                 {
-                    this.tickMultiplier.Multiply(numerator, denominator);
-                    this.ticks = this.tickMultiplier.Clone().Multiply(this.intrinsicTicks, null);
+                    this.tickMultiplier*=new Fraction(numerator, denominator);
+                    this.ticks = this.tickMultiplier*this.intrinsicTicks;
                 }
                 #endregion
 
@@ -171,7 +171,7 @@ namespace NVexFlow
                 protected IList<object> modifiers;
                 protected object tickContext;
                 protected bool postFormatted;
-                protected double intrinsicTicks;
+                protected Fraction intrinsicTicks;
                 protected Fraction tickMultiplier;
 
 

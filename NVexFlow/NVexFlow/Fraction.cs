@@ -1,131 +1,145 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace NVexFlow
+﻿namespace System
 {
-    public partial class Vex
+    public struct Fraction:IComparable, IComparable<Fraction>, IEquatable<Fraction>
     {
-        public partial class Flow
+        private int numerator;
+        private int denominator;
+        public int Numerator
         {
-            //暂时不细化这个类。这个类是分数运算util类
-            public class Fraction
+            get
             {
-                public Fraction(double numerator, double denominator)
-                {
-
-                }
-
-                private double numerator;
-                private double denominator;
-
-                public static object GCD(object a, object b)
-                {
-                    return null;
-                }
-
-                public static object LCM(object a, object b)
-                {
-                    return null;
-                }
-
-                public static object LCM(IList<object> @params)
-                {
-                    return null;
-                }
-
-                public Fraction Set(double numerator, double denominator)
-                {
-                    return this;
-                }
-
-                public double Value()
-                {
-                    return this.numerator / this.denominator;
-                }
-
-                public Fraction simplify()
-                {
-                    return null;
-                }
-
-                public Fraction Add(object param1, object param2)
-                {
-                    return null;
-                }
-
-
-                public Fraction Subtract(object param1, object param2)
-                {
-                    return null;
-                }
-
-
-                public Fraction Multiply(object param1, object param2)
-                {
-                    return null;
-                }
-
-
-                public Fraction Divide(object param1, object param2)
-                {
-                    return null;
-                }
-
-                public bool IsEquals(object compare)
-                {
-                    return false;
-                }
-
-                public Fraction Clone()
-                {
-                    return new Fraction(this.numerator, this.denominator);
-                }
-
-                public Fraction Copy(Fraction copy)
-                {
-                    return new Fraction(copy.numerator, copy.denominator);
-                }
-
-                public double Quotient()
-                {
-                    return Math.Floor(this.numerator / this.denominator);
-                }
-
-                public double Fraction2()
-                {
-                    return this.numerator % this.denominator;
-                }
-
-                public Fraction Abs()
-                {
-                    //this.denominator = Math.abs(this.denominator);
-                    //this.numerator = Math.abs(this.numerator);
-                    return this;
-                }
-
-                public override string ToString()
-                {
-                    return this.numerator.ToString() + '/' + this.denominator.ToString();
-                }
-
-                public string ToSimplifiedString()
-                {
-                    return "";
-                }
-
-                public string ToMixedString()
-                {
-                    return "";
-                }
-
-                public Fraction Parse(string str)
-                {
-                    return null;
-                }
-                public static Fraction compareA = new Fraction(0, 0);
-                public static Fraction compareB = new Fraction(0, 0);
-                public static Fraction tmp = new Fraction(0, 0);
+                return numerator;
             }
+        }
+        public int Denominator
+        {
+            get
+            {
+                return denominator;
+            }
+        }
+        public static readonly Fraction Epsilon = new Fraction(-1,int.MinValue);
+        public static readonly Fraction MaxValue = new Fraction(int.MinValue,-1);
+        public static readonly Fraction MinValue = new Fraction(int.MinValue,1);
+        public static readonly Fraction NaN = new Fraction(0,0);
+        public static readonly Fraction PositiveInfinity = new Fraction(1,0);
+        public static readonly Fraction NegativeInfinity = new Fraction(-1,0);
+        public Fraction(int numerator,int denominator)
+        {
+            this.numerator=numerator;
+            this.denominator=denominator;
+        }
+        public static implicit operator Fraction(int fraction)
+        {
+            return new Fraction(fraction,1);
+        }
+        public static implicit operator double (Fraction fraction)
+        {
+            if(fraction.denominator==0) {
+                if(fraction.numerator>0) {
+                    return double.PositiveInfinity;
+                }
+                else if(fraction.numerator<0) {
+                    return double.NegativeInfinity;
+                }
+                else {
+                    return double.NaN;
+                }
+            }
+            return ((double)fraction.numerator)/fraction.denominator;
+        }
+        public static Fraction operator +(Fraction a,Fraction b)
+        {
+            if(a.denominator==0) {
+                if(b.denominator==0) {
+                    if(a.numerator>0) {
+
+                    }
+                }
+            }
+            throw new NotImplementedException();
+        }
+        public static Fraction operator -(Fraction a,Fraction b)
+        {
+            throw new NotImplementedException();
+        }
+        public static Fraction operator -(Fraction a)
+        {
+            throw new NotImplementedException();
+        }
+        public static Fraction operator *(Fraction a,Fraction b)
+        {
+            throw new NotImplementedException();
+        }
+        public static Fraction operator /(Fraction a,Fraction b)
+        {
+            throw new NotImplementedException();
+        }
+        public static Fraction Simplify(Fraction fraction)
+        {
+            if(fraction.denominator==0)
+                return fraction;
+            int a = fraction.numerator;
+            int b = fraction.denominator;
+            int t;
+            while(b!=0) {
+                t=b;
+                b=a%b;
+                a=t;
+            }
+            int nn = fraction.numerator/a;
+            int nd = fraction.denominator/a;
+            if(nd>0) {
+                return new Fraction(-nn,-nd);
+            }
+            else {
+                return new Fraction(nn,nd);
+            }
+        }
+        public static int Sign(Fraction fraction)
+        {
+            if(fraction.denominator<0) {
+                if(fraction.numerator>0) {
+                    return -1;
+                }
+                else if(fraction.numerator<0) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+            else {
+                if(fraction.numerator>0) {
+                    return 1;
+                }
+                else if(fraction.numerator<0) {
+                    return -1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        }
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
+        public int CompareTo(Fraction other)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        public bool Equals(Fraction other)
+        {
+            throw new NotImplementedException();
+        }
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }
