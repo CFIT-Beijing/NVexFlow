@@ -26,7 +26,7 @@ namespace NVexFlow
                     this.voice = null;
                     this.tickContext = null;
                     this.modifierContext = null;
-                    this.modifiers = new List<object>();
+                    this.modifiers = new List<Modifier>();
                     this.preFormatted = false;
                     this.postFormatted = false;
                     this.tuplet = null;
@@ -51,7 +51,7 @@ namespace NVexFlow
                 }
                 public virtual double Width
                 {
-                    get { return this.width; }
+                    get { return this.width; }                   
                 }
                 public virtual double XShift
                 {
@@ -103,13 +103,13 @@ namespace NVexFlow
                     // Add modifiers to modifier context (if any)
                     this.preFormatted = false;
                 }
-                public virtual Tickable AddModifier(object mod)
+                public virtual Tickable AddModifier(Modifier mod)
                 {
                     this.modifiers.Add(mod);
                     this.preFormatted = false;
                     return this;
                 }
-                public virtual object TickContext
+                public virtual TickContext TickContext
                 {
                     set
                     {
@@ -168,8 +168,8 @@ namespace NVexFlow
                 protected Tuplet tuplet;
                 protected ModifierContext modifierContext;
                 protected bool preFormatted;
-                protected IList<object> modifiers;
-                protected object tickContext;
+                protected IList<Modifier> modifiers;
+                protected TickContext tickContext;
                 protected bool postFormatted;
                 protected int intrinsicTicks;
                 protected Fraction tickMultiplier;

@@ -36,9 +36,9 @@ namespace NVexFlow
                     get { return this.startX + this.width; }
                 }
 
-                object context;
+                public CanvasContext context;//Note没有通过GetContext来访问context字段
 
-                public object Context
+                public CanvasContext Context
                 {
                     get { return context; }
                     set { context = value; }

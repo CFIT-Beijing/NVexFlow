@@ -68,11 +68,13 @@
     <Compile Include="Model\Font.cs" />
     <Compile Include="Model\Glyphs.cs" />
     <Compile Include="Model\BendModel.cs" />
+    <Compile Include="Model\ModifierContextModel.cs" />
     <Compile Include="Model\NoteHeadModel.cs" />
     <Compile Include="Model\RenderOptions.cs" />
     <Compile Include="Model\StaveTextModel.cs" />
     <Compile Include="Model\StrokeModel.cs" />
     <Compile Include="Model\NoteModel.cs" />
+    <Compile Include="Model\TickContextModel.cs" />
     <Compile Include="Model\TimeSig.cs" />
     <Compile Include="Model\VoiceTimeModel.cs" />
     <Compile Include="Modifier.cs" />

@@ -31,6 +31,23 @@ namespace NVexFlow.Model
         public double stavePadding;
     }
 
+    public class NoteModifierStartXY
+    {
+        public double x;
+        public double y;
+    }
+
+    public class NoteMetrics
+    { 
+        public double width;
+        public double noteWidth;
+        public double leftShift;
+        public double modLeftPx;
+        public double modRightPx;
+        public double extraLeftPx;
+        public double extraRightPx;
+    }
+
 
 
 
