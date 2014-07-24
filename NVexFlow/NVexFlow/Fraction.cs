@@ -1,145 +1,116 @@
 ﻿namespace System
 {
-    public struct Fraction:IComparable, IComparable<Fraction>, IEquatable<Fraction>
+    public struct Fraction
     {
         private int numerator;
         private int denominator;
-        public int Numerator
-        {
-            get
-            {
-                return numerator;
-            }
-        }
-        public int Denominator
-        {
-            get
-            {
-                return denominator;
-            }
-        }
-        public static readonly Fraction Epsilon = new Fraction(-1,int.MinValue);
-        public static readonly Fraction MaxValue = new Fraction(int.MinValue,-1);
-        public static readonly Fraction MinValue = new Fraction(int.MinValue,1);
-        public static readonly Fraction NaN = new Fraction(0,0);
-        public static readonly Fraction PositiveInfinity = new Fraction(1,0);
-        public static readonly Fraction NegativeInfinity = new Fraction(-1,0);
+        /// <summary>
+        /// 用两个int表示分数的struct。提供简单的四则运算和类型转换。
+        /// </summary>
+        /// <param name="numerator">分数的分子（分数线上面的数）</param>
+        /// <param name="denominator">分数的分母（分数线下面的数）</param>
         public Fraction(int numerator,int denominator)
         {
+            if(numerator==int.MinValue||denominator==int.MinValue) {
+                this.numerator=0;
+                this.denominator=0;
+                return;
+            }
             this.numerator=numerator;
             this.denominator=denominator;
         }
-        public static implicit operator Fraction(int fraction)
+        private Fraction(long numerator,long denominator)
         {
-            return new Fraction(fraction,1);
-        }
-        public static implicit operator double (Fraction fraction)
-        {
-            if(fraction.denominator==0) {
-                if(fraction.numerator>0) {
-                    return double.PositiveInfinity;
-                }
-                else if(fraction.numerator<0) {
-                    return double.NegativeInfinity;
-                }
-                else {
-                    return double.NaN;
-                }
+            if(denominator==0L) {
+                this.numerator=0;
+                this.denominator=0;
+                return;
             }
-            return ((double)fraction.numerator)/fraction.denominator;
-        }
-        public static Fraction operator +(Fraction a,Fraction b)
-        {
-            if(a.denominator==0) {
-                if(b.denominator==0) {
-                    if(a.numerator>0) {
-
-                    }
-                }
-            }
-            throw new NotImplementedException();
-        }
-        public static Fraction operator -(Fraction a,Fraction b)
-        {
-            throw new NotImplementedException();
-        }
-        public static Fraction operator -(Fraction a)
-        {
-            throw new NotImplementedException();
-        }
-        public static Fraction operator *(Fraction a,Fraction b)
-        {
-            throw new NotImplementedException();
-        }
-        public static Fraction operator /(Fraction a,Fraction b)
-        {
-            throw new NotImplementedException();
-        }
-        public static Fraction Simplify(Fraction fraction)
-        {
-            if(fraction.denominator==0)
-                return fraction;
-            int a = fraction.numerator;
-            int b = fraction.denominator;
-            int t;
+            long a = numerator;
+            long b = denominator;
+            long t;
             while(b!=0) {
                 t=b;
                 b=a%b;
                 a=t;
             }
-            int nn = fraction.numerator/a;
-            int nd = fraction.denominator/a;
-            if(nd>0) {
-                return new Fraction(-nn,-nd);
+            numerator/=a;
+            denominator/=a;
+            if(numerator<-int.MaxValue||numerator>int.MaxValue||
+                denominator<-int.MaxValue||denominator>int.MaxValue) {
+                this.numerator=0;
+                this.denominator=0;
+                return;
             }
-            else {
-                return new Fraction(nn,nd);
+            if(denominator<0L) {
+                numerator=-numerator;
+                denominator=-denominator;
             }
+            this.numerator=(int)numerator;
+            this.denominator=(int)denominator;
         }
-        public static int Sign(Fraction fraction)
+        public static implicit operator Fraction(int a)
         {
-            if(fraction.denominator<0) {
-                if(fraction.numerator>0) {
-                    return -1;
-                }
-                else if(fraction.numerator<0) {
-                    return 1;
-                }
-                else {
-                    return 0;
-                }
+            return new Fraction(a,1);
+        }
+        public static implicit operator double (Fraction a)
+        {
+            if(a.denominator==0) {
+                return double.NaN;
             }
-            else {
-                if(fraction.numerator>0) {
-                    return 1;
-                }
-                else if(fraction.numerator<0) {
-                    return -1;
-                }
-                else {
-                    return 0;
-                }
+            return ((double)a.numerator)/a.denominator;
+        }
+        public static Fraction operator +(Fraction a,Fraction b)
+        {
+            if(a.denominator==0||b.denominator==0) {
+                return new Fraction(0,0);
             }
+            long an = a.numerator;
+            an*=b.denominator;
+            long bn = b.numerator;
+            bn*=a.denominator;
+            long d = a.denominator;
+            d*=b.denominator;
+            return new Fraction(an+bn,d);
         }
-        public int CompareTo(object obj)
+        public static Fraction operator -(Fraction a,Fraction b)
         {
-            throw new NotImplementedException();
+            if(a.denominator==0||b.denominator==0) {
+                return new Fraction(0,0);
+            }
+            long an = a.numerator;
+            an*=b.denominator;
+            long bn = b.numerator;
+            bn*=a.denominator;
+            long d = a.denominator;
+            d*=b.denominator;
+            return new Fraction(an-bn,d);
         }
-        public int CompareTo(Fraction other)
+        public static Fraction operator -(Fraction a)
         {
-            throw new NotImplementedException();
+            return new Fraction(-a.numerator,a.denominator);
         }
-        public override bool Equals(object obj)
+        public static Fraction operator *(Fraction a,Fraction b)
         {
-            return base.Equals(obj);
+            if(a.denominator==0||b.denominator==0) {
+                return new Fraction(0,0);
+            }
+            long n = a.numerator;
+            n*=b.numerator;
+            long d = a.denominator;
+            d*=b.denominator;
+            return new Fraction(n,d);
         }
-        public bool Equals(Fraction other)
+        public static Fraction operator /(Fraction a,Fraction b)
         {
-            throw new NotImplementedException();
-        }
-        public override string ToString()
-        {
-            return base.ToString();
+            if(a.denominator==0||b.denominator==0) {
+                return new Fraction(0,0);
+            }
+            long n = a.numerator;
+            n*=b.denominator;
+            long d = a.denominator;
+            d*=b.numerator;
+            return new Fraction(n,d);
         }
     }
 }
