@@ -51,7 +51,7 @@ namespace NVexFlow
                     set
                     {
                         this.type = value;
-                        //this.Width = this.metrics.widths[this.type];
+                        this.SetWidth(this.metrics.widths[this.type]);
                     }
                 }
                 public BoundingBox GetBoundingBox()
