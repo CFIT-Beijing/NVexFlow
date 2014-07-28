@@ -189,7 +189,7 @@ namespace NVexFlow
                 /// <summary>
                 /// Get the glyph associated with this note.
                 /// </summary>
-                public virtual object Glyph
+                public virtual Glyph4Note Glyph
                 {
                     get { return this.glyph; }
                 }
@@ -463,7 +463,7 @@ namespace NVexFlow
                 protected double extraRightPx;
                 protected object lineNumber;
                 protected object lineForRest;
-                protected object glyph;
+                protected Glyph4Note glyph;
                 protected IList<double> ys;
                 protected IList<object> positions;
                 protected string duration;

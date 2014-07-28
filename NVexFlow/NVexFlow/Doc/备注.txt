@@ -26,10 +26,12 @@ Modifier分支未完成的有：
 //////////////////////////////////////////tickable分支//////////////////////////////////////////
 GraceNote:StaveNote
 GhostNote  StaveNote  TabNote: StemmableNote:Note
-TimeSigNote  TextNote NoteHead                                             --》（done）  Crescendo  ClefNote  BarNote:Note
-Note:Tickable
+TimeSigNote  TextNote                                              --》（done）NoteHead  Crescendo  ClefNote  BarNote:Note
+Note:Tickable（done）
 
 
 //////////////
-override主要方便多态，感觉他js里的继承跟多态没什么关系，考虑以后去掉override（看看再说），改用new关键字截断。
+有关代码语法格式， 对于以后下一组分支是否：
+1、override主要方便多态，感觉他js里的继承跟多态没什么关系，考虑以后去掉override（再写写看再说），改用new关键字截断。
+2、get、set方法是否分开写（不写成属性的方式，为了保持格式的一致）
 

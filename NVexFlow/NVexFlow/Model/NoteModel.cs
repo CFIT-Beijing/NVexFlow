@@ -48,6 +48,9 @@ namespace NVexFlow.Model
         public double extraRightPx;
     }
 
+    public class Glyph4Note
+    { }
+
 
 
 

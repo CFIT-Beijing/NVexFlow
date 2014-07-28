@@ -164,29 +164,33 @@ namespace NVexFlow
 
 
 
-                public object GetSpacingBetweenLines()
+                public double SpacingBetweenLines
                 {
-                    return null;
+                    get
+                    { return 0; }
                 }
 
-                public BoundingBox GetBoundingBox()
+                public BoundingBox BoundingBox
                 {
-                    return null;
-                }
-
-
-
-                public object GetBottomY()
-                {
-                    return null;
+                    get { return null; }
                 }
 
 
 
-
-                public double GetBottomLineY()
+                public object BottomY
                 {
-                    return 0;
+                    get { return null; }
+                }
+
+
+
+
+                public double BottomLineY
+                {
+                    get
+                    {
+                        return 0;
+                    }
                 }
 
 

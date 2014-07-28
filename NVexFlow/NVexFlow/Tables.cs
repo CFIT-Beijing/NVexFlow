@@ -188,7 +188,7 @@ namespace NVexFlow
 
             public static IDictionary<string, string> durationAliases;
 
-            public static object DurationToGlyph(string duration, string type)
+            public static Glyph4Note DurationToGlyph(string duration, string type)
             {
                 return null;
             }
