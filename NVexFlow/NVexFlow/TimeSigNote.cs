@@ -1,5 +1,7 @@
-﻿using NVexFlow.Model;
+﻿//对应 timeSigNote.js
+using NVexFlow.Model;
 using System.Collections.Generic;
+using System;
 
 namespace NVexFlow
 {
@@ -9,71 +11,58 @@ namespace NVexFlow
         {
             public class TimeSigNote : Note
             {
-
-                #region 属性字段
-                private object boundingBox;
-
-                public override object BoundingBox
-                {
-                    get { return new BoundingBox(0, 0, 0, 0); }
-                }
-
-                private TimeSig timeSig;
-
-                private double width;
-
-                public override double Width
-                {
-                    get
-                    {
-                        return base.Width;
-                    }
-                }
-
-                private bool ignoreTicks = false;
-
-
-
-
-                #endregion
-
-
-                #region 方法
+                #region js直译部分
                 public TimeSigNote(string timeSpec, double customPadding)
-                    : base(new NoteStruct() { duration="b"})
+                    : base(new NoteStruct() { duration = "b" })
                 { }
-
                 private void Init(string timeSpec, double customPadding)
                 {
                     TimeSignature timeSignature = new Vex.Flow.TimeSignature(timeSpec, customPadding);
                     this.timeSig = timeSignature.TimeSig;
-                    //this.Width = this.timeSig.Glyph.GetMetrics().Width;
-
+                    this.SetWidth(this.timeSig.Glyph.GetMetrics().Width);
                     //// Note properties
                     this.ignoreTicks = true;
                 }
-
+                public override Stave Stave
+                {
+                    set
+                    {
+                        base.Stave = value;
+                    }
+                }
+                public override object BoundingBox
+                {
+                    get { return new BoundingBox(0, 0, 0, 0); }
+                }
                 public TimeSigNote AddToModifierContext()
                 {
-                    return null;
+                    //* overridden to ignore */
+                    return this;
                 }
-
-                public TimeSigNote PreFormat()
+                public new TimeSigNote PreFormat()
                 {
                     this.PreFormatted = true;
                     return this;
                 }
-
                 public void Draw()
                 {
 
                 }
                 #endregion
 
+
+                #region 隐含字段
+                protected TimeSig timeSig;
                 public override string Category
                 {
-                    get { throw new System.NotImplementedException(); }
+                    get { throw new Exception("js文件没有这个属性。在Modifier分支里有一个属性叫Note，暂时写成了Note类型。为了让不同的Note都能点儿出Category，先在Note里加入了Category"); }
                 }
+                #endregion
+
+
+     
+
+                
             }
         }
     }

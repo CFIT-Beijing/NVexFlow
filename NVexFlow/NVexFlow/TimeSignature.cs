@@ -11,12 +11,12 @@ namespace NVexFlow
             public class TimeSignature : StaveModifier
             {
                 #region 静态
-                public static IDictionary<string, Glyphs> glyphs = new Dictionary<string, Glyphs>() { 
-                 {"C",new Glyphs(){Code="v41",Point=40,Line=2}},
-                 {"C|",new Glyphs(){Code="vb6",Point=40,Line=2}}
+                public static IDictionary<string, GlyphsModel> glyphs = new Dictionary<string, GlyphsModel>() { 
+                 {"C",new GlyphsModel(){code="v41",point=40,line=2}},
+                 {"C|",new GlyphsModel(){code="vb6",point=40,line=2}}
                 };
 
-                public static IDictionary<string, Glyphs> Glyphs
+                public static IDictionary<string, GlyphsModel> Glyphs
                 {
                     get { return TimeSignature.glyphs; }
                     set { TimeSignature.glyphs = value; }
