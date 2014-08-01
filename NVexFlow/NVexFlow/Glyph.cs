@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.MODEL;
 
 namespace NVexFlow
 {
@@ -22,7 +23,8 @@ namespace NVexFlow
                     get { return x_Max; }
                     set { x_Max = value; }
                 }
-                private double width;
+                //TextNote直接使用了width字段
+                public double width;
 
                 public double Width
                 {
@@ -89,7 +91,7 @@ namespace NVexFlow
                 }
 
 
-                public Glyph(string code, object point, IList<object> options)
+                public Glyph(string code, int point, GlyphsOpts options)
                 {
 
                 }

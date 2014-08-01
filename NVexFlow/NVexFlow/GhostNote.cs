@@ -13,9 +13,9 @@ namespace NVexFlow
 
                 public override double Width
                 {
-                    set
+                    get
                     {
-                        base.Width = value;
+                        return base.Width;
                     }
                 }
 
@@ -36,7 +36,7 @@ namespace NVexFlow
                     { }
                     object note_struct = null;
                     //判断参数parameter的类型，如果是string则  如是是obj则  为note_struct赋值
-                    this.Width = 0;
+                    //this.Width = 0;
                 }
 
                 public bool IsRest()

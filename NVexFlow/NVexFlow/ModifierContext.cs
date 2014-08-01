@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -15,16 +16,9 @@ namespace NVexFlow
                     get { return width; }
                 }
 
-                public class State
-                {
-                    public double leftShift = 0;
 
-                    public double rightShift = 0;
 
-                    public double textLine = 0;
-                }
-
-                State state;
+                public ModifierContextState state;//Note直接使用了state字段
 
                 bool preFormatted;
 

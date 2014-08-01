@@ -26,9 +26,12 @@ Modifier分支未完成的有：
 //////////////////////////////////////////tickable分支//////////////////////////////////////////
 GraceNote:StaveNote
 GhostNote  StaveNote  TabNote: StemmableNote:Note
-TimeSigNote  TextNote NoteHead  Crescendo  ClefNote  BarNote:Note
-Note:Tickable
+（done）TextNoteTimeSigNote  NoteHead  Crescendo  ClefNote  BarNote:Note
+（done）Note:Tickable
 
-父类构造函数的参数组成：
-{ keys: ["a/3"], duration: "q", stem_direction: 1 }  {glyph: "f", duration: "16"}  {duration: "4",line: 3 }
 
+//////////////
+有关代码语法格式， 对于以后下一组分支是否：
+1、js里的继承跟多态没什么关系，考虑以后去掉override（再写写看再说），改用new关键字。
+2、get、set方法是否分开写（不写成属性的方式，为了保持格式的一致）
+3、确实误会了Get、Set方法的用处，访问类的字段不一定用get、set方法（可能仅仅是为了方便使用），很多地方直接使用了字段，所以字段确实不用私有。

@@ -20,7 +20,7 @@ namespace NVexFlow
             public class Crescendo : Note
             {
                 #region js直译部分
-                public Crescendo(NoteStruct noteStruct)
+                public Crescendo(CrescendoStruct noteStruct)
                     : base(noteStruct)
                 {
                     Init(noteStruct);
@@ -53,7 +53,7 @@ namespace NVexFlow
                     ctx.Stroke();
                     ctx.ClosePath();
                 }
-                private void Init(NoteStruct noteStruct)
+                private void Init(CrescendoStruct noteStruct)
                 {
                     //// Whether the object is a decrescendo
                     this.decrescendo = false;
@@ -85,11 +85,8 @@ namespace NVexFlow
                 {
                     set { decrescendo = value; }
                 }
-                /// <summary>
-                /// Preformat the note
-                /// </summary>
-                /// <returns></returns>
-                public Crescendo PreFormat()
+
+                public new Crescendo PreFormat()
                 {
                     this.PreFormatted = true;
                     return this;
@@ -108,8 +105,12 @@ namespace NVexFlow
                 protected bool decrescendo;
                 protected int line;
                 protected double height;
-                protected CrescendoRenderOpts renderOptions;
                 #endregion
+
+                public override string Category
+                {
+                    get { throw new System.NotImplementedException(); }
+                }
             }
         }
     }

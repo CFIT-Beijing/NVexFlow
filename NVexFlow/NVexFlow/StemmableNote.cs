@@ -6,17 +6,44 @@ namespace NVexFlow
     {
         public partial class Flow
         {
+            /// <summary>
+            /// ## Description
+            //
+            // `StemmableNote` is an abstract interface for notes with optional stems. 
+            // Examples of stemmable notes are `StaveNote` and `TabNote`
+            /// </summary>
             public class StemmableNote : Note
             {
+                #region js直译部分
+                public StemmableNote(NoteStruct note_struct)
+                    : base(note_struct)
+                {
+                    Init(note_struct);
+                }
+                private void Init(NoteStruct note_struct)
+                {
 
-                #region 属性字段
-                private object stem;
-
+                }
                 public object Stem
                 {
                     get { return stem; }
                     set { stem = value; }
                 }
+
+                public StemmableNote PostFormat()
+                {
+                    return this;
+                }
+
+                public virtual void DrawStem()
+                { }
+                #endregion
+
+
+                #region 隐含字段
+                protected object stem;
+
+
 
                 object stemExtensionOverride;
 
@@ -141,28 +168,11 @@ namespace NVexFlow
                         return yForBottomText;
                     }
                 }
-                #endregion
 
-
-                #region 方法
-                public StemmableNote(NoteStruct note_struct)
-                    : base(note_struct)
+                public override string Category
                 {
-                    Init(note_struct);
+                    get { throw new System.NotImplementedException(); }
                 }
-                private void Init(NoteStruct note_struct)
-                {
-
-                }
-
-
-                public StemmableNote PostFormat()
-                {
-                    return this;
-                }
-
-                public virtual void DrawStem()
-                { }
                 #endregion
             }
         }

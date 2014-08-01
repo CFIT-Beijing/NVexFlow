@@ -145,7 +145,7 @@ namespace NVexFlow
                     return this;
                 }
 
-                public override Tickable AddModifier(object mod)
+                public override Tickable AddModifier(Modifier mod)
                 {
                     return null;
                 }

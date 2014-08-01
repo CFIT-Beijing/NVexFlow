@@ -1,4 +1,5 @@
-﻿////对应 notehead.js
+﻿using System;
+////对应 notehead.js
 using NVexFlow.Model;
 namespace NVexFlow
 {
@@ -8,11 +9,11 @@ namespace NVexFlow
         {
             public class NoteHead : Note
             {
-                #region 方法
-                public NoteHead(NoteStruct head_options)
-                    : base(head_options)
+                #region js直译部分
+                public NoteHead(NoteHeadStruct headOptions)
+                    : base(headOptions)
                 {
-                    Init(head_options);
+                    Init(headOptions);
                 }
                 /// <summary>
                 /// Draw slashnote head manually. No glyph exists for this.
@@ -31,7 +32,7 @@ namespace NVexFlow
                 /// <param name="stemDirection"></param>
                 private void DrawSlashNoteHead(CanvasContext ctx, string duration, double x, double y, int stemDirection)
                 {
-
+                    //应该是和界面canvas相关的方法，暂时不写？
                     //var width = 15 + (Vex.Flow.STEM_WIDTH / 2);
                     //ctx.setLineWidth(Vex.Flow.STEM_WIDTH);
 
@@ -65,22 +66,69 @@ namespace NVexFlow
                     //ctx.setLineWidth(1);
                 }
 
-                private void Init(NoteStruct head_options)
-                { }
-                public string Category
+                private void Init(NoteHeadStruct headOptions)
+                {
+                    this.index = headOptions.index;
+                    this.x = headOptions.x.HasValue ? headOptions.x.Value : 0;
+                    this.y = headOptions.y.HasValue ? headOptions.y.Value : 0;
+                    this.noteType = headOptions.noteType;
+                    this.duration = headOptions.duration;
+                    this.displaced = headOptions.displaced.HasValue ? headOptions.displaced.Value : false;
+                    this.stemDirection = headOptions.stemDirection.HasValue ? headOptions.stemDirection.Value : Vex.Flow.StaveNote.STEM_UP;
+                    this.line = headOptions.line;
+
+                    // Get glyph code based on duration and note type. This could be regular notes, rests, or other custom codes.
+                    this.glyph = Vex.Flow.DurationToGlyph(this.duration, this.noteType) as Glyph4NoteHead;
+                    //其实Glyph4NoteHead可以写成partial的Glyph4Note，想表达的是Glyph4NoteHead比父类里使用的Glyph4Note多几个字段。你看看怎么弄吧
+                    if (this.glyph == null)
+                    {
+                        throw new Exception("BadArguments,No glyph found for duration '" + this.duration + "' and type '" + this.noteType + "'");
+                    }
+                    this.glyphCode = (this.glyph as Glyph4NoteHead).codeHead;
+                    this.xShift = headOptions.xShift;
+                    if (!string.IsNullOrEmpty(headOptions.customGlyphCode))
+                    {
+                        this.customGlyph = true;
+                        this.glyphCode = headOptions.customGlyphCode;
+                    }
+                    this.context = null;
+                    this.style = headOptions.style;
+                    this.slashed = headOptions.slashed;
+                    //其实NoteHeadRenderOpts可以写成partial的NoteRenderOpts，想表达的是NoteHeadRenderOpts比父类里使用的RenderOpts多几个字段。你看看怎么弄吧
+                    this.renderOptions = new NoteHeadRenderOpts()
+                    {
+                        glyphFontScale = 35,
+                        strokePx = 3
+                    };
+                    if (headOptions.glyphFontScale.HasValue)
+                    {
+                        (this.renderOptions as NoteHeadRenderOpts).glyphFontScale = headOptions.glyphFontScale.Value;
+                    }
+                    this.SetWidth((this.glyph as Glyph4NoteHead).headWidth);
+                }
+                /// <summary>
+                /// Get the `ModifierContext` category
+                /// </summary>
+                public override string Category
                 {
                     get
                     {
                         return "notehead";
                     }
                 }
+                /// <summary>
+                /// Set the Cavnas context for drawing
+                /// </summary>
                 public override CanvasContext Context
                 {
                     set
                     {
-                        context = value;
+                        this.context = value;
                     }
                 }
+                /// <summary>
+                /// Get the width of the notehead
+                /// </summary>
                 public override double Width
                 {
                     get
@@ -88,116 +136,150 @@ namespace NVexFlow
                         return this.width;
                     }
                 }
+                /// <summary>
+                /// Determine if the notehead is displaced
+                /// </summary>
                 public bool IsDisplaced
                 {
                     get { return object.ReferenceEquals(this.displaced, true); }
                 }
+                /// <summary>
+                /// Get/set the notehead's style ， `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
+                /// </summary>
                 public NoteHeadStyle Style
                 {
-                    get { return style; }
-                    set { style = value; }
+                    get { return this.style; }
+                    set { this.style = value; }
                 }
-                public override object Glyph
+                /// <summary>
+                /// Get the glyph data
+                /// </summary>
+                public override Glyph4Note Glyph
                 {
                     get
                     {
                         return this.glyph;
                     }
                 }
-                public override double X
+                /// <summary>
+                /// Set the X coordinate
+                /// </summary>
+                /// <param name="x"></param>
+                /// <returns></returns>
+                public NoteHead SetX(double x)
                 {
-                    set
-                    {
-                        this.x = value;
-                    }
+                    this.x = x;
+                    return this;
                 }
+                /// <summary>
+                /// get/set the Y coordinate
+                /// </summary>
                 public double Y
                 {
                     get { return this.y; }
                     set { this.y = value; }
                 }
+                /// <summary>
+                /// Get the stave line the notehead is placed on 
+                /// </summary>
                 public double Line
                 {
-                    get { return line; }
+                    get { return this.line; }
                 }
+                /// <summary>
+                /// Get the canvas `x` coordinate position of the notehead.
+                /// </summary>
                 public override double AbsoluteX
                 {
                     get
                     {
-                        //var getAbsoluteX = NoteHead.superclass.getAbsoluteX;
-
-                        //// If the note has not been preformatted, then get the static x value
-                        //// Otherwise, it's been formatted and we should use it's x value relative
-                        //// to its tick context
-                        //var x = !this.preFormatted ? this.x : getAbsoluteX.call(this);
-
-                        //return x + (this.displaced ? this.width * this.stem_direction : 0);
-                        //*************************************************************************************//
-                        //var getAbsoluteX = NoteHead.superclass.getAbsoluteX;
-                        //getAbsoluteX.call(this);
-                        //用父类的方法，通过子类的字段得到一个x，说明子类父类字段的值不一致。
-                        return 0;
+                        double getAbsoluteX=  base.AbsoluteX;
+                        // If the note has not been preformatted, then get the static x value Otherwise, it's been formatted and we should use it's x value relative to its tick context
+                        double x= !this.preFormatted ? this.x : base.x;
+                        return x+(this.displaced?this.width*this.stemDirection:0);
                     }
                 }
-
+                /// <summary>
+                /// Get the `BoundingBox` for the `NoteHead`
+                /// </summary>
+                /// <returns></returns>
                 public BoundingBox GetBoundingBox()
                 {
-                    return null;
-                }
-                
-                
-
-
-
-                
-
-
-
-                public override Stave Stave
-                {
-                    get
+                    if (!this.preFormatted)
                     {
-                        return base.Stave;
+                        throw new Exception("UnformattedNote,Can't call getBoundingBox on an unformatted note.");
                     }
-                    set
-                    {
-                        base.Stave = value;
-                    }
+                    double spacing= this.stave.SpacingBetweenLines;
+                    double halfSpacing = spacing / 2;
+                    double minY = this.y - halfSpacing;
+                    return new BoundingBox(this.AbsoluteX, minY, this.width, spacing);
                 }
-
-
-                
-
+                /// <summary>
+                /// Apply current style to Canvas `context`
+                /// </summary>
+                /// <returns></returns>
                 public NoteHead ApplyStyle()
                 {
-                    return null;
+                    NoteHeadStyle style = this.Style;
+                    if (style.shadowColor != null)
+                    { this.context.ShadowColor = style.shadowColor; }
+                    if (style.shadowBlur != null)
+                    { this.context.ShadowBlur = style.shadowBlur; }
+                    if (style.fillStyle != null)
+                    { this.context.FillStyle = style.fillStyle; }
+                    if (style.strokeStyle != null)
+                    { this.context.StrokeStyle = style.strokeStyle; }
+                    return this;
                 }
-
-                public NoteHead PreFormat()
+                /// <summary>
+                /// Set notehead to a provided `stave`
+                /// </summary>
+                public override Stave Stave
                 {
-                    return null;
+                    set
+                    {
+                        double line= this.Line;
+                        this.stave = value;
+                        this.Y = value.GetYForNote(line);
+                        this.context = this.stave.context;
+                    }
                 }
-
+                /// <summary>
+                /// Pre-render formatting
+                /// </summary>
+                /// <returns></returns>
+                public new NoteHead PreFormat()
+                {
+                    //if (this.preFormatted) return this;
+                    if (this.preFormatted)
+                    {
+                        return this;
+                    }
+                    Glyph4NoteHead glyph= this.Glyph as Glyph4NoteHead;
+                    //var width = glyph.head_width + this.extraLeftPx + this.extraRightPx;
+                    double width= glyph.headWidth + this.extraLeftPx + this.extraRightPx;
+                    this.SetWidth(width);
+                    this.PreFormatted = true;
+                    return this;
+                }
+                /// <summary>
+                /// Draw the notehead
+                /// </summary>
                 public void Draw()
                 { }
                 #endregion
 
 
-                #region 隐含字段            
-                object index;//不清楚
+                #region 隐含字段
+                protected object index;//猜测是int或者int？
                 protected double y;
-                string noteType;
-                string duration;
-                bool displaced;
-                int stemDirection;
-                double line;
-                double xShift;
-                string glyphCode;
-                CanvasContext context;
-                NoteHeadStyle style;//复杂类型，目前还不清楚  `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
-                object slashed;//不清楚类型
-                
-
+                protected bool displaced;
+                protected int stemDirection;
+                protected double line;
+                protected string glyphCode;
+                protected NoteHeadStyle style;//复杂类型，目前还不清楚  `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
+                protected object slashed;//不清楚类型
+                protected bool customGlyph;
                 #endregion
             }
         }

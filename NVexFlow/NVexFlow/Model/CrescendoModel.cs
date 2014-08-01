@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace NVexFlow.Model
 {
+    public class CrescendoStruct : NoteStruct
+    {
+        public int? line;
+    }
     public class RenderHairpinParams
     {
         public double beginX;

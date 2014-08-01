@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {//TickContext
@@ -93,9 +94,12 @@ namespace NVexFlow
                     }
                 }
 
-                public object GetExtraPx()
+                public TickContextExtraPx ExtraPx
                 {
-                    return null;
+                    get
+                    {
+                        return null;
+                    }
                 }
 
                 public TickContext AddTickable(object tickable)
