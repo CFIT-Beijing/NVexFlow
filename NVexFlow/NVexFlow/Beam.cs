@@ -34,7 +34,7 @@ namespace NVexFlow
 
 
 
-                public Beam(IList<Tickable> notes, bool? autoStem)
+                public Beam(IList<Tickable> notes, bool? autoStem=null)
                 {
                     Init(notes, autoStem);
                 }

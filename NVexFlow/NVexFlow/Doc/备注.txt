@@ -1,37 +1,50 @@
-﻿已经完成的类：
+﻿//////////////////////////////完成检查//////////////////////////////
+达到里程碑1阶段的类:
+//用P::C表示C继承P。
 {
-    Vex//里程碑1阶段可以了
-    Modifier及其衍生类:
-        Modifier,//里程碑1阶段可以了                            这个类你再看一下，本身没有font字段，我看每个子类都有font，就把font加到这个类里了。你看看合不合适
-        Tremolo,//里程碑1阶段可以了
-        Vibrato,//里程碑1阶段可以了
-        FretHandFinger,//里程碑1阶段可以了
-        Stroke,//里程碑1阶段可以了
-        StringNumber,//里程碑1阶段可以了
-        StaveText,//里程碑1阶段可以了
-        StaveSection,//里程碑1阶段可以了
-        GraceNoteGroup,//未达到里程碑1阶段标准            这里方法参数没错。js在调用方法的时候不必按照方法签名给参数，所以最后一个参数他没给，我就给了个null。具体的方法定义在formatter最下面。
-        Dot,//里程碑1阶段可以了
-        Bend,//里程碑1阶段可以了
-        Articulation,//里程碑1阶段可以了
-        Annotation,//里程碑1阶段可以了
-        Accidental//里程碑1阶段可以了
+    Vex,//无派生
+    Fraction,//无派生
+    Modifier,//全族
+        Modifier::Tremolo,//无派生
+        Modifier::Vibrato,//无派生
+        Modifier::FretHandFinger,//无派生
+        Modifier::Stroke,//无派生
+        Modifier::StringNumber,//无派生
+        Modifier::StaveText,//无派生
+        Modifier::StaveSection,//无派生
+        Modifier::GraceNoteGroup,//无派生
+        Modifier::Dot,//无派生
+        Modifier::Bend,//无派生
+        Modifier::Articulation,//无派生
+        Modifier::Annotation,//无派生
+        Modifier::Accidental,//无派生
+    Tickable,//非全族
+        Tickable::Note//非全族
 }
-
-Modifier分支未完成的有：
-1、index属性暂时不知道什么意思
-2、Draw方法
+//Modifier族Draw方法需要在下阶段细化。
 
 
-//////////////////////////////////////////tickable分支//////////////////////////////////////////
+//////////////////////////////正在处理//////////////////////////////
+//Tickable族
 GraceNote:StaveNote
 GhostNote  StaveNote  TabNote: StemmableNote:Note
-（done）TextNoteTimeSigNote  NoteHead  Crescendo  ClefNote  BarNote:Note
-（done）Note:Tickable
+（完成但未检查）TextNoteTimeSigNote  NoteHead  Crescendo  ClefNote  BarNote:Note
 
 
-//////////////
+//////////////////////////////近期任务//////////////////////////////
+使Tickable族达到里程碑1阶段。
+使StaveModifier族达到里程碑1阶段。
+
+
+//////////////////////////////中期任务//////////////////////////////
+使所有类达到里程碑1阶段。
+完成Modifier族Draw方法细化。
+
+
+//////////////////////////////讨论留言区//////////////////////////////
 有关代码语法格式， 对于以后下一组分支是否：
 1、js里的继承跟多态没什么关系，考虑以后去掉override（再写写看再说），改用new关键字。
 2、get、set方法是否分开写（不写成属性的方式，为了保持格式的一致）
+  //此处存疑，不清楚基类不出现get或set是有特殊目的还是出于偷懒，但Note.GetTickContext无法被getter替代比较麻烦。
 3、确实误会了Get、Set方法的用处，访问类的字段不一定用get、set方法（可能仅仅是为了方便使用），很多地方直接使用了字段，所以字段确实不用私有。
+

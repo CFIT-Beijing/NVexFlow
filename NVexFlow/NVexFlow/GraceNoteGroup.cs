@@ -15,49 +15,47 @@ namespace NVexFlow
             public class GraceNoteGroup:Modifier
             {
                 #region js直译部分
-                public GraceNoteGroup(IList<Tickable> graceNotes,bool showSlur)
+                public GraceNoteGroup(IList<Tickable> graceNotes,bool config)
                 {
-                    Init(graceNotes,showSlur);
+                    Init(graceNotes,config);
                 }
                 private void Init(IList<Tickable> graceNotes,bool showSlur)
                 {
-                    this.note=null;
-                    this.index=null;
-                    this.position=Vex.Flow.Modifier.ModifierPosition.LEFT;
-                    this.graceNotes=graceNotes;
-                    this.width=0;
+                    this.note = null;
+                    this.index = null;
+                    this.position = Vex.Flow.Modifier.ModifierPosition.LEFT;
+                    this.graceNotes = graceNotes;
+                    this.width = 0;
 
-                    this.preFormatted=false;
+                    this.preFormatted = false;
 
-                    this.showSlur=showSlur;
-                    this.slur=null;
+                    this.showSlur = showSlur;
+                    this.slur = null;
 
-                    this.formatter=new Vex.Flow.Formatter();
-                    this.voice=new Vex.Flow.Voice(new VoiceTimeModel() {
-                        numBeats=4,
-                        numValue=4,
-                        resolution=Vex.Flow.RESOLUTION
+                    this.formatter = new Vex.Flow.Formatter();
+                    this.voice = new Vex.Flow.Voice(new VoiceTimeModel() {
+                        numBeats = 4,
+                        numValue = 4,
+                        resolution = Vex.Flow.RESOLUTION
                     });
-                    this.voice.Strict=false;
+                    this.voice.Strict = false;
                     this.voice.AddTickables(graceNotes);
                 }
                 public void PreFormat()
                 {
-                    if (this.preFormatted)
-                    {
+                    if(this.preFormatted) {
                         return;
                     }
-                    this.formatter.JoinVoices(new List<Voice>() { this.voice }).Format(new List<Voice>() { this.voice }, 0, null);
+                    this.formatter.JoinVoices(new List<Voice>() { this.voice })
+                        .Format(new List<Voice>() { this.voice },0);
                     this.Width = this.formatter.MinTotalWidth;
                     this.preFormatted = true;
                 }
                 public GraceNoteGroup BeamNotes()
                 {
-                    if(this.graceNotes.Count()>1)
-                    {
-                        Beam beam = new Beam(this.graceNotes, null);
-                        beam.RenderOptions = new BeamRenderOpts()
-                        {
+                    if(this.graceNotes.Count > 1) {
+                        Beam beam = new Beam(this.graceNotes);
+                        beam.RenderOptions = new BeamRenderOpts() {
                             BeamWidth = 3,
                             PartialBeamLength = 4
                         };
@@ -69,7 +67,7 @@ namespace NVexFlow
                 {
                     set
                     {
-                        this.Note=value;
+                        this.Note = value;
                     }
                 }
                 public override string Category
@@ -87,14 +85,14 @@ namespace NVexFlow
                     }
                     set
                     {
-                        this.width=value;
+                        this.width = value;
                     }
                 }
                 public override double XShift
                 {
                     set
                     {
-                        this.xShift=value;
+                        this.xShift = value;
                     }
                 }
                 public override void Draw()
