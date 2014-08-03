@@ -72,6 +72,7 @@
     <Compile Include="Model\NoteHeadModel.cs" />
     <Compile Include="Model\RenderOptions.cs" />
     <Compile Include="Model\StaveTextModel.cs" />
+    <Compile Include="Model\StemmableNoteModel.cs" />
     <Compile Include="Model\StrokeModel.cs" />
     <Compile Include="Model\NoteModel.cs" />
     <Compile Include="Model\TextNoteModel.cs" />

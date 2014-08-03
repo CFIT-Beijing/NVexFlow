@@ -8,7 +8,7 @@ namespace NVexFlow
         {
             public class Stem
             {
-                public Stem(IList<object> options)
+                public Stem(object options)
                 {
                     Init(options);
                 }
@@ -21,7 +21,7 @@ namespace NVexFlow
                 public static double WIDTH;
                 public static double HEIGHT;
 
-                private void Init(IList<object> options)
+                private void Init(object options)
                 { }
 
                 private object x_begin;

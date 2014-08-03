@@ -38,7 +38,7 @@ namespace NVexFlow.Model
     }
 
     public class NoteMetrics
-    { 
+    {
         public double width;
         public double noteWidth;
         public double leftShift;
@@ -49,7 +49,36 @@ namespace NVexFlow.Model
     }
 
     public class Glyph4Note
-    { }
+    {
+        public double stemUpExtension = - Vex.Flow.STEM_HEIGHT;
+        public double stemDownExtension = - Vex.Flow.STEM_HEIGHT;
+        //common
+        //  head_width: 16,
+        //stem: false,
+        //stem_offset: 0,
+        //flag: false,
+        //stem_up_extension: -Vex.Flow.STEM_HEIGHT,
+        //stem_down_extension: -Vex.Flow.STEM_HEIGHT,
+        //gracenote_stem_up_extension: -Vex.Flow.STEM_HEIGHT,
+        //gracenote_stem_down_extension: -Vex.Flow.STEM_HEIGHT,
+        //tabnote_stem_up_extension: -Vex.Flow.STEM_HEIGHT,
+        //tabnote_stem_down_extension: -Vex.Flow.STEM_HEIGHT,
+        //dot_shiftY: 0,
+        //line_above: 0,
+        //line_below: 0
+        //type
+        //        "m": { // Whole note muted
+        //  code_head: "v92",
+        //  stem_offset: -3
+        //},
+        //"r": { // Whole rest
+        //  code_head: "v5c",
+        //  head_width: 12,
+        //  rest: true,
+        //  position: "D/5",
+        //  dot_shiftY: 0.5
+        //}
+    }
 
 
 

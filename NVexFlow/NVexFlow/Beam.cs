@@ -81,6 +81,8 @@ namespace NVexFlow
                 public void DrawBeamLines()
                 { }
 
+                public void PostFormat()
+                { }
 
                 public void Draw()
                 { }
@@ -100,6 +102,8 @@ namespace NVexFlow
                 {
                     return null;
                 }
+
+
             }
         }
     }
