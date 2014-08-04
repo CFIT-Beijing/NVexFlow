@@ -19,10 +19,18 @@ namespace NVexFlow.Model
         public bool reverse;
     }
 
-    public class CrescendoRenderOpts
+    public class CrescendoRenderOpts : NoteRenderOpts
     { 
         public double extendLeft;
         public double extendRight;
         public double yShift;
+        public static void Merge(NoteRenderOpts renderOptions, CrescendoRenderOpts crescendoRenderOpts)
+        {
+            CrescendoRenderOpts result =(CrescendoRenderOpts) renderOptions;
+            //下面只做差额复制
+            result.extendLeft = crescendoRenderOpts.extendLeft;
+            result.extendRight = crescendoRenderOpts.extendRight;
+            result.yShift = crescendoRenderOpts.yShift;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿////对应 barnote.js
 using System.Collections.Generic;
 using NVexFlow.Model;
+using System;
 
 namespace NVexFlow
 {
@@ -39,15 +40,15 @@ namespace NVexFlow
                     //// Tell the formatter that bar notes have no duration
                     this.ignoreTicks = true;
                     this.type = Barline.BarlineType.SINGLE;
-                    //// Set width to width of relevant `Barline`.
-                    //this.Width = this.metrics.widths[this.type];
+                    // Set width to width of relevant `Barline`.
+                    this.SetWidth(this.metrics.widths[this.type]);
                 }
                 /// <summary>
                 /// Get and set the type of Bar note. `type` must be one of `Vex.Flow.Barline.type`.
                 /// </summary>
                 public Barline.BarlineType Type
                 {
-                    get { return type; }
+                    get { return this.type; }
                     set
                     {
                         this.type = value;
@@ -73,7 +74,7 @@ namespace NVexFlow
                 /// </summary>
                 public void Draw()
                 {
-
+                    throw new System.NotImplementedException();
                 }
                 #endregion
 
@@ -81,13 +82,12 @@ namespace NVexFlow
                 #region 隐含的字段
                 protected Barline.BarlineType type;
                 protected Model.Metrics metrics;
-                protected bool ignoreTicks;
-                #endregion
-
                 public override string Category
                 {
-                    get { throw new System.NotImplementedException(); }
+                    get { throw new NotImplementedException(); }
                 }
+                #endregion
+
             }
         }
     }

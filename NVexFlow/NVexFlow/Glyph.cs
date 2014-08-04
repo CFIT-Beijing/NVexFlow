@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NVexFlow.MODEL;
+using System;
 
 namespace NVexFlow
 {
@@ -91,14 +92,14 @@ namespace NVexFlow
                 }
 
 
-                public Glyph(string code, int point, GlyphsOpts options)
+                public Glyph(string code, int point, GlyphsOpts options=null)
                 {
 
                 }
 
-                public Metrics GetMetrics()
+                public Metrics Metrics
                 {
-                    return null;
+                    get { throw new NotImplementedException(); }
                 }
 
                 public void Reset()

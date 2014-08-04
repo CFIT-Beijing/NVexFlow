@@ -19,7 +19,7 @@ namespace NVexFlow
                 {
                     TimeSignature timeSignature = new Vex.Flow.TimeSignature(timeSpec, customPadding);
                     this.timeSig = timeSignature.TimeSig;
-                    this.SetWidth(this.timeSig.Glyph.GetMetrics().Width);
+                    this.SetWidth(this.timeSig.Glyph.Metrics.Width);
                     //// Note properties
                     this.ignoreTicks = true;
                 }

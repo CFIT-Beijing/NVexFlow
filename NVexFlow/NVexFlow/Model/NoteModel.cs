@@ -9,6 +9,7 @@ namespace NVexFlow.Model
     public class NoteStruct
     {
         public string duration;
+        public bool? ignoreTicks;
         //{ keys: ["a/3"], duration: "q", stem_direction: 1 }
         //public IList<string> keys;
 

@@ -1,6 +1,7 @@
 ﻿////对应 crescendo.js
 using System.Collections.Generic;
 using NVexFlow.Model;
+using System;
 
 namespace NVexFlow
 {
@@ -53,16 +54,25 @@ namespace NVexFlow
                     ctx.Stroke();
                     ctx.ClosePath();
                 }
+                // Initialize the crescendo's properties
                 private void Init(CrescendoStruct noteStruct)
                 {
                     //// Whether the object is a decrescendo
                     this.decrescendo = false;
                     //// The staff line to be placed on
-                    this.line = noteStruct.line == null ? 0 : noteStruct.line.Value;
+                    this.line = noteStruct.line.HasValue ? noteStruct.line.Value : 0;
 
                     //// The height at the open end of the cresc/decresc
                     this.height = 15;
-                    Vex.Merge(this.renderOptions, new CrescendoRenderOpts() { extendLeft = 0, extendRight = 0, yShift = 0 });
+                    //以后是用这种模式为需要Merge的选项类型实现并取代无强类型的Vex.Merge
+                    CrescendoRenderOpts.Merge(this.renderOptions, new CrescendoRenderOpts()
+                    {
+                        // Extensions to the length of the crescendo on either side
+                        extendLeft = 0,
+                        extendRight = 0,
+                        // Vertical shift
+                        yShift = 0
+                    });
                 }
                 /// <summary>
                 /// Set the line to center the element on
@@ -86,6 +96,7 @@ namespace NVexFlow
                     set { decrescendo = value; }
                 }
 
+                // Preformat the note
                 public new Crescendo PreFormat()
                 {
                     this.PreFormatted = true;
@@ -96,7 +107,7 @@ namespace NVexFlow
                 /// </summary>
                 public void Draw()
                 {
-                
+                    throw new NotImplementedException();
                 }
                 #endregion
 
@@ -109,7 +120,7 @@ namespace NVexFlow
 
                 public override string Category
                 {
-                    get { throw new System.NotImplementedException(); }
+                    get { throw new NotImplementedException(); }
                 }
             }
         }

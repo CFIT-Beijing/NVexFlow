@@ -1,5 +1,5 @@
-﻿using System;
-////对应 notehead.js
+﻿////对应 notehead.js
+using System;
 using NVexFlow.Model;
 namespace NVexFlow
 {
@@ -7,6 +7,8 @@ namespace NVexFlow
     {
         public partial class Flow
         {
+            // This file implements `NoteHeads`. `NoteHeads` are typically not manipulated
+            // directly, but used internally in `StaveNote`.
             public class NoteHead : Note
             {
                 #region js直译部分
@@ -24,12 +26,6 @@ namespace NVexFlow
                 // * `x`: the x coordinate to draw at
                 // * `y`: the y coordinate to draw at
                 // * `stem_direction`: the direction of the stem
-                /// </summary>
-                /// <param name="ctx"></param>
-                /// <param name="duration"></param>
-                /// <param name="x"></param>
-                /// <param name="y"></param>
-                /// <param name="stemDirection"></param>
                 private void DrawSlashNoteHead(CanvasContext ctx, string duration, double x, double y, int stemDirection)
                 {
                     //应该是和界面canvas相关的方法，暂时不写？
@@ -80,6 +76,7 @@ namespace NVexFlow
                     // Get glyph code based on duration and note type. This could be regular notes, rests, or other custom codes.
                     this.glyph = Vex.Flow.DurationToGlyph(this.duration, this.noteType) as Glyph4NoteHead;
                     //其实Glyph4NoteHead可以写成partial的Glyph4Note，想表达的是Glyph4NoteHead比父类里使用的Glyph4Note多几个字段。你看看怎么弄吧
+                    //做成Glyph4NoteHead:Glyph4Note吧
                     if (this.glyph == null)
                     {
                         throw new Exception("BadArguments,No glyph found for duration '" + this.duration + "' and type '" + this.noteType + "'");
@@ -95,10 +92,11 @@ namespace NVexFlow
                     this.style = headOptions.style;
                     this.slashed = headOptions.slashed;
                     //其实NoteHeadRenderOpts可以写成partial的NoteRenderOpts，想表达的是NoteHeadRenderOpts比父类里使用的RenderOpts多几个字段。你看看怎么弄吧
+                    //做成NoteHeadRenderOpts:NoteRenderOpts吧。必要时仿照CrescendoRenderOpts实现NoteHeadRenderOpts.Merge静态方法。
                     this.renderOptions = new NoteHeadRenderOpts()
                     {
-                        glyphFontScale = 35,
-                        strokePx = 3
+                        glyphFontScale = 35,// font size for note heads
+                        strokePx = 3// number of stroke px to the left and right of head
                     };
                     if (headOptions.glyphFontScale.HasValue)
                     {
@@ -140,11 +138,12 @@ namespace NVexFlow
                 /// Determine if the notehead is displaced
                 /// </summary>
                 public bool IsDisplaced
-                {
-                    get { return object.ReferenceEquals(this.displaced, true); }
+                {//js之所以用===true多半是防止非bool类型的displaced被动态转换成bool出乱子
+                    get { return this.displaced; }
                 }
                 /// <summary>
-                /// Get/set the notehead's style ， `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
+                /// Get/set the notehead's style 
+                /// style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
                 /// </summary>
                 public NoteHeadStyle Style
                 {
@@ -164,8 +163,6 @@ namespace NVexFlow
                 /// <summary>
                 /// Set the X coordinate
                 /// </summary>
-                /// <param name="x"></param>
-                /// <returns></returns>
                 public NoteHead SetX(double x)
                 {
                     this.x = x;
@@ -193,16 +190,14 @@ namespace NVexFlow
                 {
                     get
                     {
-                        double getAbsoluteX=  base.AbsoluteX;
                         // If the note has not been preformatted, then get the static x value Otherwise, it's been formatted and we should use it's x value relative to its tick context
-                        double x= !this.preFormatted ? this.x : base.x;
+                        double x = !this.preFormatted ? this.x : base.AbsoluteX;
                         return x+(this.displaced?this.width*this.stemDirection:0);
                     }
                 }
                 /// <summary>
                 /// Get the `BoundingBox` for the `NoteHead`
                 /// </summary>
-                /// <returns></returns>
                 public BoundingBox GetBoundingBox()
                 {
                     if (!this.preFormatted)
@@ -217,7 +212,6 @@ namespace NVexFlow
                 /// <summary>
                 /// Apply current style to Canvas `context`
                 /// </summary>
-                /// <returns></returns>
                 public NoteHead ApplyStyle()
                 {
                     NoteHeadStyle style = this.Style;
@@ -247,16 +241,10 @@ namespace NVexFlow
                 /// <summary>
                 /// Pre-render formatting
                 /// </summary>
-                /// <returns></returns>
                 public new NoteHead PreFormat()
                 {
-                    //if (this.preFormatted) return this;
-                    if (this.preFormatted)
-                    {
-                        return this;
-                    }
+                    if (this.preFormatted) return this;
                     Glyph4NoteHead glyph= this.Glyph as Glyph4NoteHead;
-                    //var width = glyph.head_width + this.extraLeftPx + this.extraRightPx;
                     double width= glyph.headWidth + this.extraLeftPx + this.extraRightPx;
                     this.SetWidth(width);
                     this.PreFormatted = true;
@@ -266,7 +254,9 @@ namespace NVexFlow
                 /// Draw the notehead
                 /// </summary>
                 public void Draw()
-                { }
+                {
+                    throw new NotImplementedException();
+                }
                 #endregion
 
 
@@ -275,11 +265,11 @@ namespace NVexFlow
                 protected double y;
                 protected bool displaced;
                 protected int stemDirection;
-                protected double line;
+                protected double line;//可能是int。以后看到确实要改时再改。
                 protected string glyphCode;
                 protected NoteHeadStyle style;//复杂类型，目前还不清楚  `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
                 protected object slashed;//不清楚类型
-                protected bool customGlyph;
+                protected bool customGlyph;//看名字像bool
                 #endregion
             }
         }

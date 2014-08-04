@@ -1,5 +1,5 @@
-﻿using System;
-//对应 textNote.js
+﻿//对应 textNote.js
+using System;
 using System.Collections.Generic;
 using NVexFlow.Model;
 
@@ -21,9 +21,9 @@ namespace NVexFlow
                 #region js直译部分
                 public enum TextNoteJustification
                 {
-                    LEFT,
-                    CENTER,
-                    RIGHT
+                    LEFT=1,
+                    CENTER=2,
+                    RIGHT=3
                 }
                 public static IDictionary<string, Glyph4TextNote> GLYPHS = new Dictionary<string, Glyph4TextNote>() 
                 {              
@@ -72,11 +72,11 @@ namespace NVexFlow
                     //// Determine and set initial note width. Note that the text width is an approximation and isn't very accurate. The only way to accurately measure the length of text is with `canvasContext.measureText()`
                     if (!string.IsNullOrEmpty(this.glyphType))
                     {
-                        if (!GLYPHS.ContainsKey(this.glyphType))
+                        Glyph4TextNote @struct;
+                        if (!GLYPHS.TryGetValue(this.glyphType, out @struct))
                         {
                             throw new Exception("Invalid glyph type:" + this.glyphType);
                         }
-                        Glyph4TextNote @struct = GLYPHS[this.glyphType];
                         this.glyph = new Glyph(@struct.code, @struct.point, new MODEL.GlyphsOpts() { cache = false });
                         if (@struct.width.HasValue)
                         {
@@ -84,7 +84,7 @@ namespace NVexFlow
                         }
                         else
                         {
-                            this.SetWidth(this.glyph.GetMetrics().width);
+                            this.SetWidth(this.glyph.Metrics.width);
                         }
                         this.glyphStruct = @struct;
                     }
@@ -94,6 +94,7 @@ namespace NVexFlow
                     }
                     this.line = textStruct.line.HasValue ? textStruct.line.Value : 0;
                     this.smooth = textStruct.smooth.HasValue ? textStruct.smooth.Value : false;
+                    this.ignoreTicks = textStruct.ignoreTicks.HasValue ? textStruct.ignoreTicks.Value : false;
                     this.justification = TextNote.TextNoteJustification.LEFT;
                 }
                 /// <summary>
@@ -157,7 +158,10 @@ namespace NVexFlow
                 /// <summary>
                 /// Renders the TextNote
                 /// </summary>
-                public void Draw() { }
+                public void Draw() 
+                { 
+                    throw new NotImplementedException();
+                }
 
                 #endregion
 

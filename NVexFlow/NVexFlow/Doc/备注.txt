@@ -1,40 +1,55 @@
 ﻿//////////////////////////////完成检查//////////////////////////////
 达到里程碑1阶段的类:
-//用P::C表示C继承P。
 {
-    Vex,//无派生
-    Fraction,//无派生
-    Modifier,//全族
-        Modifier::Tremolo,//无派生
-        Modifier::Vibrato,//无派生
-        Modifier::FretHandFinger,//无派生
-        Modifier::Stroke,//无派生
-        Modifier::StringNumber,//无派生
-        Modifier::StaveText,//无派生
-        Modifier::StaveSection,//无派生
-        Modifier::GraceNoteGroup,//无派生
-        Modifier::Dot,//无派生
-        Modifier::Bend,//无派生
-        Modifier::Articulation,//无派生
-        Modifier::Annotation,//无派生
-        Modifier::Accidental,//无派生
-    Tickable,//非全族
-        Tickable::Note//非全族
-}
-//Modifier族Draw方法需要在下阶段细化。
+Vex.Flow.Modifier			//	modifier.js
+Vex.Flow.Accidental	:	Vex.Flow.Modifier	//	accidental.js
+Vex.Flow.Annotation	:	Vex.Flow.Modifier	//	annotation.js
+Vex.Flow.Articulation	:	Vex.Flow.Modifier	//	articulation.js
+Vex.Flow.Bend	:	Vex.Flow.Modifier	//	bend.js
+Vex.Flow.Dot	:	Vex.Flow.Modifier	//	dot.js
+Vex.Flow.FretHandFinger	:	Vex.Flow.Modifier	//	frethandfinger.js
+Vex.Flow.GraceNoteGroup	:	Vex.Flow.Modifier	//	gracenotegroup.js
+Vex.Flow.StaveSection	:	Vex.Flow.Modifier	//	stavesection.js
+Vex.Flow.StaveText	:	Vex.Flow.Modifier	//	stavetext.js
+Vex.Flow.StringNumber	:	Vex.Flow.Modifier	//	stringnumber.js
+Vex.Flow.Stroke	:	Vex.Flow.Modifier	//	strokes.js
+Vex.Flow.Tremolo	:	Vex.Flow.Modifier	//	tremolo.js
+Vex.Flow.Vibrato	:	Vex.Flow.Modifier	//	vibrato.js
+Vex.Flow.Tickable			//	tickable.js
+Vex.Flow.Note	:	Vex.Flow.Tickable	//	note.js
+Vex.Flow.BarNote	:	Vex.Flow.Note	//	barnote.js
+Vex.Flow.ClefNote	:	Vex.Flow.Note	//	clefnote.js
+Vex.Flow.Crescendo	:	Vex.Flow.Note	//	crescendo.js
+Vex.Flow.NoteHead	:	Vex.Flow.Note	//	notehead.js
+Vex.Flow.TextNote	:	Vex.Flow.Note	//	textnote.js
+}//Draw方法需要在下阶段细化。
 
 
 //////////////////////////////正在处理//////////////////////////////
-//Tickable族
-GraceNote:StaveNote
-GhostNote  StaveNote  TabNote: StemmableNote:Note
-（完成但未检查）TextNoteTimeSigNote  NoteHead  Crescendo  ClefNote  BarNote:Note
+Vex.Flow.StemmableNote	:	Vex.Flow.Note	//	stemmablenote.js
+Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
+Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
+Vex.Flow.StaveNote	:	Vex.Flow.StemmableNote	//	stavenote.js
+Vex.Flow.GraceNote	:	Vex.Flow.StaveNote	//	gracenote.js
 
 
 //////////////////////////////近期任务//////////////////////////////
-使Tickable族达到里程碑1阶段。
-使StaveModifier族达到里程碑1阶段。
-
+使下列类达到里程碑1阶段：
+{
+Vex.Flow.StaveModifier			//	stavemodifier.js
+Vex.Flow.Barline	:	Vex.Flow.StaveModifier	//	stavebarline.js
+Vex.Flow.Clef	:	Vex.Flow.StaveModifier	//	clef.js
+Vex.Flow.KeySignature	:	Vex.Flow.StaveModifier	//	keysignature.js
+Vex.Flow.Repetition	:	Vex.Flow.StaveModifier	//	staverepetition.js
+Vex.Flow.StaveTempo	:	Vex.Flow.StaveModifier	//	stavetempo.js
+Vex.Flow.TimeSignature	:	Vex.Flow.StaveModifier	//	timesignature.js
+Vex.Flow.Volta	:	Vex.Flow.StaveModifier	//	stavevolta.js
+Vex.Flow.StaveTie			//	stavetie.js
+Vex.Flow.TabTie	:	Vex.Flow.StaveTie	//	tabtie.js
+Vex.Flow.TabSlide	:	Vex.Flow.TabTie	//	tabslide.js
+Vex.Flow.Stave			//	stave.js
+Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
+}
 
 //////////////////////////////中期任务//////////////////////////////
 使所有类达到里程碑1阶段。
@@ -50,4 +65,5 @@ GhostNote  StaveNote  TabNote: StemmableNote:Note
 4、还是Get、Set和override带来的问题。比如父类有一个只读属性叫GetName，子类继承之后，Name属性如果override的话，也只能只读，想要赋值的话需要为子类加上SetName方法（看着不舒服）。解决方法一个是将override换成new（让该方法和父类彻底没关系），另外就是get、set分开写。现在没改过来是为了一致性，你看看用哪种方式。(看起来像是你第二条的回复，说的好像是一个事儿- -)
 
 5、这个源代码管理工具是不是有迁入迁出的设置，这样上传非常麻烦，经常失败导致需要先删除原有项目，再下载、再把自己改过的加进去，容易出现遗漏（有的时候写一个类的时候涉及修改很多类，改了多少记不住）。
+   //你可以离线提交你的修改。在线时同步。如果没有冲突就可以正常上传。有冲突需要处理，略微有些麻烦。你有空看看diff3输出的格式，也还可以处理。先注释并只保留一枝的代码，再看可如何协调。如果还不能确定问题，还可上github网站看完整的以往代码（不是diff摘要）。
 

@@ -1,5 +1,6 @@
 ﻿////对应 clefnote.js
 using NVexFlow.Model;
+using System;
 using System.Collections.Generic;
 
 namespace NVexFlow
@@ -26,8 +27,8 @@ namespace NVexFlow
                     set
                     {
                         this.clef = value;//外界这样赋值  this.clef= Vex.Flow.Clef.Types["treble"];
-                        this.glyph = new Glyph(this.clef.code, this.clef.point, null);
-                        this.SetWidth(this.glyph.GetMetrics().Width);
+                        this.glyph = new Glyph(this.clef.code, this.clef.point);
+                        this.SetWidth(this.glyph.Metrics.Width);
                     }
                 }
                 public override Stave Stave
@@ -53,7 +54,7 @@ namespace NVexFlow
                 }
                 public void Draw()
                 {
-
+                    throw new NotImplementedException();
                 }
                 #endregion
 
