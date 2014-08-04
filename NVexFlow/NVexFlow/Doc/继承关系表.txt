@@ -1,40 +1,65 @@
-Vex.Flow.Modifier		
-Vex.Flow.Accidental	:	Vex.Flow.Modifier
-Vex.Flow.Annotation	:	Vex.Flow.Modifier
-Vex.Flow.Articulation	:	Vex.Flow.Modifier
-Vex.Flow.Bend	:	Vex.Flow.Modifier
-Vex.Flow.Dot	:	Vex.Flow.Modifier
-Vex.Flow.FretHandFinger	:	Vex.Flow.Modifier
-Vex.Flow.GraceNoteGroup	:	Vex.Flow.Modifier
-Vex.Flow.StaveSection	:	Vex.Flow.Modifier
-Vex.Flow.StaveText	:	Vex.Flow.Modifier
-Vex.Flow.StringNumber	:	Vex.Flow.Modifier
-Vex.Flow.Stroke	:	Vex.Flow.Modifier
-Vex.Flow.Tremolo	:	Vex.Flow.Modifier
-Vex.Flow.Vibrato	:	Vex.Flow.Modifier
-Vex.Flow.Tickable		
-Vex.Flow.Note	:	Vex.Flow.Tickable
-Vex.Flow.BarNote	:	Vex.Flow.Note
-Vex.Flow.ClefNote	:	Vex.Flow.Note
-Vex.Flow.Crescendo	:	Vex.Flow.Note
-Vex.Flow.NoteHead	:	Vex.Flow.Note
-Vex.Flow.TextNote	:	Vex.Flow.Note
-Vex.Flow.TimeSigNote	:	Vex.Flow.Note
-Vex.Flow.StemmableNote	:	Vex.Flow.Note
-Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote
-Vex.Flow.TabNote	:	Vex.Flow.StemmableNote
-Vex.Flow.StaveNote	:	Vex.Flow.StemmableNote
-Vex.Flow.GraceNote	:	Vex.Flow.StaveNote
-Vex.Flow.StaveModifier		
-Vex.Flow.Barline	:	Vex.Flow.StaveModifier
-Vex.Flow.Clef	:	Vex.Flow.StaveModifier
-Vex.Flow.KeySignature	:	Vex.Flow.StaveModifier
-Vex.Flow.Repetition	:	Vex.Flow.StaveModifier
-Vex.Flow.StaveTempo	:	Vex.Flow.StaveModifier
-Vex.Flow.TimeSignature	:	Vex.Flow.StaveModifier
-Vex.Flow.Volta	:	Vex.Flow.StaveModifier
-Vex.Flow.StaveTie		
-Vex.Flow.TabTie	:	Vex.Flow.StaveTie
-Vex.Flow.TabSlide	:	Vex.Flow.TabTie
-Vex.Flow.Stave		
-Vex.Flow.TabStave	:	Vex.Flow.Stave
+Vex.Flow.Modifier			//	modifier.js
+Vex.Flow.Accidental	:	Vex.Flow.Modifier	//	accidental.js
+Vex.Flow.Annotation	:	Vex.Flow.Modifier	//	annotation.js
+Vex.Flow.Articulation	:	Vex.Flow.Modifier	//	articulation.js
+Vex.Flow.Bend	:	Vex.Flow.Modifier	//	bend.js
+Vex.Flow.Dot	:	Vex.Flow.Modifier	//	dot.js
+Vex.Flow.FretHandFinger	:	Vex.Flow.Modifier	//	frethandfinger.js
+Vex.Flow.GraceNoteGroup	:	Vex.Flow.Modifier	//	gracenotegroup.js
+Vex.Flow.StaveSection	:	Vex.Flow.Modifier	//	stavesection.js
+Vex.Flow.StaveText	:	Vex.Flow.Modifier	//	stavetext.js
+Vex.Flow.StringNumber	:	Vex.Flow.Modifier	//	stringnumber.js
+Vex.Flow.Stroke	:	Vex.Flow.Modifier	//	strokes.js
+Vex.Flow.Tremolo	:	Vex.Flow.Modifier	//	tremolo.js
+Vex.Flow.Vibrato	:	Vex.Flow.Modifier	//	vibrato.js
+Vex.Flow.Tickable			//	tickable.js
+Vex.Flow.Note	:	Vex.Flow.Tickable	//	note.js
+Vex.Flow.BarNote	:	Vex.Flow.Note	//	barnote.js
+Vex.Flow.ClefNote	:	Vex.Flow.Note	//	clefnote.js
+Vex.Flow.Crescendo	:	Vex.Flow.Note	//	crescendo.js
+Vex.Flow.NoteHead	:	Vex.Flow.Note	//	notehead.js
+Vex.Flow.TextNote	:	Vex.Flow.Note	//	textnote.js
+Vex.Flow.TimeSigNote	:	Vex.Flow.Note	//	timesignote.js
+Vex.Flow.StemmableNote	:	Vex.Flow.Note	//	stemmablenote.js
+Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
+Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
+Vex.Flow.StaveNote	:	Vex.Flow.StemmableNote	//	stavenote.js
+Vex.Flow.GraceNote	:	Vex.Flow.StaveNote	//	gracenote.js
+Vex.Flow.StaveModifier			//	stavemodifier.js
+Vex.Flow.Barline	:	Vex.Flow.StaveModifier	//	stavebarline.js
+Vex.Flow.Clef	:	Vex.Flow.StaveModifier	//	clef.js
+Vex.Flow.KeySignature	:	Vex.Flow.StaveModifier	//	keysignature.js
+Vex.Flow.Repetition	:	Vex.Flow.StaveModifier	//	staverepetition.js
+Vex.Flow.StaveTempo	:	Vex.Flow.StaveModifier	//	stavetempo.js
+Vex.Flow.TimeSignature	:	Vex.Flow.StaveModifier	//	timesignature.js
+Vex.Flow.Volta	:	Vex.Flow.StaveModifier	//	stavevolta.js
+Vex.Flow.StaveTie			//	stavetie.js
+Vex.Flow.TabTie	:	Vex.Flow.StaveTie	//	tabtie.js
+Vex.Flow.TabSlide	:	Vex.Flow.TabTie	//	tabslide.js
+Vex.Flow.Stave			//	stave.js
+Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
+Vex.Flow.BoundingBox			//	boundingbox.js
+Vex.Flow.Stem			//	stem.js
+Vex.Flow.Curve			//	curve.js
+Vex.Flow.Beam			//	beam.js
+Vex.Flow.Tuplet			//	tuplet.js
+Vex.Flow.StaveHairpin			//	stavehairpin.js
+Vex.Flow.StaveLine			//	staveline.js
+Vex.Flow.StaveConnector			//	staveconnector.js
+Vex.Flow.Voice			//	voice.js
+Vex.Flow.VoiceGroup			//	voicegroup.js
+Vex.Flow.TickContext			//	tickcontext.js
+Vex.Flow.ModifierContext			//	modifiercontext.js
+Vex.Flow.Formatter			//	formatter.js
+Vex.Flow.Glyph			//	glyph.js
+Vex.Flow.Renderer			//	renderer.js
+Vex.Flow.CanvasContext			//	canvascontext.js
+Vex.Flow.RaphaelContext			//	raphaelcontext.js
+Vex.Flow.Music			//	music.js
+Vex.Flow.KeyManager			//	keymanager.js
+Vex.Flow.Tuning			//	tuning.js
+Vex.Flow.Fraction			//	fraction.js
+Vex.Flow			//	flow.js
+Vex.Flow			//	tables.js
+Vex			//	vex.js
+Vex			//	header.js
