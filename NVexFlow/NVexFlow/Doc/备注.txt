@@ -22,10 +22,11 @@ Vex.Flow.ClefNote	:	Vex.Flow.Note	//	clefnote.js
 Vex.Flow.Crescendo	:	Vex.Flow.Note	//	crescendo.js
 Vex.Flow.NoteHead	:	Vex.Flow.Note	//	notehead.js
 Vex.Flow.TextNote	:	Vex.Flow.Note	//	textnote.js
-}//Draw方法需要在下阶段细化。
+}//Draw以及部分涉及画图的方法需要在下阶段细化。
 
 
 //////////////////////////////正在处理//////////////////////////////
+Vex.Flow.TimeSigNote	:	Vex.Flow.Note	//	timesignote.js
 Vex.Flow.StemmableNote	:	Vex.Flow.Note	//	stemmablenote.js
 Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
 Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
