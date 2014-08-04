@@ -1,0 +1,40 @@
+Vex.Flow.Modifier		
+Vex.Flow.Accidental	:	Vex.Flow.Modifier
+Vex.Flow.Annotation	:	Vex.Flow.Modifier
+Vex.Flow.Articulation	:	Vex.Flow.Modifier
+Vex.Flow.Bend	:	Vex.Flow.Modifier
+Vex.Flow.Dot	:	Vex.Flow.Modifier
+Vex.Flow.FretHandFinger	:	Vex.Flow.Modifier
+Vex.Flow.GraceNoteGroup	:	Vex.Flow.Modifier
+Vex.Flow.StaveSection	:	Vex.Flow.Modifier
+Vex.Flow.StaveText	:	Vex.Flow.Modifier
+Vex.Flow.StringNumber	:	Vex.Flow.Modifier
+Vex.Flow.Stroke	:	Vex.Flow.Modifier
+Vex.Flow.Tremolo	:	Vex.Flow.Modifier
+Vex.Flow.Vibrato	:	Vex.Flow.Modifier
+Vex.Flow.Tickable		
+Vex.Flow.Note	:	Vex.Flow.Tickable
+Vex.Flow.BarNote	:	Vex.Flow.Note
+Vex.Flow.ClefNote	:	Vex.Flow.Note
+Vex.Flow.Crescendo	:	Vex.Flow.Note
+Vex.Flow.NoteHead	:	Vex.Flow.Note
+Vex.Flow.TextNote	:	Vex.Flow.Note
+Vex.Flow.TimeSigNote	:	Vex.Flow.Note
+Vex.Flow.StemmableNote	:	Vex.Flow.Note
+Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote
+Vex.Flow.TabNote	:	Vex.Flow.StemmableNote
+Vex.Flow.StaveNote	:	Vex.Flow.StemmableNote
+Vex.Flow.GraceNote	:	Vex.Flow.StaveNote
+Vex.Flow.StaveModifier		
+Vex.Flow.Barline	:	Vex.Flow.StaveModifier
+Vex.Flow.Clef	:	Vex.Flow.StaveModifier
+Vex.Flow.KeySignature	:	Vex.Flow.StaveModifier
+Vex.Flow.Repetition	:	Vex.Flow.StaveModifier
+Vex.Flow.StaveTempo	:	Vex.Flow.StaveModifier
+Vex.Flow.TimeSignature	:	Vex.Flow.StaveModifier
+Vex.Flow.Volta	:	Vex.Flow.StaveModifier
+Vex.Flow.StaveTie		
+Vex.Flow.TabTie	:	Vex.Flow.StaveTie
+Vex.Flow.TabSlide	:	Vex.Flow.TabTie
+Vex.Flow.Stave		
+Vex.Flow.TabStave	:	Vex.Flow.Stave
