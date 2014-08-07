@@ -107,11 +107,11 @@ namespace NVexFlow
                 /// <summary>
                 /// Get and set note index, which is a specific note in a chord.
                 /// </summary>
-                public virtual object Index
+                public virtual int Index
                 {
                     get
                     {
-                        return index;
+                        return index.Value;
                     }
                     set
                     {
@@ -213,7 +213,7 @@ namespace NVexFlow
                 protected double width;
                 protected CanvasContext context;
                 protected Note note;
-                protected object index;
+                protected int? index;
                 protected int textLine;
                 protected ModifierPosition position;
                 protected object modifierContext;

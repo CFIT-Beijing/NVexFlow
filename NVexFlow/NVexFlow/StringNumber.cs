@@ -60,7 +60,7 @@ namespace NVexFlow
                         this.Note=value;
                     }
                 }
-                public override object Index
+                public override int Index
                 {
                     get
                     {

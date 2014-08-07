@@ -18,7 +18,7 @@ namespace NVexFlow
 
             public static IDictionary<string, object> clefPropertiesValues;//待初始化
 
-            public static object KeyProperties(object key, string clef)
+            public static NoteProps KeyProperties(object key, string clef)
             {
                 return null;
             }

@@ -39,7 +39,7 @@ namespace NVexFlow
                     return null;
                 }
 
-                public object GetModifiers(object type)
+                public object GetModifiers(string type)
                 { return null; }
 
 

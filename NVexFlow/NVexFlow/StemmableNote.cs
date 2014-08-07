@@ -247,7 +247,7 @@ namespace NVexFlow
                 /// </summary>
                 /// <param name="textLine"></param>
                 /// <returns></returns>
-                public virtual object GetYForTopText(double textLine)
+                public virtual double GetYForTopText(double textLine)
                 {
                     StemExtents extents = this.StemExtents;
                     if (this.HasStem())
@@ -290,7 +290,7 @@ namespace NVexFlow
                 /// Render the stem onto the canvas
                 /// </summary>
                 /// <param name="stemStruct"></param>
-                public virtual void DrawStem(object stemStruct)
+                public virtual void DrawStem(StemOpts stemStruct)
                 {
                     //        if (!this.context) throw new Vex.RERR("NoCanvasContext",
                     //"Can't draw without a canvas context.");

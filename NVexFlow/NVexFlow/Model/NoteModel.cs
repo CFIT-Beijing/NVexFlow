@@ -26,7 +26,7 @@ namespace NVexFlow.Model
         public int ticks;
     }
 
-    public class NoteRenderOpts
+    public class NoteRenderOpts:RenderOptions
     {
         public double annotationSpacing;
         public double stavePadding;
@@ -40,6 +40,7 @@ namespace NVexFlow.Model
 
     public class NoteMetrics
     {
+        public Dictionary<NVexFlow.Vex.Flow.Barline.BarlineType, int> widths;
         public double width;
         public double noteWidth;
         public double leftShift;
@@ -53,6 +54,15 @@ namespace NVexFlow.Model
     {
         public double stemUpExtension = - Vex.Flow.STEM_HEIGHT;
         public double stemDownExtension = - Vex.Flow.STEM_HEIGHT;
+        public string codeHead;
+        public bool rest;
+        public string position;
+        public double lineAbove;
+        public double lineBelow;
+        public bool stem;
+        public double headWidth;
+        public double dot_shiftY;
+        public bool flag;
         //common
         //  head_width: 16,
         //stem: false,
@@ -82,10 +92,34 @@ namespace NVexFlow.Model
     }
 
 
+    public class NoteProps
+    {
+        public double line;
+        public string code;
+        public double shiftRight;
+        public bool displaced;
+        public int intValue;
+        //  Vex.Flow.keyProperties = function(key, clef) {
+        //  return {
+        //  key: k,
+        //  octave: o,
+        //  line: line,
+        //  int_value: int_value,
+        //  accidental: value.accidental,
+        //  code: code,
+        //  stroke: stroke,
+        //  shift_right: shift_right,
+        //  displaced: false
+        //};
+        //  }
+        
+    }
 
 
-
-
+    public class KeyProperties
+    { 
+  
+    }
 
 
 

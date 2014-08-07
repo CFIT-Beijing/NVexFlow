@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {//Stem
@@ -8,7 +9,7 @@ namespace NVexFlow
         {
             public class Stem
             {
-                public Stem(object options)
+                public Stem(StemOpts options)
                 {
                     Init(options);
                 }
@@ -20,8 +21,8 @@ namespace NVexFlow
                 //Stem.HEIGHT = Vex.Flow.STEM_HEIGHT;
                 public static double WIDTH;
                 public static double HEIGHT;
-
-                private void Init(object options)
+                public bool hide;
+                private void Init(StemOpts options)
                 { }
 
                 private object x_begin;

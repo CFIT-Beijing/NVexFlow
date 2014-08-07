@@ -29,7 +29,7 @@ namespace NVexFlow
                 private void Init()
                 {
                     //// Defined this way to prevent lint errors.
-                    this.metrics = new Model.Metrics();
+                    this.metrics = new NoteMetrics();
                     this.metrics.widths.Add(Barline.BarlineType.SINGLE, 8);
                     this.metrics.widths.Add(Barline.BarlineType.DOUBLE, 12);
                     this.metrics.widths.Add(Barline.BarlineType.END, 15);
@@ -81,7 +81,7 @@ namespace NVexFlow
 
                 #region 隐含的字段
                 protected Barline.BarlineType type;
-                protected Model.Metrics metrics;
+                protected NoteMetrics metrics;
                 public override string Category
                 {
                     get { throw new NotImplementedException(); }

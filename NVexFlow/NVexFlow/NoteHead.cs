@@ -261,7 +261,7 @@ namespace NVexFlow
 
 
                 #region 隐含字段
-                protected object index;//猜测是int或者int？
+                protected int index;//猜测是int或者int？
                 protected double y;
                 protected bool displaced;
                 protected int stemDirection;

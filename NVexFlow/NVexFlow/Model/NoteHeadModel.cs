@@ -8,8 +8,8 @@ namespace NVexFlow.Model
 {
     public class NoteHeadStruct : NoteStruct
     {
-        public int line;
-        public object index;
+        public double line;
+        public int index;
         public double? x;
         public double? y;
         public string noteType;

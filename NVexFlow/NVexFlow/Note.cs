@@ -117,7 +117,7 @@ namespace NVexFlow
                 /// <summary>
                 /// TODO(0xfe): Why is this method here?
                 /// </summary>
-                public Note AddStroke(object index,Stroke stroke)
+                public Note AddStroke(int index, Stroke stroke)
                 {
                     stroke.Note = this;
                     stroke.Index = index;
@@ -236,7 +236,7 @@ namespace NVexFlow
                 /// <summary>
                 /// Get the Y position of the space above the stave onto which text can be rendered.
                 /// </summary>
-                public virtual double GetYForTopText(object textLine)
+                public virtual double GetYForTopText(double textLine)
                 {
                     if(this.stave == null) {
                         throw new Exception("NoStave,No stave attached to this note.");
@@ -373,7 +373,7 @@ namespace NVexFlow
                 // `modRightPx`: Start `X` for right modifiers.
                 // `extraLeftPx`: Extra space on left of note.
                 // `extraRightPx`: Extra space on right of note.
-                public object Metrics
+                public NoteMetrics Metrics
                 {
                     get
                     {

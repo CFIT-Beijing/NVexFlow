@@ -25,9 +25,7 @@ namespace NVexFlow
 
                 public int NoteToInteger(string noteString)
                 {
-                    return (int)Vex.Flow.KeyProperties(noteString, "");
-                    //其实是返回KeyProperties方法返回值中的int_value
-                    //return Vex.Flow.keyProperties(noteString).int_value;
+                    return Vex.Flow.KeyProperties(noteString, "").intValue;
                 }
 
                 private string tuningString;

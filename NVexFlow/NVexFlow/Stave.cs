@@ -51,9 +51,9 @@ namespace NVexFlow
                     get { return x; }
                 }
 
-                int numLines;
+                double numLines;
 
-                public int NumLines
+                public double NumLines
                 {
                     get { return numLines; }
                     set { numLines = value; }
@@ -126,7 +126,7 @@ namespace NVexFlow
                     return this;
                 }
 
-                public double GetModifierXShift(object index)
+                public double GetModifierXShift(int index)
                 { return 0; }
 
                 public Stave SetRepetitionTypeLeft(object type, double y)
@@ -194,7 +194,7 @@ namespace NVexFlow
                 }
 
 
-                public double GetYForTopText(object line)
+                public double GetYForTopText(double line)
                 {
                     return 0;
                 }
