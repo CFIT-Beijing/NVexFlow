@@ -7,7 +7,7 @@ namespace NVexFlow
     /// <summary>
     /// This file implements utility methods used by the rest of the VexFlow
     /// </summary>
-    public partial class Vex
+    public static class Vex
     {
         /// <summary>
         /// Default log function sends all arguments to console.

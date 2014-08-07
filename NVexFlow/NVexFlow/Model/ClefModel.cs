@@ -1,5 +1,4 @@
-﻿
-namespace NVexFlow.Model
+﻿namespace NVexFlow.Model
 {
     public class ClefType
     {

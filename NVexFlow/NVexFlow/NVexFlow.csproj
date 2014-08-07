@@ -65,7 +65,7 @@
     <Compile Include="Model\ClefModel.cs" />
     <Compile Include="Model\ClefNoteModel.cs" />
     <Compile Include="Model\CrescendoModel.cs" />
-    <Compile Include="Model\Font.cs" />
+    <Compile Include="Fonts\Font.cs" />
     <Compile Include="Model\GlyphsModel.cs" />
     <Compile Include="Model\BendModel.cs" />
     <Compile Include="Model\GraceNoteModel.cs" />
@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Doc\备注.txt" />
+    <Content Include="Doc\继承关系表.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,12 +1,7 @@
-﻿
-namespace NVexFlow
+﻿namespace NVexFlow
 {
-    public partial class Vex
+    public partial class Flow
     {
-        public partial class Flow
-        {
-            public static int RESOLUTION = 16384;
-        }
-
+        public static int RESOLUTION = 16384;
     }
 }

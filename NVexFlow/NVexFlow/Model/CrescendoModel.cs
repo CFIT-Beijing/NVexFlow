@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NVexFlow.Model
+﻿namespace NVexFlow.Model
 {
-    public class CrescendoStruct : NoteStruct
+    public class CrescendoStruct:NoteStruct
     {
         public int? line;
     }
@@ -18,15 +12,14 @@ namespace NVexFlow.Model
         public double height;
         public bool reverse;
     }
-
-    public class CrescendoRenderOpts : NoteRenderOpts
-    { 
+    public class CrescendoRenderOpts:NoteRenderOpts
+    {
         public double extendLeft;
         public double extendRight;
         public double yShift;
-        public static void Merge(NoteRenderOpts renderOptions, CrescendoRenderOpts crescendoRenderOpts)
+        public static void Merge(NoteRenderOpts renderOptions,CrescendoRenderOpts crescendoRenderOpts)
         {
-            CrescendoRenderOpts result =(CrescendoRenderOpts) renderOptions;
+            CrescendoRenderOpts result = (CrescendoRenderOpts)renderOptions;
             //下面只做差额复制
             result.extendLeft = crescendoRenderOpts.extendLeft;
             result.extendRight = crescendoRenderOpts.extendRight;

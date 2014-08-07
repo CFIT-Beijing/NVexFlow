@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow.Model
 {
@@ -12,12 +8,10 @@ namespace NVexFlow.Model
         public bool? ignoreTicks;
         //{ keys: ["a/3"], duration: "q", stem_direction: 1 }
         //public IList<string> keys;
-
         //public int stemDirection;
         //public string glyph;
         //public int? line;
     }
-
     public class NoteInitData
     {
         public string duration;
@@ -25,22 +19,19 @@ namespace NVexFlow.Model
         public string type;
         public int ticks;
     }
-
     public class NoteRenderOpts:RenderOptions
     {
         public double annotationSpacing;
         public double stavePadding;
     }
-
     public class NoteModifierStartXY
     {
         public double x;
         public double y;
     }
-
     public class NoteMetrics
     {
-        public Dictionary<NVexFlow.Vex.Flow.Barline.BarlineType, int> widths;
+        public Dictionary<Barline.BarlineType,int> widths;
         public double width;
         public double noteWidth;
         public double leftShift;
@@ -49,11 +40,10 @@ namespace NVexFlow.Model
         public double extraLeftPx;
         public double extraRightPx;
     }
-
     public class Glyph4Note
     {
-        public double stemUpExtension = - Vex.Flow.STEM_HEIGHT;
-        public double stemDownExtension = - Vex.Flow.STEM_HEIGHT;
+        public double stemUpExtension = -Flow.STEM_HEIGHT;
+        public double stemDownExtension = -Flow.STEM_HEIGHT;
         public string codeHead;
         public bool rest;
         public string position;
@@ -90,8 +80,6 @@ namespace NVexFlow.Model
         //  dot_shiftY: 0.5
         //}
     }
-
-
     public class NoteProps
     {
         public double line;
@@ -112,16 +100,8 @@ namespace NVexFlow.Model
         //  displaced: false
         //};
         //  }
-        
     }
-
-
     public class KeyProperties
-    { 
-  
+    {
     }
-
-
-
-
 }

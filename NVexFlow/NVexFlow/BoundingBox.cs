@@ -1,75 +1,76 @@
-﻿
-namespace NVexFlow
+﻿namespace NVexFlow
 {
-    public partial class Vex
+    public class BoundingBox
     {
-        public partial class Flow
+        public BoundingBox(double x,double y,double w,double h)
+        { }
+        private void Init(double x,double y,double w,double h)
         {
-            public class BoundingBox
-            {
-                public BoundingBox(double x, double y, double w, double h)
-                { }
-                private void Init(double x, double y, double w, double h)
-                {
-                    this.x = x;
-                    this.y = y;
-                    this.w = w;
-                    this.h = h;
-                }
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+        }
 
-                public void Move(double x, double y)
-                {
-                    this.x += x;
-                    this.y += y;
-                }
+        public void Move(double x,double y)
+        {
+            this.x += x;
+            this.y += y;
+        }
 
-                public BoundingBox Clone()
-                {
-                    return Copy(this);
-                }
+        public BoundingBox Clone()
+        {
+            return Copy(this);
+        }
 
-                public BoundingBox Copy(BoundingBox that)
-                {
-                    return new BoundingBox(that.X, that.Y, that.W, that.H);
-                }
+        public BoundingBox Copy(BoundingBox that)
+        {
+            return new BoundingBox(that.X,that.Y,that.W,that.H);
+        }
 
-                public void Draw(object ctx, double x, double y)
-                { }
+        public void Draw(object ctx,double x,double y)
+        { }
 
-                public BoundingBox MergeWith(BoundingBox boundingBox, object ctx)
-                {
-                    return null;
-                }
+        public BoundingBox MergeWith(BoundingBox boundingBox,object ctx)
+        {
+            return null;
+        }
 
-                double x;
+        double x;
 
-                public double X
-                {
-                    get { return x; }
-                    set { x = value; }
-                }
-                double y;
+        public double X
+        {
+            get
+            { return x; }
+            set
+            { x = value; }
+        }
+        double y;
 
-                public double Y
-                {
-                    get { return y; }
-                    set { y = value; }
-                }
-                double w;
+        public double Y
+        {
+            get
+            { return y; }
+            set
+            { y = value; }
+        }
+        double w;
 
-                public double W
-                {
-                    get { return w; }
-                    set { w = value; }
-                }
-                double h;
+        public double W
+        {
+            get
+            { return w; }
+            set
+            { w = value; }
+        }
+        double h;
 
-                public double H
-                {
-                    get { return h; }
-                    set { h = value; }
-                }
-            }
+        public double H
+        {
+            get
+            { return h; }
+            set
+            { h = value; }
         }
     }
 }

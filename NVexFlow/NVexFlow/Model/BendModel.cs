@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NVexFlow.Model
+﻿namespace NVexFlow.Model
 {
     public class PhraseModel
     {
-        public NVexFlow.Vex.Flow.Bend.BendType type;
+        public Bend.BendType type;
         public string text;
         public double? width;
         public double drawWidth;
     }
-
-    public class BendRenderOpts : RenderOptions
+    public class BendRenderOpts:RenderOptions
     {
         public double lineWidth;
         public string lineStyle;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NVexFlow.Model
 {
@@ -13,17 +9,14 @@ namespace NVexFlow.Model
         public int stemDirection;
         public int? autoStem;
     }
-
     public class StaveNoteRenderOpts:NoteRenderOpts
     {
         public int glyphFontScale;
     }
-
-    public class Glyph4StaveNote : Glyph4Note
-    { }
-
+    public class Glyph4StaveNote:Glyph4Note
+    {
+    }
     public class NoteHeadBounds
-
     {
         //return {
         //  y_top: y_top,
@@ -36,7 +29,6 @@ namespace NVexFlow.Model
         public double highestLine;
         public double lowestLine;
     }
-
     public class ModifierStartXY
     {
         //return { x: this.getAbsoluteX() + x, y: this.ys[index] };

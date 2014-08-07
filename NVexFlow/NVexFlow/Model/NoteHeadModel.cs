@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NVexFlow.Model
+﻿namespace NVexFlow.Model
 {
-    public class NoteHeadStruct : NoteStruct
+    public class NoteHeadStruct:NoteStruct
     {
         public double line;
         public int index;
@@ -21,7 +15,6 @@ namespace NVexFlow.Model
         public object slashed;
         public int? glyphFontScale;
     }
-
     /// <summary>
     /// `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
     /// </summary>
@@ -35,14 +28,13 @@ namespace NVexFlow.Model
     /// <summary>
     ///table.js  Vex.Flow.durationToGlyph.duration_codes
     /// </summary>
-    public class Glyph4NoteHead :Glyph4Note
+    public class Glyph4NoteHead:Glyph4Note
     {
         public string codeHead;
         public double headWidth;
     }
-
-    public class NoteHeadRenderOpts : NoteRenderOpts
-    {       
+    public class NoteHeadRenderOpts:NoteRenderOpts
+    {
         public int glyphFontScale;// font size for note heads
         public int strokePx;// number of stroke px to the left and right of head
     }

@@ -1,14 +1,11 @@
-﻿
-namespace NVexFlow.MODEL
+﻿namespace NVexFlow.Model
 {
     public class GlyphsModel
     {
         public string code;
         public int point;
         public int line;
-        
     }
-
     public class GlyphsOpts
     {
         public bool cache;

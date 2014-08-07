@@ -2,35 +2,31 @@
 
 namespace NVexFlow
 {
-    public partial class Vex
+    public class VoiceGroup
     {
-        public partial class Flow
+        public VoiceGroup()
         {
-            public class VoiceGroup
-            {
-                public VoiceGroup()
-                {
-                    voices = new List<object>();
-                    modifierContexts = new List<object>();
-                }
-
-                private IList<object> voices;
-
-                public IList<object> Voices
-                {
-                    get { return voices; }
-                }
-
-                private IList<object> modifierContexts;
-
-                public IList<object> ModifierContexts
-                {
-                    get { return modifierContexts; }
-                }
-
-                public void AddVoice(object voice) { }
-            }
+            voices = new List<object>();
+            modifierContexts = new List<object>();
         }
 
+        private IList<object> voices;
+
+        public IList<object> Voices
+        {
+            get
+            { return voices; }
+        }
+
+        private IList<object> modifierContexts;
+
+        public IList<object> ModifierContexts
+        {
+            get
+            { return modifierContexts; }
+        }
+
+        public void AddVoice(object voice)
+        { }
     }
 }

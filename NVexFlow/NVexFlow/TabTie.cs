@@ -2,45 +2,38 @@
 
 namespace NVexFlow
 {
-    public partial class Vex
+    public class TabTie:StaveTie
     {
-        public partial class Flow
+
+        #region 属性字段
+        object renderOptions;
+        #endregion
+
+
+        #region 方法
+        public TabTie(IList<object> notes,string text)
+            : base(notes,text)
         {
-            public class TabTie : StaveTie
-            {
-
-                #region 属性字段
-                object renderOptions;
-                #endregion
-
-
-                #region 方法
-                public TabTie(IList<object> notes, string text)
-                    : base(notes, text)
-                {
-                    Init(notes, text);
-                }
-
-                public override void Init(IList<object> notes, string text)
-                { }
-
-                public void Draw()
-                { }
-
-
-                public static TabTie CreateHammeron(IList<object> notes)
-                {
-                    return new TabTie(notes, "H");
-                }
-
-
-                public static TabTie CreatePulloff(IList<object> notes)
-                {
-                    return new TabTie(notes, "P");
-                }
-                #endregion
-            }
+            Init(notes,text);
         }
 
+        public override void Init(IList<object> notes,string text)
+        { }
+
+        public void Draw()
+        { }
+
+
+        public static TabTie CreateHammeron(IList<object> notes)
+        {
+            return new TabTie(notes,"H");
+        }
+
+
+        public static TabTie CreatePulloff(IList<object> notes)
+        {
+            return new TabTie(notes,"P");
+        }
+        #endregion
     }
 }

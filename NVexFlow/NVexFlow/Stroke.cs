@@ -1,104 +1,95 @@
 ﻿//对应 strokes.js
-//框架：    已完成
-//类型定义：存在改进空间
-//原js：    存在改进空间
 using System;
 using NVexFlow.Model;
 namespace NVexFlow
 {
-    public partial class Vex
+    /// <summary>
+    /// Class implements chord strokes - arpeggiated, brush & rasquedo.
+    /// </summary>
+    public class Stroke:Modifier
     {
-        public partial class Flow
+        #region js直译部分
+        public Stroke(StrokeType type,StrokeOptions options)
         {
-            /// <summary>
-            /// Class implements chord strokes - arpeggiated, brush & rasquedo.
-            /// </summary>
-            public class Stroke:Modifier
+            Init(type,options);
+        }
+        public enum StrokeType
+        {
+            BRUSH_DOWN = 1,
+            BRUSH_UP = 2,
+            ROLL_DOWN = 3,    // Arpegiated chord
+            ROLL_UP = 4,          // Arpegiated chord
+            RASQUEDO_DOWN = 5,
+            RASQUEDO_UP = 6
+        }
+        private void Init(StrokeType type,StrokeOptions options)
+        {
+            this.note = null;
+            this.options = options;
+
+            // multi voice - span stroke across all voices if true
+            if(options.allVoices.HasValue)
             {
-                #region js直译部分
-                public Stroke(StrokeType type,StrokeOptions options)
-                {
-                    Init(type,options);
-                }
-                public enum StrokeType
-                {
-                    BRUSH_DOWN = 1,
-                    BRUSH_UP = 2,
-                    ROLL_DOWN = 3,    // Arpegiated chord
-                    ROLL_UP = 4,          // Arpegiated chord
-                    RASQUEDO_DOWN = 5,
-                    RASQUEDO_UP = 6
-                }
-                private void Init(StrokeType type,StrokeOptions options)
-                {
-                    this.note=null;
-                    this.options=options;
+                this.allVoices = this.options.allVoices;
+            }
+            else
+            {
+                this.allVoices = true;
+            }
 
-                    // multi voice - span stroke across all voices if true
-                    if(options.allVoices.HasValue)
-                    {
-                        this.allVoices=this.options.allVoices;
-                    }
-                    else
-                    {
-                        this.allVoices=true;
-                    }
+            //  multi voice - end note of stroke, set in draw()
+            this.noteEnd = null;
+            this.index = null;
+            this.type = type;
+            this.position = Modifier.ModifierPosition.LEFT;
 
-                    //  multi voice - end note of stroke, set in draw()
-                    this.noteEnd=null;
-                    this.index=null;
-                    this.type=type;
-                    this.position=Modifier.ModifierPosition.LEFT;
+            this.renderOptions = new RenderOptions() {
+                fontScale = 38,
+                strokePx = 3,
+                strokeSpacing = 10
+            };
 
-                    this.renderOptions=new RenderOptions() {
-                        fontScale=38,
-                        strokePx=3,
-                        strokeSpacing=10
-                    };
+            this.font = new Font() {
+                family = "serif",
+                size = 10,
+                weight = "bold italic"
+            };
 
-                    this.font=new Font() {
-                        family="serif",
-                        size=10,
-                        weight="bold italic"
-                    };
-
-                    this.XShift=0;
-                    this.Width=10;
-                }
-                public override string Category
-                {
-                    get
-                    {//这里不太一致，将来必要时可以修为一致的
-                        return "strokes";
-                    }
-                }
-                public override Modifier.ModifierPosition Position
-                {
-                    get
-                    {
-                        return this.Position;
-                    }
-                }
-                public object EndNote
-                {
-                    set
-                    {
-                        noteEnd=value;
-                    }
-                }
-                public override void Draw()
-                {
-                    throw new NotImplementedException();
-                }
-                #endregion
-                #region 隐含的字段
-                protected object noteEnd;
-                protected StrokeOptions options;
-                protected bool? allVoices;
-                protected StrokeType type;
-                protected RenderOptions renderOptions;
-                #endregion
+            this.XShift = 0;
+            this.Width = 10;
+        }
+        public override string Category
+        {
+            get
+            {//这里不太一致，将来必要时可以修为一致的
+                return "strokes";
             }
         }
+        public override Modifier.ModifierPosition Position
+        {
+            get
+            {
+                return this.Position;
+            }
+        }
+        public object EndNote
+        {
+            set
+            {
+                noteEnd = value;
+            }
+        }
+        public override void Draw()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+        #region 隐含的字段
+        protected object noteEnd;
+        protected StrokeOptions options;
+        protected bool? allVoices;
+        protected StrokeType type;
+        protected RenderOptions renderOptions;
+        #endregion
     }
 }
