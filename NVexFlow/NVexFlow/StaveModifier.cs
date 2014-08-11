@@ -1,34 +1,23 @@
-﻿using System.Collections.Generic;
+﻿//stavemodifier.js
+using System.Collections.Generic;
 
 namespace NVexFlow
-{//StaveModifier
+{
+    /// <summary>
+    // A base class for stave modifiers (e.g. clefs, key signatures)
+    /// </summary>
     public class StaveModifier
     {
-        #region 属性字段
-        double padding;
-
-        public virtual double Padding
-        {
-            get
-            { return padding; }
-            set
-            { padding = value; }
-        }
-        #endregion
-
-
-        #region 方法
+        #region js直译部分
 
         public StaveModifier()
         {
             Init();
         }
-
         private void Init()
         {
             this.padding = 10;
         }
-
 
         public IList<object> MakeSpacer(double padding)
         {
@@ -38,15 +27,15 @@ namespace NVexFlow
 
 
 
-        public void PlaceGlyphOnLine(Glyph glyph,Stave stave,double line)
+        public void PlaceGlyphOnLine(Glyph glyph, Stave stave, double line)
         {
             glyph.Y_shift = stave.GetYForLine(line) - stave.GetYForGlyph();
         }
 
 
-        public StaveModifier AddToStave(Stave stave,Glyph firstGlyph)
+        public StaveModifier AddToStave(Stave stave, Glyph firstGlyph)
         {
-            if(firstGlyph == null)
+            if (firstGlyph == null)
             {
                 //stave.addGlyph(this.makeSpacer(this.padding)); 此处类型有问题
             }
@@ -54,9 +43,9 @@ namespace NVexFlow
             return this;
         }
 
-        public StaveModifier AddToStaveEnd(Stave stave,Glyph firstGlyph)
+        public StaveModifier AddToStaveEnd(Stave stave, Glyph firstGlyph)
         {
-            if(firstGlyph == null)
+            if (firstGlyph == null)
             {
                 //    stave.addEndGlyph(this.makeSpacer(this.padding));
             }
@@ -80,6 +69,22 @@ namespace NVexFlow
             //      "addEndModifier() not implemented for this stave modifier.");
         }
         #endregion
+
+
+        #region 隐含字段
+        double padding;
+
+        public virtual double Padding
+        {
+            get
+            { return padding; }
+            set
+            { padding = value; }
+        }
+        #endregion
+
+
+       
 
     }
 }

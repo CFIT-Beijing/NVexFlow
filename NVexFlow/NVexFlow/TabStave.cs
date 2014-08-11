@@ -4,7 +4,7 @@ namespace NVexFlow
 {
     public class TabStave:Stave
     {
-        #region 属性字段
+        #region 隐含字段
 
         IList<object> tabOptions;
 
@@ -25,7 +25,7 @@ namespace NVexFlow
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public TabStave(double x,double y,double width,IList<object> options)
             : base(x,y,width,options)
         {

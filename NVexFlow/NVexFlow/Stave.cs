@@ -4,7 +4,7 @@ namespace NVexFlow
 {
     public class Stave
     {
-        #region 属性字段
+        #region 隐含字段
 
         double startX;
 
@@ -110,7 +110,7 @@ namespace NVexFlow
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public Stave(double x,double y,double width,IList<object> options)
         {
             Init(x,y,width,options);

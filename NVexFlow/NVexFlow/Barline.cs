@@ -2,7 +2,7 @@
 {//Barline
     public class Barline:StaveModifier
     {
-        #region 属性字段
+        #region 隐含字段
         public enum BarlineType
         {
             SINGLE = 1,
@@ -28,7 +28,7 @@
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public Barline(BarlineType type,double x)
         {
             Init(type,x);

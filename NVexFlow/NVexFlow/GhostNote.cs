@@ -4,7 +4,7 @@ namespace NVexFlow
 {//GhostNote
     public class GhostNote:StemmableNote
     {
-        #region 属性字段
+        #region 隐含字段
         double width;
 
         public override double Width
@@ -19,7 +19,7 @@ namespace NVexFlow
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public GhostNote(NoteStruct duration)
             : base(duration)
         {

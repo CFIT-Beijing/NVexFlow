@@ -21,7 +21,7 @@ namespace NVexFlow
         #endregion
 
 
-        #region 属性字段
+        #region 隐含字段
         private double point;
         private double topLine;
         private double bottomLine;
@@ -42,7 +42,7 @@ namespace NVexFlow
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public TimeSignature(string timeSpec,double customPadding)
         {
             Init(timeSpec,customPadding);

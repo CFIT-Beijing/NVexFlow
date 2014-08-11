@@ -5,12 +5,12 @@ namespace NVexFlow
     public class TabTie:StaveTie
     {
 
-        #region 属性字段
+        #region 隐含字段
         object renderOptions;
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public TabTie(IList<object> notes,string text)
             : base(notes,text)
         {

@@ -2,7 +2,7 @@
 {//StaveTempo
     public class StaveTempo:StaveModifier
     {
-        #region 属性字段
+        #region 隐含字段
 
         private double x;
         Modifier.ModifierPosition position;
@@ -33,7 +33,7 @@
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public StaveTempo(object tempo,double x,double shift_y)
         { }
 

@@ -114,7 +114,7 @@ namespace NVexFlow
         }
         #endregion
 
-        #region 属性字段            
+        #region 隐含字段            
         protected Annotation.AnnotationVerticalJustify verticalJustification;
         protected Annotation.AnnotationJustify justification;
         protected string text;

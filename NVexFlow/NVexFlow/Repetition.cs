@@ -2,7 +2,7 @@
 {//Repetition
     public class Repetition:StaveModifier
     {
-        #region 属性字段
+        #region 隐含字段
         public enum RepetitionType
         {
             NONE,
@@ -56,7 +56,7 @@
         #endregion
 
 
-        #region 方法
+        #region js直译部分
 
         public Repetition(object type,double x,double y_shift)
         {

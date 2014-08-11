@@ -578,9 +578,9 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        bool ghost;
-        new IList<TabNotePos> positions;//暂时不知道note里的positions是什么类型，所以子类先自己定义一个positions
-        IList<Glyph4Note> glyphs;
+        protected bool ghost;
+        protected new IList<TabNotePos> positions;//暂时不知道note里的positions是什么类型，所以子类先自己定义一个positions
+        protected IList<Glyph4Note> glyphs;
         #endregion
 
 

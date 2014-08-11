@@ -5,7 +5,7 @@ namespace NVexFlow
     public class StaveTie
     {
 
-        #region 属性字段
+        #region 隐含字段
         object context;
 
         public object Context
@@ -70,7 +70,7 @@ namespace NVexFlow
         #endregion
 
 
-        #region 方法
+        #region js直译部分
 
 
         public StaveTie(IList<object> notes,string text)

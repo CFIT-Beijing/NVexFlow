@@ -2,7 +2,7 @@
 {
     public class Volta:StaveModifier
     {
-        #region 属性字段
+        #region 隐含字段
         public enum VoltaType
         {
             NONE,
@@ -60,7 +60,7 @@
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public Volta(VoltaType type,int number,double x,double y_shift)
         {
             Init(type,number,x,y_shift);

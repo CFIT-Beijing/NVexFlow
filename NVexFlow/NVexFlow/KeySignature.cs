@@ -8,13 +8,13 @@
         #endregion
 
 
-        #region 属性字段
+        #region 隐含字段
         object accList;
         int glyphFontScale;
         #endregion
 
 
-        #region 方法
+        #region js直译部分
         public KeySignature(object keySpec)
         {
             Init(keySpec);
