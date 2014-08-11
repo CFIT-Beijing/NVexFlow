@@ -2,7 +2,7 @@
 using NVexFlow.Model;
 
 namespace NVexFlow
-{//Stem
+{
     public class Stem
     {
         public Stem(StemOpts options)

@@ -38,7 +38,7 @@ namespace NVexFlow
 
 
 
-        public void PlaceGlyphOnLine(Glyph glyph,Stave stave,object line)
+        public void PlaceGlyphOnLine(Glyph glyph,Stave stave,double line)
         {
             glyph.Y_shift = stave.GetYForLine(line) - stave.GetYForGlyph();
         }

@@ -170,7 +170,7 @@ namespace NVexFlow
         /// <summary>
         /// Get the `x` coordinate for the center of the glyph. Used for `TabNote` stems and stemlets over rests
         /// </summary>
-        public object CenterGlyphX
+        public double CenterGlyphX
         {
             get
             {

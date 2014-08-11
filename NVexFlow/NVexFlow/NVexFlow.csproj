@@ -78,6 +78,7 @@
     <Compile Include="Model\StemModel.cs" />
     <Compile Include="Model\StrokeModel.cs" />
     <Compile Include="Model\NoteModel.cs" />
+    <Compile Include="Model\TabNoteModel.cs" />
     <Compile Include="Model\TextNoteModel.cs" />
     <Compile Include="Model\TickContextModel.cs" />
     <Compile Include="Model\TimeSig.cs" />

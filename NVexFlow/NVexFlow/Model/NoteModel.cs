@@ -53,6 +53,10 @@ namespace NVexFlow.Model
         public double headWidth;
         public double dot_shiftY;
         public bool flag;
+        public double gracenoteStemUpExtension;
+        public double gracenoteStemDownExtension;
+        public double tabnoteStemUpExtension;
+        public double tabnoteStemDownExtension;
         //common
         //  head_width: 16,
         //stem: false,

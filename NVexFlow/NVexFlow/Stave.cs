@@ -227,7 +227,7 @@ namespace NVexFlow
 
 
 
-        public double GetYForLine(object line)
+        public double GetYForLine(double line)
         {
             return 0;
         }

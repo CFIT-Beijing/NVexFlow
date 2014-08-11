@@ -68,3 +68,15 @@ Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
 5、这个源代码管理工具是不是有迁入迁出的设置，这样上传非常麻烦，经常失败导致需要先删除原有项目，再下载、再把自己改过的加进去，容易出现遗漏（有的时候写一个类的时候涉及修改很多类，改了多少记不住）。
    //你可以离线提交你的修改。在线时同步。如果没有冲突就可以正常上传。有冲突需要处理，略微有些麻烦。你有空看看diff3输出的格式，也还可以处理。先注释并只保留一枝的代码，再看可如何协调。如果还不能确定问题，还可上github网站看完整的以往代码（不是diff摘要）。
 
+6、Model里存在很多相同的类，都是为了返回值需要。暂时未合并。如：
+public class NoteModifierStartXY
+    {
+        public double x;
+        public double y;
+    }
+
+	    public class TabNoteModifierStartXY
+    {
+        public double x;
+        public double y;
+    }

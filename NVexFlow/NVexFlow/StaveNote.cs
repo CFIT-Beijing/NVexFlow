@@ -859,7 +859,7 @@ namespace NVexFlow
         /// <summary>
         /// Draws all the `StaveNote` parts. This is the main drawing method.
         /// </summary>
-        public void Draw()
+        public virtual void Draw()
         {
             //            if (!this.context) throw new Vex.RERR("NoCanvasContext",
             //      "Can't draw without a canvas context.");
@@ -899,15 +899,10 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        string clef;
-        object beam;
-        Glyph4Note glyph;
-        double dotShiftY;
-        bool useDefaultHeadX;
+        protected string clef;
+        protected double dotShiftY;
+        protected bool useDefaultHeadX;
         IList<NoteHead> noteHeads;
-        IList<Modifier> modifiers;
-        object glyphRest;
-        object glyphStem;
         IList<string> keys;
         IList<NoteProps> keyProps;
         bool displaced;

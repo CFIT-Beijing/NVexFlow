@@ -304,7 +304,7 @@ namespace NVexFlow
         {
             return (this.dots > 0);
         }
-        public bool HasStem()
+        public virtual bool HasStem()
         {
             return false;
         }

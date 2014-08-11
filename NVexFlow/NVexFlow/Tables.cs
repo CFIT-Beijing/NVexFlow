@@ -14,20 +14,20 @@ namespace NVexFlow
             return null;
         }
 
-        public static IDictionary<string,object> clefPropertiesValues;//待初始化
+        public static IDictionary<string, object> clefPropertiesValues;//待初始化
 
-        public static NoteProps KeyProperties(object key,string clef)
+        public static NoteProps KeyProperties(object key, string clef)
         {
             return null;
         }
 
-        public static IDictionary<string,object> keyPropertiesNoteValues;
+        public static IDictionary<string, object> keyPropertiesNoteValues;
 
 
-        public static IDictionary<string,object> keyPropertiesNoteGlyph;
+        public static IDictionary<string, object> keyPropertiesNoteGlyph;
 
 
-        public static IDictionary<int,string> integerToNoteTable = new Dictionary<int,string>()
+        public static IDictionary<int, string> integerToNoteTable = new Dictionary<int, string>()
                 {
                     {0, "C"},
                     {1, "C#"},
@@ -50,8 +50,14 @@ namespace NVexFlow
 
 
 
-        public static object TabToGlyph(object fret)
+        public static Glyph4TabNote TabToGlyph(object fret)
         {
+            //          return {
+            //  text: fret,
+            //  code: glyph,
+            //  width: width,
+            //  shift_y: shift_y
+            //};
             return null;
         }
 
@@ -60,7 +66,7 @@ namespace NVexFlow
             return null;
         }
 
-        public static IDictionary<string,ArticulationCode> articulationCodesArticulations;
+        public static IDictionary<string, ArticulationCode> articulationCodesArticulations;
 
 
         public static AccidentalOpts AccidentalCodes(string acc)
@@ -68,7 +74,7 @@ namespace NVexFlow
             return null;
         }
 
-        public static IDictionary<string,AccidentalOpts> accidentalCodesAccidentals;
+        public static IDictionary<string, AccidentalOpts> accidentalCodesAccidentals;
 
 
 
@@ -77,7 +83,7 @@ namespace NVexFlow
             return null;
         }
 
-        public static IDictionary<string,object> keySignatureKeySpecs;
+        public static IDictionary<string, object> keySignatureKeySpecs;
 
 
         public static void Unicode()
@@ -181,17 +187,17 @@ namespace NVexFlow
         }
 
 
-        public static IDictionary<string,object> durationToTicksDurations;
+        public static IDictionary<string, object> durationToTicksDurations;
 
 
-        public static IDictionary<string,string> durationAliases;
+        public static IDictionary<string, string> durationAliases;
 
-        public static Glyph4Note DurationToGlyph(string duration,string type)
+        public static Glyph4Note DurationToGlyph(string duration, string type)
         {
             return null;
         }
 
-        public static IDictionary<string,object> durationToGlyphDurationCodes;
+        public static IDictionary<string, object> durationToGlyphDurationCodes;
 
         public static object TIME4_4;
 
