@@ -1,4 +1,4 @@
-﻿////对应 stemmablenote.js
+﻿//对应 stemmablenote.js
 using System;
 using NVexFlow.Model;
 using System.Linq;
@@ -37,15 +37,15 @@ namespace NVexFlow
         /// <summary>
         /// Builds and sets a new stem
         /// </summary>
-        /// <returns></returns>
         public StemmableNote BuildStem()
         {
-            Stem stem = new Stem(null);
+            Stem stem = new Stem();
             this.Stem = stem;
             return this;
         }
         /// <summary>
-        /// Get the full length of stem.Set the stem length to a specific. Will override the default length.
+        /// Get the full length of stem.
+        /// Set the stem length to a specific. Will override the default length.
         /// </summary>
         public double StemLength
         {
@@ -53,10 +53,9 @@ namespace NVexFlow
             {
                 return Stem.HEIGHT + this.StemExtension;
             }
-
             set
             {
-                //set在js中的位置在getStemExtension下面
+                //js中setStemLength在getStemExtension后面
                 this.stemExtensionOverride = value - Stem.HEIGHT;
             }
         }
@@ -88,6 +87,7 @@ namespace NVexFlow
             {
                 double length = this.duration == "w" || this.duration == "1" ? 0 : 20;
                 // if note is flagged, cannot shorten beam
+                //里程碑2时把这个做成两组字典查询，字典数据放到Flow类里
                 switch(this.duration)
                 {
                 case "8":
@@ -126,26 +126,27 @@ namespace NVexFlow
         /// Get/set the direction of the stem
         /// </summary>
         public int? StemDirection
+        //应该用int类型，里程碑2应该改成枚举类型
         {
             get
             { return stemDirection.Value; }
             set
             {
                 if(!value.HasValue)
+                //这里的用法比较像set函数参数存在默认值
                 {
                     value = Stem.UP;
                 }
-                if(value != Stem.UP && value != Stem.Down)
+                if(value != Stem.UP && value != Stem.DOWN)
                 {
                     throw new Exception("BadArgument,Invalid stem direction: " + value);
                 }
                 this.stemDirection = value;
                 if(this.stem != null)
                 {
-                    this.stem.Direction = value;
-                    this.stem.Extension = this.StemExtension;//还未将Stem中的Direction、Extension修改成double。写到那部分再说。
+                    this.stem.Direction = value.Value;
+                    this.stem.Extension = this.StemExtension;
                 }
-
                 this.beam = null;
                 if(this.preFormatted)
                 {
@@ -162,7 +163,7 @@ namespace NVexFlow
             {
                 double xBegin = this.AbsoluteX + this.xShift;
                 double xEnd = this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth;
-                double stemX = this.stemDirection == Stem.Down ? xBegin : xEnd;
+                double stemX = this.stemDirection == Stem.DOWN ? xBegin : xEnd;
                 stemX -= (Stem.WIDTH / 2) * this.stemDirection.Value;
                 return stemX;
             }
@@ -191,12 +192,13 @@ namespace NVexFlow
                 }
                 if(glyph != null)
                 {
-                    //===用不用object.ReferenceEquals(this.StemDirection, 1) 这样翻译？感觉没必要
                     return this.stemDirection == 1 ? glyph.stemUpExtension : glyph.stemDownExtension;
                 }
                 return 0;
             }
         }
+        // Set the stem length to a specific. Will override the default length.
+        //在前面已经翻译过
         /// <summary>
         /// Get the top and bottom `y` values of the stem.
         /// </summary>
@@ -216,7 +218,9 @@ namespace NVexFlow
                 i++)
                 {
                     double stemTop = this.ys[i] + (stemHeight * -this.stemDirection.Value);
-                    if(this.stemDirection == Stem.Down)
+                    //上面这句可看出stemDirection只能是1或-1，对应UP和DOWN
+                    //里程碑2时考虑将stemDirection改成bool的isStemUp
+                    if(this.stemDirection == Stem.DOWN)
                     {
                         topPixel = (topPixel > stemTop) ? topPixel : stemTop;
                         basePixel = (basePixel < this.ys[i]) ? basePixel : this.ys[i];
@@ -228,6 +232,7 @@ namespace NVexFlow
                     }
 
                     if(this.noteType == "s" || this.noteType == "x")
+                    //里程碑2时这部分的7做成常量放在Flow类里，noteType改成枚举类型或数值类型
                     {
                         topPixel -= this.stemDirection.Value * 7;
                         basePixel -= this.stemDirection.Value * 7;
@@ -247,14 +252,15 @@ namespace NVexFlow
         /// <summary>
         /// Get the `y` value for the top/bottom modifiers at a specific `text_line`
         /// </summary>
-        /// <param name="textLine"></param>
-        /// <returns></returns>
         public virtual double GetYForTopText(double textLine)
         {
             StemExtents extents = this.StemExtents;
             if(this.HasStem())
             {
-                return Math.Min(this.stave.GetYForTopText(textLine),extents.topY - (this.renderOptions.annotationSpacing * (textLine + 1)));
+                return Math.Min(
+                    this.stave.GetYForTopText(textLine),
+                    extents.topY - (this.renderOptions.annotationSpacing * (textLine + 1))
+                );
                 //暂时猜测textLine是数字,但是看变量名不太像
             }
             else
@@ -262,23 +268,28 @@ namespace NVexFlow
                 return this.stave.GetYForTopText(textLine);
             }
         }
-        public object YForBottomText(double textLine)
+        public double GetYForBottomText(double textLine)
         {
             StemExtents extents = this.StemExtents;
             if(this.HasStem())
             {
-                return Math.Max(this.stave.GetYForTopText(textLine),extents.baseY + (this.renderOptions.annotationSpacing * (textLine)));
+                return Math.Max(
+                    this.stave.GetYForTopText(textLine),
+                    extents.baseY + (this.renderOptions.annotationSpacing * (textLine))
+                );
                 //暂时猜测textLine是数字,但是看变量名不太像
+                //js专门给textLine加括号，很可能是将string解析成数值
+                //里程碑2时需要看看GetYForBottomText的调用情况
+                //此外，从乘法和Min函数的使用都可以肯定GetYForBottomText返回值是数，就看是double还是int了
             }
             else
             {
-                return this.stave.GetYForTopText(textLine);
+                return this.stave.GetYForBottomText(textLine);
             }
         }
         /// <summary>
         /// Post format the note
         /// </summary>
-        /// <returns></returns>
         public new StemmableNote PostFormat()
         {
             if(this.beam != null)
@@ -291,11 +302,8 @@ namespace NVexFlow
         /// <summary>
         /// Render the stem onto the canvas
         /// </summary>
-        /// <param name="stemStruct"></param>
         public virtual void DrawStem(StemOpts stemStruct)
         {
-            //        if (!this.context) throw new Vex.RERR("NoCanvasContext",
-            //"Can't draw without a canvas context.");
             if(this.context == null)
             {
                 throw new Exception("NoCanvasContext,Can't draw without a canvas context.");
@@ -305,7 +313,6 @@ namespace NVexFlow
             this.stem.Draw();
         }
         #endregion
-
 
         #region 隐含字段
         protected Stem stem;

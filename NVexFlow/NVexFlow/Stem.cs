@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using NVexFlow.Model;
+﻿using NVexFlow.Model;
 
 namespace NVexFlow
 {
     public class Stem
     {
-        public Stem(StemOpts options)
+        public Stem(StemOpts options = null)
         {
             Init(options);
         }
 
         public static int UP = 1;
-        public static int Down = -1;
+        public static int DOWN = -1;
         // Theme
         //Stem.WIDTH = Vex.Flow.STEM_WIDTH;
         //Stem.HEIGHT = Vex.Flow.STEM_HEIGHT;
@@ -30,17 +29,17 @@ namespace NVexFlow
             return this;
         }
 
-        private object stem_direction;
+        private int stem_direction;
 
-        public object Direction
+        public int Direction
         {
             set
             { stem_direction = value; }
         }
 
-        private object stem_extension;
+        private double stem_extension;
 
-        public object Extension
+        public double Extension
         {
             set
             { stem_extension = value; }

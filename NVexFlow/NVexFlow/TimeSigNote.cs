@@ -1,7 +1,6 @@
 ﻿//对应 timeSigNote.js
-using NVexFlow.Model;
-using System.Collections.Generic;
 using System;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {

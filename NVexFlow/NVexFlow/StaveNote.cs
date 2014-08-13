@@ -31,7 +31,7 @@ namespace NVexFlow
         /// Stem directions
         /// </summary>
         public static int STEM_UP = Stem.UP;
-        public static int STEM_DOWN = Stem.Down;
+        public static int STEM_DOWN = Stem.DOWN;
         private void Init(StaveNoteStruct noteStruct)
         {
             this.keys = noteStruct.keys;
@@ -116,7 +116,7 @@ namespace NVexFlow
             int stepI = 1;
 
             // For down-stem notes, we draw from top to bottom.
-            if(stemDirection.Value == Stem.Down)
+            if(stemDirection.Value == Stem.DOWN)
             {
                 startI = keys.Count() - 1;
                 endI = -1;
