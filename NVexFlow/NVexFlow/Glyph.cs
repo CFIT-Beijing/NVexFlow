@@ -6,24 +6,9 @@ namespace NVexFlow
 {
     public class Metrics
     {
-        private double x_Min;
+        public double xMin;
+        public double xMax;
 
-        public double X_Min
-        {
-            get
-            { return x_Min; }
-            set
-            { x_Min = value; }
-        }
-        private double x_Max;
-
-        public double X_Max
-        {
-            get
-            { return x_Max; }
-            set
-            { x_Max = value; }
-        }
         //TextNote直接使用了width字段
         public double width;
 
@@ -63,14 +48,18 @@ namespace NVexFlow
             set
             { x_shift = value; }
         }
-        private double y_shift;
-
+        private double yShift;
+        public Glyph SetYShift(double yShift)
+        {
+            this.yShift = yShift;
+            return this;
+        }
         public double Y_shift
         {
             get
-            { return y_shift; }
+            { return yShift; }
             set
-            { y_shift = value; }
+            { yShift = value; }
         }
         private object stave;
 
@@ -104,11 +93,14 @@ namespace NVexFlow
         }
 
 
-        public Glyph(string code,int point,GlyphsOpts options = null)
+        public Glyph(string code,double point,GlyphsOpts options = null)
         {
 
         }
-
+        public virtual Metrics GetMetrics()
+        {
+           throw new NotImplementedException();
+        }
         public Metrics Metrics
         {
             get

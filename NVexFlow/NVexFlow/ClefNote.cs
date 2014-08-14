@@ -13,7 +13,7 @@ namespace NVexFlow
         { }
         private void Init(string clef)
         {
-            this.Clef = NVexFlow.Clef.Types[clef];
+            this.Clef = NVexFlow.Clef.clefTypes[clef];
             // Note properties
             this.ignoreTicks = true;
         }

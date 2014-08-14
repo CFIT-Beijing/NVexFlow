@@ -103,7 +103,7 @@ namespace NVexFlow
         IList<object> modifiers;
         double glyphStartX;
         double glyphEndX;
-        string clef;
+        public string clef;//keySignatrue用到
         Font font;
         IList<object> options;
         object bounds;

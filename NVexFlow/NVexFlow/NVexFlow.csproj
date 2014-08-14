@@ -69,10 +69,13 @@
     <Compile Include="Model\GlyphsModel.cs" />
     <Compile Include="Model\BendModel.cs" />
     <Compile Include="Model\GraceNoteModel.cs" />
+    <Compile Include="Model\KeySignatureModel.cs" />
     <Compile Include="Model\ModifierContextModel.cs" />
     <Compile Include="Model\NoteHeadModel.cs" />
     <Compile Include="Model\RenderOptions.cs" />
+    <Compile Include="Model\StaveModifierModel.cs" />
     <Compile Include="Model\StaveNoteModel.cs" />
+    <Compile Include="Model\StaveTempoModel.cs" />
     <Compile Include="Model\StaveTextModel.cs" />
     <Compile Include="Model\StemmableNoteModel.cs" />
     <Compile Include="Model\StemModel.cs" />
@@ -81,7 +84,7 @@
     <Compile Include="Model\TabNoteModel.cs" />
     <Compile Include="Model\TextNoteModel.cs" />
     <Compile Include="Model\TickContextModel.cs" />
-    <Compile Include="Model\TimeSig.cs" />
+    <Compile Include="Model\TimeSignatureModel.cs" />
     <Compile Include="Model\VoiceTimeModel.cs" />
     <Compile Include="Modifier.cs" />
     <Compile Include="ModifierContext.cs" />

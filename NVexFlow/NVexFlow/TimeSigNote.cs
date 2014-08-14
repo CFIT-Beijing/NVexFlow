@@ -13,8 +13,8 @@ namespace NVexFlow
         private void Init(string timeSpec,double customPadding)
         {
             TimeSignature timeSignature = new TimeSignature(timeSpec,customPadding);
-            this.timeSig = timeSignature.TimeSig;
-            this.SetWidth(this.timeSig.Glyph.Metrics.Width);
+            this.timeSig = timeSignature.GetTimeSig();
+            this.SetWidth(this.timeSig.glyph.Metrics.Width);
             //// Note properties
             this.ignoreTicks = true;
         }

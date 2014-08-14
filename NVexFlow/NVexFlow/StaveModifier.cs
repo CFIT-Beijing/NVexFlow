@@ -1,5 +1,7 @@
-﻿//stavemodifier.js
+﻿using System;
+//stavemodifier.js
 using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -9,7 +11,6 @@ namespace NVexFlow
     public class StaveModifier
     {
         #region js直译部分
-
         public StaveModifier()
         {
             Init();
@@ -18,73 +19,68 @@ namespace NVexFlow
         {
             this.padding = 10;
         }
-
-        public IList<object> MakeSpacer(double padding)
+        public virtual string GetCategory()
         {
-            //返回一堆函数，不同类型。。。
-            return null;
+            return "";
         }
-
-
-
+        public Glyph MakeSpacer(double padding)
+        {
+            return new MakeSpacerRes()
+            {
+                getContext = () => { return true; },
+                setStave = () => { },
+                renderToStave = () => { },
+                getMetrics = () => { return new GetMetrics() { width = this.padding }; }
+            };
+        }
         public void PlaceGlyphOnLine(Glyph glyph, Stave stave, double line)
         {
-            glyph.Y_shift = stave.GetYForLine(line) - stave.GetYForGlyph();
+            glyph.SetYShift(stave.GetYForLine(line) - stave.GetYForGlyph());
         }
-
-
+        public virtual void SetPadding(double padding)
+        {
+            this.padding = padding;
+        }
         public StaveModifier AddToStave(Stave stave, Glyph firstGlyph)
         {
             if (firstGlyph == null)
             {
-                //stave.addGlyph(this.makeSpacer(this.padding)); 此处类型有问题
+                stave.AddGlyph(this.MakeSpacer(this.padding));
             }
+
             this.AddModifier(stave);
             return this;
         }
-
         public StaveModifier AddToStaveEnd(Stave stave, Glyph firstGlyph)
         {
             if (firstGlyph == null)
             {
-                //    stave.addEndGlyph(this.makeSpacer(this.padding));
+                stave.AddEndGlyph(this.MakeSpacer(this.padding));
             }
             else
             {
-                //    stave.addEndGlyph(this.makeSpacer(2));
+                stave.AddEndGlyph(this.MakeSpacer(2));
             }
-            this.AddEndModifier(stave);
+            this.AddModifier(stave);
             return this;
         }
-
         public virtual void AddModifier(Stave stave)
         {
-            //  throw new Vex.RERR("MethodNotImplemented",
-            //      "addModifier() not implemented for this stave modifier.");
+            throw new Exception("MethodNotImplemented,addModifier() not implemented for this stave modifier.");
         }
-
         public virtual void AddEndModifier(Stave stave)
         {
-            //  throw new Vex.RERR("MethodNotImplemented",
-            //      "addEndModifier() not implemented for this stave modifier.");
+            throw new Exception("MethodNotImplemented,addEndModifier() not implemented for this stave modifier.");
         }
         #endregion
 
 
         #region 隐含字段
-        double padding;
-
-        public virtual double Padding
-        {
-            get
-            { return padding; }
-            set
-            { padding = value; }
-        }
+        protected double padding;
         #endregion
 
 
-       
+
 
     }
 }

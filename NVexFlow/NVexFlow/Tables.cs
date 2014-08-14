@@ -78,7 +78,7 @@ namespace NVexFlow
 
 
 
-        public static object keySignature(string spec)
+        public static IList<Acc> keySignature(string spec)
         {
             return null;
         }
