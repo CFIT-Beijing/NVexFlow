@@ -58,7 +58,7 @@ Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
 
 
 //////////////////////////////讨论留言区//////////////////////////////
-1.有关代码语法格式， 对于以后StaveModifier一组分支是否：
+1.有关代码语法格式， 对于以后StaveModifier一组分支暂时：
 get,set方法不再弄成字段的属性，就按照他js的写法分别写成get、set方法。
 
 2.Model里存在很多相同的类，都是为了返回值需要。暂时未合并。如：
@@ -73,3 +73,13 @@ public class NoteModifierStartXY
         public double x;
         public double y;
     }
+
+	3、StaveModifier：
+	StaveModifierModel和TimeSignatureModel用了两种方式解决一个问题，你看看有没有别的方式
+	问题是：
+	他将返回的对象的方法重写了（即该对象不再遵守“类”的规则）
+	解决方法：
+	（1）、将“类”的会变化的方法改成委托。StaveModifierModel
+	（2）、写子类，让子类继承重写父类的某些方法。TimeSignatureModel
+
+	4、感觉字段也没必要protected了，public得了

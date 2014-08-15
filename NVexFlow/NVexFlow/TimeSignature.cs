@@ -95,6 +95,7 @@ namespace NVexFlow
 
             return new TimeSig() {num=true,glyph=this.MakeTimeSignatureGlyph(topNums,botNums) };
         }
+        //这个方法写的时候脑子有点儿乱，可以仔细查一下。有关他对glyph对象方法的重新赋值在方法内部忽略了，直接写在了TimeSignatureModel里。即：方法内部的glyph对象已经是子类对象。
         public Glyph4TimeSignature MakeTimeSignatureGlyph(IList<char> topNums, IList<char> botNums)
         {
             Glyph4TimeSignature glyph = new Glyph4TimeSignature("v0", this.point);
@@ -155,10 +156,11 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected double point;
-        protected double topLine;
-        protected double bottomLine;
-        protected TimeSig timeSig;
+        //都改成public得了。。。？
+        public double point;
+        public double topLine;
+        public double bottomLine;
+        public TimeSig timeSig;
         #endregion
 
 

@@ -28,25 +28,28 @@ namespace NVexFlow
             set
             { height = value; }
         }
+
+        public object outline;
     }
 
 
     public class Glyph
     {
+        public double scale;
         public static void LoadMetrics(object font,string code,object cache)
         { }
 
         public static void RenderOutline(object ctx,object outline,object scale,double x_pos,double y_pos)
         { }
 
-        private double x_shift;
+        public double xShift;
 
         public double X_shift
         {
             get
-            { return x_shift; }
+            { return xShift; }
             set
-            { x_shift = value; }
+            { xShift = value; }
         }
         private double yShift;
         public Glyph SetYShift(double yShift)
@@ -61,9 +64,9 @@ namespace NVexFlow
             set
             { yShift = value; }
         }
-        private object stave;
+        public Stave stave;
 
-        public object Stave
+        public Stave Stave
         {
             get
             { return stave; }
@@ -106,7 +109,7 @@ namespace NVexFlow
             get
             { throw new NotImplementedException(); }
         }
-
+        public Metrics metrics;
         public void Reset()
         { }
 
