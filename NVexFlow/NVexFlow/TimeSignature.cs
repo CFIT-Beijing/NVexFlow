@@ -13,7 +13,7 @@ namespace NVexFlow
     // representation
     //
     /// </summary>
-    public class TimeSignature : StaveModifier
+    public class TimeSignature:StaveModifier
     {
         #region js直译部分
         /// <summary>
@@ -24,17 +24,17 @@ namespace NVexFlow
         /// </summary>
         /// <param name="timeSpec"></param>
         /// <param name="customPadding"></param>
-        public TimeSignature(string timeSpec, double? customPadding)
+        public TimeSignature(string timeSpec,double? customPadding)
         {
-            Init(timeSpec, customPadding);
+            Init(timeSpec,customPadding);
         }
-        public static IDictionary<string, GlyphsModel> glyphs = new Dictionary<string, GlyphsModel>() {
+        public static IDictionary<string,GlyphsModel> glyphs = new Dictionary<string,GlyphsModel>() {
                  {"C",new GlyphsModel(){code="v41",point=40,line=2}},
                  {"C|",new GlyphsModel(){code="vb6",point=40,line=2}}
                 };
-        private void Init(string timeSpec, double? customPadding)
+        private void Init(string timeSpec,double? customPadding)
         {
-            double padding = customPadding.HasValue ? customPadding.Value : 15;
+            double padding = customPadding ?? 15;
             this.SetPadding(padding);
             this.point = 40;
             this.topLine = 2;
@@ -43,22 +43,24 @@ namespace NVexFlow
         }
         public TimeSig ParseTimeSpec(string timeSpec)
         {
-            if (timeSpec == "C" || timeSpec == "C|")
+            if(timeSpec == "C" || timeSpec == "C|")
             {
                 GlyphsModel glyphInfo = TimeSignature.glyphs[timeSpec];
-                return new TimeSig() { num=false,line=glyphInfo.line,glyph=new Glyph(glyphInfo.code,glyphInfo.point)};
+                return new TimeSig() { num = false,line = glyphInfo.line,glyph = new Glyph(glyphInfo.code,glyphInfo.point) };
             }
-            IList<char> topNums=new List<char>();
+            IList<char> topNums = new List<char>();
             int i;
             char c;
-            for ( i = 0; i < timeSpec.Length; i++)
+            for(i = 0;
+            i < timeSpec.Length;
+            i++)
             {
                 c = timeSpec.ToCharArray()[i];
-                if (c == '/')
+                if(c == '/')
                 {
                     break;
                 }
-                else if (Regex.IsMatch(c.ToString(), "[0-9]"))
+                else if(Regex.IsMatch(c.ToString(),"[0-9]"))
                 {
                     topNums.Add(c);
                 }
@@ -67,23 +69,25 @@ namespace NVexFlow
                     throw new Exception("BadTimeSignature,Invalid time spec: " + timeSpec);
                 }
             }
-            if (i == 0)
+            if(i == 0)
             {
                 throw new Exception("BadTimeSignature,Invalid time spec: " + timeSpec);
             }
-            
+
 
             //skip the "/"
             ++i;
-            if (i == timeSpec.Length)
+            if(i == timeSpec.Length)
             {
                 throw new Exception("BadTimeSignature,Invalid time spec: " + timeSpec);
             }
             IList<char> botNums = new List<char>();
-            for (; i < timeSpec.Length; i++)
+            for(;
+            i < timeSpec.Length;
+            i++)
             {
-                c=timeSpec.ToCharArray()[i];
-                if (Regex.IsMatch(c.ToString(), "[0-9]"))
+                c = timeSpec.ToCharArray()[i];
+                if(Regex.IsMatch(c.ToString(),"[0-9]"))
                 {
                     botNums.Add(c);
                 }
@@ -93,31 +97,35 @@ namespace NVexFlow
                 }
             }
 
-            return new TimeSig() {num=true,glyph=this.MakeTimeSignatureGlyph(topNums,botNums) };
+            return new TimeSig() { num = true,glyph = this.MakeTimeSignatureGlyph(topNums,botNums) };
         }
         //这个方法写的时候脑子有点儿乱，可以仔细查一下。有关他对glyph对象方法的重新赋值在方法内部忽略了，直接写在了TimeSignatureModel里。即：方法内部的glyph对象已经是子类对象。
-        public Glyph4TimeSignature MakeTimeSignatureGlyph(IList<char> topNums, IList<char> botNums)
+        public Glyph4TimeSignature MakeTimeSignatureGlyph(IList<char> topNums,IList<char> botNums)
         {
-            Glyph4TimeSignature glyph = new Glyph4TimeSignature("v0", this.point);
+            Glyph4TimeSignature glyph = new Glyph4TimeSignature("v0",this.point);
             glyph.topGlyphs = new List<Glyph>();
             glyph.botGlyphs = new List<Glyph>();
             double topWidth = 0;
             int i;
             char num;
-            for ( i = 0; i < topNums.Count(); ++i)
+            for(i = 0;
+            i < topNums.Count();
+            ++i)
             {
                 num = topNums[i];
-                Glyph topGlyph = new Glyph("v" + num, this.point);
-                
+                Glyph topGlyph = new Glyph("v" + num,this.point);
+
                 glyph.topGlyphs.Add(topGlyph);
                 topWidth += topGlyph.GetMetrics().width;
             }
 
             double botWidth = 0;
-            for ( i = 0; i < botNums.Count(); ++i)
+            for(i = 0;
+            i < botNums.Count();
+            ++i)
             {
-                num=botNums[i];
-                Glyph botGlyph = new Glyph("v" + num, this.point);
+                num = botNums[i];
+                Glyph botGlyph = new Glyph("v" + num,this.point);
 
                 glyph.botGlyphs.Add(botGlyph);
                 botWidth += botGlyph.GetMetrics().width;
@@ -138,17 +146,17 @@ namespace NVexFlow
         }
         public override void AddModifier(Stave stave)
         {
-            if (!this.timeSig.num)
+            if(!this.timeSig.num)
             {
-                this.PlaceGlyphOnLine(this.timeSig.glyph, stave, this.timeSig.line);
+                this.PlaceGlyphOnLine(this.timeSig.glyph,stave,this.timeSig.line);
             }
             stave.AddGlyph(this.timeSig.glyph);
         }
         public override void AddEndModifier(Stave stave)
         {
-            if (!this.timeSig.num)
+            if(!this.timeSig.num)
             {
-                this.PlaceGlyphOnLine(this.timeSig.glyph, stave, this.timeSig.line);
+                this.PlaceGlyphOnLine(this.timeSig.glyph,stave,this.timeSig.line);
             }
             stave.AddEndGlyph(this.timeSig.glyph);
         }

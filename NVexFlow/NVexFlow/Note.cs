@@ -343,7 +343,7 @@ namespace NVexFlow
         public Note AddModifier(Modifier modifier,int? index)
         {
             modifier.Note = this;
-            modifier.Index = index.HasValue ? index.Value : 0;
+            modifier.Index = index ?? 0;
             this.modifiers.Add(modifier);
             this.PreFormatted = false;
             return this;

@@ -31,6 +31,17 @@
                 return false;
             }
         }
+        public bool IsNegative
+        {
+            get
+            {
+                if(denominator > 0)
+                    return numerator < 0 && numerator != int.MinValue;
+                if(denominator < 0 && denominator != int.MinValue)
+                    return numerator > 0;
+                return false;
+            }
+        }
         /// <summary>
         /// 用两个int表示分数的struct。提供简单的四则运算和类型转换。
         /// 分子分母绝对值均应不超过int.MaxValue，否则为Fraction.NaN。
@@ -154,9 +165,9 @@
         }
         public static Fraction operator /(Fraction a,Fraction b)
         {
-            return a * Over(b);
+            return a * Reciprocal(b);
         }
-        public static Fraction Over(Fraction a)
+        public static Fraction Reciprocal(Fraction a)
         {
             if(a.IsNaN || a.IsZero)
                 return NaN;
@@ -202,6 +213,7 @@
                 return 0;
             if(!this.IsNaN && other.IsNaN)
                 return 1;
+            //(!this.IsNaN && !other.IsNaN)
             if(this.IsPositive && !other.IsPositive)
                 return 1;
             if(!this.IsPositive && other.IsPositive)
@@ -210,9 +222,7 @@
             an *= other.denominator;
             long bn = other.numerator;
             bn *= denominator;
-            long d = denominator;
-            d *= other.denominator;
-            return Math.Sign(an - bn) * Math.Sign(d);
+            return Math.Sign(an - bn) * Math.Sign(denominator) * Math.Sign(other.denominator);
         }
         public bool Equals(Fraction other)
         {

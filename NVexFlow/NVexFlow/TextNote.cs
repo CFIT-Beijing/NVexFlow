@@ -88,9 +88,9 @@ namespace NVexFlow
             {
                 this.SetWidth(Flow.TextWidth(this.text));
             }
-            this.line = textStruct.line.HasValue ? textStruct.line.Value : 0;
-            this.smooth = textStruct.smooth.HasValue ? textStruct.smooth.Value : false;
-            this.ignoreTicks = textStruct.ignoreTicks.HasValue ? textStruct.ignoreTicks.Value : false;
+            this.line = textStruct.line ?? 0;
+            this.smooth = textStruct.smooth ?? false;
+            this.ignoreTicks = textStruct.ignoreTicks ?? false;
             this.justification = TextNote.TextNoteJustification.LEFT;
         }
         /// <summary>

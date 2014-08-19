@@ -58,7 +58,7 @@ namespace NVexFlow
             //// Whether the object is a decrescendo
             this.decrescendo = false;
             //// The staff line to be placed on
-            this.line = noteStruct.line.HasValue ? noteStruct.line.Value : 0;
+            this.line = noteStruct.line ?? 0;
 
             //// The height at the open end of the cresc/decresc
             this.height = 15;

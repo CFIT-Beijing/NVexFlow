@@ -61,12 +61,12 @@ namespace NVexFlow
         private void Init(NoteHeadStruct headOptions)
         {
             this.index = headOptions.index;
-            this.x = headOptions.x.HasValue ? headOptions.x.Value : 0;
-            this.y = headOptions.y.HasValue ? headOptions.y.Value : 0;
+            this.x = headOptions.x ?? 0;
+            this.y = headOptions.y ?? 0;
             this.noteType = headOptions.noteType;
             this.duration = headOptions.duration;
-            this.displaced = headOptions.displaced.HasValue ? headOptions.displaced.Value : false;
-            this.stemDirection = headOptions.stemDirection.HasValue ? headOptions.stemDirection.Value : StaveNote.STEM_UP;
+            this.displaced = headOptions.displaced ?? false;
+            this.stemDirection = headOptions.stemDirection ?? StaveNote.STEM_UP;
             this.line = headOptions.line;
 
             // Get glyph code based on duration and note type. This could be regular notes, rests, or other custom codes.
