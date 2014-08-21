@@ -45,9 +45,6 @@ Vex.Flow.Volta	:	Vex.Flow.StaveModifier	//	stavevolta.js
 //////////////////////////////近期任务//////////////////////////////
 使下列类达到里程碑1阶段：
 {
-Vex.Flow.StaveTie			//	stavetie.js
-Vex.Flow.TabTie	:	Vex.Flow.StaveTie	//	tabtie.js
-Vex.Flow.TabSlide	:	Vex.Flow.TabTie	//	tabslide.js
 Vex.Flow.Stave			//	stave.js
 Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
 Vex.Flow.BoundingBox			//	boundingbox.js

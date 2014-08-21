@@ -1,107 +1,229 @@
-﻿using System.Collections.Generic;
+﻿//	stavetie.js
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using NVexFlow.Model;
 
 namespace NVexFlow
-{//StaveTie
+{
+    /// <summary>
+    ///VexFlow - Music Engraving for HTML5
+    // Copyright Mohit Muthanna 2010
+    //
+    // This class implements varies types of ties between contiguous notes. The
+    // ties include: regular ties, hammer ons, pull offs, and slides.
+    /// </summary>
     public class StaveTie
     {
+        #region js直译部分
 
-        #region 隐含字段
-        object context;
-
-        public object Context
+        /**
+ * Create a new tie from the specified notes. The notes must
+ * be part of the same line, and have the same duration (in ticks).
+ *
+ * @constructor
+ * @param {!Object} context The canvas context.
+ * @param {!Object} notes The notes to tie up.
+ * @param {!Object} Options
+ */
+        public StaveTie(Notes4StaveTie notes, string text)
         {
-            get
-            { return context; }
-            set
-            { context = value; }
+            Init(notes, text);
         }
-
-        object text;
-        IList<object> renderOptions;
-        Font font;
-
-        public Font Font
+        private void Init(Notes4StaveTie notes, string text)
         {
-            get
-            { return font; }
-            set
-            { font = value; }
-        }
-
-        IList<object> notes;
-
-        public IList<object> Notes
-        {
-            get
-            { return notes; }
-            set
+            /**
+             * Notes is a struct that has:
+             *
+             *  {
+             *    first_note: Note,
+             *    last_note: Note,
+             *    first_indices: [n1, n2, n3],
+             *    last_indices: [n1, n2, n3]
+             *  }
+             *
+             **/
+            this.notes = notes;
+            this.context = null;
+            this.text = text;
+            this.renderOptions = new StaveTieRenderOpts()
             {
-                //............................
-                notes = value;
+                cp1 = 8,      // Curve control point 1
+                cp2 = 12,      // Curve control point 2
+                textShiftX = 0,
+                firstXShift = 0,
+                lastXShift = 0,
+                yShift = 7,
+                tieSpacing = 0,
+                font = new Font() { family = "Arial", size = 10, style = "" }
+            };
 
-                //                        if (!notes.first_note && !notes.lastNote)
-                //  throw new Vex.RuntimeError("BadArguments",
-                //      "Tie needs to have either first_note or lastNote set.");
-
-                //if (!notes.first_indices) notes.first_indices = [0];
-                //if (!notes.last_indices) notes.last_indices = [0];
-
-                //if (notes.first_indices.length != notes.last_indices.length)
-                //  throw new Vex.RuntimeError("BadArguments", "Tied notes must have similar" +
-                //    " index sizes");
-
-                //// Success. Lets grab 'em notes.
-                //this.first_note = notes.first_note;
-                //this.first_indices = notes.first_indices;
-                //this.lastNote = notes.lastNote;
-                //this.last_indices = notes.last_indices;
-            }
+            this.font = (this.renderOptions as StaveTieRenderOpts).font;
+            this.SetNotes(notes);
         }
+        public StaveTie SetContext(CanvasContext context)
+        {
+            this.context = context;
+            return this;
+        }
+        public StaveTie SetFont(Font font)
+        {
+            this.font = font;
+            return this;
+        }
+        /// <summary>
+        /// Set the notes to attach this tie to.
+        /// </summary>
+        /// <param name="notes">@param {!Object} notes The notes to tie up.</param>
+        /// <returns></returns>
+        public StaveTie SetNotes(Notes4StaveTie notes)
+        {
+            if (notes.firstNote == null && notes.lastNote == null)
+            {
+                throw new Exception("BadArguments,Tie needs to have either first_note or last_note set.");
+            }
 
-        private object first_note;
-        private object last_note;
+            if (notes.firstIndices == null)
+            {
+                notes.firstIndices = new List<int>() { 0 };
+            }
+            if (notes.lastIndices == null)
+            {
+                notes.lastIndices = new List<int>() { 0 };
+            }
 
+            if (notes.firstIndices.Count() != notes.lastIndices.Count())
+            {
+                throw new Exception("BadArguments,Tied notes must have similar, index sizes");
+            }
+
+            // Success. Lets grab 'em notes.
+            this.firstNote = notes.firstNote;
+            this.firstIndices = notes.firstIndices;
+            this.lastNote = notes.lastNote;
+            this.lastIndices = notes.lastIndices;
+            return this;
+        }
+        /// <summary>
+        /// @return {boolean} Returns true if this is a partial bar.
+        /// </summary>
+        /// <returns></returns>
         public bool IsPartial()
         {
-            if(this.first_note == null && this.last_note == null)
-            { return true; }
-            return false;
+            return (this.firstNote == null || this.lastNote == null);
+        }
+        public virtual void RenderTie(IList<object> @params)
+        {
+            //     renderTie: function(params) {
+            //  if (params.first_ys.length === 0 || params.last_ys.length === 0)
+            //    throw new Vex.RERR("BadArguments", "No Y-values to render");
+
+            //  var ctx = this.context;
+            //  var cp1 = this.render_options.cp1;
+            //  var cp2 = this.render_options.cp2;
+
+            //  if (Math.abs(params.last_x_px - params.first_x_px) < 10) {
+            //    cp1 = 2; cp2 = 8;
+            //  }
+
+            //  var first_x_shift = this.render_options.first_x_shift;
+            //  var last_x_shift = this.render_options.last_x_shift;
+            //  var y_shift = this.render_options.y_shift * params.direction;
+
+            //  for (var i = 0; i < this.first_indices.length; ++i) {
+            //    var cp_x = ((params.last_x_px + last_x_shift) +
+            //                (params.first_x_px + first_x_shift)) / 2;
+            //    var first_y_px = params.first_ys[this.first_indices[i]] + y_shift;
+            //    var last_y_px = params.last_ys[this.last_indices[i]] + y_shift;
+
+            //    if (isNaN(first_y_px) || isNaN(last_y_px))
+            //      throw new Vex.RERR("BadArguments", "Bad indices for tie rendering.");
+
+            //    var top_cp_y = ((first_y_px + last_y_px) / 2) + (cp1 * params.direction);
+            //    var bottom_cp_y = ((first_y_px + last_y_px) / 2) + (cp2 * params.direction);
+
+            //    ctx.beginPath();
+            //    ctx.moveTo(params.first_x_px + first_x_shift, first_y_px);
+            //    ctx.quadraticCurveTo(cp_x, top_cp_y,
+            //                         params.last_x_px + last_x_shift, last_y_px);
+            //    ctx.quadraticCurveTo(cp_x, bottom_cp_y,
+            //                         params.first_x_px + first_x_shift, first_y_px);
+
+            //    ctx.closePath();
+            //    ctx.fill();
+            //  }
+            //},
+        }
+        public virtual void RenderText(double first_x_px, double last_x_px)
+        {
+            //     renderText: function(first_x_px, last_x_px) {
+            //  if (!this.text) return;
+            //  var center_x = (first_x_px + last_x_px) / 2;
+            //  center_x -= this.context.measureText(this.text).width / 2;
+
+            //  this.context.save();
+            //  this.context.setFont(this.font.family, this.font.size, this.font.style);
+            //  this.context.fillText(
+            //      this.text, center_x + this.render_options.text_shift_x,
+            //      (this.first_note || this.last_note).getStave().getYForTopText() - 1);
+            //  this.context.restore();
+            //},
+        }
+        public virtual void Draw()
+        {
+            //      draw: function() {
+            //    if (!this.context)
+            //      throw new Vex.RERR("NoContext", "No context to render tie.");
+            //    var first_note = this.first_note;
+            //    var last_note = this.last_note;
+            //    var first_x_px, last_x_px, first_ys, last_ys, stem_direction;
+
+            //    if (first_note) {
+            //      first_x_px = first_note.getTieRightX() + this.render_options.tie_spacing;
+            //      stem_direction = first_note.getStemDirection();
+            //      first_ys = first_note.getYs();
+            //    } else {
+            //      first_x_px = last_note.getStave().getTieStartX();
+            //      first_ys = last_note.getYs();
+            //      this.first_indices = this.last_indices;
+            //    }
+
+            //    if (last_note) {
+            //      last_x_px = last_note.getTieLeftX() + this.render_options.tie_spacing;
+            //      stem_direction = last_note.getStemDirection();
+            //      last_ys = last_note.getYs();
+            //    } else {
+            //      last_x_px = first_note.getStave().getTieEndX();
+            //      last_ys = first_note.getYs();
+            //      this.last_indices = this.first_indices;
+            //    }
+
+            //    this.renderTie({
+            //      first_x_px: first_x_px,
+            //      last_x_px: last_x_px,
+            //      first_ys: first_ys,
+            //      last_ys: last_ys,
+            //      direction: stem_direction
+            //    });
+
+            //    this.renderText(first_x_px, last_x_px);
+            //    return true;
+            //  }
+            //};
         }
         #endregion
 
 
-        #region js直译部分
-
-
-        public StaveTie(IList<object> notes,string text)
-        {
-            /**
-* Notes is a struct that has:
-*
-*  {
-*    first_note: Note,
-*    lastNote: Note,
-*    first_indices: [n1, n2, n3],
-*    last_indices: [n1, n2, n3]
-*  }
-*
-**/
-        }
-
-        public virtual void Init(IList<object> notes,string text)
-        {
-
-        }
-
-
-        public void RenderTie(IList<object> @params)
-        { }
-
-        public void RenderText(double first_x_px,double last_x_px)
-        { }
-
-        public void Draw()
-        { }
+        #region 隐含字段
+        protected CanvasContext context;
+        protected string text;
+        protected RenderOptions renderOptions;
+        protected Font font;
+        protected Notes4StaveTie notes;
+        protected Note firstNote;
+        protected Note lastNote;
+        protected IList<int> firstIndices;
+        protected IList<int> lastIndices;
         #endregion
     }
 }
