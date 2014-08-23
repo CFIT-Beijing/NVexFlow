@@ -94,7 +94,6 @@
     <Compile Include="NoteHead.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
-    <Compile Include="RenderGlyph.cs" />
     <Compile Include="Repetition.cs" />
     <Compile Include="Stave.cs" />
     <Compile Include="StaveConnector.cs" />

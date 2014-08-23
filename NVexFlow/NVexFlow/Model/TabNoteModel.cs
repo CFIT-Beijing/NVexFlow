@@ -37,6 +37,8 @@ namespace NVexFlow.Model
         public string code;
         public double width;
         public double shift_y;
+        public object codeFlagDownStem;
+        public object codeFlagUpStem;
     }
 
     public class TabNoteModifierStartXY

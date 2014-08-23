@@ -22,9 +22,7 @@ namespace NVexFlow
         /// <summary>
         /// Initialize the TabNote with a `tab_struct` full of properties and whether to `draw_stem` when rendering the note
         /// </summary>
-        /// <param name="tabStruct"></param>
-        /// <param name="drawStem"></param>
-        private void Init(TabNoteStruct tabStruct, bool drawStem)
+        private void Init(TabNoteStruct tabStruct,bool drawStem)
         {
             this.ghost = false; // Renders parenthesis around notes
             // Note properties
@@ -43,8 +41,8 @@ namespace NVexFlow
             // Flag to extend the main stem through the stave and fret positions
             (this.renderOptions as TabNoteRenderOpts).drawStemThroughStave = false;
 
-            this.glyph = Flow.DurationToGlyph(this.duration, this.noteType);
-            if (this.glyph == null)
+            this.glyph = Flow.DurationToGlyph(this.duration,this.noteType);
+            if(this.glyph == null)
             {
                 throw new Exception("BadArguments,Invalid note initialization data (No glyph found): ");//
                 //  throw new Vex.RuntimeError("BadArguments",
@@ -53,7 +51,7 @@ namespace NVexFlow
                 //}
             }
             this.BuildStem();
-            this.StemDirection = NVexFlow.Stem.UP;
+            this.StemDirection = Stem.UP;
 
             // Renders parenthesis around notes
             this.ghost = false;
@@ -83,7 +81,6 @@ namespace NVexFlow
         /// <summary>
         /// Determine if the note has a stem
         /// </summary>
-        /// <returns></returns>
         public override bool HasStem()
         {
             return (this.renderOptions as TabNoteRenderOpts).drawStem;
@@ -91,17 +88,15 @@ namespace NVexFlow
         /// <summary>
         /// Get the default stem extension for the note
         /// </summary>
-        /// <returns></returns>
         public double GetStemExtension()
         {
             Glyph4Note glyph = this.Glyph;
-            if (this.stemExtensionOverride != null)
+            if(this.stemExtensionOverride != null)
             {
                 return this.stemExtensionOverride.Value;
             }
-
-            if (glyph != null)
-            {
+            if(glyph != null)
+            {//this.StemDirection == 1在里程碑2时用类似this.StemDirection == Stem.UP的形式替代
                 return this.StemDirection == 1 ? glyph.tabnoteStemUpExtension : glyph.tabnoteStemDownExtension;
             }
             return 0;
@@ -109,30 +104,30 @@ namespace NVexFlow
         /// <summary>
         /// Add a dot to the note
         /// </summary>
-        /// <returns></returns>
-        public object AddDot()
+        public TabNote AddDot()
         {
-            Dot dot= new Dot();
+            Dot dot = new Dot();
             this.dots++;
-            return this.AddModifier(dot, 0);
+            return this.AddModifier(dot,0) as TabNote;
+            //这里非常别扭，有没有办法不用这个as TabNote？
         }
         /// <summary>
         /// Calculate and store the width of the note
         /// </summary>
         public void UpdateWidth()
         {
-            this.glyphs=new List<Glyph4Note>();
+            this.glyphs = new List<Glyph4Note>();
             this.width = 0;
-            for (int i = 0; i < this.positions.Count(); i++)
+            for(int i = 0;
+            i < this.positions.Count();
+            i++)
             {
-                int fret= this.positions[i].fret;
-                if (this.ghost)
-                {
-                    string strFret = "(" + fret + ")";
-                    Glyph4TabNote glyph= Flow.TabToGlyph(strFret);
-                    this.glyphs.Add(glyph);
-                    this.width = (glyph.width > this.width) ? glyph.width : this.width;
-                }
+                string fret = this.positions[i].fret.ToString();
+                if(this.ghost)
+                    fret = "(" + fret + ")";
+                Glyph4TabNote glyph = Flow.TabToGlyph(fret);
+                this.glyphs.Add(glyph);
+                this.width = (glyph.width > this.width) ? glyph.width : this.width;
             }
         }
         /// <summary>
@@ -148,22 +143,25 @@ namespace NVexFlow
 
                 // Calculate the fret number width based on font used
                 int i;
-                if (this.context != null)
+                if(this.context != null)
                 {
-                    for  (i = 0; i < this.glyphs.Count(); i++)
+                    for(i = 0;
+                    i < this.glyphs.Count();
+                    i++)
                     {
-                        string text=""+(this.glyphs[i] as Glyph4TabNote).text;
-                        if(text.ToUpper()!="X")
+                        string text = "" + (this.glyphs[i] as Glyph4TabNote).text;
+                        if(text.ToUpper() != "X")
                         {
                             (this.glyphs[i] as Glyph4TabNote).width = this.context.MeasureText(text).width;
                         }
-                        this.width = ((this.glyphs[i] as Glyph4TabNote).width > this.width) ? (this.glyphs[i] as Glyph4TabNote).width : this.width;
+                        this.width = (this.glyphs[i] as Glyph4TabNote).width > this.width ? (this.glyphs[i] as Glyph4TabNote).width : this.width;
                     }
                 }
-
                 IList<double> ys = new List<double>();
                 // Setup y coordinates for score.
-                for (i = 0; i < this.positions.Count(); i++)
+                for(i = 0;
+                i < this.positions.Count();
+                i++)
                 {
                     int line = this.positions[i].str;
                     ys.Add(this.stave.GetYForLine(line - 1));
@@ -182,11 +180,12 @@ namespace NVexFlow
         /// <summary>
         /// Add self to the provided modifier context `mc`
         /// </summary>
-        /// <param name="mc"></param>
         public new TabNote AddToModifierContext(ModifierContext mc)
         {
             this.ModifierContext = mc;
-            for (int i = 0; i < this.modifiers.Count(); i++)
+            for(int i = 0;
+            i < this.modifiers.Count();
+            i++)
             {
                 this.modifierContext.AddModifier(this.modifiers[i]);
             }
@@ -197,66 +196,55 @@ namespace NVexFlow
         /// <summary>
         /// Get the `x` coordinate to the right of the note
         /// </summary>
-        /// <returns></returns>
         public double GetTieRightX()
         {
             double tieStartX = this.AbsoluteX;
             double noteGlyphWidth = this.glyph.headWidth;
             tieStartX += noteGlyphWidth / 2;
-            tieStartX += (-this.width / 2) + this.width + 2;
+            tieStartX += -this.width / 2 + this.width + 2;
             return tieStartX;
         }
         /// <summary>
         /// Get the `x` coordinate to the left of the note
         /// </summary>
-        /// <returns></returns>
         public double GetTieLeftX()
         {
             double tieEndX = this.AbsoluteX;
             double noteGlyphWidth = this.glyph.headWidth;
             tieEndX += noteGlyphWidth / 2;
-            tieEndX -= (this.width / 2) + 2;
+            tieEndX -= this.width / 2 + 2;
             return tieEndX;
         }
         /// <summary>
         /// Get the default `x` and `y` coordinates for a modifier at a specific `position` at a fret position `index`
         /// </summary>
-        /// <param name="position"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
         public object GetModifierStartXY(Modifier.ModifierPosition position,int index)
         {
-            if (!this.preFormatted)
-            {
+            if(!this.preFormatted)
                 throw new Exception("UnformattedNote,Can't call GetModifierStartXY on an unformatted note");
-            }
             //               if (!this.preFormatted) throw new Vex.RERR("UnformattedNote",
             //    "Can't call GetModifierStartXY on an unformatted note");
-            if (this.ys.Count() <= 0)
-            {
+            if(this.ys.Count() <= 0)
                 throw new Exception("NoYValues,No Y-Values calculated for this note.");
-            }
             double x = 0;
-            if (position == Modifier.ModifierPosition.LEFT)
+            if(position == Modifier.ModifierPosition.LEFT)
             {
                 x = -1 * 2;// extra_left_px
             }
-            else if (position == Modifier.ModifierPosition.RIGHT)
+            else if(position == Modifier.ModifierPosition.RIGHT)
             {
                 x = this.width + 2;// extra_right_px
             }
-            else if (position == Modifier.ModifierPosition.BELOW || position == Modifier.ModifierPosition.ABOVE)
+            else if(position == Modifier.ModifierPosition.BELOW || position == Modifier.ModifierPosition.ABOVE)
             {
                 double noteGlyphWidth = this.glyph.headWidth;
                 x = noteGlyphWidth / 2;
             }
-
-            return new TabNoteModifierStartXY() { x=this.AbsoluteX+x,y=this.ys[index]};
+            return new TabNoteModifierStartXY() { x = this.AbsoluteX + x,y = this.ys[index] };
         }
         /// <summary>
         /// Get the default line for rest
         /// </summary>
-        /// <returns></returns>
         public int GetLineForRest()
         {
             return this.positions[0].str;
@@ -266,21 +254,16 @@ namespace NVexFlow
         /// </summary>
         public override void PreFormat()
         {
-            if (this.preFormatted)
-            {
+            if(this.preFormatted)
                 return;
-            }
-            if (this.modifierContext != null)
-            {
+            if(this.modifierContext != null)
                 this.modifierContext.PreFormat();
-            }
             // width is already set during init()
             this.PreFormatted = true;
         }
         /// <summary>
         /// Get the x position for the stem
         /// </summary>
-        /// <returns></returns>
         public double GetStemX()
         {
             return this.CenterGlyphX;
@@ -288,58 +271,51 @@ namespace NVexFlow
         /// <summary>
         /// Get the y position for the stem
         /// </summary>
-        /// <returns></returns>
         public double GetStemY()
         {
-            double numLines= this.stave.NumLines;
+            double numLines = this.stave.NumLines;
             // The decimal staff line amounts provide optimal spacing between the fret number and the stem
             double stemUpLine = -0.5;
-            double stemDownLine =numLines -0.5;
-            double stemStartLine = NVexFlow.Stem.UP == this.stemDirection ? stemUpLine : stemDownLine;
+            double stemDownLine = numLines - 0.5;
+            double stemStartLine = Stem.UP == this.stemDirection ? stemUpLine : stemDownLine;
             return this.stave.GetYForLine(stemStartLine);
         }
         /// <summary>
         /// Get the stem extents for the tabnote
         /// </summary>
-        /// <returns></returns>
-        public object GetStemExtents()
+        public TabNoteStemExtents GetStemExtents()
         {
             //              var stem_base_y = this.getStemY();
             //var stem_top_y = stem_base_y + (Stem.HEIGHT * -this.stem_direction);
             double stemBaseY = this.GetStemY();
-            double stemTopY = stemBaseY + (NVexFlow.Stem.HEIGHT * (-this.stemDirection.Value));
-            return new TabNoteStemExtents() { baseY=stemBaseY,topY=stemTopY};
+            double stemTopY = stemBaseY + Stem.HEIGHT * -this.stemDirection.Value;
+            return new TabNoteStemExtents() { baseY = stemBaseY,topY = stemTopY };
         }
         /// <summary>
         /// Draw the fal onto the context
         /// </summary>
         public void DrawFlag()
         {
-            //var render_stem = this.beam == null && this.render_options.draw_stem;
-            //var render_flag = this.beam == null && render_stem;
-
-            //// Now it's the flag's turn.
-            //if (this.glyph.flag && render_flag)
-            //{
-            //    var flag_x = this.getStemX() + 1;
-            //    var flag_y = this.getStemY() - (this.stem.getHeight());
-            //    var flag_code;
-
-            //    if (this.stem_direction == Stem.DOWN)
-            //    {
-            //        // Down stems have flags on the left.
-            //        flag_code = this.glyph.code_flag_downstem;
-            //    }
-            //    else
-            //    {
-            //        // Up stems have flags on the left.
-            //        flag_code = this.glyph.code_flag_upstem;
-            //    }
-
-            //    // Draw the Flag
-            //    Vex.Flow.renderGlyph(this.context, flag_x, flag_y,
-            //        this.render_options.glyph_font_scale, flag_code);
-            //}
+            bool renderStem = this.beam == null && (this.renderOptions as TabNoteRenderOpts).drawStem;
+            bool renderFlag = this.beam == null && renderStem;
+            // Now it's the flag's turn.
+            if(this.glyph.flag && renderFlag)
+            {
+                double flagX = this.StemX + 1;
+                double flagY = this.GetStemY() - this.stem.GetHeight();
+                object flagCode;
+                if(this.stemDirection == Stem.DOWN)
+                {
+                    // Down stems have flags on the left.
+                    flagCode = (this.glyph as Glyph4TabNote).codeFlagDownStem;
+                }
+                else
+                {
+                    flagCode = (this.glyph as Glyph4TabNote).codeFlagUpStem;
+                }
+                // Draw the Flag
+                Flow.RenderGlyph(this.context,flagX,flagY,(this.renderOptions as TabNoteRenderOpts).glyphFontScale,flagCode);
+            }
         }
         /// <summary>
         /// Render the modifiers onto the context

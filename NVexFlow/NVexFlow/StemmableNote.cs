@@ -157,7 +157,7 @@ namespace NVexFlow
         /// <summary>
         /// Get the `x` coordinate of the stem
         /// </summary>
-        public object StemX
+        public double StemX
         {
             get
             {

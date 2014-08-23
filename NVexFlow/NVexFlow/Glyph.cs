@@ -4,35 +4,26 @@ using NVexFlow.Model;
 
 namespace NVexFlow
 {
-    public class Metrics
+    public partial class Flow
     {
-        public double xMin;
-        public double xMax;
-
-        //TextNote直接使用了width字段
-        public double width;
-
-        public double Width
+        /**
+         * A quick and dirty static glyph renderer. Renders glyphs from the default
+         * font defined in Vex.Flow.Font.
+         *
+         * @param {!Object} ctx The canvas context.
+         * @param {number} x_pos X coordinate.
+         * @param {number} y_pos Y coordinate.
+         * @param {number} point The point size to use.
+         * @param {string} val The glyph code in Vex.Flow.Font.
+         * @param {boolean} nocache If set, disables caching of font outline.
+         */
+        public static void RenderGlyph(CanvasContext ctx,double x_pos,double y_pos,double point,object val,bool nocache = false)
         {
-            get
-            { return width; }
-            set
-            { width = value; }
+            //var scale = point * 72.0 / (Vex.Flow.Font.resolution * 100.0);
+            //var metrics = Vex.Flow.Glyph.loadMetrics(Vex.Flow.Font,val,!nocache);
+            //Vex.Flow.Glyph.renderOutline(ctx,metrics.outline,scale,x_pos,y_pos);
         }
-        private double height;
-
-        public double Height
-        {
-            get
-            { return height; }
-            set
-            { height = value; }
-        }
-
-        public object outline;
     }
-
-
     public class Glyph
     {
         public double scale;
@@ -102,7 +93,7 @@ namespace NVexFlow
         }
         public virtual Metrics GetMetrics()
         {
-           throw new NotImplementedException();
+            throw new NotImplementedException();
         }
         public Metrics Metrics
         {
@@ -123,5 +114,32 @@ namespace NVexFlow
         //setYShift: function(yShift) { this.yShift = yShift; return this; },
         //setContext: function(context) { this.context = context; return this; },
         //getContext: function() { return this.context; },
+    }
+    public class Metrics
+    {
+        public double xMin;
+        public double xMax;
+
+        //TextNote直接使用了width字段
+        public double width;
+
+        public double Width
+        {
+            get
+            { return width; }
+            set
+            { width = value; }
+        }
+        private double height;
+
+        public double Height
+        {
+            get
+            { return height; }
+            set
+            { height = value; }
+        }
+
+        public object outline;
     }
 }
