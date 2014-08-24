@@ -41,13 +41,12 @@ Vex.Flow.Volta	:	Vex.Flow.StaveModifier	//	stavevolta.js
 Vex.Flow.StaveTie			//	stavetie.js
 Vex.Flow.TabTie	:	Vex.Flow.StaveTie	//	tabtie.js
 Vex.Flow.TabSlide	:	Vex.Flow.TabTie	//	tabslide.js
-
+Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
+Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
 
 //////////////////////////////近期任务//////////////////////////////
 使下列类达到里程碑1阶段：
 {
-Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
-Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
 Vex.Flow.Stave			//	stave.js
 Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
 Vex.Flow.BoundingBox			//	boundingbox.js
@@ -72,7 +71,7 @@ Vex.Flow.Formatter			//	formatter.js
 
 //////////////////////////////讨论留言区//////////////////////////////
 0.GhostNote和TabNote都不达标，请参照zhangxia85对TabNote的修改尽快完善“正在处理”区域中的内容，然后再继续“近期任务”区的翻译工作。
-
+错误和遗漏都改了，编码习惯的事儿你随检查随改吧
 1.有关代码语法格式， 对于以后StaveModifier一组分支暂时：
 get,set方法不再弄成字段的属性，就按照他js的写法分别写成get、set方法。
 

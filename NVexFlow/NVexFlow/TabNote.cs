@@ -97,19 +97,21 @@ namespace NVexFlow
             }
             if(glyph != null)
             {//this.StemDirection == 1在里程碑2时用类似this.StemDirection == Stem.UP的形式替代
-                return this.StemDirection == 1 ? glyph.tabnoteStemUpExtension : glyph.tabnoteStemDownExtension;
+                //完成
+                return this.StemDirection ==Stem.UP ? glyph.tabnoteStemUpExtension : glyph.tabnoteStemDownExtension;
             }
             return 0;
         }
         /// <summary>
         /// Add a dot to the note
         /// </summary>
-        public TabNote AddDot()
+        public Note AddDot()
         {
             Dot dot = new Dot();
             this.dots++;
-            return this.AddModifier(dot,0) as TabNote;
+            return this.AddModifier(dot, 0);
             //这里非常别扭，有没有办法不用这个as TabNote？
+            //返回值类型从具体子类类型改成了返回一个Note
         }
         /// <summary>
         /// Calculate and store the width of the note

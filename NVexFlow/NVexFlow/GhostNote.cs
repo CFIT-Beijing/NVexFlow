@@ -1,55 +1,74 @@
-﻿////对应 ghostnote.js
+﻿using System;
+////对应 ghostnote.js
 using NVexFlow.Model;
 namespace NVexFlow
-{//GhostNote
-    public class GhostNote:StemmableNote
+{
+    /// <summary>
+    ///Vex Flow Notation
+    // Mohit Muthanna <mohit@muthanna.com>
+    //
+    // Copyright Mohit Muthanna 2010
+    //
+    // Requires vex.js.
+    /// </summary>
+    public class GhostNote : StemmableNote
     {
-        #region 隐含字段
-        double width;
-
-        public override double Width
-        {
-            get
-            {
-                return base.Width;
-            }
-        }
-
-
-        #endregion
-
-
         #region js直译部分
         public GhostNote(NoteStruct duration)
             : base(duration)
         {
-
+            // Sanity check
+            if (duration == null)
+            {
+                throw new Exception("BadArguments,Ghost note must have valid initialization data to identify duration.");
+            }
+            Init();
         }
-
-        private void Init(object parameter)
+        public GhostNote(string duration)
+            : base(new NoteStruct() { duration = duration })
         {
-            if(parameter == null)
-            { }
-            object note_struct = null;
-            //判断参数parameter的类型，如果是string则  如是是obj则  为note_struct赋值
-            //this.Width = 0;
+            // Sanity check
+            if (duration == null)
+            {
+                throw new Exception("BadArguments,Ghost note must have valid initialization data to identify duration.");
+            }
+            Init();
         }
-
-        public bool IsRest()
+        private void Init()
+        {
+            // Note properties
+            this.SetWidth(0);
+        }
+        public override bool IsRest()
         {
             return true;
         }
-
-        public void Draw()
+        public override Stave Stave
         {
-
+            set
+            {
+                base.stave = value;
+            }
         }
-
-        public GhostNote PreFormat()
+        public new GhostNote AddToModifierContext(ModifierContext mc)
+        {
+            /* intentionally overridden */
+            return this;
+        }
+        public new GhostNote PreFormat()
         {
             this.PreFormatted = true;
             return this;
         }
+        public void Draw()
+        {
+
+        }
+        #endregion
+
+
+        #region 隐含字段
+
         #endregion
     }
 }

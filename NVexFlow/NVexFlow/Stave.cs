@@ -1,124 +1,19 @@
-﻿using System.Collections.Generic;
+﻿//stave.js
+using System.Collections.Generic;
 
 namespace NVexFlow
 {
     public class Stave
     {
-        #region 隐含字段
-
-        double startX;
-
-        public double NoteStartX
-        {
-            get
-            { return startX; }
-            set
-            { startX = value; }
-        }
-
-        double endX;
-
-        public double NoteEndX
-        {
-            get
-            { return endX; }
-        }
-
-        public double TieStartX
-        {
-            get
-            { return startX; }
-        }
-
-        double width;
-        public double TieEndX
-        {
-            get
-            { return this.startX + this.width; }
-        }
-
-        public CanvasContext context;//Note没有通过GetContext来访问context字段
-
-        public CanvasContext Context
-        {
-            get
-            { return context; }
-            set
-            { context = value; }
-        }
-
-        double x;
-
-        public double X
-        {
-            get
-            { return x; }
-        }
-
-        double numLines;
-
-        public double NumLines
-        {
-            get
-            { return numLines; }
-            set
-            { numLines = value; }
-        }
-
-        double y;
-
-        public double Y
-        {
-            set
-            { y = value; }
-        }
-
-
-        public double Width
-        {
-            get
-            { return width; }
-            set
-            { width = value; }
-        }
-
-        int measure;
-
-        public int Measure
-        {
-            set
-            { measure = value; }
-        }
-
-        double height;
-
-        public double Height
-        {
-            get
-            { return height; }
-        }
-
-        IList<object> glyphs;
-        IList<object> endGlyphs;
-        IList<object> modifiers;
-        double glyphStartX;
-        double glyphEndX;
-        public string clef;//keySignatrue用到
-        Font font;
-        IList<object> options;
-        object bounds;
-        #endregion
-
-
         #region js直译部分
-        public Stave(double x,double y,double width,IList<object> options)
+        public Stave(double x, double y, double width, IList<object> options)
         {
-            Init(x,y,width,options);
+            Init(x, y, width, options);
         }
 
 
 
-        public virtual void Init(double x,double y,double width,IList<object> options)
+        public virtual void Init(double x, double y, double width, IList<object> options)
         {
 
         }
@@ -140,34 +35,34 @@ namespace NVexFlow
         public double GetModifierXShift(int index)
         { return 0; }
 
-        public Stave SetRepetitionTypeLeft(object type,double y)
+        public Stave SetRepetitionTypeLeft(object type, double y)
         {
             return this;
         }
 
-        public Stave SetRepetitionTypeRight(object type,double y)
-        {
-            return this;
-        }
-
-
-        public Stave SetVoltaType(object type,object number_t,double y)
-        {
-            return this;
-        }
-
-        public Stave SetSection(object section,double y)
-        {
-            return this;
-        }
-
-        public Stave SetTempo(object tempo,double y)
+        public Stave SetRepetitionTypeRight(object type, double y)
         {
             return this;
         }
 
 
-        public Stave SetText(string text,object position,IList<object> options)
+        public Stave SetVoltaType(object type, object number_t, double y)
+        {
+            return this;
+        }
+
+        public Stave SetSection(object section, double y)
+        {
+            return this;
+        }
+
+        public Stave SetTempo(object tempo, double y)
+        {
+            return this;
+        }
+
+
+        public Stave SetText(string text, object position, IList<object> options)
         {
             return this;
         }
@@ -279,13 +174,13 @@ namespace NVexFlow
 
 
 
-        public Stave AddTimeSignature(object timeSpec,object customPadding)
+        public Stave AddTimeSignature(object timeSpec, object customPadding)
         {
             return this;
         }
 
 
-        public void AddEndTimeSignature(object timeSpec,object customPadding)
+        public void AddEndTimeSignature(object timeSpec, object customPadding)
         {
 
         }
@@ -302,10 +197,10 @@ namespace NVexFlow
 
 
 
-        public void DrawVertical(double x,object isDouble)
+        public void DrawVertical(double x, object isDouble)
         { }
 
-        public void DrawVerticalFixed(double x,object isDouble)
+        public void DrawVerticalFixed(double x, object isDouble)
         { }
 
         public object GetConfigForLines()
@@ -313,7 +208,7 @@ namespace NVexFlow
             return null;
         }
 
-        public Stave SetConfigForLine(int line_number,object line_config)
+        public Stave SetConfigForLine(int line_number, object line_config)
         {
             return this;
         }
@@ -321,6 +216,115 @@ namespace NVexFlow
         public Stave SetConfigForLines(object lines_configuration)
         { return null; }
         #endregion
+
+
+        #region 隐含字段
+
+        double startX;
+
+        public double NoteStartX
+        {
+            get
+            { return startX; }
+            set
+            { startX = value; }
+        }
+
+        double endX;
+
+        public double NoteEndX
+        {
+            get
+            { return endX; }
+        }
+
+        public double TieStartX
+        {
+            get
+            { return startX; }
+        }
+
+        double width;
+        public double TieEndX
+        {
+            get
+            { return this.startX + this.width; }
+        }
+
+        public CanvasContext context;//Note没有通过GetContext来访问context字段
+
+        public CanvasContext Context
+        {
+            get
+            { return context; }
+            set
+            { context = value; }
+        }
+
+        double x;
+
+        public double X
+        {
+            get
+            { return x; }
+        }
+
+        double numLines;
+
+        public double NumLines
+        {
+            get
+            { return numLines; }
+            set
+            { numLines = value; }
+        }
+
+        double y;
+
+        public double Y
+        {
+            set
+            { y = value; }
+        }
+
+
+        public double Width
+        {
+            get
+            { return width; }
+            set
+            { width = value; }
+        }
+
+        int measure;
+
+        public int Measure
+        {
+            set
+            { measure = value; }
+        }
+
+        double height;
+
+        public double Height
+        {
+            get
+            { return height; }
+        }
+
+        IList<object> glyphs;
+        IList<object> endGlyphs;
+        IList<object> modifiers;
+        double glyphStartX;
+        double glyphEndX;
+        public string clef;//keySignatrue用到
+        Font font;
+        IList<object> options;
+        object bounds;
+        #endregion
+
+
+      
 
     }
 }
