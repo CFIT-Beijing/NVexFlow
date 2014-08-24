@@ -461,7 +461,7 @@ namespace NVexFlow
                 double x = this.tickContext.X;
                 if(this.stave != null)
                 {
-                    x += this.stave.NoteStartX + this.renderOptions.stavePadding;
+                    x += this.stave.GetNoteStartX() + this.renderOptions.stavePadding;
                 }
                 return x;
             }
