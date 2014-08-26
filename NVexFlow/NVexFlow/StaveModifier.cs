@@ -35,15 +35,15 @@ namespace NVexFlow
         }
         public void PlaceGlyphOnLine(Glyph glyph, Stave stave, double line)
         {
-            glyph.SetYShift(stave.GetYForLine(line) - stave.GetYForGlyph());
+            glyph.SetYShift(stave.GetYForLine(line) - stave.GetYForGlyphs());
         }
         public virtual void SetPadding(double padding)
         {
             this.padding = padding;
         }
-        public StaveModifier AddToStave(Stave stave, Glyph firstGlyph)
+        public StaveModifier AddToStave(Stave stave, bool? firstGlyph=null)
         {
-            if (firstGlyph == null)
+            if (!firstGlyph.HasValue||firstGlyph.Value==false)
             {
                 stave.AddGlyph(this.MakeSpacer(this.padding));
             }
@@ -51,9 +51,9 @@ namespace NVexFlow
             this.AddModifier(stave);
             return this;
         }
-        public StaveModifier AddToStaveEnd(Stave stave, Glyph firstGlyph)
+        public StaveModifier AddToStaveEnd(Stave stave, bool firstGlyph)
         {
-            if (firstGlyph == null)
+            if (!firstGlyph)
             {
                 stave.AddEndGlyph(this.MakeSpacer(this.padding));
             }

@@ -164,7 +164,7 @@ namespace NVexFlow
             { x = value; }
         }
 
-        protected BarlineType barLine;
+        public BarlineType barLine;
         #endregion
 
 

@@ -205,7 +205,7 @@ namespace NVexFlow
             {
                 throw new Exception("UnformattedNote,Can't call getBoundingBox on an unformatted note.");
             }
-            double spacing = this.stave.SpacingBetweenLines;
+            double spacing = this.stave.GetSpacingBetweenLines();
             double halfSpacing = spacing / 2;
             double minY = this.y - halfSpacing;
             return new BoundingBox(this.AbsoluteX,minY,this.width,spacing);

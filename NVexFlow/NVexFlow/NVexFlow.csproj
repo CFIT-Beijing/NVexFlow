@@ -73,6 +73,7 @@
     <Compile Include="Model\ModifierContextModel.cs" />
     <Compile Include="Model\NoteHeadModel.cs" />
     <Compile Include="Model\RenderOptions.cs" />
+    <Compile Include="Model\StaveModel.cs" />
     <Compile Include="Model\StaveModifierModel.cs" />
     <Compile Include="Model\StaveNoteModel.cs" />
     <Compile Include="Model\StaveTempoModel.cs" />

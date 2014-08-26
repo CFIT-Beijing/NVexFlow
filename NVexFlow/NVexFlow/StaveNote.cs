@@ -265,7 +265,7 @@ namespace NVexFlow
 
                 double? minY = 0;
                 double? maxY = 0;
-                double halfLineSpacing = this.Stave.SpacingBetweenLines / 2;
+                double halfLineSpacing = this.Stave.GetSpacingBetweenLines() / 2;
                 double lineSpacing = halfLineSpacing * 2;
 
                 if(this.IsRest())
@@ -697,7 +697,7 @@ namespace NVexFlow
 
             //var highest_line = this.stave.getNumLines();
             //var lowest_line = 1;
-            double highestLine = this.stave.NumLines;
+            double highestLine = this.stave.GetNumLines();
             double lowestLine = 1;
 
             foreach(var noteHead in this.noteHeads)

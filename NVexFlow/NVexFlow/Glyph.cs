@@ -42,7 +42,7 @@ namespace NVexFlow
             set
             { xShift = value; }
         }
-        private double yShift;
+        public double yShift;
         public Glyph SetYShift(double yShift)
         {
             this.yShift = yShift;

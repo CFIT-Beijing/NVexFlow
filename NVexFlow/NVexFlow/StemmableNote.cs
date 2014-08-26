@@ -268,7 +268,7 @@ namespace NVexFlow
                 return this.stave.GetYForTopText(textLine);
             }
         }
-        public double GetYForBottomText(double textLine)
+        public double GetYForBottomText(int textLine)
         {
             StemExtents extents = this.StemExtents;
             if(this.HasStem())

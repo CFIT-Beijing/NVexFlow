@@ -43,12 +43,13 @@ Vex.Flow.TabTie	:	Vex.Flow.StaveTie	//	tabtie.js
 Vex.Flow.TabSlide	:	Vex.Flow.TabTie	//	tabslide.js
 Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
 Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
+Vex.Flow.Stave			//	stave.js
+Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
 
 //////////////////////////////近期任务//////////////////////////////
 使下列类达到里程碑1阶段：
 {
-Vex.Flow.Stave			//	stave.js
-Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
+
 Vex.Flow.BoundingBox			//	boundingbox.js
 Vex.Flow.Stem			//	stem.js
 Vex.Flow.Curve			//	curve.js

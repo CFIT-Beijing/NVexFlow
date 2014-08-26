@@ -274,7 +274,7 @@ namespace NVexFlow
         /// </summary>
         public double GetStemY()
         {
-            double numLines = this.stave.NumLines;
+            double numLines = this.stave.GetNumLines();
             // The decimal staff line amounts provide optimal spacing between the fret number and the stem
             double stemUpLine = -0.5;
             double stemDownLine = numLines - 0.5;
