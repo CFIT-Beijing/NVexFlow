@@ -144,8 +144,8 @@ namespace NVexFlow
                 this.stemDirection = value;
                 if(this.stem != null)
                 {
-                    this.stem.Direction = value.Value;
-                    this.stem.Extension = this.StemExtension;
+                    this.stem.SetDirection(value.Value);
+                    this.stem.SetExtension(this.StemExtension);
                 }
                 this.beam = null;
                 if(this.preFormatted)
@@ -309,7 +309,7 @@ namespace NVexFlow
                 throw new Exception("NoCanvasContext,Can't draw without a canvas context.");
             }
             this.Stem = new Stem(stemStruct);
-            this.stem.Context = this.context;
+            this.stem.SetContext(this.context);
             this.stem.Draw();
         }
         #endregion

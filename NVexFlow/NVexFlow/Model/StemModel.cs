@@ -2,7 +2,14 @@
 {
     public class StemOpts
     {
-        public double yExtend;
+        public double? yExtend;
+        public double? xBegin;
+        public double? xEnd;
+        public double? yTop;
+        public double? yBottom;
+        public double? stemDirection;
+        public double? stemExtension;
+        
         //note.setStem(new Vex.Flow.Stem({
         //      x_begin: centerGlyphX,
         //      x_end: centerGlyphX,
@@ -12,5 +19,11 @@
         //      stem_extension: -1, // To avoid protruding through the beam
         //      stem_direction: this.stem_direction
         //    }));
+    }
+
+    public class StemExtents
+    { 
+        public double topY;
+        public double baseY;
     }
 }

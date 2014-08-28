@@ -66,6 +66,7 @@
     <Compile Include="Model\ClefNoteModel.cs" />
     <Compile Include="Model\CrescendoModel.cs" />
     <Compile Include="Fonts\Font.cs" />
+    <Compile Include="Model\CurveModel.cs" />
     <Compile Include="Model\GlyphsModel.cs" />
     <Compile Include="Model\BendModel.cs" />
     <Compile Include="Model\GraceNoteModel.cs" />

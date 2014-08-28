@@ -45,14 +45,16 @@ Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
 Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
 Vex.Flow.Stave			//	stave.js
 Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
-
+Vex.Flow.BoundingBox			//	boundingbox.js
+Vex.Flow.Stem			//	stem.js
+Vex.Flow.Curve			//	curve.js
 //////////////////////////////近期任务//////////////////////////////
 使下列类达到里程碑1阶段：
 {
 
-Vex.Flow.BoundingBox			//	boundingbox.js
-Vex.Flow.Stem			//	stem.js
-Vex.Flow.Curve			//	curve.js
+
+
+
 Vex.Flow.Beam			//	beam.js
 Vex.Flow.Tuplet			//	tuplet.js
 Vex.Flow.StaveHairpin			//	stavehairpin.js
@@ -98,3 +100,5 @@ public class NoteModifierStartXY
 	（2）、写子类，让子类继承重写父类的某些方法。TimeSignatureModel
 
 	4、感觉字段也没必要protected了，public得了
+
+	5、和数字相关的参数因为我不懂音乐业务，以后先都写成double的，为节省时间。（之前写的有的是int有的是double）

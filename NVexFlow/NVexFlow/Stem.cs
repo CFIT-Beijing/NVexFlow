@@ -1,87 +1,167 @@
-﻿using NVexFlow.Model;
-
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using NVexFlow.Model;
+using System.Linq;
 namespace NVexFlow
 {
+    /// <summary>
+    /// ## Description
+    // 
+    // This file implements the `Stem` object. Generally this object is handled 
+    // by its parent `StemmableNote`.
+    // 
+    /// </summary>
     public class Stem
     {
+        #region js直译部分
         public Stem(StemOpts options = null)
         {
             Init(options);
         }
-
+        // Stem directions
         public static int UP = 1;
         public static int DOWN = -1;
         // Theme
-        //Stem.WIDTH = Vex.Flow.STEM_WIDTH;
-        //Stem.HEIGHT = Vex.Flow.STEM_HEIGHT;
-        public static double WIDTH;
-        public static double HEIGHT;
-        public bool hide;
+        public static double WIDTH = Flow.STEM_WIDTH;
+        public static double HEIGHT = Flow.STEM_HEIGHT;
         private void Init(StemOpts options)
-        { }
-
-        private object x_begin;
-        private object x_end;
-        public Stem SetNoteHeadXBounds(object x_begin,object x_end)
         {
-            this.x_begin = x_begin;
-            this.x_end = x_end;
+            // Default notehead x bounds
+            this.xBegin = options.xBegin ?? 0;
+            this.xEnd = options.xEnd ?? 0;
+            // Y bounds for top/bottom most notehead
+            this.yTop = options.yTop ?? 0;
+            this.yBottom = options.yBottom ?? 0;
+
+            // Stem base extension
+            this.yExtend = options.yExtend ?? 0;
+            // Stem top extension
+            this.stemExtension = options.stemExtension ?? 0;
+            // Direction of the stem
+            this.stemDirection = options.stemDirection ?? 0;
+            // Flag to override all draw calls
+            this.hide = false;
+        }
+        // Set the x bounds for the default notehead
+        public Stem SetNoteHeadXBounds(double xBegin, double xEnd)
+        {
+            this.xBegin = xBegin;
+            this.xEnd = xEnd;
             return this;
         }
-
-        private int stem_direction;
-
-        public int Direction
+        // Set the direction of the stem in relation to the noteheads
+        public void SetDirection(double direction)
         {
-            set
-            { stem_direction = value; }
+            this.stemDirection = direction;
         }
-
-        private double stem_extension;
-
-        public double Extension
+        // Set the extension for the stem, generally for flags or beams
+        public void SetExtension(double ext)
         {
-            set
-            { stem_extension = value; }
+            this.stemExtension = ext;
         }
-
-        private double y_top;
-        private double y_bottom;
-        public Stem SetYBounds(double y_top,double y_bottom)
+        // The the y bounds for the top and bottom noteheads
+        public Stem SetYBounds(double yTop, double yBottom)
         {
-            this.y_top = y_top;
-            this.y_bottom = y_bottom;
+            this.yTop = yTop;
+            this.yBottom = yBottom;
             return this;
         }
-
-        private string category;
-
-        public string Category
+        // The category of the object
+        public string GetCategory()
         {
-            get
-            { return "stem"; }
+            return "stem";
         }
-
-        private object context;
-
-        public object Context
+        // Set the canvas context to render on
+        public Stem SetContext(CanvasContext context)
         {
-            set
-            { context = value; }
+            this.context = context;
+            return this;
         }
-
+        // Gets the entire height for the stem
         public double GetHeight()
         {
-            return 0;
+            return (this.yBottom - this.yTop) * this.stemDirection + (Stem.HEIGHT + this.stemExtension) * this.stemDirection;
         }
+        public BoundingBox GetBoundingBox()
+        {
+            throw new Exception("NotImplemented,getBoundingBox() not implemented.");
+        }
+        // Get the y coordinates for the very base of the stem to the top of the extension
+        public StemExtents GetExtents()
+        {
+            IList<double> ys = new List<double>() { this.yTop, this.yBottom };
+            double topPixel = this.yTop;
+            double basePixel = this.yBottom;
+            double stemHeight = Stem.HEIGHT + this.stemExtension;
+            for (int i = 0; i < ys.Count(); i++)
+            {
+                double stemTop = ys[i] + (stemHeight * -this.stemDirection);
 
-        public void GetBoundingBox()
-        { }
-
-        public object GetExtents()
-        { return null; }
-
+                if (this.stemDirection == Stem.DOWN)
+                {
+                    topPixel = topPixel > stemTop ? topPixel : stemTop;
+                    basePixel = basePixel < ys[i] ? basePixel : ys[i];
+                }
+                else
+                {
+                    topPixel = topPixel < stemTop ? topPixel : stemTop;
+                    basePixel = basePixel > ys[i] ? basePixel : ys[i];
+                }
+            }
+            return new StemExtents() {topY=topPixel,baseY=basePixel };
+        }
+        // Render the stem onto the canvas
         public void Draw()
-        { }
+        {
+
+            //draw: function() {
+            //  if (!this.context) throw new Vex.RERR("NoCanvasContext",
+            //      "Can't draw without a canvas context.");
+
+            //  if (this.hide) return;
+
+            //  var ctx = this.context;
+            //  var stem_x, stem_y;
+            //  var stem_direction = this.stem_direction;
+
+            //  if (stem_direction == Stem.DOWN) {
+            //    // Down stems are rendered to the left of the head.
+            //    stem_x = this.x_begin + (Stem.WIDTH / 2);
+            //    stem_y = this.y_top + 2;
+            //  } else {
+            //    // Up stems are rendered to the right of the head.
+            //    stem_x = this.x_end + (Stem.WIDTH / 2);
+            //    stem_y = this.y_bottom - 2;
+            //  }
+
+            //  stem_y += this.y_extend * stem_direction;
+
+            //  L("Rendering stem - ", "Top Y: ", this.y_top, "Bottom Y: ", this.y_bottom);
+
+            //  // Draw the stem
+            //  ctx.beginPath();
+            //  ctx.setLineWidth(Stem.WIDTH);
+            //  ctx.moveTo(stem_x, stem_y);
+            //  ctx.lineTo(stem_x, stem_y - this.getHeight());
+            //  ctx.stroke();
+            //  ctx.setLineWidth(1);
+            //}
+        }
+        #endregion
+
+
+        #region 隐含字段
+        public bool hide;
+        public double xBegin;
+        public double xEnd;
+        public double yExtend;
+        public double stemDirection;
+        public double stemExtension;
+        public string category;
+        public CanvasContext context;
+        public double yTop;
+        public double yBottom;
+        #endregion
     }
 }
