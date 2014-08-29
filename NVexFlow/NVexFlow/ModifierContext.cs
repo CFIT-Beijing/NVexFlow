@@ -31,12 +31,12 @@ namespace NVexFlow
         public ModifierContext()
         { }
 
-        public ModifierContext AddModifier(object modifier)
+        public ModifierContext AddModifier(Modifier modifier)
         {
             return null;
         }
 
-        public object GetModifiers(string type)
+        public IList<Modifier> GetModifiers(string type)
         { return null; }
 
 

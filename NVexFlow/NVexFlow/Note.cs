@@ -495,7 +495,7 @@ namespace NVexFlow
         protected Glyph4Note glyph;
         protected IList<double> ys;
         protected IList<object> positions;
-        protected string duration;//在里程碑2的时候做成枚举类型
+        protected string duration;//里程碑2阶段duration改用Fraction类型。
         protected int dots;
         protected string noteType;
         protected NoteRenderOpts renderOptions;

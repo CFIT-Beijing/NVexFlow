@@ -5,7 +5,7 @@ namespace NVexFlow
 {
     // The tickable interface. Tickables are things that sit on a score and
     // have a duration, i.e., they occupy space in the musical rendering dimension.
-    public class Tickable
+    public class Tickable:Modifier
     {
         #region js直译部分
         public Tickable()
