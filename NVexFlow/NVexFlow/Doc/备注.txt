@@ -24,10 +24,12 @@ Vex.Flow.NoteHead	:	Vex.Flow.Note	//	notehead.js
 Vex.Flow.TextNote	:	Vex.Flow.Note	//	textnote.js
 Vex.Flow.TimeSigNote	:	Vex.Flow.Note	//	timesignote.js
 Vex.Flow.StemmableNote	:	Vex.Flow.Note	//	stemmablenote.js
+Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
 }//Draw以及部分涉及画图的方法需要在下阶段细化。
 
 
 //////////////////////////////正在处理//////////////////////////////
+Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
 Vex.Flow.StaveNote	:	Vex.Flow.StemmableNote	//	stavenote.js
 Vex.Flow.GraceNote	:	Vex.Flow.StaveNote	//	gracenote.js
 Vex.Flow.StaveModifier			//	stavemodifier.js
@@ -41,8 +43,6 @@ Vex.Flow.Volta	:	Vex.Flow.StaveModifier	//	stavevolta.js
 Vex.Flow.StaveTie			//	stavetie.js
 Vex.Flow.TabTie	:	Vex.Flow.StaveTie	//	tabtie.js
 Vex.Flow.TabSlide	:	Vex.Flow.TabTie	//	tabslide.js
-Vex.Flow.GhostNote	:	Vex.Flow.StemmableNote	//	ghostnote.js
-Vex.Flow.TabNote	:	Vex.Flow.StemmableNote	//	tabnote.js
 Vex.Flow.Stave			//	stave.js
 Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
 Vex.Flow.BoundingBox			//	boundingbox.js
@@ -51,10 +51,6 @@ Vex.Flow.Curve			//	curve.js
 //////////////////////////////近期任务//////////////////////////////
 使下列类达到里程碑1阶段：
 {
-
-
-
-
 Vex.Flow.Beam			//	beam.js
 Vex.Flow.Tuplet			//	tuplet.js
 Vex.Flow.StaveHairpin			//	stavehairpin.js
@@ -65,10 +61,21 @@ Vex.Flow.VoiceGroup			//	voicegroup.js
 Vex.Flow.TickContext			//	tickcontext.js
 Vex.Flow.ModifierContext			//	modifiercontext.js
 Vex.Flow.Formatter			//	formatter.js
+Vex.Flow.Glyph			//	glyph.js
+Vex.Flow.Renderer			//	renderer.js
+Vex.Flow.CanvasContext			//	canvascontext.js
+Vex.Flow.RaphaelContext			//	raphaelcontext.js
+Vex.Flow.Music			//	music.js
+Vex.Flow.KeyManager			//	keymanager.js
+Vex.Flow.Tuning			//	tuning.js
+Vex.Flow.Fraction			//	fraction.js
+Vex.Flow			//	flow.js
+Vex.Flow			//	tables.js
+Vex			//	vex.js
+Vex			//	header.js
 }
 
 //////////////////////////////中期任务//////////////////////////////
-使所有类达到里程碑1阶段。
 完成Modifier族Draw方法细化。
 
 

@@ -1,5 +1,5 @@
-﻿using System;
-////对应 ghostnote.js
+﻿// 对应 ghostnote.js
+using System;
 using NVexFlow.Model;
 namespace NVexFlow
 {
@@ -11,24 +11,26 @@ namespace NVexFlow
     //
     // Requires vex.js.
     /// </summary>
-    public class GhostNote : StemmableNote
+    public class GhostNote:StemmableNote
     {
         #region js直译部分
         public GhostNote(NoteStruct duration)
             : base(duration)
         {
             // Sanity check
-            if (duration == null)
+            if(duration == null)
             {
                 throw new Exception("BadArguments,Ghost note must have valid initialization data to identify duration.");
             }
             Init();
         }
+        //里程碑2时取消字符串duration构造函数
+        // Preserve backwards-compatibility
         public GhostNote(string duration)
             : base(new NoteStruct() { duration = duration })
         {
             // Sanity check
-            if (duration == null)
+            if(duration == null)
             {
                 throw new Exception("BadArguments,Ghost note must have valid initialization data to identify duration.");
             }
@@ -43,6 +45,7 @@ namespace NVexFlow
         {
             return true;
         }
+        //原js中实现很诡异，里程碑2时考虑去掉子类中没有必要的重复。
         public override Stave Stave
         {
             set
@@ -50,7 +53,8 @@ namespace NVexFlow
                 base.stave = value;
             }
         }
-        public new GhostNote AddToModifierContext(ModifierContext mc)
+        //注意和原js的对应，虽然是个诡异的无参数形式。
+        public GhostNote AddToModifierContext()
         {
             /* intentionally overridden */
             return this;
