@@ -67,6 +67,10 @@ namespace NVexFlow
                 return "tabnotes";
             }
         }
+        public override string GetCategory()
+        {
+            return "tabnotes";
+        }
         /// <summary>
         /// Set as ghost `TabNote`, surrounds the fret positions with parenthesis.Often used for indicating frets that are being bent to
         /// </summary>

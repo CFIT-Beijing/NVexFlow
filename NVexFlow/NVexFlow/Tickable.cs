@@ -161,6 +161,16 @@ namespace NVexFlow
             this.postFormatted = true;
             return this;
         }
+        //还原get、set方法，暂时没有删除之前的”属性“
+        public virtual Fraction GetIntrinsicTicks()
+        {
+            return this.intrinsicTicks;
+        }
+        public virtual void SetIntrinsicTicks(Fraction intrinsicTicks)
+        {
+            this.intrinsicTicks = intrinsicTicks;
+            this.ticks = this.tickMultiplier * this.intrinsicTicks;
+        }
         public virtual Fraction IntrinsicTicks
         {
             get

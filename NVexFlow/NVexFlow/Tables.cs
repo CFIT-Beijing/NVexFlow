@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NVexFlow.Model;
 
 namespace NVexFlow
@@ -181,9 +182,34 @@ namespace NVexFlow
         }
 
 
-        public static object DurationToTicks(string duration)
+        public static Fraction DurationToTicks(string duration)
         {
-            return null;
+//            Vex.Flow.durationToTicks = function(duration) {
+//  var alias = Vex.Flow.durationAliases[duration];
+//  if (alias !== undefined) {
+//    duration = alias;
+//  }
+
+//  var ticks = Vex.Flow.durationToTicks.durations[duration];
+//  if (ticks === undefined) {
+//    return null;
+//  }
+
+//  return ticks;
+//};
+
+//Vex.Flow.durationToTicks.durations = {
+//  "1":    Vex.Flow.RESOLUTION / 1,
+//  "2":    Vex.Flow.RESOLUTION / 2,
+//  "4":    Vex.Flow.RESOLUTION / 4,
+//  "8":    Vex.Flow.RESOLUTION / 8,
+//  "16":   Vex.Flow.RESOLUTION / 16,
+//  "32":   Vex.Flow.RESOLUTION / 32,
+//  "64":   Vex.Flow.RESOLUTION / 64,
+//  "128":  Vex.Flow.RESOLUTION / 128,
+//  "256":  Vex.Flow.RESOLUTION / 256
+//};
+            return 0;
         }
 
 

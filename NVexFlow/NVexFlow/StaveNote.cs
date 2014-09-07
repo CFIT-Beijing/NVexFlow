@@ -406,6 +406,10 @@ namespace NVexFlow
             get
             { return this.keyProps; }
         }
+        public IList<NoteProps> GetKeyProps()
+        {
+            return this.KeyProps;
+        }
         /// <summary>
         /// Check if note is shifted to the right
         /// </summary>

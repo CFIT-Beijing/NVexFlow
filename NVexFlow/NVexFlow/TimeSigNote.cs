@@ -54,6 +54,10 @@ namespace NVexFlow
             get
             { throw new Exception("js文件没有这个属性。在Modifier分支里有一个属性叫Note，暂时写成了Note类型。为了让不同的Note都能点儿出Category，先在Note里加入了Category"); }
         }
+        public override string GetCategory()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

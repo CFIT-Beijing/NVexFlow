@@ -57,6 +57,7 @@ namespace NVexFlow.Model
         public double gracenoteStemDownExtension;
         public double tabnoteStemUpExtension;
         public double tabnoteStemDownExtension;
+        public double stem_offset;
         //common
         //  head_width: 16,
         //stem: false,

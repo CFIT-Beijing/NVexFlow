@@ -109,6 +109,10 @@ namespace NVexFlow
                 return "notehead";
             }
         }
+        public override string GetCategory()
+        {
+            return "notehead";
+        }
         /// <summary>
         /// Set the Cavnas context for drawing
         /// </summary>

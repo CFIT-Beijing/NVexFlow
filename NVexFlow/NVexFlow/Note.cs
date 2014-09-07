@@ -214,6 +214,10 @@ namespace NVexFlow
                 return this.glyph;
             }
         }
+        public virtual Glyph4Note GetGlyph()
+        {
+            return this.glyph;
+        }
         /// <summary>
         /// Set and get Y positions for this note. Each Y value is associated with an individual pitch/key within the note/chord.
         /// </summary>
@@ -506,6 +510,7 @@ namespace NVexFlow
         {
             get;
         }
+        public abstract string GetCategory();
         #endregion
     }
 }

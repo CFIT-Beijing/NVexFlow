@@ -56,6 +56,10 @@ namespace NVexFlow
             get
             { return tickables; }
         }
+        public IList<object> GetTickables()
+        {
+            return tickables;
+        }
 
         VoiceMode mode;
 
@@ -145,7 +149,7 @@ namespace NVexFlow
             return this;
         }
 
-        public Voice AddTickables(IList<Tickable> tickables)
+        public Voice AddTickables(IList<StemmableNote> tickables)
         {
             return this;
         }

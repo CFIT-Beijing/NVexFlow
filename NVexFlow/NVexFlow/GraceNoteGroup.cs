@@ -8,11 +8,11 @@ namespace NVexFlow
     public class GraceNoteGroup:Modifier
     {
         #region js直译部分
-        public GraceNoteGroup(IList<Tickable> graceNotes,bool config)
+        public GraceNoteGroup(IList<StemmableNote> graceNotes, bool config)
         {
             Init(graceNotes,config);
         }
-        private void Init(IList<Tickable> graceNotes,bool showSlur)
+        private void Init(IList<StemmableNote> graceNotes, bool showSlur)
         {
             this.note = null;
             this.index = null;
@@ -51,8 +51,8 @@ namespace NVexFlow
             {
                 Beam beam = new Beam(this.graceNotes);
                 beam.RenderOptions = new BeamRenderOpts() {
-                    BeamWidth = 3,
-                    PartialBeamLength = 4
+                    beamWidth = 3,
+                    partialBeamLength = 4
                 };
                 this.beam = beam;
             }
@@ -99,7 +99,7 @@ namespace NVexFlow
         #region 隐含的字段
         protected bool preFormatted;
         protected Beam beam;
-        protected IList<Tickable> graceNotes;
+        protected IList<StemmableNote> graceNotes;
         protected bool showSlur;
         protected object slur;
         protected Formatter formatter;

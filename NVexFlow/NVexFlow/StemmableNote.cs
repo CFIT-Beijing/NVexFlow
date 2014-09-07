@@ -10,7 +10,7 @@ namespace NVexFlow
     // `StemmableNote` is an abstract interface for notes with optional stems. 
     // Examples of stemmable notes are `StaveNote` and `TabNote`
     /// </summary>
-    public class StemmableNote:Note
+    public class StemmableNote : Note
     {
         #region js直译部分
         public StemmableNote(NoteStruct noteStruct)
@@ -33,6 +33,15 @@ namespace NVexFlow
             { return this.stem; }
             set
             { this.stem = value; }
+        }
+        public Stem GetStem()
+        {
+            return this.stem;
+        }
+        public StemmableNote SetStem(Stem stem)
+        {
+            this.stem = stem;
+            return this;
         }
         /// <summary>
         /// Builds and sets a new stem
@@ -62,13 +71,13 @@ namespace NVexFlow
         /// <summary>
         /// Get the number of beams for this duration
         /// </summary>
-        public object BeamCount
+        public int BeamCount
         {
             get
             {
                 //暂时不知道glyph是什么类型，继承了Note，所以猜测是像Note里的glyph一样的结构。
                 Glyph4StemmableNote glyph = this.Glyph as Glyph4StemmableNote;
-                if(glyph != null)
+                if (glyph != null)
                 {
                     return glyph.beamCount;
                 }
@@ -76,6 +85,19 @@ namespace NVexFlow
                 {
                     return 0;
                 }
+            }
+        }
+        public int GetBeamCount()
+        { 
+            //暂时不知道glyph是什么类型，继承了Note，所以猜测是像Note里的glyph一样的结构。
+            Glyph4StemmableNote glyph = this.Glyph as Glyph4StemmableNote;
+            if (glyph != null)
+            {
+                return glyph.beamCount;
+            }
+            else
+            {
+                return 0;
             }
         }
         /// <summary>
@@ -88,39 +110,69 @@ namespace NVexFlow
                 double length = this.duration == "w" || this.duration == "1" ? 0 : 20;
                 // if note is flagged, cannot shorten beam
                 //里程碑2时把这个做成两组字典查询，字典数据放到Flow类里
-                switch(this.duration)
+                switch (this.duration)
                 {
-                case "8":
-                    if(this.beam == null)
-                    { length = 35; }
-                    break;
-                case "16":
-                    if(this.beam == null)
-                    { length = 35; }
-                    else
-                    { length = 25; }
-                    break;
-                case "32":
-                    if(this.beam == null)
-                    { length = 45; }
-                    else
-                    { length = 35; }
-                    break;
-                case "64":
-                    if(this.beam == null)
-                    { length = 50; }
-                    else
-                    { length = 40; }
-                    break;
-                case "128":
-                    if(this.beam == null)
-                    { length = 55; }
-                    else
-                    { length = 45; }
-                    break;
+                    case "8":
+                        if (this.beam == null)
+                        { length = 35; }
+                        break;
+                    case "16":
+                        if (this.beam == null)
+                        { length = 35; }
+                        else
+                        { length = 25; }
+                        break;
+                    case "32":
+                        if (this.beam == null)
+                        { length = 45; }
+                        else
+                        { length = 35; }
+                        break;
+                    case "64":
+                        if (this.beam == null)
+                        { length = 50; }
+                        else
+                        { length = 40; }
+                        break;
+                    case "128":
+                        if (this.beam == null)
+                        { length = 55; }
+                        else
+                        { length = 45; }
+                        break;
                 }
                 return length;
             }
+        }
+        /// <summary>
+        /// 还原Get、Set方法，属性未删
+        /// </summary>
+        /// <returns></returns>
+        public int? GetStemDirection()
+        { return stemDirection; }
+        public StemmableNote SetStemDirection(int? direction)
+        {
+            if (!direction.HasValue)
+            //这里的用法比较像set函数参数存在默认值
+            {
+                direction = Stem.UP;
+            }
+            if (direction != Stem.UP && direction != Stem.DOWN)
+            {
+                throw new Exception("BadArgument,Invalid stem direction: " + direction);
+            }
+            this.stemDirection = direction;
+            if (this.stem != null)
+            {
+                this.stem.SetDirection(direction.Value);
+                this.stem.SetExtension(this.StemExtension);
+            }
+            this.beam = null;
+            if (this.preFormatted)
+            {
+                this.PreFormat();
+            }
+            return this;
         }
         /// <summary>
         /// Get/set the direction of the stem
@@ -132,23 +184,23 @@ namespace NVexFlow
             { return stemDirection.Value; }
             set
             {
-                if(!value.HasValue)
+                if (!value.HasValue)
                 //这里的用法比较像set函数参数存在默认值
                 {
                     value = Stem.UP;
                 }
-                if(value != Stem.UP && value != Stem.DOWN)
+                if (value != Stem.UP && value != Stem.DOWN)
                 {
                     throw new Exception("BadArgument,Invalid stem direction: " + value);
                 }
                 this.stemDirection = value;
-                if(this.stem != null)
+                if (this.stem != null)
                 {
                     this.stem.SetDirection(value.Value);
                     this.stem.SetExtension(this.StemExtension);
                 }
                 this.beam = null;
-                if(this.preFormatted)
+                if (this.preFormatted)
                 {
                     this.PreFormat();
                 }
@@ -168,6 +220,14 @@ namespace NVexFlow
                 return stemX;
             }
         }
+        public double GetStemX()
+        {
+            double xBegin = this.AbsoluteX + this.xShift;
+            double xEnd = this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth;
+            double stemX = this.stemDirection == Stem.DOWN ? xBegin : xEnd;
+            stemX -= (Stem.WIDTH / 2) * this.stemDirection.Value;
+            return stemX;
+        }
         /// <summary>
         /// Get the `x` coordinate for the center of the glyph. Used for `TabNote` stems and stemlets over rests
         /// </summary>
@@ -178,6 +238,10 @@ namespace NVexFlow
                 return this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth / 2;
             }
         }
+        public double GetCenterGlyphX()
+        {
+            return this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth / 2;
+        }
         /// <summary>
         /// Get the stem extension for the current duration
         /// </summary>
@@ -186,11 +250,11 @@ namespace NVexFlow
             get
             {
                 Glyph4StemmableNote glyph = this.Glyph as Glyph4StemmableNote;
-                if(this.stemExtensionOverride.HasValue)
+                if (this.stemExtensionOverride.HasValue)
                 {
                     return this.stemExtensionOverride.Value;
                 }
-                if(glyph != null)
+                if (glyph != null)
                 {
                     return this.stemDirection == 1 ? glyph.stemUpExtension : glyph.stemDownExtension;
                 }
@@ -206,21 +270,21 @@ namespace NVexFlow
         {
             get
             {
-                if(this.ys == null || this.ys.Count() == 0)
+                if (this.ys == null || this.ys.Count() == 0)
                 {
                     throw new Exception("NoYValues,Can't get top stem Y when note has no Y values.");
                 }
                 double topPixel = this.ys[0];
                 double basePixel = this.ys[0];
                 double stemHeight = Stem.HEIGHT + this.StemExtension;
-                for(int i = 0;
+                for (int i = 0;
                 i < this.ys.Count();
                 i++)
                 {
                     double stemTop = this.ys[i] + (stemHeight * -this.stemDirection.Value);
                     //上面这句可看出stemDirection只能是1或-1，对应UP和DOWN
                     //里程碑2时考虑将stemDirection改成bool的isStemUp
-                    if(this.stemDirection == Stem.DOWN)
+                    if (this.stemDirection == Stem.DOWN)
                     {
                         topPixel = (topPixel > stemTop) ? topPixel : stemTop;
                         basePixel = (basePixel < this.ys[i]) ? basePixel : this.ys[i];
@@ -231,15 +295,51 @@ namespace NVexFlow
                         basePixel = (basePixel > this.ys[i]) ? basePixel : this.ys[i];
                     }
 
-                    if(this.noteType == "s" || this.noteType == "x")
+                    if (this.noteType == "s" || this.noteType == "x")
                     //里程碑2时这部分的7做成常量放在Flow类里，noteType改成枚举类型或数值类型
                     {
                         topPixel -= this.stemDirection.Value * 7;
                         basePixel -= this.stemDirection.Value * 7;
                     }
                 }
-                return new StemExtents() { topY = topPixel,baseY = basePixel };
+                return new StemExtents() { topY = topPixel, baseY = basePixel };
             }
+        }
+        public StemExtents GetStemExtents()
+        {
+            if (this.ys == null || this.ys.Count() == 0)
+            {
+                throw new Exception("NoYValues,Can't get top stem Y when note has no Y values.");
+            }
+            double topPixel = this.ys[0];
+            double basePixel = this.ys[0];
+            double stemHeight = Stem.HEIGHT + this.StemExtension;
+            for (int i = 0;
+            i < this.ys.Count();
+            i++)
+            {
+                double stemTop = this.ys[i] + (stemHeight * -this.stemDirection.Value);
+                //上面这句可看出stemDirection只能是1或-1，对应UP和DOWN
+                //里程碑2时考虑将stemDirection改成bool的isStemUp
+                if (this.stemDirection == Stem.DOWN)
+                {
+                    topPixel = (topPixel > stemTop) ? topPixel : stemTop;
+                    basePixel = (basePixel < this.ys[i]) ? basePixel : this.ys[i];
+                }
+                else
+                {
+                    topPixel = (topPixel < stemTop) ? topPixel : stemTop;
+                    basePixel = (basePixel > this.ys[i]) ? basePixel : this.ys[i];
+                }
+
+                if (this.noteType == "s" || this.noteType == "x")
+                //里程碑2时这部分的7做成常量放在Flow类里，noteType改成枚举类型或数值类型
+                {
+                    topPixel -= this.stemDirection.Value * 7;
+                    basePixel -= this.stemDirection.Value * 7;
+                }
+            }
+            return new StemExtents() { topY = topPixel, baseY = basePixel };
         }
         /// <summary>
         /// Sets the current note's beam
@@ -249,13 +349,18 @@ namespace NVexFlow
             set
             { this.beam = value; }
         }
+        public StemmableNote SetBeam(Beam beam)
+        {
+            this.beam = beam;
+            return this;
+        }
         /// <summary>
         /// Get the `y` value for the top/bottom modifiers at a specific `text_line`
         /// </summary>
         public virtual double GetYForTopText(double textLine)
         {
             StemExtents extents = this.StemExtents;
-            if(this.HasStem())
+            if (this.HasStem())
             {
                 return Math.Min(
                     this.stave.GetYForTopText(textLine),
@@ -271,7 +376,7 @@ namespace NVexFlow
         public double GetYForBottomText(int textLine)
         {
             StemExtents extents = this.StemExtents;
-            if(this.HasStem())
+            if (this.HasStem())
             {
                 return Math.Max(
                     this.stave.GetYForTopText(textLine),
@@ -292,7 +397,7 @@ namespace NVexFlow
         /// </summary>
         public new StemmableNote PostFormat()
         {
-            if(this.beam != null)
+            if (this.beam != null)
             {
                 this.beam.PostFormat();
             }
@@ -304,7 +409,7 @@ namespace NVexFlow
         /// </summary>
         public virtual void DrawStem(StemOpts stemStruct)
         {
-            if(this.context == null)
+            if (this.context == null)
             {
                 throw new Exception("NoCanvasContext,Can't draw without a canvas context.");
             }
@@ -315,14 +420,18 @@ namespace NVexFlow
         #endregion
 
         #region 隐含字段
-        protected Stem stem;
-        protected double? stemExtensionOverride;
-        protected int? stemDirection;
-        protected Beam beam;
+        public Stem stem;
+        public double? stemExtensionOverride;
+        public int? stemDirection;
+        public Beam beam;
         public override string Category
         {
             get
             { throw new System.NotImplementedException(); }
+        }
+        public override string GetCategory()
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
     }

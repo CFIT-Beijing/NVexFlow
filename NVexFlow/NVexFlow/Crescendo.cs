@@ -123,5 +123,9 @@ namespace NVexFlow
             get
             { throw new NotImplementedException(); }
         }
+        public override string GetCategory()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

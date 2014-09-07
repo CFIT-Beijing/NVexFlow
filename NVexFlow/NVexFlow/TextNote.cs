@@ -178,6 +178,10 @@ namespace NVexFlow
             get
             { throw new System.NotImplementedException(); }
         }
+        public override string GetCategory()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }
