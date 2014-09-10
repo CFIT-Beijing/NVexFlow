@@ -248,5 +248,13 @@
                 return "1";
             return "(" + numerator + "/" + denominator + ")";
         }
+        /// <summary>
+        /// 没找到哪个方法对应multiply，先写个假的你看到了再改
+        /// </summary>
+        /// <returns></returns>
+        public Fraction Multiply(object param1,object param2)
+        {
+            return 0;
+        }
     }
 }

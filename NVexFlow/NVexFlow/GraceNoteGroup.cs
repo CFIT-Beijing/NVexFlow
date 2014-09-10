@@ -50,7 +50,7 @@ namespace NVexFlow
             if(this.graceNotes.Count > 1)
             {
                 Beam beam = new Beam(this.graceNotes);
-                beam.RenderOptions = new BeamRenderOpts() {
+                beam.renderOptions = new BeamRenderOpts() {
                     beamWidth = 3,
                     partialBeamLength = 4
                 };

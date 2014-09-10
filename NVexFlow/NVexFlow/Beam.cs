@@ -565,7 +565,7 @@ namespace NVexFlow
         // * `voice` - The voice to generate the beams for
         // * `stem_direction` - A stem direction to apply to the entire voice
         // * `groups` - An array of `Fraction` representing beat groupings for the beam
-        public static object ApplyAndGetBeams(Voice voice, int stem_direction, IList<object> groups)
+        public static object ApplyAndGetBeams(Voice voice, int stem_direction, IList<Fraction> groups)
         {
             return Beam.GenerateBeams(voice.GetTickables(), new Config()
             {
@@ -599,19 +599,16 @@ namespace NVexFlow
         // 
         public static IList<Beam> GenerateBeams(IList<object> notes, Config config)
         {
-
-            //Beam.generateBeams = function(notes, config) {
-
-            //  if (!config) config = {};
             if (config == null)
             {
                 config = new Config();
             }
-            //  if (!config.groups || !config.groups.length) {
-            //    config.groups = [new Vex.Flow.Fraction(2, 8)];
-            //  }
+            if (config.groups == null || config.groups.Count() <= 0)
+            {
+                config.groups = new List<Fraction>() { new Fraction(2, 8) };
+            }
 
-            //  // Convert beam groups to tick amounts
+            // Convert beam groups to tick amounts
             //  var tickGroups = config.groups.map(function(group) {
             //    if (!group.multiply) {
             //      throw new Vex.RuntimeError("InvalidBeamGroups",
@@ -624,141 +621,16 @@ namespace NVexFlow
             //  var currentTickGroup = 0;
             //  var noteGroups       = [];
             //  var currentGroup     = [];
+            
+            // Convert beam groups to tick amounts
+            IList<Fraction> tickGroups = new List<Fraction>();
+            //Fraction写成类就可以直接用object的浅拷贝方法了，考虑？
+            foreach (Fraction group in config.groups)
+            {
+                //    return group.clone().multiply(Vex.Flow.RESOLUTION, 1);
+            }
 
-            //  function getTotalTicks(vf_notes){
-            //    return vf_notes.reduce(function(memo,note){
-            //      return note.getTicks().clone().add(memo);
-            //    }, new Vex.Flow.Fraction(0, 1));
-            //  }
-
-            //  function nextTickGroup() {
-            //    if (tickGroups.length - 1 > currentTickGroup) {
-            //      currentTickGroup += 1;
-            //    } else {
-            //      currentTickGroup = 0;
-            //    }
-            //  }
-
-            //  function createGroups(){
-            //    var nextGroup = [];
-
-            //    unprocessedNotes.forEach(function(unprocessedNote){
-            //      nextGroup    = [];
-            //      if (unprocessedNote.shouldIgnoreTicks()) {
-            //        noteGroups.push(currentGroup);
-            //        currentGroup = nextGroup;
-            //        return; // Ignore untickables (like bar notes)
-            //      }
-
-            //      currentGroup.push(unprocessedNote);
-            //      var ticksPerGroup = tickGroups[currentTickGroup].value();
-            //      var totalTicks = getTotalTicks(currentGroup).value();
-
-            //      // Double the amount of ticks in a group, if it's an unbeamable tuplet
-            //      if (parseInt(unprocessedNote.duration, 10) < 8 && unprocessedNote.tuplet) {
-            //        ticksPerGroup *= 2;
-            //      }
-
-            //      // If the note that was just added overflows the group tick total
-            //      if (totalTicks > ticksPerGroup) {
-            //        nextGroup.push(currentGroup.pop());
-            //        noteGroups.push(currentGroup);
-            //        currentGroup = nextGroup;
-            //        nextTickGroup();
-            //      } else if (totalTicks == ticksPerGroup) {
-            //        noteGroups.push(currentGroup);
-            //        currentGroup = nextGroup;
-            //        nextTickGroup();
-            //      }
-            //    });
-
-            //    // Adds any remainder notes
-            //    if (currentGroup.length > 0)
-            //      noteGroups.push(currentGroup);
-            //  }
-
-            //  function getBeamGroups() {
-            //    return noteGroups.filter(function(group){
-            //        if (group.length > 1) {
-            //          var beamable = true;
-            //          group.forEach(function(note) {
-            //            if (note.getIntrinsicTicks() >= Vex.Flow.durationToTicks("4")) {
-            //              beamable = false;
-            //            }
-            //          });
-            //          return beamable;
-            //        }
-            //        return false;
-            //    });
-            //  }
-
-            //  // Splits up groups by Rest
-            //  function sanitizeGroups() {
-            //    var sanitizedGroups = [];
-            //    noteGroups.forEach(function(group) {
-            //      var tempGroup = [];
-            //      group.forEach(function(note, index, group) {
-            //        var isFirstOrLast = index === 0 || index === group.length - 1;
-
-            //        var breaksOnEachRest = !config.beam_rests && note.isRest();
-            //        var breaksOnFirstOrLastRest = (config.beam_rests &&
-            //          config.beam_middle_only && note.isRest() && isFirstOrLast);
-
-            //        var shouldBreak = breaksOnEachRest || breaksOnFirstOrLastRest;
-
-            //        if (shouldBreak) {
-            //          if (tempGroup.length > 0) {
-            //            sanitizedGroups.push(tempGroup);
-            //          }
-            //          tempGroup = [];
-            //        } else {
-            //          tempGroup.push(note);
-            //        }
-            //      });
-
-            //      if (tempGroup.length > 0) {
-            //        sanitizedGroups.push(tempGroup);
-            //      }
-            //    });
-
-            //    noteGroups = sanitizedGroups;
-            //  }
-
-            //  function formatStems() {
-            //    noteGroups.forEach(function(group){
-            //      var stemDirection = determineStemDirection(group);
-            //      applyStemDirection(group, stemDirection);
-            //    });
-            //  }
-
-            //  function determineStemDirection(group) {
-            //    if (config.stem_direction) return config.stem_direction;
-
-            //    var lineSum = 0;
-            //    group.forEach(function(note) {
-            //      if (note.keyProps) {
-            //        note.keyProps.forEach(function(keyProp){
-            //          lineSum += (keyProp.line - 2.5);
-            //        });
-            //      }
-            //    });
-
-            //    if (lineSum > 0)
-            //      return -1;
-            //    return 1;
-            //  }
-
-            //  function applyStemDirection(group, direction) {
-            //    group.forEach(function(note){
-            //      if (note.hasStem()) note.setStemDirection(direction);
-            //    });
-            //  }
-
-            //  function getTupletGroups() {
-            //    return noteGroups.filter(function(group){
-            //      if (group[0]) return group[0].tuplet;
-            //    });
-            //  }
+            
 
 
             //  // Using closures to store the variables throughout the various functions
@@ -808,39 +680,153 @@ namespace NVexFlow
             //};
             return null;
         }
+
+        //***************************辅助方法
+        //  function getTotalTicks(vf_notes){
+        //    return vf_notes.reduce(function(memo,note){
+        //      return note.getTicks().clone().add(memo);
+        //    }, new Vex.Flow.Fraction(0, 1));
+        //  }
+
+        //  function nextTickGroup() {
+        //    if (tickGroups.length - 1 > currentTickGroup) {
+        //      currentTickGroup += 1;
+        //    } else {
+        //      currentTickGroup = 0;
+        //    }
+        //  }
+
+        //  function createGroups(){
+        //    var nextGroup = [];
+
+        //    unprocessedNotes.forEach(function(unprocessedNote){
+        //      nextGroup    = [];
+        //      if (unprocessedNote.shouldIgnoreTicks()) {
+        //        noteGroups.push(currentGroup);
+        //        currentGroup = nextGroup;
+        //        return; // Ignore untickables (like bar notes)
+        //      }
+
+        //      currentGroup.push(unprocessedNote);
+        //      var ticksPerGroup = tickGroups[currentTickGroup].value();
+        //      var totalTicks = getTotalTicks(currentGroup).value();
+
+        //      // Double the amount of ticks in a group, if it's an unbeamable tuplet
+        //      if (parseInt(unprocessedNote.duration, 10) < 8 && unprocessedNote.tuplet) {
+        //        ticksPerGroup *= 2;
+        //      }
+
+        //      // If the note that was just added overflows the group tick total
+        //      if (totalTicks > ticksPerGroup) {
+        //        nextGroup.push(currentGroup.pop());
+        //        noteGroups.push(currentGroup);
+        //        currentGroup = nextGroup;
+        //        nextTickGroup();
+        //      } else if (totalTicks == ticksPerGroup) {
+        //        noteGroups.push(currentGroup);
+        //        currentGroup = nextGroup;
+        //        nextTickGroup();
+        //      }
+        //    });
+
+        //    // Adds any remainder notes
+        //    if (currentGroup.length > 0)
+        //      noteGroups.push(currentGroup);
+        //  }
+
+        //  function getBeamGroups() {
+        //    return noteGroups.filter(function(group){
+        //        if (group.length > 1) {
+        //          var beamable = true;
+        //          group.forEach(function(note) {
+        //            if (note.getIntrinsicTicks() >= Vex.Flow.durationToTicks("4")) {
+        //              beamable = false;
+        //            }
+        //          });
+        //          return beamable;
+        //        }
+        //        return false;
+        //    });
+        //  }
+
+        //  // Splits up groups by Rest
+        //  function sanitizeGroups() {
+        //    var sanitizedGroups = [];
+        //    noteGroups.forEach(function(group) {
+        //      var tempGroup = [];
+        //      group.forEach(function(note, index, group) {
+        //        var isFirstOrLast = index === 0 || index === group.length - 1;
+
+        //        var breaksOnEachRest = !config.beam_rests && note.isRest();
+        //        var breaksOnFirstOrLastRest = (config.beam_rests &&
+        //          config.beam_middle_only && note.isRest() && isFirstOrLast);
+
+        //        var shouldBreak = breaksOnEachRest || breaksOnFirstOrLastRest;
+
+        //        if (shouldBreak) {
+        //          if (tempGroup.length > 0) {
+        //            sanitizedGroups.push(tempGroup);
+        //          }
+        //          tempGroup = [];
+        //        } else {
+        //          tempGroup.push(note);
+        //        }
+        //      });
+
+        //      if (tempGroup.length > 0) {
+        //        sanitizedGroups.push(tempGroup);
+        //      }
+        //    });
+
+        //    noteGroups = sanitizedGroups;
+        //  }
+
+        //  function formatStems() {
+        //    noteGroups.forEach(function(group){
+        //      var stemDirection = determineStemDirection(group);
+        //      applyStemDirection(group, stemDirection);
+        //    });
+        //  }
+
+        //  function determineStemDirection(group) {
+        //    if (config.stem_direction) return config.stem_direction;
+
+        //    var lineSum = 0;
+        //    group.forEach(function(note) {
+        //      if (note.keyProps) {
+        //        note.keyProps.forEach(function(keyProp){
+        //          lineSum += (keyProp.line - 2.5);
+        //        });
+        //      }
+        //    });
+
+        //    if (lineSum > 0)
+        //      return -1;
+        //    return 1;
+        //  }
+
+        //  function applyStemDirection(group, direction) {
+        //    group.forEach(function(note){
+        //      if (note.hasStem()) note.setStemDirection(direction);
+        //    });
+        //  }
+
+        //  function getTupletGroups() {
+        //    return noteGroups.filter(function(group){
+        //      if (group[0]) return group[0].tuplet;
+        //    });
+        //  }
+        //***************************
         #endregion
 
 
 
         #region 隐含字段
-        BeamRenderOpts renderOptions;
-
-        public BeamRenderOpts RenderOptions
-        {
-            get
-            { return renderOptions; }
-            set
-            { renderOptions = value; }
-        }
-        object context;
-
-        public object Context
-        {
-            set
-            { context = value; }
-        }
-
-        IList<StemmableNote> notes;
-
-        public IList<StemmableNote> Notes
-        {
-            get
-            { return notes; }
-        }
-
-        IList<int> breakOnIndices;
+        public BeamRenderOpts renderOptions;
+        public object context;
+        public IList<StemmableNote> notes;
+        public IList<int> breakOnIndices;
         public int beamCount;
-
         public Fraction? ticks;
         public int stemDirection;
         public double minLine;

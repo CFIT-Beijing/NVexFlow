@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 namespace NVexFlow.Model
 {
     public class BeamRenderOpts:RenderOptions
@@ -39,7 +40,7 @@ namespace NVexFlow.Model
         //   beam_middle_only: true,
         //   show_stemlets: false
         // };
-        public IList<object> groups;
+        public IList<Fraction> groups;
         public int stem_direction;
     }
 }
