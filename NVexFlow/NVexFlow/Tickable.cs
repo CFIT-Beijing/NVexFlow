@@ -104,8 +104,8 @@ namespace NVexFlow
                 int beatsOccupied;
                 if(this.tuplet != null)
                 {
-                    noteCount = this.tuplet.NotesCount;
-                    beatsOccupied = this.tuplet.BeatsOccupied;
+                    noteCount = this.tuplet.GetNoteCount();
+                    beatsOccupied = this.tuplet.GetBeatsOccupied();
                     // Revert old multiplier
                     this.ApplyTickMultiplier(noteCount,beatsOccupied);
                 }
@@ -113,8 +113,8 @@ namespace NVexFlow
                 // Attach to new tuplet
                 if(value != null)
                 {
-                    noteCount = value.NotesCount;
-                    beatsOccupied = value.BeatsOccupied;
+                    noteCount = value.GetNoteCount();
+                    beatsOccupied = value.GetBeatsOccupied();
                     this.ApplyTickMultiplier(beatsOccupied,noteCount);
                 }
 

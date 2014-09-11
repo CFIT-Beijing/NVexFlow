@@ -31,7 +31,7 @@ namespace NVexFlow
                 numValue = 4,
                 resolution = Flow.RESOLUTION
             });
-            this.voice.Strict = false;
+            this.voice.SetStrict(false);
             this.voice.AddTickables(graceNotes);
         }
         public void PreFormat()
