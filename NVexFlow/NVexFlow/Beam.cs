@@ -597,7 +597,7 @@ namespace NVexFlow
         //    * `beam_middle_only` - Set to `true` to only beam rests in the middle of the beat
         //    * `show_stemlets` - Set to `true` to draw stemlets for rests 
         // 
-        public static IList<Beam> GenerateBeams(IList<object> notes, Config config)
+        public static IList<Beam> GenerateBeams(IList<StemmableNote> notes, Config config)
         {
             if (config == null)
             {

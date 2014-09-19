@@ -50,7 +50,7 @@ namespace NVexFlow
         {
             return BoundingBox.Copy(this);
         }
-        public BoundingBox MergeWith(BoundingBox boundingBox, CanvasContext ctx)
+        public BoundingBox MergeWith(BoundingBox boundingBox, CanvasContext ctx=null)
         {
             //         // Merge my box with given box. Creates a bigger bounding box unless the given box is contained in this one.
             //mergeWith: function(boundingBox, ctx) {

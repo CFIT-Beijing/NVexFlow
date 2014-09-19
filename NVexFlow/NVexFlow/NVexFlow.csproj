@@ -74,6 +74,9 @@
     <Compile Include="Model\ModifierContextModel.cs" />
     <Compile Include="Model\NoteHeadModel.cs" />
     <Compile Include="Model\RenderOptions.cs" />
+    <Compile Include="Model\StaveConnectorModel.cs" />
+    <Compile Include="Model\StaveHairpinModel.cs" />
+    <Compile Include="Model\StaveLineModel.cs" />
     <Compile Include="Model\StaveModel.cs" />
     <Compile Include="Model\StaveModifierModel.cs" />
     <Compile Include="Model\StaveNoteModel.cs" />
@@ -88,7 +91,8 @@
     <Compile Include="Model\TextNoteModel.cs" />
     <Compile Include="Model\TickContextModel.cs" />
     <Compile Include="Model\TimeSignatureModel.cs" />
-    <Compile Include="Model\VoiceTimeModel.cs" />
+    <Compile Include="Model\TupletModel.cs" />
+    <Compile Include="Model\VoiceModel.cs" />
     <Compile Include="Modifier.cs" />
     <Compile Include="ModifierContext.cs" />
     <Compile Include="Music.cs" />

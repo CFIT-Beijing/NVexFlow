@@ -48,9 +48,6 @@ Vex.Flow.TabStave	:	Vex.Flow.Stave	//	tabstave.js
 Vex.Flow.BoundingBox			//	boundingbox.js
 Vex.Flow.Stem			//	stem.js
 Vex.Flow.Curve			//	curve.js
-//////////////////////////////近期任务//////////////////////////////
-使下列类达到里程碑1阶段：
-{
 Vex.Flow.Beam			//	beam.js
 Vex.Flow.Tuplet			//	tuplet.js
 Vex.Flow.StaveHairpin			//	stavehairpin.js
@@ -58,6 +55,10 @@ Vex.Flow.StaveLine			//	staveline.js
 Vex.Flow.StaveConnector			//	staveconnector.js
 Vex.Flow.Voice			//	voice.js
 Vex.Flow.VoiceGroup			//	voicegroup.js
+//////////////////////////////近期任务//////////////////////////////
+使下列类达到里程碑1阶段：
+{
+
 Vex.Flow.TickContext			//	tickcontext.js
 Vex.Flow.ModifierContext			//	modifiercontext.js
 Vex.Flow.Formatter			//	formatter.js
@@ -80,7 +81,7 @@ Vex			//	header.js
 
 
 //////////////////////////////讨论留言区//////////////////////////////
--1.Beam最后的大方法需要Fraction，你给Fraction加下注释（c#方法各自对应js的哪个函数）、还要用到浅拷贝，要加一个clone方法或者能不能用类代替结构（object有浅拷贝方法）
+-1.Fraction相关的写的可能不对，没仔细看，查的时候你再改吧
 0.GhostNote和TabNote都不达标，请参照zhangxia85对TabNote的修改尽快完善“正在处理”区域中的内容，然后再继续“近期任务”区的翻译工作。
 错误和遗漏都改了，编码习惯的事儿你随检查随改吧
 1.有关代码语法格式， 对于以后StaveModifier一组分支暂时：

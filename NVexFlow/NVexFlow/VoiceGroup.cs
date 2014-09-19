@@ -1,4 +1,5 @@
 ﻿//voicegroup.js
+using System;
 using System.Collections.Generic;
 
 namespace NVexFlow
@@ -16,41 +17,38 @@ namespace NVexFlow
         }
         private void Init()
         {
-            //        init: function() {
-            //  this.voices = [];
-            //  this.modifierContexts = [];
-            //},
+            this.voices = new List<Voice>();
+            this.modifierContexts = new List<ModifierContext>();
         }
         // Every tickable must be associated with a voiceGroup. This allows formatters
         // and preformatters to associate them with the right modifierContexts.
 
-        public IList<object> GetVoices()
+        public IList<Voice> GetVoices()
         {
-            //getVoices: function() { return this.voices; },
-            return null;
+            return this.voices;
         }
-        public ModifierContext GetModifierContexts()
+        public IList<ModifierContext> GetModifierContexts()
         {
-            //getModifierContexts: function() { return this.modifierContexts; },
-            return null;
+            return this.modifierContexts;
         }
 
 
-        public void AddVoice(object voice)
+        public void AddVoice(Voice voice)
         { 
-    //     addVoice: function(voice) {
-    //  if (!voice) throw new Vex.RERR("BadArguments", "Voice cannot be null.");
-    //  this.voices.push(voice);
-    //  voice.setVoiceGroup(this);
-    //}
+            if (voice == null)
+            {
+                throw new Exception("BadArguments,Voice cannot be null.");
+            }
+            this.voices.Add(voice);
+            voice.SetVoiceGroup(this);
         } 
         #endregion
 
 
 
         #region 隐含字段
-        public IList<object> voices;
-        public IList<object> modifierContexts; 
+        public IList<Voice> voices;
+        public IList<ModifierContext> modifierContexts; 
         #endregion
     }
 }

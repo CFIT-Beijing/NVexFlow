@@ -1,5 +1,7 @@
-﻿//staveHairpin.js
+﻿using System;
+//staveHairpin.js
 using System.Collections.Generic;
+using NVexFlow.Model;
 
 namespace NVexFlow
 {
@@ -19,7 +21,7 @@ namespace NVexFlow
          * @param {!Object} notes The notes to tie up.
          * @param {!Object} type The type of hairpin
          */
-        public StaveHairpin(IList<object> notes, object type)
+        public StaveHairpin(StaveHairpinNotes notes, StaveHairpinType type)
         {
             Init(notes, type);
         }
@@ -43,38 +45,36 @@ namespace NVexFlow
   *  }
   *
   **/
-        public static void FormatByTicksAndDraw(object ctx, object formatter, IList<object> notes, object type, object position, IList<object> options)
+        public static void FormatByTicksAndDraw(CanvasContext ctx, Formatter formatter, StaveHairpinNotes notes, StaveHairpinType type, Modifier.ModifierPosition position, StaveHairpinOpts options)
         {
-            //StaveHairpin.FormatByTicksAndDraw = function(ctx, formatter, notes, type, position, options) {
-            //  var ppt = formatter.pixelsPerTick;
+            double? ppt = formatter.pixelsPerTick;
+            if (ppt == null)
+            {
+                throw new Exception("BadArguments,A valid Formatter must be provide to draw offsets by ticks.");
+            }
 
-            //  if (ppt == null){
-            //    throw new Vex.RuntimeError("BadArguments",
-            //        "A valid Formatter must be provide to draw offsets by ticks.");}
-
-            //  var l_shift_px = ppt * options.left_shift_ticks;
-            //  var r_shift_px = ppt * options.right_shift_ticks;
-
-            //  var hairpin_options = {
-            //    height: options.height,
-            //    y_shift:options.y_shift,
-            //    left_shift_px:l_shift_px,
-            //    right_shift_px:r_shift_px};
-
-            //  new StaveHairpin({
-            //    first_note: notes.first_note,
-            //    last_note: notes.last_note
-            //  }, type)
-            //    .setContext(ctx)
-            //    .setRenderOptions(hairpin_options)
-            //    .setPosition(position)
-            //    .draw();
-            //};
+            double l_shift_px = ppt.Value * options.left_shift_ticks;
+            double r_shift_px = ppt.Value * options.right_shift_ticks;
+            StaveHairpinRenderOpts hairpin_options = new StaveHairpinRenderOpts()
+            {
+                height = options.height,
+                y_shift = options.y_shift,
+                left_shift_px = l_shift_px,
+                right_shift_px = r_shift_px
+            };
+            new StaveHairpin(new StaveHairpinNotes()
+            {
+                first_note = notes.first_note,
+                last_note = notes.last_note
+            }, type)
+            .SetContext(ctx)
+            .SetRenderOptions(hairpin_options)
+            .SetPosition(position)
+            .Draw();
         }
 
-        private void Init(IList<object> notes, object type)
+        private void Init(StaveHairpinNotes notes, StaveHairpinType type)
         {
-            //    init: function(notes, type) {
             //  /**
             //   * Notes is a struct that has:
             //   *
@@ -84,147 +84,138 @@ namespace NVexFlow
             //   *  }
             //   *
             //   **/
+            this.notes = notes;
+            this.hairpin = type;
+            this.position = Modifier.ModifierPosition.BELOW;
 
-            //  this.notes = notes;
-            //  this.hairpin = type;
-            //  this.position = Vex.Flow.Modifier.Position.BELOW;
+            this.context = null;
 
-            //  this.context = null;
+            this.render_options = new StaveHairpinRenderOpts()
+            {
+                height = 10,
+                y_shift = 0,
+                left_shift_px = 0,
+                right_shift_px = 0
+            };
 
-            //  this.render_options = {
-            //      height: 10,
-            //      y_shift: 0, //vertical offset
-            //      left_shift_px: 0, //left horizontal offset
-            //      right_shift_px: 0 // right horizontal offset
-            //    };
-
-            //  this.setNotes(notes);
-            //},
+            this.SetNotes(notes);
+        }
+        public StaveHairpin SetContext(CanvasContext context)
+        {
+            this.context = context;
+            return this;
         }
 
 
 
-        public StaveHairpin Context(CanvasContext context)
+        public StaveHairpin SetPosition(Modifier.ModifierPosition position)
         {
-            //setContext: function(context) { this.context = context; return this; },
-            return null;
+            if (position == Modifier.ModifierPosition.ABOVE || position == Modifier.ModifierPosition.BELOW)
+            {
+                this.position = position;
+            }
+            return this;
         }
 
-        
-
-        public StaveHairpin Position(Modifier.ModifierPosition position)
+        public StaveHairpin SetRenderOptions(StaveHairpinRenderOpts options)
         {
-    //        setPosition: function(position) {
-    //  if (position == Vex.Flow.Modifier.Position.ABOVE ||
-    //      position == Vex.Flow.Modifier.Position.BELOW)
-    //    this.position = position;
-    //  return this;
-    //},
-            return null;
+            if (options.height != null &&
+                options.y_shift != null &&
+          options.left_shift_px != null &&
+          options.right_shift_px != null)
+            {
+                this.render_options = options;
+            }
+            return this;
         }
 
-        public StaveHairpin RenderOptions(object options)
+
+        /**
+ * Set the notes to attach this hairpin to.
+ *
+ * @param {!Object} notes The start and end notes.
+ */
+
+        public StaveHairpin SetNotes(StaveHairpinNotes notes)
         {
-
-    //        setRenderOptions: function(options) {
-    //  if (options.height != null &&
-    //      options.y_shift != null &&
-    //      options.left_shift_px != null &&
-    //      options.right_shift_px != null){
-    //    this.render_options = options;
-    //  }
-    //  return this;
-    //},
-            return null;
-        }
-
-        
-            /**
-     * Set the notes to attach this hairpin to.
-     *
-     * @param {!Object} notes The start and end notes.
-     */
-
-        public StaveHairpin Notes(IList<object> notes)
-        {
-    //        setNotes: function(notes) {
-    //  if (!notes.first_note && !notes.last_note)
-    //    throw new Vex.RuntimeError("BadArguments",
-    //        "Hairpin needs to have either first_note or last_note set.");
-
-    //  // Success. Lets grab 'em notes.
-    //  this.first_note = notes.first_note;
-    //  this.last_note = notes.last_note;
-    //  return this;
-    //},
-            return null;
+            if (notes.first_note == null && notes.last_note == null)
+            {
+                throw new Exception("BadArguments,Hairpin needs to have either first_note or last_note set.");
+            }
+            // Success. Lets grab 'em notes.
+            this.first_note = notes.first_note;
+            this.last_note = notes.last_note;
+            return this;
         }
 
         public void RenderHairpin(IList<object> @params)
         {
-    //    renderHairpin: function(params) {
-    //  var ctx = this.context;
-    //  var dis = this.render_options.y_shift + 20;
-    //  var y_shift = params.first_y;
+            //    renderHairpin: function(params) {
+            //  var ctx = this.context;
+            //  var dis = this.render_options.y_shift + 20;
+            //  var y_shift = params.first_y;
 
-    //  if (this.position == Vex.Flow.Modifier.Position.ABOVE) {
-    //    dis = -dis +30;
-    //    y_shift = params.first_y - params.staff_height;
-    //  }
+            //  if (this.position == Vex.Flow.Modifier.Position.ABOVE) {
+            //    dis = -dis +30;
+            //    y_shift = params.first_y - params.staff_height;
+            //  }
 
-    //  var l_shift = this.render_options.left_shift_px;
-    //  var r_shift = this.render_options.right_shift_px;
+            //  var l_shift = this.render_options.left_shift_px;
+            //  var r_shift = this.render_options.right_shift_px;
 
-    //  switch (this.hairpin) {
-    //    case StaveHairpin.type.CRESC:
-    //      ctx.moveTo(params.last_x + r_shift, y_shift + dis);
-    //      ctx.lineTo(params.first_x + l_shift, y_shift +(this.render_options.height/2) + dis);
-    //      ctx.lineTo(params.last_x + r_shift, y_shift + this.render_options.height + dis);
-    //      break;
-    //    case StaveHairpin.type.DECRESC:
-    //      ctx.moveTo(params.first_x + l_shift, y_shift + dis);
-    //      ctx.lineTo(params.last_x + r_shift, y_shift +(this.render_options.height/2) + dis);
-    //      ctx.lineTo(params.first_x + l_shift, y_shift + this.render_options.height + dis);
-    //      break;
-    //    default:
-    //      // Default is NONE, so nothing to draw
-    //      break;
-    //  }
+            //  switch (this.hairpin) {
+            //    case StaveHairpin.type.CRESC:
+            //      ctx.moveTo(params.last_x + r_shift, y_shift + dis);
+            //      ctx.lineTo(params.first_x + l_shift, y_shift +(this.render_options.height/2) + dis);
+            //      ctx.lineTo(params.last_x + r_shift, y_shift + this.render_options.height + dis);
+            //      break;
+            //    case StaveHairpin.type.DECRESC:
+            //      ctx.moveTo(params.first_x + l_shift, y_shift + dis);
+            //      ctx.lineTo(params.last_x + r_shift, y_shift +(this.render_options.height/2) + dis);
+            //      ctx.lineTo(params.first_x + l_shift, y_shift + this.render_options.height + dis);
+            //      break;
+            //    default:
+            //      // Default is NONE, so nothing to draw
+            //      break;
+            //  }
 
-    //  ctx.stroke();
-    //},
+            //  ctx.stroke();
+            //},
         }
 
         public void Draw()
         {
-    //    draw: function() {
-    //  if (!this.context) throw new Vex.RERR("NoContext",
-    //    "Can't draw Hairpin without a context.");
+            //    draw: function() {
+            //  if (!this.context) throw new Vex.RERR("NoContext",
+            //    "Can't draw Hairpin without a context.");
 
-    //  var first_note = this.first_note;
-    //  var last_note = this.last_note;
+            //  var first_note = this.first_note;
+            //  var last_note = this.last_note;
 
-    //  var start = first_note.getModifierStartXY(this.position, 0);
-    //  var end = last_note.getModifierStartXY(this.position, 0);
+            //  var start = first_note.getModifierStartXY(this.position, 0);
+            //  var end = last_note.getModifierStartXY(this.position, 0);
 
-    //  this.renderHairpin({
-    //    first_x: start.x,
-    //    last_x: end.x,
-    //    first_y: first_note.getStave().y + first_note.getStave().height,
-    //    last_y: last_note.getStave().y + last_note.getStave().height,
-    //    staff_height: first_note.getStave().height
-    //  });
-    // return true;
-    //}
-        } 
+            //  this.renderHairpin({
+            //    first_x: start.x,
+            //    last_x: end.x,
+            //    first_y: first_note.getStave().y + first_note.getStave().height,
+            //    last_y: last_note.getStave().y + last_note.getStave().height,
+            //    staff_height: first_note.getStave().height
+            //  });
+            // return true;
+            //}
+        }
         #endregion
 
 
         #region 隐含字段
         public CanvasContext context;
         public Modifier.ModifierPosition position;
-        object renderOptions;
-        IList<object> notes;
+        public StaveHairpinRenderOpts render_options;
+        public StaveHairpinNotes notes;
+        public StaveHairpinType hairpin;
+        public StaveNote first_note;
+        public StaveNote last_note;
         #endregion
     }
 }

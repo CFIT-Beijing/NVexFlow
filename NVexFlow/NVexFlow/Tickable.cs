@@ -52,6 +52,8 @@ namespace NVexFlow
                 return this.ticks;
             }
         }
+        public virtual Fraction GetTicks()
+        { return this.ticks; }
         public virtual bool ShouldIgnoreTicks
         {
             get
@@ -75,7 +77,7 @@ namespace NVexFlow
         }
         // Every tickable must be associated with a voice. This allows formatters
         // and preFormatter to associate them with the right modifierContexts.
-        public virtual object Voice
+        public virtual Voice Voice
         {
             get
             {
@@ -90,6 +92,20 @@ namespace NVexFlow
             {
                 this.voice = value;
             }
+        }
+        public virtual Voice GetVoice()
+        {
+            if (this.voice == null)
+            {
+                throw new Exception("NoVoice, Tickable has no voice.");//抛出异常是否需要封装？new Vex.RERR（“XXXXXXXXXXXX”）？
+                //改完后看看是否有null值出现的可能。getter不抛异常为好。
+            }
+            return this.voice;
+        }
+        public virtual Tickable SetVoice(Voice voice)
+        {
+            this.voice = voice;
+            return this;
         }
         public virtual Tuplet Tuplet
         {
@@ -120,6 +136,30 @@ namespace NVexFlow
 
                 this.tuplet = value;
             }
+        }
+        public virtual Tickable SetTuplet(Tuplet tuplet)
+        {
+            // Detach from previous tuplet
+            int noteCount;
+            int beatsOccupied;
+            if (this.tuplet != null)
+            {
+                noteCount = this.tuplet.GetNoteCount();
+                beatsOccupied = this.tuplet.GetBeatsOccupied();
+                // Revert old multiplier
+                this.ApplyTickMultiplier(noteCount, beatsOccupied);
+            }
+
+            // Attach to new tuplet
+            if (tuplet != null)
+            {
+                noteCount = tuplet.GetNoteCount();
+                beatsOccupied = tuplet.GetBeatsOccupied();
+                this.ApplyTickMultiplier(beatsOccupied, noteCount);
+            }
+
+            this.tuplet = tuplet;
+            return this;
         }
         /** optional, if tickable has modifiers **/
         public virtual void AddToModifierContext(ModifierContext mc)
@@ -203,7 +243,7 @@ namespace NVexFlow
         protected bool ignoreTicks;
         protected double width;
         protected double xShift;
-        protected object voice;
+        protected Voice voice;
         protected Tuplet tuplet;
         protected ModifierContext modifierContext;
         protected bool preFormatted;

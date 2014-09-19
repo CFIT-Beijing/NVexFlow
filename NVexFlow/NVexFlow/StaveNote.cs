@@ -249,7 +249,7 @@ namespace NVexFlow
         /// <summary>
         /// Get the `BoundingBox` for the entire note
         /// </summary>
-        public override object BoundingBox
+        public override BoundingBox BoundingBox
         {
             get
             {

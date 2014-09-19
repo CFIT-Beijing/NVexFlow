@@ -139,6 +139,15 @@ namespace NVexFlow
                 this.context = this.stave.context;
             }
         }
+        public virtual Stave GetStave()
+        { return this.stave; }
+        public virtual Note SetStave(Stave stave)
+        {
+            this.stave = stave;
+            this.Ys = new List<double>() { stave.GetYForLine(0) };// Update Y values if the stave is changed.
+            this.context = this.stave.context;
+            return this;
+        }
         /// <summary>
         /// Set the rendering context for the note.
         /// </summary>
@@ -177,12 +186,10 @@ namespace NVexFlow
         /// <summary>
         /// Returns true if this note has no duration (e.g., bar notes, spacers, etc.)
         /// </summary>
-        public bool ShouldIgnoreTicks
+        /// <returns></returns>
+        public bool ShouldIgnoreTicks()
         {//不增加override或new关键词以提示潜在重复implement
-            get
-            {
                 return this.ignoreTicks;
-            }
         }
         /// <summary>
         /// Get the stave line number for the note.
@@ -250,18 +257,22 @@ namespace NVexFlow
         /// <summary>
         /// Get a `BoundingBox` for this note.
         /// </summary>
-        public virtual object BoundingBox
+        public virtual BoundingBox BoundingBox
         {
             get
             {
                 return null;
             }
         }
+        public virtual BoundingBox GetBoundingBox()
+        {
+                return null;
+        }
         /// <summary>
         /// Returns the voice that this note belongs in.
         /// Attach this note to `voice`.
         /// </summary>
-        public override object Voice
+        public override Voice Voice
         {
             get
             {
@@ -276,6 +287,20 @@ namespace NVexFlow
                 this.voice = value;
                 this.preFormatted = false;
             }
+        }
+        public override Voice GetVoice()
+        {
+            if (this.voice == null)
+            {
+                throw new Exception("NoVoice,Note has no voice.");
+            }
+            return this.voice;
+        }
+        public new Note SetVoice(Voice voice)
+        {
+            this.voice = voice;
+            this.preFormatted = false;
+            return this;
         }
         #region GetTickContext无法被getter替代比较麻烦需要以后优化
         /// <summary>

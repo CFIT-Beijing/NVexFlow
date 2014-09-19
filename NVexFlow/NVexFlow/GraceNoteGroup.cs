@@ -26,9 +26,9 @@ namespace NVexFlow
             this.slur = null;
 
             this.formatter = new Formatter();
-            this.voice = new Voice(new VoiceTimeModel() {
-                numBeats = 4,
-                numValue = 4,
+            this.voice = new Voice(new VoiceTime() {
+                num_beats = 4,
+                beat_value = 4,
                 resolution = Flow.RESOLUTION
             });
             this.voice.SetStrict(false);

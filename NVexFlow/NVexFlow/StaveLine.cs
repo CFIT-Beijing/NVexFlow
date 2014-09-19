@@ -1,5 +1,8 @@
-﻿//staveline.js
+﻿using System;
+//staveline.js
 using System.Collections.Generic;
+using NVexFlow.Model;
+using System.Linq;
 
 namespace NVexFlow
 {
@@ -14,9 +17,7 @@ namespace NVexFlow
     // purposes, such as diagrams.
     public class StaveLine
     {
-
-
-        public StaveLine(IList<object> notes)
+        public StaveLine(StaveLineNotes notes)
         {
             Init(notes);
         }
@@ -47,50 +48,48 @@ namespace NVexFlow
         //  }
         //  ```
 
-        private void Init(IList<object> notes)
+        private void Init(StaveLineNotes notes)
         {
-            //    init: function(notes) {
-            //  this.notes = notes;
-            //  this.context = null;
+            this.notes = notes;
+            this.context = null;
 
-            //  this.text = "";
+            this.text = "";
 
-            //  this.font = {
-            //    family: "Arial",
-            //    size: 10,
-            //    weight: ""
-            //  };
+            this.font = new Font() { 
+            family="Arial",
+                size= 10,
+                weight=""
+            };
 
-            //  this.render_options = {
-            //    // Space to add to the left or the right
-            //    padding_left: 4,
-            //    padding_right: 3,
+            this.render_options = new StaveLineRenderOpts() {
+                    // space to add to the left or the right
+                    padding_left= 4,
+                    padding_right= 3,
 
-            //    // The width of the line in pixels
-            //    line_width: 1,
-            //    // An array of line/space lengths. Unsupported with Raphael (SVG)
-            //    line_dash: null,
-            //    // Can draw rounded line end, instead of a square. Unsupported with Raphael (SVG)
-            //    rounded_end: true,
-            //    // The color of the line and arrowheads
-            //    color: null,
+                    // the width of the line in pixels
+                    line_width= 1,
+                    // an array of line/space lengths. unsupported with raphael (svg)
+                    line_dash= null,
+                    // can draw rounded line end, instead of a square. unsupported with raphael (svg)
+                    rounded_end= true,
+                    // the color of the line and arrowheads
+                    color= null,
 
-            //    // Flags to draw arrows on each end of the line
-            //    draw_start_arrow: false,
-            //    draw_end_arrow: false,
+                    // flags to draw arrows on each end of the line
+                    draw_start_arrow= false,
+                    draw_end_arrow= false,
 
-            //    // The length of the arrowhead sides
-            //    arrowhead_length: 10,
-            //    // The angle of the arrowhead
-            //    arrowhead_angle: Math.PI / 8,
+                    // the length of the arrowhead sides
+                    arrowhead_length= 10,
+                    // the angle of the arrowhead
+                    arrowhead_angle= Math.PI / 8,
 
-            //    // The position of the text
-            //    text_position_vertical: StaveLine.TextVerticalPosition.TOP,
-            //    text_justification: StaveLine.TextJustification.CENTER
-            //  };
+                    // the position of the text
+                    text_position_vertical = StaveLine.StaveLineTextVerticalPosition.TOP,
+                    text_justification = StaveLine.StaveLineTextJustification.CENTER
+            };
 
-            //  this.setNotes(notes);
-            //},
+            this.SetNotes(notes);
         }
 
 
@@ -111,29 +110,31 @@ namespace NVexFlow
         }
 
         // Set the notes for the `StaveLine`
-        public StaveLine SetNotes(IList<object> notes)
+        public StaveLine SetNotes(StaveLineNotes notes)
         {
+            if (notes.first_note == null && notes.last_note == null)
+            {
+                throw new Exception("BadArguments,Notes needs to have either first_note or last_note set.");
+            }
+            if (notes.first_indices == null)
+            {
+                notes.first_indices = new List<int>() { 0};
+            }
+            if (notes.last_indices == null)
+            {
+                notes.last_indices = new List<int>() { 0 };
+            }
+            if (notes.first_indices.Count() != notes.last_indices.Count())
+            {
+                throw new Exception("BadArguments,Connected notes must have similar" +      " index sizes");
+            }
 
-            //setNotes: function(notes) {
-            //  if (!notes.first_note && !notes.last_note)
-            //    throw new Vex.RuntimeError("BadArguments",
-            //        "Notes needs to have either first_note or last_note set.");
-
-            //  if (!notes.first_indices) notes.first_indices = [0];
-            //  if (!notes.last_indices) notes.last_indices = [0];
-
-            //  if (notes.first_indices.length != notes.last_indices.length)
-            //    throw new Vex.RuntimeError("BadArguments", "Connected notes must have similar" +
-            //      " index sizes");
-
-            //  // Success. Lets grab 'em notes.
-            //  this.first_note = notes.first_note;
-            //  this.first_indices = notes.first_indices;
-            //  this.last_note = notes.last_note;
-            //  this.last_indices = notes.last_indices;
-            //  return this;
-            //},
-            return null;
+            // Success. Lets grab 'em notes.
+            this.first_note = notes.first_note;
+            this.first_indices = notes.first_indices;
+            this.last_note = notes.last_note;
+            this.last_indices = notes.last_indices;
+            return this;
         }
         // Apply the style of the `StaveLine` to the context
         public void ApplyLineStyle()
@@ -378,15 +379,16 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        CanvasContext context;
+        public StaveLineNotes notes;
+        public CanvasContext context;
+        public StaveLineRenderOpts render_options;
+        public Font font;
+        public string text;
 
-        Font font;
-        string text;
-
-        object first_note;
-        object first_indices;
-        object last_note;
-        object last_indices;
+        public StaveNote first_note;
+        public IList<int> first_indices;
+        public StaveNote last_note;
+        public IList<int> last_indices;
         #endregion
     }
 }

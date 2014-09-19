@@ -1,6 +1,8 @@
 ﻿//voice.js
+using System;
 using System.Collections.Generic;
 using NVexFlow.Model;
+using System.Linq;
 
 namespace NVexFlow
 {
@@ -13,8 +15,8 @@ namespace NVexFlow
     public class Voice
     {
         #region js直译部分
-          
-        public Voice(VoiceTimeModel time)
+
+        public Voice(VoiceTime time)
         { Init(time); }
 
         // Modes allow the addition of ticks in three different ways:
@@ -29,293 +31,283 @@ namespace NVexFlow
             SOFT,
             FULL
         }
-        private void Init(VoiceTimeModel time)
+        private void Init(VoiceTime time)
         {
-    //       init: function(time) {
-    //  this.time = Vex.Merge({
-    //    num_beats: 4,
-    //    beat_value: 4,
-    //    resolution: Vex.Flow.RESOLUTION
-    //  }, time);
+            this.time = new VoiceTime()
+            {
+                num_beats = 4,
+                beat_value = 4,
+                resolution = Flow.RESOLUTION
+            };
+            if (time.beat_value.HasValue)
+            {
+                this.time.beat_value = time.beat_value;
+            }
+            if (time.num_beats.HasValue)
+            {
+                this.time.num_beats = time.num_beats;
+            }
+            if (time.resolution.HasValue)
+            {
+                this.time.resolution = time.resolution;
+            }
 
-    //  // Recalculate total ticks.
-    //  this.totalTicks = new Vex.Flow.Fraction(
-    //    this.time.num_beats * (this.time.resolution / this.time.beat_value), 1);
+            // Recalculate total ticks.
+            this.totalTicks = new Fraction(this.time.num_beats.Value * this.time.resolution.Value / this.time.beat_value.Value, 1);
+            this.resolutionMultiplier = 1;
 
-    //  this.resolutionMultiplier = 1;
+            // Set defaults
+            this.tickables = new List<StemmableNote>();
+            this.ticksUsed = new Fraction(0, 1);
+            this.smallestTickCount = this.totalTicks;
+            this.largestTickWidth = 0;
+            this.stave = null;
+            this.boundingBox = null;
+            // Do we care about strictly timed notes
+            this.mode = VoiceMode.STRICT;
 
-    //  // Set defaults
-    //  this.tickables = [];
-    //  this.ticksUsed = new Vex.Flow.Fraction(0, 1);
-    //  this.smallestTickCount = this.totalTicks.clone();
-    //  this.largestTickWidth = 0;
-    //  this.stave = null;
-    //  this.boundingBox = null;
-    //  // Do we care about strictly timed notes
-    //  this.mode = Vex.Flow.Voice.Mode.STRICT;
-
-    //  // This must belong to a VoiceGroup
-    //  this.voiceGroup = null;
-    //},
-        }
-
-    // Get the total ticks in the voice
-        public object GetTotalTicks()
-        {
-            //getTotalTicks: function() { return this.totalTicks; },
-            return null;
-        }
-
-    // Get the total ticks used in the voice by all the tickables
-        public object GetTicksUsed()
-        {
-            //getTicksUsed: function() { return this.ticksUsed; },
-            return null;
+            // This must belong to a VoiceGroup
+            this.voiceGroup = null;
         }
 
-    //// Get the largest width of all the tickables
-        public object GetLargestTickWidth()
+        // Get the total ticks in the voice
+        public Fraction GetTotalTicks()
         {
-            //getLargestTickWidth: function() { return this.largestTickWidth; },
-            return null;
+            return this.totalTicks;
         }
-    //// Get the tick count for the shortest tickable
-        public object GetSmallestTickCount()
-        {
-            //getSmallestTickCount: function() { return this.smallestTickCount; },
-            return null;
-        }
-    //// Get the tickables in the voice
-        public IList<object> GetTickables()
-        {
-            //getTickables: function() { return this.tickables; },
-            return null;
-        }
-    //// Get/set the voice mode, use a value from `Voice.Mode`
-        public object GetMode()
-        {
-            //getMode: function() { return this.mode; },
-            return null;
-        }
-        public Voice SetMode(object mode)
-        {
-            //setMode: function(mode) { this.mode = mode; return this; },
-            return null;
-        }
-    //// Get the resolution multiplier for the voice
-        public object GetResolutionMultiplier()
-        {
 
-            //getResolutionMultiplier: function() { return this.resolutionMultiplier; },
-            return null;
-        }
-    //// Get the actual tick resolution for the voice
-        public object GetActualResolution()
+        // Get the total ticks used in the voice by all the tickables
+        public Fraction GetTicksUsed()
         {
-
-            //getActualResolution: function() { return this.resolutionMultiplier * this.time.resolution; },
-            return null;
+            return this.ticksUsed;
         }
-    //// Set the voice's stave
-        public Voice SetStave(object stave)
+
+        //// Get the largest width of all the tickables
+        public double GetLargestTickWidth()
         {
-
-            //setStave: function(stave) {
-            //  this.stave = stave;
-            //  this.boundingBox = null; // Reset bounding box so we can reformat
-            //  return this;
-            //},
-            return null;
+            return this.largestTickWidth;
         }
-    //// Get the bounding box for the voice
+        //// Get the tick count for the shortest tickable
+        public Fraction GetSmallestTickCount()
+        {
+            return this.smallestTickCount;
+        }
+        //// Get the tickables in the voice
+        public IList<StemmableNote> GetTickables()
+        {
+            return this.tickables;
+        }
+        //// Get/set the voice mode, use a value from `Voice.Mode`
+        public VoiceMode GetMode()
+        {
+            return this.mode;
+        }
+        public Voice SetMode(VoiceMode mode)
+        {
+            this.mode = mode; return this;
+        }
+        //// Get the resolution multiplier for the voice
+        public int GetResolutionMultiplier()
+        {
+            return this.resolutionMultiplier;
+        }
+        //// Get the actual tick resolution for the voice
+        public int GetActualResolution()
+        {
+            return this.resolutionMultiplier * this.time.resolution.Value;
+        }
+        //// Set the voice's stave
+        public Voice SetStave(Stave stave)
+        {
+            this.stave = stave;
+            this.boundingBox = null; // Reset bounding box so we can reformat
+            return this;
+        }
+        //// Get the bounding box for the voice
         public BoundingBox GetBoundingBox()
         {
-            //getBoundingBox: function() {
-            //  if (!this.boundingBox) {
-            //    if (!this.stave) throw Vex.RERR("NoStave", "Can't get bounding box without stave.");
-            //    var stave = this.stave;
+            if (this.boundingBox == null)
+            {
+                if (this.stave == null)
+                {
+                    throw new Exception("NoStave,Can't get bounding box without stave.");
+                }
+                Stave stave = this.stave;
 
-            //    var boundingBox = null;
-            //    if (this.tickables[0]) {
-            //      this.tickables[0].setStave(stave);
-            //      boundingBox = this.tickables[0].getBoundingBox();
-            //    }
-
-            //    for (var i = 0; i < this.tickables.length; ++i) {
-            //      this.tickables[i].setStave(stave);
-            //      if (i > 0 && boundingBox) {
-            //        var bb = this.tickables[i].getBoundingBox();
-            //        if (bb) boundingBox.mergeWith(bb);
-            //      }
-            //    }
-
-            //    this.boundingBox = boundingBox;
-            //  }
-            //  return this.boundingBox;
-            //},
-            return null;
+                BoundingBox boundingBox = null;
+                if (this.tickables[0] != null)
+                {
+                    this.tickables[0].SetStave(stave);
+                    boundingBox = this.tickables[0].GetBoundingBox();
+                }
+                for (int i = 0; i < this.tickables.Count(); i++)
+                {
+                    this.tickables[i].SetStave(stave);
+                    if (i > 0 && boundingBox != null)
+                    {
+                        BoundingBox bb = this.tickables[i].GetBoundingBox();
+                        if (bb != null)
+                        {
+                            boundingBox.MergeWith(bb);
+                        }
+                    }
+                }
+                this.boundingBox = boundingBox;
+            }
+            return this.boundingBox;
         }
-    
 
-    //// Every tickable must be associated with a voiceGroup. This allows formatters
-    //// and preformatters to associate them with the right modifierContexts.
+
+        //// Every tickable must be associated with a voiceGroup. This allows formatters
+        //// and preformatters to associate them with the right modifierContexts.
         public object GetVoiceGroup()
         {
-
-            //getVoiceGroup: function() {
-            //  if (!this.voiceGroup)
-            //    throw new Vex.RERR("NoVoiceGroup", "No voice group for voice.");
-            //  return this.voiceGroup;
-            //},
-            return null;
+            if (this.voiceGroup == null)
+            {
+                throw new Exception("NoVoiceGroup,No voice group for voice.");
+            }
+            return this.voiceGroup;
         }
-    //// Set the voice group
-        public Voice SetVoiceGroup(object g)
+        //// Set the voice group
+        public Voice SetVoiceGroup(VoiceGroup g)
         {
-            //setVoiceGroup: function(g) { this.voiceGroup = g; return this; },
-            return null;
+            this.voiceGroup = g; return this; 
         }
-    //// Set the voice mode to strict or soft 
+        //// Set the voice mode to strict or soft 
         public Voice SetStrict(bool strict)
         {
-            //setStrict: function(strict) {
-            //  this.mode = strict ? Vex.Flow.Voice.Mode.STRICT : Vex.Flow.Voice.Mode.SOFT;
-            //  return this;
-            //},
-            return null;
+            this.mode = strict ? VoiceMode.STRICT : VoiceMode.SOFT;
+            return this;
         }
         // Determine if the voice is complete according to the voice mode
         public bool IsComplete()
         {
-    //            // Determine if the voice is complete according to the voice mode
-    //isComplete: function() {
-    //  if (this.mode == Vex.Flow.Voice.Mode.STRICT ||
-    //      this.mode == Vex.Flow.Voice.Mode.FULL) {
-    //    return this.ticksUsed.equals(this.totalTicks);
-    //  } else {
-    //    return true;
-    //  }
-    //},
-            return false;
+            if (this.mode == VoiceMode.STRICT || this.mode == VoiceMode.FULL)
+            {
+                return this.ticksUsed == this.totalTicks;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         // Add a tickable to the voice
-        public Voice AddTickable(object tickable)
+        public Voice AddTickable(StemmableNote tickable)
         {
-    //            // Add a tickable to the voice
-    //addTickable: function(tickable) {
-    //  if (!tickable.shouldIgnoreTicks()) {
-    //    var ticks = tickable.getTicks();
+            //            // Add a tickable to the voice
+            //addTickable: function(tickable) {
+            //  if (!tickable.shouldIgnoreTicks()) {
+            //    var ticks = tickable.getTicks();
+            if (tickable.ShouldIgnoreTicks())
+            {
+                Fraction ticks= tickable.GetTicks();
+                // Update the total ticks for this line
+                this.ticksUsed += ticks;
 
-    //    // Update the total ticks for this line
-    //    this.ticksUsed.add(ticks);
+                if ((this.mode == VoiceMode.STRICT || this.mode == VoiceMode.FULL) &&
+                this.ticksUsed > this.totalTicks)
+                {
+                    this.totalTicks -= ticks;
+                    throw new Exception("BadArgument,Too many ticks.");
+                }
 
-    //    if ((this.mode == Vex.Flow.Voice.Mode.STRICT ||
-    //         this.mode == Vex.Flow.Voice.Mode.FULL) &&
-    //         this.ticksUsed.value() > this.totalTicks.value()) {
-    //      this.totalTicks.subtract(ticks);
-    //      throw new Vex.RERR("BadArgument", "Too many ticks.");
-    //    }
+                // Track the smallest tickable for formatting
+                if (ticks < this.smallestTickCount)
+                {
+                    this.smallestTickCount = ticks;
+                }
 
-    //    // Track the smallest tickable for formatting
-    //    if (ticks.value() < this.smallestTickCount.value()) {
-    //      this.smallestTickCount = ticks.clone();
-    //    }
+                this.resolutionMultiplier = ticksUsed.Denominator;
+                // Expand total ticks using denominator from ticks used
+                // this.totalTicks.add(0, this.ticksUsed.denominator);
+            }
 
-    //    this.resolutionMultiplier = this.ticksUsed.denominator;
-
-    //    // Expand total ticks using denominator from ticks used
-    //    this.totalTicks.add(0, this.ticksUsed.denominator);
-    //  }
-
-    //  // Add the tickable to the line
-    //  this.tickables.push(tickable);
-    //  tickable.setVoice(this);
-    //  return this;
-    //},
+             // Add the tickable to the line
+            this.tickables.Add(tickable);
+            tickable.SetVoice(this);
             return this;
         }
 
         // Add an array of tickables to the voice
         public Voice AddTickables(IList<StemmableNote> tickables)
         {
-    //            // Add an array of tickables to the voice
-    //addTickables: function(tickables) {
-    //  for (var i = 0; i < tickables.length; ++i) {
-    //    this.addTickable(tickables[i]);
-    //  }
-
-    //  return this;
-    //},
+            for (int i = 0; i < tickables.Count(); ++i)
+            {
+                this.AddTickable(tickables[i]);
+            }
             return this;
         }
 
-    //     // Preformats the voice by applying the voice's stave to each note
+        //     // Preformats the voice by applying the voice's stave to each note
         public Voice PreFormat()
         {
-            //preFormat: function(){
-            //  if (this.preFormatted) return;
+            if (this.preFormatted)
+            {
+                return null;
+            }
+            foreach (var tickable in this.tickables)
+            {
+                if (tickable.GetStave() == null)
+                {
+                    tickable.SetStave(this.stave);
+                }
+            }
 
-            //  this.tickables.forEach(function(tickable) {
-            //    if (!tickable.getStave()) {
-            //      tickable.setStave(this.stave);
-            //    }
-            //  }, this);
-
-            //  this.preFormatted = true;
-            //  return this;
-            //},
-            return null;
+            this.preFormatted = true;
+            return this;
         }
         // Render the voice onto the canvas `context` and an optional `stave`.
         // If `stave` is omitted, it is expected that the notes have staves
         // already set.
         public void Draw(object context, object stave)
         {
-            
-    //draw: function(context, stave) {
-    //  var boundingBox = null;
-    //  for (var i = 0; i < this.tickables.length; ++i) {
-    //    var tickable = this.tickables[i];
 
-    //    // Set the stave if provided
-    //    if (stave) tickable.setStave(stave);
+            //draw: function(context, stave) {
+            //  var boundingBox = null;
+            //  for (var i = 0; i < this.tickables.length; ++i) {
+            //    var tickable = this.tickables[i];
 
-    //    if (!tickable.getStave()) {
-    //      throw new Vex.RuntimeError("MissingStave",
-    //        "The voice cannot draw tickables without staves.");
-    //    }
+            //    // Set the stave if provided
+            //    if (stave) tickable.setStave(stave);
 
-    //    if (i === 0) boundingBox = tickable.getBoundingBox();
+            //    if (!tickable.getStave()) {
+            //      throw new Vex.RuntimeError("MissingStave",
+            //        "The voice cannot draw tickables without staves.");
+            //    }
 
-    //    if (i > 0 && boundingBox) {
-    //      var tickable_bb = tickable.getBoundingBox();
-    //      if (tickable_bb) boundingBox.mergeWith(tickable_bb);
-    //    }
+            //    if (i === 0) boundingBox = tickable.getBoundingBox();
 
-    //   tickable.setContext(context);
-    //   tickable.draw();
-    //  }
+            //    if (i > 0 && boundingBox) {
+            //      var tickable_bb = tickable.getBoundingBox();
+            //      if (tickable_bb) boundingBox.mergeWith(tickable_bb);
+            //    }
 
-    //  this.boundingBox = boundingBox;
-    //}
-        } 
+            //   tickable.setContext(context);
+            //   tickable.draw();
+            //  }
+
+            //  this.boundingBox = boundingBox;
+            //}
+        }
         #endregion
 
 
         #region 隐含字段
-        IList<object> totalTicks;
-        object ticksUsed;
-        double largestTickWidth;
-        object smallestTickCount;
-        IList<object> tickables;
-        VoiceMode mode;
-        object resolutionMultiplier;
-        object actualResolution;
-        object stave;
-        object boundingBox;
-        object voiceGroup;
-        VoiceMode strict;
+        public VoiceTime time;
+        public Fraction totalTicks;
+        public Fraction ticksUsed;
+        public double largestTickWidth;
+        public Fraction smallestTickCount;
+        public IList<StemmableNote> tickables;
+        public VoiceMode mode;
+        public int resolutionMultiplier;
+        public object actualResolution;
+        public Stave stave;
+        public BoundingBox boundingBox;
+        public VoiceGroup voiceGroup;
+        public VoiceMode strict;
+        public bool preFormatted;
         #endregion
     }
 }

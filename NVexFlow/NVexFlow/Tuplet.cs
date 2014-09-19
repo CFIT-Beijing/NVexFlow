@@ -1,6 +1,8 @@
 ﻿//tuplet.js
 using System.Collections.Generic;
-
+using NVexFlow.Model;
+using System.Linq;
+using System;
 namespace NVexFlow
 {
     /**
@@ -16,163 +18,130 @@ namespace NVexFlow
         #region js直译部分
         public static int LOCATION_TOP = 1;
         public static int LOCATION_BOTTOM = -1;
-
-        public Tuplet(IList<object> notes, IList<object> options)
-        { }
-
-        private void Init(IList<object> notes, IList<object> options)
-        { 
-    //    init: function(notes, options) {
-    //  if (!notes || notes == []) {
-    //    throw new Vex.RuntimeError("BadArguments", "No notes provided for tuplet.");
-    //  }
-
-    //  if (notes.length == 1) {
-    //    throw new Vex.RuntimeError("BadArguments", "Too few notes for tuplet.");
-    //  }
-
-    //  this.options = Vex.Merge({}, options);
-    //  this.notes = notes;
-    //  this.num_notes = 'num_notes' in this.options ?
-    //    this.options.num_notes : notes.length;
-    //  this.beats_occupied = 'beats_occupied' in this.options ?
-    //    this.options.beats_occupied : 2;
-    //  this.bracketed = (notes[0].beam == null);
-    //  this.ratioed = false;
-    //  this.point = 28;
-    //  this.y_pos = 16;
-    //  this.x_pos = 100;
-    //  this.width = 200;
-    //  this.location = Tuplet.LOCATION_TOP;
-
-    //  Vex.Flow.Formatter.AlignRestsToNotes(notes, true, true);
-    //  this.resolveGlyphs();
-    //  this.attach();
-    //},
+        public Tuplet(IList<StaveNote> notes, TupletOpts options)
+        {
+            Init(notes, options);
         }
+        private void Init(IList<StaveNote> notes, TupletOpts options)
+        {
+            if (notes == null || notes.Count() == 0)
+            {
+                throw new Exception("BadArguments,No notes provided for tuplet.");
+            }
+            if (notes.Count() == 1)
+            {
+                throw new Exception("BadArguments,Too few notes for tuplet.");
+            }
 
+            //  this.options = Vex.Merge({}, options);之后看到什么属性再赋值什么属性
+            this.options = new TupletOpts() { beats_occupied = options.beats_occupied, num_notes = options.num_notes };
+
+            this.notes = notes;
+            this.num_notes = this.options.num_notes.HasValue ? this.options.num_notes.Value : notes.Count();
+            this.beats_occupied = this.options.beats_occupied.HasValue ? this.options.beats_occupied.Value : 2;
+            this.bracketed = notes[0].beam == null;
+            this.ratioed = false;
+            this.point = 28;
+            this.y_pos = 16;
+            this.x_pos = 100;
+            this.width = 200;
+            this.location = Tuplet.LOCATION_TOP;
+
+            Formatter.AlignRestsToNotes(notes, true, true);
+            this.ResolveGlyphs();
+            this.Attach();
+        }
         public void Attach()
         {
-    //    attach: function () {
-    //  for (var i = 0; i < this.notes.length; i++) {
-    //    var note = this.notes[i];
-    //    note.setTuplet(this);
-    //  }
-    //},
+            for (int i = 0; i < this.notes.Count(); i++)
+            {
+                StaveNote note = this.notes[i];
+                note.SetTuplet(this);
+            }
         }
-
         public void Detach()
-        { 
-    //    detach: function () {
-    //  for (var i = 0; i < this.notes.length; i++) {
-    //    var note = this.notes[i];
-    //    note.setTuplet(null);
-    //  }
-    //},
-        }
-        public object SetContext(object context)
         {
-    //        setContext: function(context) {
-    //  this.context = context;
-    //  return this;
-    //},
-            return null;
+            for (int i = 0; i < this.notes.Count(); i++)
+            {
+                StaveNote note = this.notes[i];
+                note.SetTuplet(null);
+            }
+        }
+        public Tuplet SetContext(CanvasContext context)
+        {
+            this.context = context;
+            return this;
         }
         /**
      * Set whether or not the bracket is drawn.
      */
-        public bool Bracketed(bool bracketed)
+        public Tuplet SetBracketed(bool bracketed)
         {
-    //         setBracketed: function(bracketed) {
-    //  this.bracketed = bracketed ? true : false;
-    //  return this;
-    //},
-            return false;
+            this.bracketed = bracketed ? true : false;//this.bracketed = bracketed;直接这么写。。
+            return this;
         }
         /**
      * Set whether or not the ratio is shown.
      */
-        public bool SetRatioed(bool ratioed)
+        public Tuplet SetRatioed(bool ratioed)
         {
-    //        setRatioed: function(ratioed) {
-    //  this.ratioed = ratioed ? true : false;
-    //  return this;
-    //},
-            return false;
+            this.ratioed = ratioed ? true : false;
+            return this;
         }
-         /**
-     * Set the tuplet to be displayed either on the top or bottom of the stave
-     */
-        public object TupletLocation(int location)
+        /**
+    * Set the tuplet to be displayed either on the top or bottom of the stave
+    */
+        public Tuplet TupletLocation(int? location)
         {
-           
-    //setTupletLocation: function(location) {
-    //  if (!location) location = Tuplet.LOCATION_TOP;
-    //  else if (location != Tuplet.LOCATION_TOP &&
-    //      location != Tuplet.LOCATION_BOTTOM) {
-    //    throw new Vex.RERR("BadArgument", "Invalid tuplet location: " + location);
-    //  }
+            if (!location.HasValue)
+            {
+                location = Tuplet.LOCATION_TOP;
+            }
+            else if (location.Value != Tuplet.LOCATION_TOP && location.Value != Tuplet.LOCATION_BOTTOM)
+            {
+                throw new Exception("BadArgument,Invalid tuplet location: " + location);
+            }
 
-    //  this.location = location;
-    //  return this;
-    //},
-            return 0;
+            this.location = location.Value;
+            return this;
         }
-    
-        public IList<object> GetNotes()
+        public IList<StaveNote> GetNotes()
         {
-            //    getNotes: function() {
-            //  return this.notes;
-            //},
-            return null;
+            return this.notes;
         }
-
-    
         public int GetNoteCount()
         {
-            //getNoteCount: function() {
-            //  return this.num_notes;
-            //},
-            return 0;
+            return this.num_notes;
         }
         public int GetBeatsOccupied()
         {
-            //getBeatsOccupied: function() {
-            //  return this.beats_occupied;
-            //},
-            return 0;
+            return this.beats_occupied;
         }
-        public void SetBeatsOccupied(object beats)
+        public void SetBeatsOccupied(int beats)
         {
-            //setBeatsOccupied: function(beats) {
-            //  this.detach();
-            //  this.beats_occupied = beats;
-            //  this.resolveGlyphs();
-            //  this.attach();
-            //},
+            this.Detach();
+            this.beats_occupied = beats;
+            this.ResolveGlyphs();
+            this.Attach();
         }
-
-    
-
         public void ResolveGlyphs()
         {
-            //     resolveGlyphs: function() {
-            //  this.num_glyphs = [];
-            //  var n = this.num_notes;
-            //  while (n >= 1) {
-            //    this.num_glyphs.push(new Vex.Flow.Glyph("v" + (n % 10), this.point));
-            //    n = parseInt(n / 10, 10);
-            //  }
+            this.num_glyphs = new List<Glyph>();
+            int n = this.num_notes;
+            while (n >= 1)
+            {
+                this.num_glyphs.Add(new Glyph("v" + n % 10, this.point));
+                n = n / 10;
+            }
 
-            //  this.denom_glyphs = [];
-            //  n = this.beats_occupied;
-            //  while (n >= 1) {
-            //    this.denom_glyphs.push(new Vex.Flow.Glyph("v" + (n % 10), this.point));
-            //    n = parseInt(n / 10, 10);
-            //  }
-            //},
+            this.denom_glyphs = new List<Glyph>();
+            n = this.beats_occupied;
+            while (n >= 1)
+            {
+                this.denom_glyphs.Add(new Glyph("v" + n % 10, this.point));
+                n = n / 10;
+            }
         }
-
         public void Draw()
         {
             //    draw: function() {
@@ -285,20 +254,23 @@ namespace NVexFlow
         }
         #endregion
 
-        
 
-       
-
-       
 
         #region 隐含字段
-        public object context;
+        public TupletOpts options;
+        public int num_notes;
+        public CanvasContext context;
         public bool bracketed;
         public bool ratioed;
-        public object location;
-        public IList<object> notes;
-        public int num_notes;
-        public int beatsOccupied;
+        public int location;
+        public IList<StaveNote> notes;
+        public int beats_occupied;
+        public double point;
+        public double y_pos;
+        public double x_pos;
+        public double width;
+        public IList<Glyph> num_glyphs;
+        public IList<Glyph> denom_glyphs;
         #endregion
     }
 }

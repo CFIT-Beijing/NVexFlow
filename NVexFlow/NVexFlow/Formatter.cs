@@ -13,7 +13,7 @@ namespace NVexFlow
             { return minTotalWidth; }
         }
         bool hasMinTotalWidth;
-        double pixelsPerTick;
+        public double? pixelsPerTick;
         Fraction totalTicks;
         object tContexts;
         object mContexts;
@@ -62,7 +62,7 @@ namespace NVexFlow
         public static void FormatAndDrawTab(object ctx,object tabstave,object stave,IList<object> tabnotes,IList<object> notes,object autobeam,IList<object> @params)
         { }
 
-        public static void AlignRestsToNotes(IList<object> notes,IList<object> align_all_notes,IList<object> align_tuplets)
+        public static void AlignRestsToNotes(IList<StaveNote> notes, bool align_all_notes, bool align_tuplets)
         { }
 
         public void AlignRests(IList<object> voices,IList<object> align_all_notes)

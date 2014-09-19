@@ -25,7 +25,7 @@ namespace NVexFlow
                 base.Stave = value;
             }
         }
-        public override object BoundingBox
+        public override BoundingBox BoundingBox
         {
             get
             { return new BoundingBox(0,0,0,0); }
