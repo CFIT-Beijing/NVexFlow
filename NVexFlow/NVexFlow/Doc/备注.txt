@@ -80,36 +80,7 @@ Vex			//	header.js
 完成Modifier族Draw方法细化。
 
 //////////////////////////////整理任务//////////////////////////////
-Modifier直接分支（不含Tickable）Get、Set整理完毕
+Get、Set整理完毕
 
 //////////////////////////////讨论留言区//////////////////////////////
--1.Fraction相关的写的可能不对，没仔细看，查的时候你再改吧
-0.GhostNote和TabNote都不达标，请参照zhangxia85对TabNote的修改尽快完善“正在处理”区域中的内容，然后再继续“近期任务”区的翻译工作。
-错误和遗漏都改了，编码习惯的事儿你随检查随改吧
-1.有关代码语法格式， 对于以后StaveModifier一组分支暂时：
-get,set方法不再弄成字段的属性，就按照他js的写法分别写成get、set方法。
-
-2.Model里存在很多相同的类，都是为了返回值需要。暂时未合并。如：
-public class NoteModifierStartXY
-    {
-        public double x;
-        public double y;
-    }
-
-	    public class TabNoteModifierStartXY
-    {
-        public double x;
-        public double y;
-    }
-
-	3、StaveModifier：
-	StaveModifierModel和TimeSignatureModel用了两种方式解决一个问题，你看看有没有别的方式
-	问题是：
-	他将返回的对象的方法重写了（即该对象不再遵守“类”的规则）
-	解决方法：
-	（1）、将“类”的会变化的方法改成委托。StaveModifierModel
-	（2）、写子类，让子类继承重写父类的某些方法。TimeSignatureModel
-
-	4、感觉字段也没必要protected了，public得了
-
-	5、和数字相关的参数因为我不懂音乐业务，以后先都写成double的，为节省时间。（之前写的有的是int有的是double）
+每个子类中的Set方法没有重写父类，使用的是new关键字截断继承，为的是读起来方便（返回的是具体的子类类型）。

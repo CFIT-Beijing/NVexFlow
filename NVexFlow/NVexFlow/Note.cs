@@ -166,7 +166,7 @@ namespace NVexFlow
         /// Returns true if this note has no duration (e.g., bar notes, spacers, etc.)
         /// </summary>
         /// <returns></returns>
-        public new bool ShouldIgnoreTicks()
+        public bool ShouldIgnoreTicks()
         {//不增加override或new关键词以提示潜在重复implement
                 return this.ignoreTicks;
         }
