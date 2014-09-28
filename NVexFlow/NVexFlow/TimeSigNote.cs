@@ -18,22 +18,10 @@ namespace NVexFlow
             //// Note properties
             this.ignoreTicks = true;
         }
-        public override Stave Stave
-        {
-            set
-            {
-                base.Stave = value;
-            }
-        }
         public new TimeSigNote SetStave(Stave stave)
         {
-            base.Stave = stave;
+            base.SetStave(stave);
             return this;
-        }
-        public override BoundingBox BoundingBox
-        {
-            get
-            { return new BoundingBox(0,0,0,0); }
         }
         public override BoundingBox GetBoundingBox()
         {
@@ -46,7 +34,7 @@ namespace NVexFlow
         }
         public new TimeSigNote PreFormat()
         {
-            this.PreFormatted = true;
+            this.SetPreFormatted(true);
             return this;
         }
         public override void Draw()

@@ -109,13 +109,6 @@ namespace NVexFlow
         /// <summary>
         /// Set the Cavnas context for drawing
         /// </summary>
-        public override CanvasContext Context
-        {
-            set
-            {
-                this.context = value;
-            }
-        }
         public new NoteHead SetContext(CanvasContext context)
         {
             this.context = context;
@@ -124,13 +117,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the width of the notehead
         /// </summary>
-        public override double Width
-        {
-            get
-            {
-                return this.width;
-            }
-        }
         public override double GetWidth()
         {
             return this.width;
@@ -146,13 +132,6 @@ namespace NVexFlow
         /// Get/set the notehead's style 
         /// style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
         /// </summary>
-        public NoteHeadStyle Style
-        {
-            get
-            { return this.style; }
-            set
-            { this.style = value; }
-        }
         public NoteHeadStyle GetStyle()
         {
             return this.style;
@@ -165,13 +144,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the glyph data
         /// </summary>
-        public override Glyph4Note Glyph
-        {
-            get
-            {
-                return this.glyph;
-            }
-        }
         public override Glyph4Note GetGlyph()
         {
             return this.glyph;
@@ -187,13 +159,6 @@ namespace NVexFlow
         /// <summary>
         /// get/set the Y coordinate
         /// </summary>
-        public double Y
-        {
-            get
-            { return this.y; }
-            set
-            { this.y = value; }
-        }
         public double GetY()
         {
             return this.y;
@@ -206,11 +171,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the stave line the notehead is placed on 
         /// </summary>
-        public double Line
-        {
-            get
-            { return this.line; }
-        }
         public double GetLine()
         {
             return this.line;
@@ -218,19 +178,10 @@ namespace NVexFlow
         /// <summary>
         /// Get the canvas `x` coordinate position of the notehead.
         /// </summary>
-        public override double AbsoluteX
-        {
-            get
-            {
-                // If the note has not been preformatted, then get the static x value Otherwise, it's been formatted and we should use it's x value relative to its tick context
-                double x = !this.preFormatted ? this.x : base.AbsoluteX;
-                return x + (this.displaced ? this.width * this.stemDirection : 0);
-            }
-        }
         public override double GetAbsoluteX()
         {
             // If the note has not been preformatted, then get the static x value Otherwise, it's been formatted and we should use it's x value relative to its tick context
-            double x = !this.preFormatted ? this.x : base.AbsoluteX;
+            double x = !this.preFormatted ? this.x : base.GetAbsoluteX();
             return x + (this.displaced ? this.width * this.stemDirection : 0);
         }
         /// <summary>
@@ -245,14 +196,14 @@ namespace NVexFlow
             double spacing = this.stave.GetSpacingBetweenLines();
             double halfSpacing = spacing / 2;
             double minY = this.y - halfSpacing;
-            return new BoundingBox(this.AbsoluteX,minY,this.width,spacing);
+            return new BoundingBox(this.GetAbsoluteX(),minY,this.width,spacing);
         }
         /// <summary>
         /// Apply current style to Canvas `context`
         /// </summary>
         public NoteHead ApplyStyle()
         {
-            NoteHeadStyle style = this.Style;
+            NoteHeadStyle style = this.GetStyle();
             if(style.shadowColor != null)
             { this.context.ShadowColor = style.shadowColor; }
             if(style.shadowBlur != null)
@@ -266,21 +217,11 @@ namespace NVexFlow
         /// <summary>
         /// Set notehead to a provided `stave`
         /// </summary>
-        public override Stave Stave
-        {
-            set
-            {
-                double line = this.Line;
-                this.stave = value;
-                this.Y = value.GetYForNote(line);
-                this.context = this.stave.context;
-            }
-        }
         public new NoteHead SetStave(Stave stave)
         {
-            double line = this.Line;
+            double line = this.GetLine();
             this.stave = stave;
-            this.Y = stave.GetYForNote(line);
+            this.SetY(stave.GetYForNote(line));
             this.context = this.stave.context;
             return this;
         }
@@ -291,10 +232,10 @@ namespace NVexFlow
         {
             if(this.preFormatted)
                 return this;
-            Glyph4NoteHead glyph = this.Glyph as Glyph4NoteHead;
+            Glyph4NoteHead glyph = this.GetGlyph() as Glyph4NoteHead;
             double width = glyph.headWidth + this.extraLeftPx + this.extraRightPx;
             this.SetWidth(width);
-            this.PreFormatted = true;
+            this.SetPreFormatted(true);
             return this;
         }
         /// <summary>

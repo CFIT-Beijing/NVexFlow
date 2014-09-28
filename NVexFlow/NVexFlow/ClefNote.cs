@@ -13,20 +13,9 @@ namespace NVexFlow
         { }
         private void Init(string clef)
         {
-            this.Clef = NVexFlow.Clef.clefTypes[clef];
+            this.SetClef(NVexFlow.Clef.clefTypes[clef]);
             // Note properties
             this.ignoreTicks = true;
-        }
-        public ClefType Clef
-        {
-            get
-            { return clef; }
-            set
-            {
-                this.clef = value;//外界这样赋值  this.clef= Vex.Flow.Clef.Types["treble"];
-                this.glyph = new Glyph(this.clef.code,this.clef.point);
-                this.SetWidth(this.glyph.Metrics.Width);
-            }
         }
         public ClefType GetClef()
         {
@@ -39,22 +28,10 @@ namespace NVexFlow
             this.SetWidth(this.glyph.Metrics.Width);
             return this;
         }
-        public override Stave Stave
-        {
-            set
-            {
-                base.stave = value;
-            }
-        }
         public new ClefNote SetStave(Stave stave)
         {
             base.stave = stave;//这里这样写感觉不合适，建议base.SetStave(stave);
             return this;
-        }
-        public override BoundingBox BoundingBox
-        {
-            get
-            { return new BoundingBox(0,0,0,0); }
         }
         public override BoundingBox GetBoundingBox()
         {
@@ -67,7 +44,7 @@ namespace NVexFlow
         }
         public new ClefNote PreFormat()
         {
-            this.PreFormatted = true;
+            this.SetPreFormatted(true);
             return this;
         }
         public override void Draw()

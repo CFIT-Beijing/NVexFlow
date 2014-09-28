@@ -237,7 +237,7 @@ namespace NVexFlow
                 double top_y_px = y_extents.topY;
 
                 // For harmonic note heads, shorten stem length by 3 pixels
-                base_y_px += this.stemDirection * note.Glyph.stem_offset;
+                base_y_px += this.stemDirection * note.GetGlyph().stem_offset;
                 // Don't go all the way to the top (for thicker stems)
                 double y_displacement = Flow.STEM_WIDTH;
                 if (!note.HasStem())

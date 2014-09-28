@@ -42,21 +42,11 @@ namespace NVexFlow
         /// <summary>
         /// Get and set the type of Bar note. `type` must be one of `Vex.Flow.Barline.type`.
         /// </summary>
-        public Barline.BarlineType Type
-        {
-            get
-            { return this.type; }
-            set
-            {
-                this.type = value;
-                this.SetWidth(this.metrics.widths[this.type]);
-            }
-        }
         public Barline.BarlineType GetBarlineType()
         {
             return this.type;
         }
-        public BarNote SetType(Barline.BarlineType type)
+        public BarNote SetBarlineType(Barline.BarlineType type)
         {
             this.type = type;
             this.SetWidth(this.metrics.widths[this.type]);
@@ -74,7 +64,7 @@ namespace NVexFlow
         }
         public new BarNote PreFormat()
         {
-            this.PreFormatted = true;
+            this.SetPreFormatted(true);
             return this;
         }
         /// <summary>

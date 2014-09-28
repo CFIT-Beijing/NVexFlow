@@ -96,13 +96,6 @@ namespace NVexFlow
         /// <summary>
         /// Set the horizontal justification of the TextNote
         /// </summary>
-        public TextNoteJustification Justification
-        {
-            set
-            {
-                this.justification = value;
-            }
-        }
         public TextNote SetJustification(TextNoteJustification justification)
         {
             this.justification = justification;
@@ -111,13 +104,6 @@ namespace NVexFlow
         /// <summary>
         ///  Set the Stave line on which the note should be placed
         /// </summary>
-        public int Line
-        {
-            set
-            {
-                this.line = value;
-            }
-        }
         public TextNote SetLine(int line)
         {
             this.line = line;
@@ -159,7 +145,7 @@ namespace NVexFlow
             {
                 this.extraLeftPx = this.width;
             }
-            this.PreFormatted = true;
+            this.SetPreFormatted(true);
         }
         /// <summary>
         /// Renders the TextNote

@@ -27,13 +27,6 @@ namespace NVexFlow
         /// <summary>
         /// Get and set the note's `Stem`
         /// </summary>
-        public Stem Stem
-        {
-            get
-            { return this.stem; }
-            set
-            { this.stem = value; }
-        }
         public Stem GetStem()
         {
             return this.stem;
@@ -49,28 +42,16 @@ namespace NVexFlow
         public StemmableNote BuildStem()
         {
             Stem stem = new Stem();
-            this.Stem = stem;
+            this.SetStem(stem);
             return this;
         }
         /// <summary>
         /// Get the full length of stem.
         /// Set the stem length to a specific. Will override the default length.
         /// </summary>
-        public double StemLength
-        {
-            get
-            {
-                return Stem.HEIGHT + this.StemExtension;
-            }
-            set
-            {
-                //js中setStemLength在getStemExtension后面
-                this.stemExtensionOverride = value - Stem.HEIGHT;
-            }
-        }
         public double GetStemLength()
         {
-            return Stem.HEIGHT + this.StemExtension;
+            return Stem.HEIGHT + this.GetStemExtension();
         }
         public StemmableNote SetStemLength(double height)
         {
@@ -81,26 +62,10 @@ namespace NVexFlow
         /// <summary>
         /// Get the number of beams for this duration
         /// </summary>
-        public int BeamCount
-        {
-            get
-            {
-                //暂时不知道glyph是什么类型，继承了Note，所以猜测是像Note里的glyph一样的结构。
-                Glyph4StemmableNote glyph = this.Glyph as Glyph4StemmableNote;
-                if (glyph != null)
-                {
-                    return glyph.beamCount;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
         public int GetBeamCount()
         { 
             //暂时不知道glyph是什么类型，继承了Note，所以猜测是像Note里的glyph一样的结构。
-            Glyph4StemmableNote glyph = this.Glyph as Glyph4StemmableNote;
+            Glyph4StemmableNote glyph = this.GetGlyph() as Glyph4StemmableNote;
             if (glyph != null)
             {
                 return glyph.beamCount;
@@ -113,47 +78,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the minimum length of stem
         /// </summary>
-        public double StemMinumumLength
-        {
-            get
-            {
-                double length = this.duration == "w" || this.duration == "1" ? 0 : 20;
-                // if note is flagged, cannot shorten beam
-                //里程碑2时把这个做成两组字典查询，字典数据放到Flow类里
-                switch (this.duration)
-                {
-                    case "8":
-                        if (this.beam == null)
-                        { length = 35; }
-                        break;
-                    case "16":
-                        if (this.beam == null)
-                        { length = 35; }
-                        else
-                        { length = 25; }
-                        break;
-                    case "32":
-                        if (this.beam == null)
-                        { length = 45; }
-                        else
-                        { length = 35; }
-                        break;
-                    case "64":
-                        if (this.beam == null)
-                        { length = 50; }
-                        else
-                        { length = 40; }
-                        break;
-                    case "128":
-                        if (this.beam == null)
-                        { length = 55; }
-                        else
-                        { length = 45; }
-                        break;
-                }
-                return length;
-            }
-        }
         public double GetStemMinumumLength()
         {
             double length = this.duration == "w" || this.duration == "1" ? 0 : 20;
@@ -213,7 +137,7 @@ namespace NVexFlow
             if (this.stem != null)
             {
                 this.stem.SetDirection(direction.Value);
-                this.stem.SetExtension(this.StemExtension);
+                this.stem.SetExtension(this.GetStemExtension());
             }
             this.beam = null;
             if (this.preFormatted)
@@ -225,53 +149,13 @@ namespace NVexFlow
         /// <summary>
         /// Get/set the direction of the stem
         /// </summary>
-        public int? StemDirection
-        //应该用int类型，里程碑2应该改成枚举类型
-        {
-            get
-            { return stemDirection.Value; }
-            set
-            {
-                if (!value.HasValue)
-                //这里的用法比较像set函数参数存在默认值
-                {
-                    value = Stem.UP;
-                }
-                if (value != Stem.UP && value != Stem.DOWN)
-                {
-                    throw new Exception("BadArgument,Invalid stem direction: " + value);
-                }
-                this.stemDirection = value;
-                if (this.stem != null)
-                {
-                    this.stem.SetDirection(value.Value);
-                    this.stem.SetExtension(this.StemExtension);
-                }
-                this.beam = null;
-                if (this.preFormatted)
-                {
-                    this.PreFormat();
-                }
-            }
-        }
         /// <summary>
         /// Get the `x` coordinate of the stem
         /// </summary>
-        public double StemX
-        {
-            get
-            {
-                double xBegin = this.AbsoluteX + this.xShift;
-                double xEnd = this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth;
-                double stemX = this.stemDirection == Stem.DOWN ? xBegin : xEnd;
-                stemX -= (Stem.WIDTH / 2) * this.stemDirection.Value;
-                return stemX;
-            }
-        }
         public virtual double GetStemX()
         {
-            double xBegin = this.AbsoluteX + this.xShift;
-            double xEnd = this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth;
+            double xBegin = this.GetAbsoluteX() + this.xShift;
+            double xEnd = this.GetAbsoluteX() + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth;
             double stemX = this.stemDirection == Stem.DOWN ? xBegin : xEnd;
             stemX -= (Stem.WIDTH / 2) * this.stemDirection.Value;
             return stemX;
@@ -279,39 +163,16 @@ namespace NVexFlow
         /// <summary>
         /// Get the `x` coordinate for the center of the glyph. Used for `TabNote` stems and stemlets over rests
         /// </summary>
-        public double CenterGlyphX
-        {
-            get
-            {
-                return this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth / 2;
-            }
-        }
         public double GetCenterGlyphX()
         {
-            return this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth / 2;
+            return this.GetAbsoluteX() + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth / 2;
         }
         /// <summary>
         /// Get the stem extension for the current duration
         /// </summary>
-        public double StemExtension
-        {
-            get
-            {
-                Glyph4StemmableNote glyph = this.Glyph as Glyph4StemmableNote;
-                if (this.stemExtensionOverride.HasValue)
-                {
-                    return this.stemExtensionOverride.Value;
-                }
-                if (glyph != null)
-                {
-                    return this.stemDirection == 1 ? glyph.stemUpExtension : glyph.stemDownExtension;
-                }
-                return 0;
-            }
-        }
         public virtual double GetStemExtension()
         {
-            Glyph4StemmableNote glyph = this.Glyph as Glyph4StemmableNote;
+            Glyph4StemmableNote glyph = this.GetGlyph() as Glyph4StemmableNote;
             if (this.stemExtensionOverride.HasValue)
             {
                 return this.stemExtensionOverride.Value;
@@ -327,45 +188,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the top and bottom `y` values of the stem.
         /// </summary>
-        public StemExtents StemExtents
-        {
-            get
-            {
-                if (this.ys == null || this.ys.Count() == 0)
-                {
-                    throw new Exception("NoYValues,Can't get top stem Y when note has no Y values.");
-                }
-                double topPixel = this.ys[0];
-                double basePixel = this.ys[0];
-                double stemHeight = Stem.HEIGHT + this.StemExtension;
-                for (int i = 0;
-                i < this.ys.Count();
-                i++)
-                {
-                    double stemTop = this.ys[i] + (stemHeight * -this.stemDirection.Value);
-                    //上面这句可看出stemDirection只能是1或-1，对应UP和DOWN
-                    //里程碑2时考虑将stemDirection改成bool的isStemUp
-                    if (this.stemDirection == Stem.DOWN)
-                    {
-                        topPixel = (topPixel > stemTop) ? topPixel : stemTop;
-                        basePixel = (basePixel < this.ys[i]) ? basePixel : this.ys[i];
-                    }
-                    else
-                    {
-                        topPixel = (topPixel < stemTop) ? topPixel : stemTop;
-                        basePixel = (basePixel > this.ys[i]) ? basePixel : this.ys[i];
-                    }
-
-                    if (this.noteType == "s" || this.noteType == "x")
-                    //里程碑2时这部分的7做成常量放在Flow类里，noteType改成枚举类型或数值类型
-                    {
-                        topPixel -= this.stemDirection.Value * 7;
-                        basePixel -= this.stemDirection.Value * 7;
-                    }
-                }
-                return new StemExtents() { topY = topPixel, baseY = basePixel };
-            }
-        }
         public virtual StemExtents GetStemExtents()
         {
             if (this.ys == null || this.ys.Count() == 0)
@@ -374,7 +196,7 @@ namespace NVexFlow
             }
             double topPixel = this.ys[0];
             double basePixel = this.ys[0];
-            double stemHeight = Stem.HEIGHT + this.StemExtension;
+            double stemHeight = Stem.HEIGHT + this.GetStemExtension();
             for (int i = 0;
             i < this.ys.Count();
             i++)
@@ -405,11 +227,6 @@ namespace NVexFlow
         /// <summary>
         /// Sets the current note's beam
         /// </summary>
-        public Beam Beam
-        {
-            set
-            { this.beam = value; }
-        }
         public StemmableNote SetBeam(Beam beam)
         {
             this.beam = beam;
@@ -420,7 +237,7 @@ namespace NVexFlow
         /// </summary>
         public override double GetYForTopText(double textLine)
         {
-            StemExtents extents = this.StemExtents;
+            StemExtents extents = this.GetStemExtents();
             if (this.HasStem())
             {
                 return Math.Min(
@@ -436,7 +253,7 @@ namespace NVexFlow
         }
         public double GetYForBottomText(int textLine)
         {
-            StemExtents extents = this.StemExtents;
+            StemExtents extents = this.GetStemExtents();
             if (this.HasStem())
             {
                 return Math.Max(
@@ -474,7 +291,7 @@ namespace NVexFlow
             {
                 throw new Exception("NoCanvasContext,Can't draw without a canvas context.");
             }
-            this.Stem = new Stem(stemStruct);
+            this.SetStem(new Stem(stemStruct));
             this.stem.SetContext(this.context);
             this.stem.Draw();
         }

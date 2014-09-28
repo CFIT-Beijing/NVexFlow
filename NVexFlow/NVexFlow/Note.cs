@@ -52,7 +52,7 @@ namespace NVexFlow
             this.duration = initData.duration;
             this.dots = initData.dots;
             this.noteType = initData.type;
-            this.IntrinsicTicks = initData.ticks;
+            this.SetIntrinsicTicks(initData.ticks); 
             this.modifiers = new List<Modifier>();
             // Get the glyph code for this note from the font.
             this.glyph = Flow.DurationToGlyph(this.duration,this.noteType);
@@ -94,17 +94,6 @@ namespace NVexFlow
         /// <summary>
         /// Get and set the play note, which is arbitrary data that can be used by an audio player.
         /// </summary>
-        public virtual object PlayNote
-        {
-            get
-            {
-                return this.playNote;
-            }
-            set
-            {
-                this.playNote = value;
-            }
-        }
         public virtual object GetPlayNote()
         {
             return this.playNote;
@@ -129,44 +118,24 @@ namespace NVexFlow
             stroke.SetNote(this);
             stroke.SetIndex(index);
             this.modifiers.Add(stroke);
-            this.PreFormatted = false;
+            this.SetPreFormatted(false);
             return this;
         }
         /// <summary>
         /// Get and set the target stave.
         /// </summary>
-        public virtual Stave Stave
-        {
-            get
-            {
-                return this.stave;
-            }
-            set
-            {
-                this.stave = value;
-                this.Ys = new List<double>() { value.GetYForLine(0) };// Update Y values if the stave is changed.
-                this.context = this.stave.context;
-            }
-        }
         public virtual Stave GetStave()
         { return this.stave; }
         public virtual Note SetStave(Stave stave)
         {
             this.stave = stave;
-            this.Ys = new List<double>() { stave.GetYForLine(0) };// Update Y values if the stave is changed.
+            this.SetYs(new List<double>() { stave.GetYForLine(0) });// Update Y values if the stave is changed.
             this.context = this.stave.context;
             return this;
         }
         /// <summary>
         /// Set the rendering context for the note.
         /// </summary>
-        public override CanvasContext Context
-        {
-            set
-            {
-                this.context = value;
-            }
-        }
         public new Note SetContext(CanvasContext context)
         {
             this.context = context;
@@ -175,17 +144,6 @@ namespace NVexFlow
         /// <summary>
         /// Get and set spacing to the left and right of the notes.
         /// </summary>
-        public double ExtraLeftPx
-        {
-            get
-            {
-                return this.extraLeftPx;
-            }
-            set
-            {
-                this.extraLeftPx = value;
-            }
-        }
         public virtual double GetExtraLeftPx()
         {
             return this.extraLeftPx; 
@@ -194,17 +152,6 @@ namespace NVexFlow
         {
             this.extraLeftPx = extraLeftPx;
             return this;
-        }
-        public double ExtraRightPx
-        {
-            get
-            {
-                return this.extraRightPx;
-            }
-            set
-            {
-                this.extraRightPx = value;
-            }
         }
         public virtual double GetExtraRightPx()
         {
@@ -226,13 +173,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the stave line number for the note.
         /// </summary>
-        public object LineNumber
-        {
-            get
-            {
-                return 0;
-            }
-        }
         public int GetLineNumber()
         {
             return 0;
@@ -240,13 +180,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the stave line number for rest.
         /// </summary>
-        public object LineForRest
-        {
-            get
-            {
-                return 0;
-            }
-        }
         public virtual double GetLineForRest()
         {
             return 0;
@@ -254,13 +187,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the glyph associated with this note.
         /// </summary>
-        public virtual Glyph4Note Glyph
-        {
-            get
-            {
-                return this.glyph;
-            }
-        }
         public virtual Glyph4Note GetGlyph()
         {
             return this.glyph;
@@ -268,21 +194,6 @@ namespace NVexFlow
         /// <summary>
         /// Set and get Y positions for this note. Each Y value is associated with an individual pitch/key within the note/chord.
         /// </summary>
-        public IList<double> Ys
-        {
-            get
-            {
-                if(this.ys.Count <= 0)
-                {
-                    throw new Exception("NoYValues,No Y-values calculated for this note.");
-                }
-                return ys;
-            }
-            set
-            {
-                this.ys = value;
-            }
-        }
         public IList<double> GetYs()
         {
             if (this.ys.Count <= 0)
@@ -310,13 +221,6 @@ namespace NVexFlow
         /// <summary>
         /// Get a `BoundingBox` for this note.
         /// </summary>
-        public override BoundingBox BoundingBox
-        {
-            get
-            {
-                return null;
-            }
-        }
         public override BoundingBox GetBoundingBox()
         {
                 return null;
@@ -325,22 +229,6 @@ namespace NVexFlow
         /// Returns the voice that this note belongs in.
         /// Attach this note to `voice`.
         /// </summary>
-        public override Voice Voice
-        {
-            get
-            {
-                if(this.voice == null)
-                {
-                    throw new Exception("NoVoice,Note has no voice.");
-                }
-                return this.voice;
-            }
-            set
-            {
-                this.voice = value;
-                this.preFormatted = false;
-            }
-        }
         public override Voice GetVoice()
         {
             if (this.voice == null)
@@ -359,14 +247,6 @@ namespace NVexFlow
         /// <summary>
         /// Get and set the `TickContext` for this note.
         /// </summary>
-        public override TickContext TickContext
-        {
-            set
-            {
-                this.tickContext = value;
-                this.preFormatted = false;
-            }
-        }
         public TickContext GetTickContext()
         {
             return this.tickContext;
@@ -393,13 +273,6 @@ namespace NVexFlow
         {
             return false;
         }
-        public int Dots
-        {
-            get
-            {
-                return this.dots;
-            }
-        }
         public int GetDots()
         {
             return this.dots;
@@ -416,13 +289,6 @@ namespace NVexFlow
          /// <summary>
          /// Attach this note to a modifier context.
          /// </summary>
-        public ModifierContext ModifierContext
-        {
-            set
-            {
-                this.modifierContext = value;
-            }
-        }
         public new Note SetModifierContext(ModifierContext modifierContext)
         {
             this.modifierContext = modifierContext;
@@ -436,26 +302,12 @@ namespace NVexFlow
             modifier.SetNote(this);
             modifier.SetIndex(index ?? 0);
             this.modifiers.Add(modifier);
-            this.PreFormatted = false;
+            this.SetPreFormatted(false);
             return this;
         }
         /// <summary>
         /// Get the coordinates for where modifiers begin.
         /// </summary>
-        public object ModifierStartXY
-        {
-            get
-            {
-                if(!this.preFormatted)
-                {
-                    throw new Exception("UnformattedNote,Can't call GetModifierStartXY on an unformatted note");
-                }
-                return new NoteModifierStartXY() {
-                    x = this.AbsoluteX,
-                    y = this.ys[0]
-                };//匿名对象类型不安全需要根据ModifierStartXY的使用情况优化。
-            }
-        }
         public NoteModifierStartXY GetModifierStartXY()
         {
             if (!this.preFormatted)
@@ -464,7 +316,7 @@ namespace NVexFlow
             }
             return new NoteModifierStartXY()
             {
-                x = this.AbsoluteX,
+                x = this.GetAbsoluteX(),
                 y = this.ys[0]
             };//匿名对象类型不安全需要根据ModifierStartXY的使用情况优化。
         }
@@ -478,35 +330,6 @@ namespace NVexFlow
         // `modRightPx`: Start `X` for right modifiers.
         // `extraLeftPx`: Extra space on left of note.
         // `extraRightPx`: Extra space on right of note.
-        public NoteMetrics Metrics
-        {
-            get
-            {
-                if(!this.preFormatted)
-                {
-                    throw new Exception("UnformattedNote,Can't call getMetrics on an unformatted note.");
-                }
-                double modLeftPx = 0;
-                double modRightPx = 0;
-                if(this.modifierContext != null)
-                {
-                    modLeftPx = this.modifierContext.state.leftShift;
-                    modRightPx = this.modifierContext.state.rightShift;
-                }
-                double width = this.Width;
-                return new NoteMetrics() {
-                    width = width,
-                    noteWidth = width -
-                                modLeftPx - modRightPx - // used by accidentals and modifiers
-                                        this.extraLeftPx - this.extraRightPx,
-                    leftShift = this.xShift,// TODO(0xfe): Make style consistent
-                    modLeftPx = modLeftPx,
-                    modRightPx = modRightPx,
-                    extraLeftPx = this.extraLeftPx,
-                    extraRightPx = this.extraRightPx
-                };
-            }
-        }
         public NoteMetrics GetMetrics()
         {
             if (!this.preFormatted)
@@ -520,7 +343,7 @@ namespace NVexFlow
                 modLeftPx = this.modifierContext.state.leftShift;
                 modRightPx = this.modifierContext.state.rightShift;
             }
-            double width = this.Width;
+            double width = this.GetWidth();
             return new NoteMetrics()
             {
                 width = width,
@@ -537,17 +360,6 @@ namespace NVexFlow
         /// <summary>
         /// Get and set width of note. Used by the formatter for positioning.
         /// </summary>
-        public override double Width
-        {
-            get
-            {
-                if(!this.preFormatted)
-                {
-                    throw new Exception("UnformattedNote,Can't call GetWidth on an unformatted note.");
-                }
-                return this.width + (this.modifierContext != null ? this.modifierContext.Width : 0);
-            }
-        }
         public override double GetWidth()
         {
             if (!this.preFormatted)
@@ -564,13 +376,6 @@ namespace NVexFlow
         /// <summary>
         /// Displace note by `x` pixels.
         /// </summary>
-        public override double XShift
-        {
-            set
-            {
-                this.xShift = value;
-            }
-        }
         public new Note SetXShift(double x)
         {
             this.xShift = x;
@@ -579,17 +384,6 @@ namespace NVexFlow
         /// <summary>
         /// Get `X` position of this tick context.
         /// </summary>
-        public virtual double X
-        {
-            get
-            {
-                if(this.tickContext == null)
-                {
-                    throw new Exception("NoTickContext,Note needs a TickContext assigned for an X-Value");
-                }
-                return this.tickContext.X + this.xShift;
-            }
-        }
         public virtual double GetX()
         {
             if (this.tickContext == null)
@@ -601,22 +395,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the absolute `X` position of this note relative to the stave.
         /// </summary>
-        public virtual double AbsoluteX
-        {
-            get
-            {
-                if(this.tickContext == null)
-                {
-                    throw new Exception("NoTickContext,Note needs a TickContext assigned for an X-Value");
-                }
-                double x = this.tickContext.X;
-                if(this.stave != null)
-                {
-                    x += this.stave.GetNoteStartX() + this.renderOptions.stavePadding;
-                }
-                return x;
-            }
-        }
         public virtual double GetAbsoluteX()
         {
             if (this.tickContext == null)
@@ -629,20 +407,6 @@ namespace NVexFlow
                 x += this.stave.GetNoteStartX() + this.renderOptions.stavePadding;
             }
             return x;
-        }
-        public virtual bool PreFormatted
-        {
-            set
-            {
-                this.preFormatted = value;
-                // Maintain the width of left and right modifiers in pixels.
-                if(this.preFormatted)
-                {
-                    TickContextExtraPx extra = this.tickContext.ExtraPx;
-                    this.leftModPx = Math.Max(this.leftModPx,extra.left);
-                    this.rightModPx = Math.Max(this.rightModPx,extra.right);
-                }
-            }
         }
         public Note SetPreFormatted(bool preFormatted)
         {

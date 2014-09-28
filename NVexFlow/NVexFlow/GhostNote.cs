@@ -46,13 +46,6 @@ namespace NVexFlow
             return true;
         }
         //原js中实现很诡异，里程碑2时考虑去掉子类中没有必要的重复。
-        public override Stave Stave
-        {
-            set
-            {
-                base.stave = value;
-            }
-        }
         public new GhostNote SetStave(Stave stave)
         {
             base.stave = stave;//建议修改成base.SetStave(stave);
@@ -66,7 +59,7 @@ namespace NVexFlow
         }
         public new GhostNote PreFormat()
         {
-            this.PreFormatted = true;
+            this.SetPreFormatted(true);
             return this;
         }
         public override void Draw()

@@ -27,7 +27,7 @@ namespace NVexFlow
 
         public override double GetStemExtension()
         {
-            Glyph4Note glyph= this.Glyph;
+            Glyph4Note glyph= this.GetGlyph();
             if (this.stemExtensionOverride != null)
             {
                 return this.stemExtensionOverride.Value;

@@ -74,11 +74,6 @@ namespace NVexFlow
         /// <summary>
         /// Set the line to center the element on
         /// </summary>
-        public int Line
-        {
-            set
-            { line = value; }
-        }
         public Crescendo SetLine(int line)
         {
             this.line = line;
@@ -87,11 +82,6 @@ namespace NVexFlow
         /// <summary>
         /// Set the full height at the open end
         /// </summary>
-        public double Height
-        {
-            set
-            { height = value; }
-        }
         public Crescendo SetHeight(int height)
         {
             this.height = height;
@@ -100,11 +90,6 @@ namespace NVexFlow
         /// <summary>
         /// Set whether the sign should be a descresendo by passing a bool to `decresc`
         /// </summary>
-        public bool Decrescendo
-        {
-            set
-            { decrescendo = value; }
-        }
         public Crescendo SetDecrescendo(bool decrescendo)
         {
             this.decrescendo = decrescendo;
@@ -113,7 +98,7 @@ namespace NVexFlow
         // Preformat the note
         public new Crescendo PreFormat()
         {
-            this.PreFormatted = true;
+            this.SetPreFormatted(true);
             return this;
         }
         /// <summary>

@@ -30,68 +30,26 @@ namespace NVexFlow
             this.ignoreTicks = false;
             this.context = null;
         }
-        public virtual CanvasContext Context
-        {
-            set
-            {
-                this.context = value;
-            }
-        }
         public new Tickable SetContext(CanvasContext context)
         {
             this.context = context;
             return this;
         }
-        public virtual BoundingBox BoundingBox
-        {
-            get
-            {
-                return null;
-            }
-        }
         public virtual BoundingBox GetBoundingBox()
         {
             return null;
-        }
-        public virtual Fraction Ticks
-        {
-            get
-            {
-                return this.ticks;
-            }
         }
         public virtual Fraction GetTicks()
         {
             return this.ticks;
         }
-        public virtual bool ShouldIgnoreTicks
-        {
-            get
-            {
-                return this.ignoreTicks;
-            }
-        }
         public virtual bool GetShouldIgnoreTicks()
         {
             return this.ignoreTicks;
         }
-        public virtual double Width
-        {
-            get
-            {
-                return this.width;
-            }
-        }
         public override double GetWidth()
         {
             return this.width;
-        }
-        public virtual double XShift
-        {
-            set
-            {
-                xShift = value;
-            }
         }
         public Tickable SetXShift(double xShift)
         {
@@ -100,22 +58,6 @@ namespace NVexFlow
         }
         // Every tickable must be associated with a voice. This allows formatters
         // and preFormatter to associate them with the right modifierContexts.
-        public virtual Voice Voice
-        {
-            get
-            {
-                if (this.voice == null)
-                {
-                    throw new Exception("NoVoice, Tickable has no voice.");//抛出异常是否需要封装？new Vex.RERR（“XXXXXXXXXXXX”）？
-                    //改完后看看是否有null值出现的可能。getter不抛异常为好。
-                }
-                return this.voice;
-            }
-            set
-            {
-                this.voice = value;
-            }
-        }
         public virtual Voice GetVoice()
         {
             if (this.voice == null)
@@ -129,36 +71,6 @@ namespace NVexFlow
         {
             this.voice = voice;
             return this;
-        }
-        public virtual Tuplet Tuplet
-        {
-            get
-            {
-                return this.tuplet;
-            }
-            set
-            {
-                // Detach from previous tuplet
-                int noteCount;
-                int beatsOccupied;
-                if (this.tuplet != null)
-                {
-                    noteCount = this.tuplet.GetNoteCount();
-                    beatsOccupied = this.tuplet.GetBeatsOccupied();
-                    // Revert old multiplier
-                    this.ApplyTickMultiplier(noteCount, beatsOccupied);
-                }
-
-                // Attach to new tuplet
-                if (value != null)
-                {
-                    noteCount = value.GetNoteCount();
-                    beatsOccupied = value.GetBeatsOccupied();
-                    this.ApplyTickMultiplier(beatsOccupied, noteCount);
-                }
-
-                this.tuplet = value;
-            }
         }
         public virtual Tuplet GetTuplet()
         {
@@ -202,14 +114,6 @@ namespace NVexFlow
             this.preFormatted = false;
             return this;
         }
-        public virtual TickContext TickContext
-        {
-            set
-            {
-                this.tickContext = value;
-                this.preFormatted = false;
-            }
-        }
         public Tickable SetTickContext(TickContext tickContext)
         {
             this.tickContext = tickContext;
@@ -242,25 +146,6 @@ namespace NVexFlow
         {
             this.intrinsicTicks = intrinsicTicks;
             this.ticks = this.tickMultiplier * this.intrinsicTicks;
-        }
-        public virtual Fraction IntrinsicTicks
-        {
-            get
-            {
-                return intrinsicTicks;
-            }
-            set
-            {
-                this.intrinsicTicks = value;
-                this.ticks = this.tickMultiplier * this.intrinsicTicks;
-            }
-        }
-        public virtual Fraction TickMultiplier
-        {
-            get
-            {
-                return tickMultiplier;
-            }
         }
         public virtual Fraction GetTickMultiplier()
         {
