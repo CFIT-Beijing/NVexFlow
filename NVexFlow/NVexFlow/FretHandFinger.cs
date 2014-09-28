@@ -6,14 +6,14 @@ namespace NVexFlow
     /// <summary>
     /// Class to draws string numbers into the notation.
     /// </summary>
-    public class FretHandFinger:Modifier
+    public class FretHandFinger : Modifier
     {
         #region js直译部分
-        public FretHandFinger(object number)
+        public FretHandFinger(string number)
         {
             Init(number);
         }
-        private void Init(object number)
+        private void Init(string number)
         {
             this.note = null;
             this.index = null;
@@ -24,78 +24,62 @@ namespace NVexFlow
             this.yShift = 0;
             this.xOffset = 0;       // Horizontal offset from default
             this.yOffset = 0;       // Vertical offset from default
-            this.font = new Font() {
+            this.font = new Font()
+            {
                 family = "sans-serif",
                 size = 9,
                 weight = "bold"
             };
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "frethandfinger";
-            }
+            return "frethandfinger";
         }
-        public override Note Note
-        {//里程碑2阶段省去这类js无继承导致的无差别的重复定义
-            get
-            {
-                return this.Note;
-            }
-            set
-            {
-                this.Note = value;
-            }
-        }
-        public override int Index
+        public override Note GetNote()
         {
-            get
-            {
-                return this.Index;
-            }
-            set
-            {
-                this.Index = value;
-            }
+            return this.note;
         }
-        public override ModifierPosition Position
+        public new FretHandFinger SetNote(Note note)
         {
-            get
-            {
-                return this.position;
-            }
-            set
-            {//里程碑2阶段省略这类因为js无类型导致的多余判断
-                if(value >= ModifierPosition.LEFT && value <= ModifierPosition.BELOW)
-                {
-                    this.position = value;
-                }
-            }
+            this.note = note;
+            return this;
         }
-        //JS属性名叫做FretHandFinger，和类名冲突了
-        public object Finger
+        public override int GetIndex()
         {
-            set
-            {
-                this.finger = value;
-            }
+            return this.index.Value;
         }
-        public double OffsetX
+        public new FretHandFinger SetIndex(int index)
         {
-            set
-            {
-                this.xOffset = value;
-            }
+            this.index = index;
+            return this;
         }
-        public double OffsetY
+        public override Modifier.ModifierPosition GetPosition()
         {
-            set
-            {
-                this.yOffset = value;
-            }
+            return this.position;
         }
-
+        public new FretHandFinger SetPosition(Modifier.ModifierPosition position)
+        {
+            if (position >= ModifierPosition.LEFT && position <= ModifierPosition.BELOW)
+            {
+                this.position = position;
+            }
+            return this;
+        }
+        public FretHandFinger SetFretHandFinger(string finger)
+        {
+            this.finger = finger;
+            return this;
+        }
+        public FretHandFinger SetOffsetX(double x)
+        {
+            this.xOffset = x;
+            return this;
+        }
+        public FretHandFinger SetOffsetY(double y)
+        {
+            this.xOffset = y;
+            return this;
+        }
 
         public override void Draw()
         {
@@ -103,9 +87,9 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含的字段
-        protected object finger;
-        protected double xOffset;
-        protected double yOffset;
+        public string finger;
+        public double xOffset;
+        public double yOffset;
         #endregion
     }
 }

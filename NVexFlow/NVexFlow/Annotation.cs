@@ -49,61 +49,50 @@ namespace NVexFlow
                 weight = ""
             };
             //// The default width is calculated from the text.
-            Width = Flow.TextWidth(text);
+            this.SetWidth(Flow.TextWidth(text));
         }
         /// <summary>
         /// Return the modifier type. Used by the `ModifierContext` to calculate layout.
         /// </summary>
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "annotations";
-            }
+            return "annotations";
         }
         /// <summary>
         /// Set the vertical position of the text relative to the stave.
         /// </summary>
-        public override int TextLine
+        public new Annotation SetTextLine(int textLine)
         {
-            set
-            {
-                TextLine = value;
-            }
+            this.textLine = textLine;
+            return this;
         }
         /// <summary>
         /// Set font family, size, and weight. E.g., `Arial`, `10pt`, `Bold`.
         /// </summary>
-        public Font Font
+        public Annotation SetFont(Font font)
         {
-            set
-            {
-                font = value;
-            }
+            this.font = font;
+            return this;
         }
         /// <summary>
         /// Set vertical position of text (above or below stave). `just` must be  a value in `Annotation.VerticalJustify`.
         /// </summary>
-        public Annotation.AnnotationVerticalJustify VerticalJustification
+        public Annotation SetVerticalJustification(AnnotationVerticalJustify verticalJustification)
         {
-            set
-            {
-                verticalJustification = value;
-            }
+            this.verticalJustification = verticalJustification;
+            return this;
         }
         /// <summary>
         /// Get and set horizontal justification. `justification` is a value in  `Annotation.Justify`.
         /// </summary>
-        public Annotation.AnnotationJustify Justification
+        public AnnotationJustify GetJustification()
         {
-            get
-            {
-                return justification;
-            }
-            set
-            {
-                justification = value;
-            }
+            return justification;
+        }
+        public Annotation SetJustification(AnnotationJustify Justification)
+        {
+            this.justification = Justification;
+            return this;
         }
         /// <summary>
         /// Render text beside the note.
@@ -115,9 +104,9 @@ namespace NVexFlow
         #endregion
 
         #region 隐含字段            
-        protected Annotation.AnnotationVerticalJustify verticalJustification;
-        protected Annotation.AnnotationJustify justification;
-        protected string text;
+        public Annotation.AnnotationVerticalJustify verticalJustification;
+        public Annotation.AnnotationJustify justification;
+        public string text;
         #endregion
     }
 }

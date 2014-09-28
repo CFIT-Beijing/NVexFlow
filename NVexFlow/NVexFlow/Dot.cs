@@ -12,41 +12,34 @@ namespace NVexFlow
         {
             Init();
         }
-        public override void Init()
+       private void Init()
         {
             this.note = null;
             this.index = null;
             this.position = Modifier.ModifierPosition.RIGHT;
 
             this.radius = 2;
-            this.Width = 5;
+            this.SetWidth(5); 
             this.dotShiftY = 0;
         }
-        public override Note Note
+        public new Dot SetNote(Note note)
         {
-            set
+            this.note = note;
+            if (this.note.GetCategory() == "gracenotes")
             {
-                this.note = value;
-                if(this.note.Category == "gracenotes")
-                {
-                    this.radius *= 0.50;
-                    this.Width = 3;
-                }
+                this.radius *= 0.50;
+                this.SetWidth(3);
             }
+            return this;
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "dots";
-            }
+            return "dots";
         }
-        public double DotShiftY
+        public Dot SetDotShiftY(double dotShiftY )
         {
-            set
-            {
-                dotShiftY = value;
-            }
+            this.dotShiftY=dotShiftY;
+            return this;
         }
         public override void Draw()
         {
@@ -55,8 +48,8 @@ namespace NVexFlow
         #endregion
 
         #region 隐含的字段
-        protected double dotShiftY;
-        protected double radius;
+        public double dotShiftY;
+        public double radius;
         #endregion
     }
 }

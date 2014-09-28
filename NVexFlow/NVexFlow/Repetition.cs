@@ -174,12 +174,12 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected RepetitionType symbolType;
-        protected double x;
-        protected double y;
-        protected double xShift;
-        protected double yShift;
-        protected Font font;
+        public RepetitionType symbolType;
+        public double x;
+        public double y;
+        public double xShift;
+        public double yShift;
+        public Font font;
         #endregion
     }
 }

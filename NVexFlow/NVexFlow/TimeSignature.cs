@@ -164,7 +164,6 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        //都改成public得了。。。？
         public double point;
         public double topLine;
         public double bottomLine;

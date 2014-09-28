@@ -103,6 +103,11 @@ namespace NVexFlow
                 this.justification = value;
             }
         }
+        public TextNote SetJustification(TextNoteJustification justification)
+        {
+            this.justification = justification;
+            return this;
+        }
         /// <summary>
         ///  Set the Stave line on which the note should be placed
         /// </summary>
@@ -112,6 +117,11 @@ namespace NVexFlow
             {
                 this.line = value;
             }
+        }
+        public TextNote SetLine(int line)
+        {
+            this.line = line;
+            return this;
         }
         /// <summary>
         /// Pre-render formatting
@@ -154,7 +164,7 @@ namespace NVexFlow
         /// <summary>
         /// Renders the TextNote
         /// </summary>
-        public void Draw()
+        public override void Draw()
         {
             throw new NotImplementedException();
         }
@@ -163,21 +173,15 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected string text;
-        protected string subscript;
-        protected string glyphType;
-        protected new Glyph glyph;
-        protected Font font;
-        protected bool smooth;
-        protected TextNoteJustification justification;
-        protected Glyph4TextNote glyphStruct;
-        protected int line;
-        protected string superscript;
-        public override string Category
-        {
-            get
-            { throw new System.NotImplementedException(); }
-        }
+        public string text;
+        public string subscript;
+        public string glyphType;
+        public new Glyph glyph;
+        public bool smooth;
+        public TextNoteJustification justification;
+        public Glyph4TextNote glyphStruct;
+        public int line;
+        public string superscript;
         public override string GetCategory()
         {
             throw new NotImplementedException();

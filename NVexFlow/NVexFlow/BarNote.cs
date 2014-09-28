@@ -52,7 +52,17 @@ namespace NVexFlow
                 this.SetWidth(this.metrics.widths[this.type]);
             }
         }
-        public BoundingBox GetBoundingBox()
+        public Barline.BarlineType GetBarlineType()
+        {
+            return this.type;
+        }
+        public BarNote SetType(Barline.BarlineType type)
+        {
+            this.type = type;
+            this.SetWidth(this.metrics.widths[this.type]);
+            return this;
+        }
+        public override BoundingBox GetBoundingBox()
         {
             return new BoundingBox(0,0,0,0);
             ;
@@ -62,7 +72,7 @@ namespace NVexFlow
             /* overridden to ignore */
             return this;
         }
-        public BarNote PreFormat()
+        public new BarNote PreFormat()
         {
             this.PreFormatted = true;
             return this;
@@ -70,7 +80,7 @@ namespace NVexFlow
         /// <summary>
         /// // Render note to stave.
         /// </summary>
-        public void Draw()
+        public override void Draw()
         {
             throw new System.NotImplementedException();
         }
@@ -78,13 +88,8 @@ namespace NVexFlow
 
 
         #region 隐含的字段
-        protected Barline.BarlineType type;
-        protected NoteMetrics metrics;
-        public override string Category
-        {
-            get
-            { throw new NotImplementedException(); }
-        }
+        public Barline.BarlineType type;
+        public NoteMetrics metrics;
         public override string GetCategory()
         {
             throw new System.NotImplementedException();

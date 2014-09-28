@@ -33,15 +33,12 @@ namespace NVexFlow
                 throw new ArgumentException("ArgumentError,Articulation not found: '" + this.type + "'");
             }
             // Default width comes from articulation table.
-            Width = this.articulation.width;
+            this.SetWidth(this.articulation.width);
         }
         // Get modifier category for `ModifierContext`.
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "articulations";
-            }
+            return "articulations";
         }
         /// <summary>
         /// Render articulation in position next to note.
@@ -53,9 +50,9 @@ namespace NVexFlow
         #endregion
 
         #region 隐含的字段
-        protected string type;
-        protected RenderOptions renderOptions;
-        protected ArticulationCode articulation;
+        public string type;
+        public RenderOptions renderOptions;
+        public ArticulationCode articulation;
         #endregion
     }
 }

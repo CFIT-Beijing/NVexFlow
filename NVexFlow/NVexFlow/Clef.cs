@@ -76,7 +76,7 @@ namespace NVexFlow
         #endregion
 
         #region 隐含字段
-        protected ClefType clef;
+        public ClefType clef;
         #endregion
 
 

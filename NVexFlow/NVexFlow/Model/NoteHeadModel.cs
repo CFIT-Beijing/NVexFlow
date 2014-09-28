@@ -30,12 +30,9 @@
     /// </summary>
     public class Glyph4NoteHead:Glyph4Note
     {
-        public string codeHead;
-        public double headWidth;
     }
     public class NoteHeadRenderOpts:NoteRenderOpts
     {
         public int glyphFontScale;// font size for note heads
-        public int strokePx;// number of stroke px to the left and right of head
     }
 }

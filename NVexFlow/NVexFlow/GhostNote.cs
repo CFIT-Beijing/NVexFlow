@@ -53,6 +53,11 @@ namespace NVexFlow
                 base.stave = value;
             }
         }
+        public new GhostNote SetStave(Stave stave)
+        {
+            base.stave = stave;//建议修改成base.SetStave(stave);
+            return this;
+        }
         //注意和原js的对应，虽然是个诡异的无参数形式。
         public GhostNote AddToModifierContext()
         {
@@ -64,7 +69,7 @@ namespace NVexFlow
             this.PreFormatted = true;
             return this;
         }
-        public void Draw()
+        public override void Draw()
         {
 
         }

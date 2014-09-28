@@ -76,7 +76,7 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected double padding;
+        public double padding;
         #endregion
 
 

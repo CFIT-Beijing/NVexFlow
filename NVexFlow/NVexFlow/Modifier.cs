@@ -38,10 +38,10 @@ namespace NVexFlow
         /// <summary>
         /// The constructor sets initial widhts and constants.
         /// </summary>
-        public virtual void Init()
+        private void Init()
         {//C#缺省初始化可以替代这个初始化，里程碑2阶段省去这个初始化
-         //暂时不理会初始化函数顺序和属性get/set顺序不同问题
-         //以后再完善这些细节一致性，进一步增加代码可读性
+            //暂时不理会初始化函数顺序和属性get/set顺序不同问题
+            //以后再完善这些细节一致性，进一步增加代码可读性
             this.width = 0;
             this.context = null;
 
@@ -59,139 +59,117 @@ namespace NVexFlow
             //L("Created new modifier");
         }
         //现在先保留返回string的情况，以后看情况是否须有建立相应enum
-        // Every modifier has a category. The `ModifierContext` uses this to determine
-        // the type and order of the modifiers.
-        public virtual string Category
+        // Every modifier has a category. The `ModifierContext` uses this to determine the type and order of the modifiers.
+        public virtual string GetCategory()
         {
-            get
-            {
-                return "none";
-            }
+            return "none";
         }
         //把私有字段放在属性后面方便和JS文件对照
         /// <summary>
         /// Get and set modifier widths.
         /// </summary>
-        public virtual double Width
+        public virtual double GetWidth()
         {
-            get
-            {
-                return width;
-            }
-            set
-            {
-                width = value;
-            }
+            return width;
+        }
+        public Modifier SetWidth(double width)
+        {
+            this.width = width;
+            return this;
         }
         /// <summary>
         /// Get and set attached note (`StaveNote`, `TabNote`, etc.)
-        /// </summary>
-        public virtual Note Note
+        /// </summary>    
+        public virtual Note GetNote()
         {
-            get
-            {
-                return note;
-            }
-            set
-            {
-                note = value;
-            }
+            return note;
+        }
+        public Modifier SetNote(Note note)
+        {
+            this.note = note;
+            return this;
         }
         /// <summary>
         /// Get and set note index, which is a specific note in a chord.
         /// </summary>
-        public virtual int Index
+        public virtual int GetIndex()
         {
-            get
-            {
-                return index.Value;
-            }
-            set
-            {
-                index = value;
-            }
+            return index.Value;
+        }
+        public Modifier SetIndex(int index)
+        {
+            this.index = index;
+            return this;
         }
         /// <summary>
         /// Get and set rendering context.
         /// </summary>
-        public virtual CanvasContext Context
+        public virtual CanvasContext GetContext()
         {
-            get
-            {
-                return context;
-            }
-            set
-            {
-                context = value;
-            }
+            return context;
+        }
+        public Modifier SetContext(CanvasContext context)
+        {
+            this.context = context;
+            return this;
         }
         /// <summary>
         /// Every modifier must be part of a `ModifierContext`.
         /// </summary>
-        public virtual object ModifierContext
+        public virtual ModifierContext GetModifierContext()
         {
-            get
-            {
-                return modifierContext;
-            }
-            set
-            {
-                modifierContext = value;
-            }
+            return modifierContext;
+        }
+        public Modifier SetModifierContext(ModifierContext modifierContext)
+        {
+            this.modifierContext = modifierContext;
+            return this;
         }
         /// <summary>
         /// Get and set articulation position.
         /// </summary>
-        public virtual ModifierPosition Position
+        public virtual ModifierPosition GetPosition()
         {
-            get
-            {
-                return position;
-            }
-            set
-            {
-                position = value;
-            }
+            return position;
+        }
+        public Modifier SetPosition(ModifierPosition position)
+        {
+            this.position = position;
+            return this;
         }
         /// <summary>
         /// Set the `text_line` for the modifier.
         /// </summary>
-        public virtual int TextLine
+        public Modifier SetTextLine(int textLine)
         {
-            set
-            {
-                textLine = value;
-            }
+            this.textLine = textLine;
+            return this;
         }
         /// <summary>
         /// Shift modifier down `y` pixels. Negative values shift up.
         /// </summary>
-        public virtual double YShift
+        public Modifier SetYShift(int yShift)
         {
-            set
-            {
-                yShift = value;
-            }
+            this.yShift = yShift;
+            return this;
         }
         /// <summary>
         /// Shift modifier `x` pixels in the direction of the modifier. Negative values shift reverse.
         /// </summary>
-        public virtual double XShift
+        public Modifier SetXShift(int xShift)
         {
-            set
+            //现在先保留这种先赋值为0在+=或-=的奇怪方式
+            //以后可以改成直接=value或=-value的正常方式
+            this.xShift = 0;
+            if (this.position == Modifier.ModifierPosition.LEFT)
             {
-                //现在先保留这种先赋值为0在+=或-=的奇怪方式
-                //以后可以改成直接=value或=-value的正常方式
-                this.xShift = 0;
-                if(this.position == Modifier.ModifierPosition.LEFT)
-                {
-                    this.xShift -= value;
-                }
-                else
-                {
-                    this.xShift += value;
-                }
+                this.xShift -= xShift;
             }
+            else
+            {
+                this.xShift += xShift;
+            }
+            return this;
         }
         /// <summary>
         /// Render the modifier onto the canvas.
@@ -203,18 +181,18 @@ namespace NVexFlow
         #endregion
 
         #region 隐含的字段
-        protected double width;
-        protected CanvasContext context;
-        protected Note note;
-        protected int? index;
-        protected int textLine;
-        protected ModifierPosition position;
-        protected object modifierContext;
-        protected double xShift;
-        protected double yShift;
+        public double width;
+        public CanvasContext context;
+        public Note note;
+        public int? index;
+        public int textLine;
+        public ModifierPosition position;
+        public ModifierContext modifierContext;
+        public double xShift;
+        public double yShift;
         //每个子类都有font字段，是不是放到抽象类里？还是按照js的放到每个类里？
         //放这里可以，不过这个是里程碑2的工作任务了。
-        protected Font font;
+        public Font font;
         #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace NVexFlow
         }
         private void Init(string text,ModifierPosition position,StaveTextOpts options)
         {
-            this.Width = 16;
+            this.SetWidth(16);
             this.text = text;
             this.position = position;
             this.options = new StaveTextOpts() {
@@ -28,47 +28,53 @@ namespace NVexFlow
                 weight = "normal"
             };
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "stavetext";
-            }
+            return "stavetext";
         }
-        public string StaveTxt
+        public StaveText SetStaveText(string text)
         {
-            set
-            {
-                this.text = value;
-            }
+            this.text = text;
+            return this;
         }
-        public double ShiftX
+        public StaveText SetShiftX(double shiftX)
         {
-            set
-            {
-                shiftX = value;
-            }
+            this.shiftX = shiftX;
+            return this;
         }
-        public double ShiftY
+        public StaveText SetShiftY(double shiftY)
         {
-            set
-            {
-                shiftY = value;
-            }
+            this.shiftY = shiftY;
+            return this;
         }
-        public Font Font
+        public StaveText SetFont(Font font)
         {
-            set
+            if (!string.IsNullOrEmpty(font.family))
             {
-                Vex.Merge(this.font,value);
+                this.font.family = font.family;
             }
+            if (font.size.HasValue)
+            {
+                this.font.size = font.size;
+            }
+            if (!string.IsNullOrEmpty(font.weight))
+            {
+                this.font.weight = font.weight;
+            }
+            if (!string.IsNullOrEmpty(font.style))
+            {
+                this.font.style = font.style;
+            }
+            if (!string.IsNullOrEmpty(font.font))
+            {
+                this.font.font = font.font;
+            }
+            return this;
         }
-        public string Text
+        public StaveText SetText(string text)
         {
-            set
-            {
-                this.text = value;
-            }
+            this.text = text;
+            return this;
         }
         public void Draw(Stave stave)
         {
@@ -78,10 +84,10 @@ namespace NVexFlow
 
 
         #region 隐含的字段
-        protected string text;
-        protected double shiftX;
-        protected double shiftY;
-        protected StaveTextOpts options;
+        public string text;
+        public double shiftX;
+        public double shiftY;
+        public StaveTextOpts options;
         #endregion
     }
 }

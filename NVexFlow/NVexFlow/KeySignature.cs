@@ -96,8 +96,8 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected IList<Acc> accList;
-        protected int glyphFontScale;
+        public IList<Acc> accList;
+        public int glyphFontScale;
         #endregion
     }
 }

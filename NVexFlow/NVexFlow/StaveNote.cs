@@ -239,12 +239,9 @@ namespace NVexFlow
         /// <summary>
         /// Get modifier category for `ModifierContext`
         /// </summary>
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "stavenotes";
-            }
+            return "stavenotes";
         }
         /// <summary>
         /// Get the `BoundingBox` for the entire note
@@ -312,6 +309,67 @@ namespace NVexFlow
                 }
                 return new BoundingBox(x,minY.Value,w,maxY.Value - minY.Value);
             }
+        }
+        public override BoundingBox GetBoundingBox()
+        {
+            if (!this.preFormatted)
+            {
+                throw new Exception("UnformattedNote,Can't call getBoundingBox on an unformatted note.");
+            }
+
+            NoteMetrics metrics = this.Metrics;
+            double w = metrics.width;
+            double x = this.AbsoluteX - metrics.modLeftPx - metrics.extraLeftPx;
+
+            double? minY = 0;
+            double? maxY = 0;
+            double halfLineSpacing = this.Stave.GetSpacingBetweenLines() / 2;
+            double lineSpacing = halfLineSpacing * 2;
+
+            if (this.IsRest())
+            {
+                double y = this.ys[0];
+                //里程碑2阶段duration改用Fraction类型。
+                if (this.duration == "w" || this.duration == "h" || this.duration == "1" || this.duration == "2")
+                {
+                    minY = y - halfLineSpacing;
+                    maxY = y + halfLineSpacing;
+                }
+                else
+                {
+                    minY = y - this.glyph.lineAbove * lineSpacing;
+                    maxY = y + this.glyph.lineBelow * lineSpacing;
+                }
+            }
+            else if (this.glyph.stem)
+            {
+                StemExtents ys = this.StemExtents;
+                ys.baseY += halfLineSpacing * this.stemDirection.Value;
+                minY = Math.Min(ys.topY, ys.baseY);
+                maxY = Math.Max(ys.topY, ys.baseY);
+            }
+            else
+            {
+                minY = null;
+                maxY = null;
+                for (int i = 0; i < this.ys.Count(); i++)
+                {
+                    double yy = this.ys[i];
+                    if (i == 0)
+                    {
+                        minY = yy;
+                        maxY = yy;
+                    }
+                    else
+                    {
+                        minY = Math.Min(yy, minY.Value);
+                        maxY = Math.Max(yy, maxY.Value);
+                    }
+                    minY -= halfLineSpacing;
+                    maxY += halfLineSpacing;
+                }
+            }
+            return new BoundingBox(x, minY.Value, w, maxY.Value - minY.Value);
         }
         /// <summary>
         /// Gets the line number of the top or bottom note in the chord. If `is_top_note` is `true` then get the top note
@@ -390,6 +448,21 @@ namespace NVexFlow
                 this.stem.SetYBounds(bounds.yTop,bounds.yBottom);
             }
         }
+        public new StaveNote SetStave(Stave stave)
+        {
+            base.Stave = stave; //建议base.SetStave(stave);
+            //LINQ可以实现从js的高度对应直译
+            IList<double> ys = this.noteHeads.Select(noteHead =>
+            {
+                noteHead.Stave = stave;
+                return noteHead.Y;
+            }).ToList();
+            this.Ys = ys;
+
+            NoteHeadBounds bounds = this.GetNoteHeadBounds();
+            this.stem.SetYBounds(bounds.yTop, bounds.yBottom);
+            return this;
+        }
         /// <summary>
         /// Get the pitches in the note
         /// </summary>
@@ -397,6 +470,10 @@ namespace NVexFlow
         {
             get
             { return this.keys; }
+        }
+        public IList<string> GetKeys()
+        {
+            return this.keys; 
         }
         /// <summary>
         /// Get the properties for all the keys in the note
@@ -427,6 +504,11 @@ namespace NVexFlow
                 this.displaced = value;
             }
         }
+        public StaveNote SetNoteDisplaced(bool displaced)
+        {
+            this.displaced = displaced;
+            return this;
+        }
         /// <summary>
         /// Get the starting `x` coordinate for a `StaveTie`
         /// </summary>
@@ -452,7 +534,7 @@ namespace NVexFlow
         /// <summary>
         /// Get the stave line on which to place a rest
         /// </summary>
-        public double GetLineForRest()
+        public override double GetLineForRest()
         {
             double restLine = this.keyProps[0].line;
             if(this.keyProps.Count() > 1)
@@ -531,8 +613,8 @@ namespace NVexFlow
         /// </summary>
         public StaveNote AddModifier(int index,Modifier modifier)
         {
-            modifier.Note = this;
-            modifier.Index = index;
+            modifier.SetNote(this);
+            modifier.SetIndex(index);
             this.modifiers.Add(modifier);
             this.PreFormatted = false;
             return this;
@@ -565,7 +647,7 @@ namespace NVexFlow
         public StaveNote AddDot(int index)
         {
             Dot dot = new Dot();
-            dot.DotShiftY = this.glyph.dot_shiftY;
+            dot.SetDotShiftY(this.glyph.dot_shiftY);
             this.dots++;
             return this.AddModifier(index,dot);
         }
@@ -590,8 +672,9 @@ namespace NVexFlow
         /// <summary>
         /// Get all dots in the `ModifierContext`
         /// </summary>
-        public object GetDots()
+        public new object GetDots()
         {
+            //ModifierContext没写，此处暂时返回object
             return this.modifierContext.GetModifiers("dots");
         }
         /// <summary>
@@ -804,7 +887,7 @@ namespace NVexFlow
         /// <summary>
         /// Draws all the `StaveNote` parts. This is the main drawing method.
         /// </summary>
-        public virtual void Draw()
+        public override void Draw()
         {
             //            if (!this.context) throw new Vex.RERR("NoCanvasContext",
             //      "Can't draw without a canvas context.");
@@ -840,15 +923,15 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected string clef;
-        protected double dotShiftY;
-        protected bool useDefaultHeadX;
-        IList<NoteHead> noteHeads;
-        IList<string> keys;
-        IList<NoteProps> keyProps;
-        bool displaced;
-        double minLine;
-        double maxLine;
+        public string clef;
+        public double dotShiftY;
+        public bool useDefaultHeadX;
+        public IList<NoteHead> noteHeads;
+        public IList<string> keys;
+        public IList<NoteProps> keyProps;
+        public bool displaced;
+        public double minLine;
+        public double maxLine;
         #endregion
     }
 }

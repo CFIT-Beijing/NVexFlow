@@ -43,36 +43,31 @@ namespace NVexFlow
             this.parenLeft = null;
             this.parenRight = null;
             // Initial width is set from table.
-            this.Width = this.accidental.width;
+            this.SetWidth(this.accidental.width);
         }
         // Return the modifier type. Used by the `ModifierContext` to calculate
         // layout.
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "accidentals";
-            }
+            return "accidentals";
         }
         /// <summary>
         /// Attach this accidental to `note`, which must be a `StaveNote`.
         /// </summary>
-        public override Note Note
+        public new Modifier SetNote(Note note)
         {
-            set
+            if (note == null)
             {
-                if(value == null)
-                {
-                    throw new ArgumentException("ArgumentError,Bad note value: " + this.note);
-                }
-                this.note = value;
-                // Accidentals attached to grace notes are rendered smaller.
-                if(this.note.Category == "gracenotes")
-                {
-                    this.renderOptions.fontScale = 25;
-                    this.Width = this.accidental.gracenoteWidth;
-                }
+                throw new ArgumentException("ArgumentError,Bad note value: " + this.note);
             }
+            this.note = note;
+            // Accidentals attached to grace notes are rendered smaller.
+            if (this.note.GetCategory() == "gracenotes")
+            {
+                this.renderOptions.fontScale = 25;
+                this.SetWidth(this.accidental.gracenoteWidth);
+            }
+            return this;
         }
         /// <summary>
         /// If called, draws parenthesis around accidental.
@@ -85,7 +80,7 @@ namespace NVexFlow
             this.parenRight = Flow.AccidentalCodes("}");
             double widthAdjust = (this.type == "##" || this.type == "bb") ? 6 : 4;
             // Make sure `width` accomodates for parentheses.
-            this.Width = this.parenLeft.width + this.accidental.width + this.parenRight.width - widthAdjust;
+            this.SetWidth(this.parenLeft.width + this.accidental.width + this.parenRight.width - widthAdjust);
             return this;
         }
         /// <summary>
@@ -98,12 +93,12 @@ namespace NVexFlow
         #endregion
 
         #region 隐含的字段
-        string type;
-        RenderOptions renderOptions;
-        AccidentalOpts accidental;
-        bool cautionary;
-        AccidentalOpts parenLeft;
-        AccidentalOpts parenRight;
+        public string type;
+        public RenderOptions renderOptions;
+        public AccidentalOpts accidental;
+        public bool cautionary;
+        public AccidentalOpts parenLeft;
+        public AccidentalOpts parenRight;
         #endregion
     }
 }

@@ -42,7 +42,7 @@ namespace NVexFlow
             }
             this.formatter.JoinVoices(new List<Voice>() { this.voice })
                 .Format(new List<Voice>() { this.voice },0);
-            this.Width = this.formatter.MinTotalWidth;
+            this.SetWidth(this.formatter.MinTotalWidth);
             this.preFormatted = true;
         }
         public GraceNoteGroup BeamNotes()
@@ -58,37 +58,28 @@ namespace NVexFlow
             }
             return this;
         }
-        public override Note Note
+        public new GraceNoteGroup SetNote(Note note)
         {
-            set
-            {
-                this.Note = value;
-            }
+            this.note = note;
+            return this;
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "gracenotegroups";
-            }
+            return "gracenotegroups";
         }
-        public override double Width
+        public override double GetWidth()
         {
-            get
-            {
-                return this.width;
-            }
-            set
-            {
-                this.width = value;
-            }
+            return this.width;
         }
-        public override double XShift
+        public new GraceNoteGroup SetWidth(double width)
         {
-            set
-            {
-                this.xShift = value;
-            }
+            this.width = width;
+            return this;
+        }
+        public new GraceNoteGroup SetXShift(int xShift)
+        {
+            this.xShift = xShift;
+            return this;
         }
         public override void Draw()
         {
@@ -97,13 +88,13 @@ namespace NVexFlow
         #endregion
 
         #region 隐含的字段
-        protected bool preFormatted;
-        protected Beam beam;
-        protected IList<StemmableNote> graceNotes;
-        protected bool showSlur;
-        protected object slur;
-        protected Formatter formatter;
-        protected Voice voice;
+        public bool preFormatted;
+        public Beam beam;
+        public IList<StemmableNote> graceNotes;
+        public bool showSlur;
+        public object slur;
+        public Formatter formatter;
+        public Voice voice;
         #endregion
     }
 }

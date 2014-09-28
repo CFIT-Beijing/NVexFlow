@@ -28,6 +28,17 @@ namespace NVexFlow
                 this.SetWidth(this.glyph.Metrics.Width);
             }
         }
+        public ClefType GetClef()
+        {
+            return clef;
+        }
+        public ClefNote SetClef(ClefType clef)
+        {
+            this.clef = clef;//外界这样赋值  this.clef= Vex.Flow.Clef.Types["treble"];
+            this.glyph = new Glyph(this.clef.code, this.clef.point);
+            this.SetWidth(this.glyph.Metrics.Width);
+            return this;
+        }
         public override Stave Stave
         {
             set
@@ -35,22 +46,31 @@ namespace NVexFlow
                 base.stave = value;
             }
         }
-        public BoundingBox BoundingBox
+        public new ClefNote SetStave(Stave stave)
+        {
+            base.stave = stave;//这里这样写感觉不合适，建议base.SetStave(stave);
+            return this;
+        }
+        public override BoundingBox BoundingBox
         {
             get
             { return new BoundingBox(0,0,0,0); }
+        }
+        public override BoundingBox GetBoundingBox()
+        {
+            return new BoundingBox(0, 0, 0, 0);
         }
         public ClefNote AddToModifierContext()
         {
             /* overridden to ignore */
             return this;
         }
-        public ClefNote PreFormat()
+        public new ClefNote PreFormat()
         {
             this.PreFormatted = true;
             return this;
         }
-        public void Draw()
+        public override void Draw()
         {
             throw new NotImplementedException();
         }
@@ -58,16 +78,10 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        private ClefType clef;
-        private Glyph glyph;
-        private bool ignoreTicks;
+        public ClefType clef;
+        public new Glyph glyph;
         #endregion
 
-        public override string Category
-        {
-            get
-            { throw new System.NotImplementedException(); }
-        }
         public override string GetCategory()
         {
             throw new System.NotImplementedException();

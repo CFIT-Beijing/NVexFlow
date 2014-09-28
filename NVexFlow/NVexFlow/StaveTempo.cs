@@ -135,15 +135,13 @@ namespace NVexFlow
 
 
         #region 隐含字段
-
-        protected double x;
-        protected Modifier.ModifierPosition position;
-        protected Font font;
-        protected RenderOptions renderOptions;
-
-        protected Tempo tempo;
-        protected double shiftX;
-        protected double shiftY;
+        public double x;
+        public Modifier.ModifierPosition position;
+        public Font font;
+        public RenderOptions renderOptions;
+        public Tempo tempo;
+        public double shiftX;
+        public double shiftY;
         #endregion
 
 

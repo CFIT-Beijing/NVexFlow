@@ -152,18 +152,7 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含字段
-
-
-        protected double x;
-
-        public double X
-        {
-            get
-            { return x; }
-            set
-            { x = value; }
-        }
-
+        public double x;
         public BarlineType barLine;
         #endregion
 

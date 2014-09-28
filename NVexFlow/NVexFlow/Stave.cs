@@ -131,7 +131,7 @@ namespace NVexFlow
             this.glyphEndX = this.x + width;
             this.endX = this.glyphEndX;
             // reset the x position of the end barline
-            (this.modifiers[1] as Barline).X = this.endX;
+            (this.modifiers[1] as Barline).SetX(this.endX);
             return this;
         }
         public double GetWidth()

@@ -99,34 +99,24 @@ namespace NVexFlow
             }
             this.UpdateWidth();
         }
-        public override double XShift
+        public new Bend SetXShift(int xShift)
         {
-            set
-            {
-                this.xShift = value;
-                UpdateWidth();
-            }
+            this.xShift = xShift;
+            UpdateWidth();
+            return this;
         }
-        public Font Font
+        public Bend SetFont(Font font)
         {
-            set
-            {
-                font = value;
-            }
+            this.font = font;
+            return this;
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "bends";
-            }
+            return "bends";
         }
-        public string Text
-        {
-            get
-            {
-                return text;
-            }
+        public string GetText()
+        { 
+        return text;
         }
         public Bend UpdateWidth()
         {
@@ -150,13 +140,13 @@ namespace NVexFlow
                     totalWidth += bend.width.Value;
                 }
             }
-            this.Width = totalWidth + this.xShift;
+            this.SetWidth(totalWidth + this.xShift);
             return this;
         }
         private double MeasureText(string text)
         {
             double textWidth;
-            if(this.Context != null)
+            if(this.GetContext() != null)
             {
                 textWidth = this.context.MeasureText(text).width;
             }
@@ -174,10 +164,10 @@ namespace NVexFlow
         #endregion
 
         #region 隐含的字段
-        protected string text;
-        protected BendRenderOpts renderOptions;
-        protected IList<PhraseModel> phrase;
-        protected bool release;
+        public string text;
+        public BendRenderOpts renderOptions;
+        public IList<PhraseModel> phrase;
+        public bool release;
         #endregion
     }
 }

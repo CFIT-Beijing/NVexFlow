@@ -25,10 +25,19 @@ namespace NVexFlow
                 base.Stave = value;
             }
         }
+        public new TimeSigNote SetStave(Stave stave)
+        {
+            base.Stave = stave;
+            return this;
+        }
         public override BoundingBox BoundingBox
         {
             get
             { return new BoundingBox(0,0,0,0); }
+        }
+        public override BoundingBox GetBoundingBox()
+        {
+            return new BoundingBox(0, 0, 0, 0);
         }
         public TimeSigNote AddToModifierContext()
         {
@@ -40,7 +49,7 @@ namespace NVexFlow
             this.PreFormatted = true;
             return this;
         }
-        public void Draw()
+        public override void Draw()
         {
 
         }
@@ -48,12 +57,7 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected TimeSig timeSig;
-        public override string Category
-        {
-            get
-            { throw new Exception("js文件没有这个属性。在Modifier分支里有一个属性叫Note，暂时写成了Note类型。为了让不同的Note都能点儿出Category，先在Note里加入了Category"); }
-        }
+        public TimeSig timeSig;
         public override string GetCategory()
         {
             throw new NotImplementedException();

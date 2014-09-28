@@ -37,12 +37,9 @@ namespace NVexFlow
                 weight = string.Empty
             };
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "tremolo";
-            }
+            return "tremolo";
         }
         public override void Draw()
         {
@@ -50,11 +47,11 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含的字段
-        protected int num;
-        protected string code;
-        protected int shiftRight;
-        protected int ySpacing;
-        protected RenderOptions renderOptions;
+        public int num;
+        public string code;
+        public int shiftRight;
+        public int ySpacing;
+        public RenderOptions renderOptions;
         //搬到modifier中统一定义过了
         //protected Font font;
         #endregion

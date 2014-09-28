@@ -79,6 +79,11 @@ namespace NVexFlow
             set
             { line = value; }
         }
+        public Crescendo SetLine(int line)
+        {
+            this.line = line;
+            return this;
+        }
         /// <summary>
         /// Set the full height at the open end
         /// </summary>
@@ -86,6 +91,11 @@ namespace NVexFlow
         {
             set
             { height = value; }
+        }
+        public Crescendo SetHeight(int height)
+        {
+            this.height = height;
+            return this;
         }
         /// <summary>
         /// Set whether the sign should be a descresendo by passing a bool to `decresc`
@@ -95,7 +105,11 @@ namespace NVexFlow
             set
             { decrescendo = value; }
         }
-
+        public Crescendo SetDecrescendo(bool decrescendo)
+        {
+            this.decrescendo = decrescendo;
+            return this;
+        }
         // Preformat the note
         public new Crescendo PreFormat()
         {
@@ -105,7 +119,7 @@ namespace NVexFlow
         /// <summary>
         /// Render the Crescendo object onto the canvas
         /// </summary>
-        public void Draw()
+        public override void Draw()
         {
             throw new NotImplementedException();
         }
@@ -113,16 +127,11 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected bool decrescendo;
-        protected int line;
-        protected double height;
+        public bool decrescendo;
+        public int line;
+        public double height;
         #endregion
 
-        public override string Category
-        {
-            get
-            { throw new NotImplementedException(); }
-        }
         public override string GetCategory()
         {
             throw new System.NotImplementedException();

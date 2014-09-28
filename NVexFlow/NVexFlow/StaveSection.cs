@@ -23,33 +23,24 @@ namespace NVexFlow
                 weight = "bold"
             };
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "stavesection";
-            }
+            return "stavesection";
         }
-        public object Section
+        public StaveSection SetSection(object section)
         {
-            set
-            {
-                section = value;
-            }
+            this.section = section;
+            return this;
         }
-        public double ShiftX
+        public StaveSection SetShiftX(double shiftX)
         {
-            set
-            {
-                shiftX = value;
-            }
+            this.shiftX = shiftX;
+            return this;
         }
-        public double ShiftY
+        public StaveSection SetShiftY(double shiftY)
         {
-            set
-            {
-                shiftY = value;
-            }
+            this.shiftY = shiftY;
+            return this;
         }
         public void Draw(object stave,double shift_x)
         {
@@ -57,10 +48,10 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含的字段
-        protected object section;
-        protected double shiftX;
-        protected double shiftY;
-        protected double x;
+        public object section;
+        public double shiftX;
+        public double shiftY;
+        public double x;
         #endregion
     }
 }

@@ -102,13 +102,6 @@ namespace NVexFlow
         /// <summary>
         /// Get the `ModifierContext` category
         /// </summary>
-        public override string Category
-        {
-            get
-            {
-                return "notehead";
-            }
-        }
         public override string GetCategory()
         {
             return "notehead";
@@ -123,6 +116,11 @@ namespace NVexFlow
                 this.context = value;
             }
         }
+        public new NoteHead SetContext(CanvasContext context)
+        {
+            this.context = context;
+            return this;
+        }
         /// <summary>
         /// Get the width of the notehead
         /// </summary>
@@ -133,13 +131,16 @@ namespace NVexFlow
                 return this.width;
             }
         }
+        public override double GetWidth()
+        {
+            return this.width;
+        }
         /// <summary>
         /// Determine if the notehead is displaced
         /// </summary>
-        public bool IsDisplaced
-        {//js之所以用===true多半是防止非bool类型的displaced被动态转换成bool出乱子
-            get
-            { return this.displaced; }
+        public bool IsDisplaced()
+        {
+            return this.displaced;
         }
         /// <summary>
         /// Get/set the notehead's style 
@@ -152,6 +153,15 @@ namespace NVexFlow
             set
             { this.style = value; }
         }
+        public NoteHeadStyle GetStyle()
+        {
+            return this.style;
+        }
+        public NoteHead SetStyle(NoteHeadStyle style)
+        {
+            this.style = style;
+            return this;
+        }
         /// <summary>
         /// Get the glyph data
         /// </summary>
@@ -161,6 +171,10 @@ namespace NVexFlow
             {
                 return this.glyph;
             }
+        }
+        public override Glyph4Note GetGlyph()
+        {
+            return this.glyph;
         }
         /// <summary>
         /// Set the X coordinate
@@ -180,6 +194,15 @@ namespace NVexFlow
             set
             { this.y = value; }
         }
+        public double GetY()
+        {
+            return this.y;
+        }
+        public NoteHead SetY(double y)
+        {
+            this.y = y;
+            return this;
+        }
         /// <summary>
         /// Get the stave line the notehead is placed on 
         /// </summary>
@@ -187,6 +210,10 @@ namespace NVexFlow
         {
             get
             { return this.line; }
+        }
+        public double GetLine()
+        {
+            return this.line;
         }
         /// <summary>
         /// Get the canvas `x` coordinate position of the notehead.
@@ -200,10 +227,16 @@ namespace NVexFlow
                 return x + (this.displaced ? this.width * this.stemDirection : 0);
             }
         }
+        public override double GetAbsoluteX()
+        {
+            // If the note has not been preformatted, then get the static x value Otherwise, it's been formatted and we should use it's x value relative to its tick context
+            double x = !this.preFormatted ? this.x : base.AbsoluteX;
+            return x + (this.displaced ? this.width * this.stemDirection : 0);
+        }
         /// <summary>
         /// Get the `BoundingBox` for the `NoteHead`
         /// </summary>
-        public BoundingBox GetBoundingBox()
+        public override BoundingBox GetBoundingBox()
         {
             if(!this.preFormatted)
             {
@@ -243,6 +276,14 @@ namespace NVexFlow
                 this.context = this.stave.context;
             }
         }
+        public new NoteHead SetStave(Stave stave)
+        {
+            double line = this.Line;
+            this.stave = stave;
+            this.Y = stave.GetYForNote(line);
+            this.context = this.stave.context;
+            return this;
+        }
         /// <summary>
         /// Pre-render formatting
         /// </summary>
@@ -259,7 +300,7 @@ namespace NVexFlow
         /// <summary>
         /// Draw the notehead
         /// </summary>
-        public void Draw()
+        public override void Draw()
         {
             throw new NotImplementedException();
         }
@@ -267,15 +308,14 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected int index;//猜测是int或者int？
-        protected double y;
-        protected bool displaced;
-        protected int stemDirection;
-        protected double line;//可能是int。以后看到确实要改时再改。
-        protected string glyphCode;
-        protected NoteHeadStyle style;//复杂类型，目前还不清楚  `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
-        protected object slashed;//不清楚类型
-        protected bool customGlyph;//看名字像bool
+        public double y;
+        public bool displaced;
+        public int stemDirection;
+        public double line;//可能是int。以后看到确实要改时再改。
+        public string glyphCode;
+        public NoteHeadStyle style;//复杂类型，目前还不清楚  `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
+        public object slashed;//不清楚类型
+        public bool customGlyph;//看名字像bool
         #endregion
     }
 }

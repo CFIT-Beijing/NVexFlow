@@ -13,8 +13,8 @@ namespace NVexFlow.Model
 
     public class TabNotePos
     {
-        public int str;
-        public int fret;
+        public double str;
+        public double fret;
     }
 
     public class TabNoteRenderOpts:NoteRenderOpts
@@ -45,11 +45,5 @@ namespace NVexFlow.Model
     {
         public double x;
         public double y;
-    }
-
-    public class TabNoteStemExtents
-    {
-        public double topY;
-        public double baseY;
     }
 }

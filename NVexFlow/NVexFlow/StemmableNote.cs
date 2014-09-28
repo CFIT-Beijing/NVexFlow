@@ -68,6 +68,16 @@ namespace NVexFlow
                 this.stemExtensionOverride = value - Stem.HEIGHT;
             }
         }
+        public double GetStemLength()
+        {
+            return Stem.HEIGHT + this.StemExtension;
+        }
+        public StemmableNote SetStemLength(double height)
+        {
+            //js中setStemLength在getStemExtension后面
+            this.stemExtensionOverride = height - Stem.HEIGHT;
+            return this;
+        }
         /// <summary>
         /// Get the number of beams for this duration
         /// </summary>
@@ -143,6 +153,44 @@ namespace NVexFlow
                 }
                 return length;
             }
+        }
+        public double GetStemMinumumLength()
+        {
+            double length = this.duration == "w" || this.duration == "1" ? 0 : 20;
+            // if note is flagged, cannot shorten beam
+            //里程碑2时把这个做成两组字典查询，字典数据放到Flow类里
+            switch (this.duration)
+            {
+                case "8":
+                    if (this.beam == null)
+                    { length = 35; }
+                    break;
+                case "16":
+                    if (this.beam == null)
+                    { length = 35; }
+                    else
+                    { length = 25; }
+                    break;
+                case "32":
+                    if (this.beam == null)
+                    { length = 45; }
+                    else
+                    { length = 35; }
+                    break;
+                case "64":
+                    if (this.beam == null)
+                    { length = 50; }
+                    else
+                    { length = 40; }
+                    break;
+                case "128":
+                    if (this.beam == null)
+                    { length = 55; }
+                    else
+                    { length = 45; }
+                    break;
+            }
+            return length;
         }
         /// <summary>
         /// 还原Get、Set方法，属性未删
@@ -220,7 +268,7 @@ namespace NVexFlow
                 return stemX;
             }
         }
-        public double GetStemX()
+        public virtual double GetStemX()
         {
             double xBegin = this.AbsoluteX + this.xShift;
             double xEnd = this.AbsoluteX + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth;
@@ -260,6 +308,19 @@ namespace NVexFlow
                 }
                 return 0;
             }
+        }
+        public virtual double GetStemExtension()
+        {
+            Glyph4StemmableNote glyph = this.Glyph as Glyph4StemmableNote;
+            if (this.stemExtensionOverride.HasValue)
+            {
+                return this.stemExtensionOverride.Value;
+            }
+            if (glyph != null)
+            {
+                return this.stemDirection == 1 ? glyph.stemUpExtension : glyph.stemDownExtension;
+            }
+            return 0;
         }
         // Set the stem length to a specific. Will override the default length.
         //在前面已经翻译过
@@ -305,7 +366,7 @@ namespace NVexFlow
                 return new StemExtents() { topY = topPixel, baseY = basePixel };
             }
         }
-        public StemExtents GetStemExtents()
+        public virtual StemExtents GetStemExtents()
         {
             if (this.ys == null || this.ys.Count() == 0)
             {
@@ -357,7 +418,7 @@ namespace NVexFlow
         /// <summary>
         /// Get the `y` value for the top/bottom modifiers at a specific `text_line`
         /// </summary>
-        public virtual double GetYForTopText(double textLine)
+        public override double GetYForTopText(double textLine)
         {
             StemExtents extents = this.StemExtents;
             if (this.HasStem())
@@ -424,11 +485,6 @@ namespace NVexFlow
         public double? stemExtensionOverride;
         public int? stemDirection;
         public Beam beam;
-        public override string Category
-        {
-            get
-            { throw new System.NotImplementedException(); }
-        }
         public override string GetCategory()
         {
             throw new System.NotImplementedException();

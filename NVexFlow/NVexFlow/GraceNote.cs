@@ -25,7 +25,7 @@ namespace NVexFlow
             this.SetWidth(3);
         }
 
-        public double GetStemExtension()
+        public override double GetStemExtension()
         {
             Glyph4Note glyph= this.Glyph;
             if (this.stemExtensionOverride != null)
@@ -40,12 +40,9 @@ namespace NVexFlow
 
             return 0;
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "gracenotes";
-            }
+            return "gracenotes";
         }
         public override void Draw()
         {
@@ -76,8 +73,8 @@ namespace NVexFlow
         #endregion
 
         #region 隐含字段
-        protected bool slash;
-        protected bool slur;
+        public bool slash;
+        public bool slur;
         #endregion
 
 

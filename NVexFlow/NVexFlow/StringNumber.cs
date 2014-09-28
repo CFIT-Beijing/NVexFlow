@@ -20,7 +20,7 @@ namespace NVexFlow
             this.lastNote = null;
             this.index = null;
             this.stringNumber = number;
-            this.Width = 20;
+            this.SetWidth(20);
             this.position = ModifierPosition.ABOVE;  // Default position above stem or note head
             this.xShift = 0;
             this.yShift = 0;
@@ -35,93 +35,72 @@ namespace NVexFlow
                 weight = "bold"
             };
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {
-                return "stringnumber";
-            }
+            return "stringnumber";
         }
-        public override Note Note
+        public override Note GetNote()
         {
-            get
-            {
-                return this.Note;
-            }
-            set
-            {
-                this.Note = value;
-            }
+            return this.note;
         }
-        public override int Index
+        public new StringNumber SetNote(Note note)
         {
-            get
-            {
-                return this.Index;
-            }
-            set
-            {
-                this.Index = value;
-            }
+            this.note = note;
+            return this;
         }
-        public Renderer.RendererLineEndType LineEndType
+        public override int GetIndex()
         {
-            set
-            {
-                if(value >= Renderer.RendererLineEndType.NONE && value <= Renderer.RendererLineEndType.DOWN)
-                {
-                    this.leg = value;
-                }
-            }
+            return this.index.Value;
         }
-        public override ModifierPosition Position
+        public new StringNumber SetIndex(int Index)
         {
-            get
-            {
-                return this.Position;
-            }
-            set
-            {
-                if(value >= ModifierPosition.LEFT && value <= ModifierPosition.BELOW)
-                {
-                    this.Position = value;
-                }
-            }
+            this.index = Index;
+            return this;
         }
-        public string String_Number
+        public StringNumber SetLineEndType(NVexFlow.Renderer.RendererLineEndType leg)
         {
-            set
+            if (leg >= Renderer.RendererLineEndType.NONE && leg <= Renderer.RendererLineEndType.DOWN)
             {
-                this.stringNumber = value;
+                this.leg = leg;
             }
+            return this;
         }
-        public double XOffset
+        public override Modifier.ModifierPosition GetPosition()
         {
-            set
-            {
-                this.xOffset = value;
-            }
+            return this.position;
         }
-        public double YOffset
+        public new StringNumber SetPosition(ModifierPosition position )
         {
-            set
+            if (position >= ModifierPosition.LEFT && position <= ModifierPosition.BELOW)
             {
-                this.yOffset = value;
+                this.position = position;
             }
+            return this;
         }
-        public object LastNote
-        {//应该和EndNote是一回事，将来找机会统一
-            set
-            {
-                this.lastNote = value;
-            }
-        }
-        public bool Dashed
+        public StringNumber SetStringNumber(string number)
         {
-            set
-            {
-                this.dashed = value;
-            }
+            this.stringNumber = number;
+            return this;
+        }
+        public StringNumber SetXOffset(double x)
+        {
+            this.xOffset = x;
+            return this;
+        }
+        public StringNumber SetYOffset(double y)
+        {
+            this.yOffset = y;
+            return this;
+        } 
+        public StringNumber SetLastNote(object note)
+        {
+            this.lastNote = note;
+            return this;
+        }
+        public StringNumber SetDashed(bool dashed)
+        {
+            this.dashed = dashed;
+            return this;
         }
         public override void Draw()
         {
@@ -129,13 +108,13 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含的字段
-        protected double xOffset;
-        protected double yOffset;
-        protected object lastNote;
-        protected bool dashed;
-        protected Renderer.RendererLineEndType leg;
-        protected string stringNumber;
-        protected int radius;
+        public double xOffset;
+        public double yOffset;
+        public object lastNote;
+        public bool dashed;
+        public Renderer.RendererLineEndType leg;
+        public string stringNumber;
+        public int radius;
         #endregion
     }
 }

@@ -5,7 +5,7 @@ namespace NVexFlow
 {
     // The tickable interface. Tickables are things that sit on a score and
     // have a duration, i.e., they occupy space in the musical rendering dimension.
-    public class Tickable:Modifier
+    public class Tickable : Modifier
     {
         #region js直译部分
         public Tickable()
@@ -15,8 +15,8 @@ namespace NVexFlow
         private void Init()
         {
             this.intrinsicTicks = 0;
-            this.tickMultiplier = new Fraction(1,1);
-            this.ticks = new Fraction(0,1);
+            this.tickMultiplier = new Fraction(1, 1);
+            this.ticks = new Fraction(0, 1);
             this.width = 0;
             this.xShift = 0; // Shift from tick context
             this.voice = null;
@@ -26,8 +26,7 @@ namespace NVexFlow
             this.preFormatted = false;
             this.postFormatted = false;
             this.tuplet = null;
-            // This flag tells the formatter to ignore this tickable during
-            // formatting and justification. It is set by tickables such as BarNote.
+            // This flag tells the formatter to ignore this tickable during formatting and justification. It is set by tickables such as BarNote.
             this.ignoreTicks = false;
             this.context = null;
         }
@@ -38,12 +37,21 @@ namespace NVexFlow
                 this.context = value;
             }
         }
-        public virtual object BoundingBox
+        public new Tickable SetContext(CanvasContext context)
+        {
+            this.context = context;
+            return this;
+        }
+        public virtual BoundingBox BoundingBox
         {
             get
             {
                 return null;
             }
+        }
+        public virtual BoundingBox GetBoundingBox()
+        {
+            return null;
         }
         public virtual Fraction Ticks
         {
@@ -53,13 +61,19 @@ namespace NVexFlow
             }
         }
         public virtual Fraction GetTicks()
-        { return this.ticks; }
+        {
+            return this.ticks;
+        }
         public virtual bool ShouldIgnoreTicks
         {
             get
             {
                 return this.ignoreTicks;
             }
+        }
+        public virtual bool GetShouldIgnoreTicks()
+        {
+            return this.ignoreTicks;
         }
         public virtual double Width
         {
@@ -68,6 +82,10 @@ namespace NVexFlow
                 return this.width;
             }
         }
+        public override double GetWidth()
+        {
+            return this.width;
+        }
         public virtual double XShift
         {
             set
@@ -75,16 +93,21 @@ namespace NVexFlow
                 xShift = value;
             }
         }
+        public Tickable SetXShift(double xShift)
+        {
+            this.xShift = xShift;
+            return this;
+        }
         // Every tickable must be associated with a voice. This allows formatters
         // and preFormatter to associate them with the right modifierContexts.
         public virtual Voice Voice
         {
             get
             {
-                if(this.voice == null)
+                if (this.voice == null)
                 {
                     throw new Exception("NoVoice, Tickable has no voice.");//抛出异常是否需要封装？new Vex.RERR（“XXXXXXXXXXXX”）？
-                                                                           //改完后看看是否有null值出现的可能。getter不抛异常为好。
+                    //改完后看看是否有null值出现的可能。getter不抛异常为好。
                 }
                 return this.voice;
             }
@@ -118,24 +141,28 @@ namespace NVexFlow
                 // Detach from previous tuplet
                 int noteCount;
                 int beatsOccupied;
-                if(this.tuplet != null)
+                if (this.tuplet != null)
                 {
                     noteCount = this.tuplet.GetNoteCount();
                     beatsOccupied = this.tuplet.GetBeatsOccupied();
                     // Revert old multiplier
-                    this.ApplyTickMultiplier(noteCount,beatsOccupied);
+                    this.ApplyTickMultiplier(noteCount, beatsOccupied);
                 }
 
                 // Attach to new tuplet
-                if(value != null)
+                if (value != null)
                 {
                     noteCount = value.GetNoteCount();
                     beatsOccupied = value.GetBeatsOccupied();
-                    this.ApplyTickMultiplier(beatsOccupied,noteCount);
+                    this.ApplyTickMultiplier(beatsOccupied, noteCount);
                 }
 
                 this.tuplet = value;
             }
+        }
+        public virtual Tuplet GetTuplet()
+        {
+            return this.tuplet;
         }
         public virtual Tickable SetTuplet(Tuplet tuplet)
         {
@@ -183,12 +210,18 @@ namespace NVexFlow
                 this.preFormatted = false;
             }
         }
+        public Tickable SetTickContext(TickContext tickContext)
+        {
+            this.tickContext = tickContext;
+            this.preFormatted = false;
+            return this;
+        }
         public virtual void PreFormat()
         {
-            if(this.preFormatted)
+            if (this.preFormatted)
                 return;
             this.width = 0;
-            if(this.modifierContext != null)
+            if (this.modifierContext != null)
             {
                 this.modifierContext.PreFormat();
                 this.width += this.modifierContext.Width;
@@ -196,12 +229,11 @@ namespace NVexFlow
         }
         public virtual Tickable PostFormat()
         {
-            if(this.postFormatted)
+            if (this.postFormatted)
                 return this;//发现js中的一个错误
             this.postFormatted = true;
             return this;
         }
-        //还原get、set方法，暂时没有删除之前的”属性“
         public virtual Fraction GetIntrinsicTicks()
         {
             return this.intrinsicTicks;
@@ -230,35 +262,28 @@ namespace NVexFlow
                 return tickMultiplier;
             }
         }
-        public virtual void ApplyTickMultiplier(int numerator,int denominator)
+        public virtual Fraction GetTickMultiplier()
         {
-            this.tickMultiplier *= new Fraction(numerator,denominator);
+            return tickMultiplier;
+        }
+        public virtual void ApplyTickMultiplier(int numerator, int denominator)
+        {
+            this.tickMultiplier *= new Fraction(numerator, denominator);
             this.ticks = this.tickMultiplier * this.intrinsicTicks;
         }
         #endregion
 
         #region 隐含字段
-        protected CanvasContext context;
-        protected Fraction ticks;
-        protected bool ignoreTicks;
-        protected double width;
-        protected double xShift;
-        protected Voice voice;
-        protected Tuplet tuplet;
-        protected ModifierContext modifierContext;
-        protected bool preFormatted;
-        protected IList<Modifier> modifiers;
-        protected TickContext tickContext;
-        protected bool postFormatted;
-        protected Fraction intrinsicTicks;
-        protected Fraction tickMultiplier;
-        public virtual bool PreFormatted
-        {
-            set
-            {
-                this.preFormatted = value;
-            }
-        }
+        public Fraction ticks;
+        public bool ignoreTicks;
+        public Voice voice;
+        public Tuplet tuplet;
+        public bool preFormatted;
+        public IList<Modifier> modifiers;
+        public TickContext tickContext;
+        public bool postFormatted;
+        public Fraction intrinsicTicks;
+        public Fraction tickMultiplier;
         #endregion
     }
 }

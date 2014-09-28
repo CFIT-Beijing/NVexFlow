@@ -55,29 +55,21 @@ namespace NVexFlow
                 weight = "bold italic"
             };
 
-            this.XShift = 0;
-            this.Width = 10;
+            this.SetXShift(0);
+            this.SetWidth(10);
         }
-        public override string Category
+        public override string GetCategory()
         {
-            get
-            {//这里不太一致，将来必要时可以修为一致的
-                return "strokes";
-            }
+            return "strokes";
         }
-        public override Modifier.ModifierPosition Position
+        public override Modifier.ModifierPosition GetPosition()
         {
-            get
-            {
-                return this.Position;
-            }
+            return this.position;
         }
-        public object EndNote
+        public Stroke SetEndNote(object note)
         {
-            set
-            {
-                noteEnd = value;
-            }
+            noteEnd = note;
+            return this;
         }
         public override void Draw()
         {
@@ -85,11 +77,11 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含的字段
-        protected object noteEnd;
-        protected StrokeOptions options;
-        protected bool? allVoices;
-        protected StrokeType type;
-        protected RenderOptions renderOptions;
+        public object noteEnd;
+        public StrokeOptions options;
+        public bool? allVoices;
+        public StrokeType type;
+        public RenderOptions renderOptions;
         #endregion
     }
 }
