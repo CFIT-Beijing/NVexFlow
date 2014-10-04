@@ -16,8 +16,8 @@ namespace NVexFlow
             this.text = text;
             this.position = position;
             this.options = new StaveTextOpts() {
-                shiftX = 0,
-                shiftY = 0,
+                shift_x = 0,
+                shift_y = 0,
                 justification = TextNote.TextNoteJustification.CENTER
             };
 
@@ -39,12 +39,12 @@ namespace NVexFlow
         }
         public StaveText SetShiftX(double shiftX)
         {
-            this.shiftX = shiftX;
+            this.shift_x = shiftX;
             return this;
         }
         public StaveText SetShiftY(double shiftY)
         {
-            this.shiftY = shiftY;
+            this.shift_y = shiftY;
             return this;
         }
         public StaveText SetFont(Font font)
@@ -85,8 +85,8 @@ namespace NVexFlow
 
         #region 隐含的字段
         public string text;
-        public double shiftX;
-        public double shiftY;
+        public double shift_x;
+        public double shift_y;
         public StaveTextOpts options;
         #endregion
     }

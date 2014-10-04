@@ -17,13 +17,13 @@ namespace NVexFlow
         {
             this.harsh = false;
             this.position = ModifierPosition.RIGHT;
-            this.renderOptions = new RenderOptions() {
-                vibratoWidth = 20,
-                waveHeight = 6,
-                waveWidth = 4,
-                waveGirth = 2
+            this.render_options = new RenderOptions() {
+                vibrato_width = 20,
+                wave_height = 6,
+                wave_width = 4,
+                wave_girth = 2
             };
-            this.SetVibratoWidth(this.renderOptions.vibratoWidth);
+            this.SetVibratoWidth(this.render_options.vibrato_width);
         }
         public override string GetCategory()
         {
@@ -36,8 +36,8 @@ namespace NVexFlow
         }
         public Vibrato SetVibratoWidth(double width)
         {
-            this.vibratoWidth = width;
-            this.SetWidth(this.vibratoWidth);
+            this.vibrato_width = width;
+            this.SetWidth(this.vibrato_width);
             return this;
         }
         public override void Draw()
@@ -46,9 +46,9 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含的字段
-        public RenderOptions renderOptions;
+        public RenderOptions render_options;
         public bool harsh;
-        public double vibratoWidth;
+        public double vibrato_width;
         #endregion
     }
 }

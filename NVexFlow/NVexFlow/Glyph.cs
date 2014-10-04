@@ -117,8 +117,8 @@ namespace NVexFlow
     }
     public class Metrics
     {
-        public double xMin;
-        public double xMax;
+        public double x_min;
+        public double x_max;
 
         //TextNote直接使用了width字段
         public double width;

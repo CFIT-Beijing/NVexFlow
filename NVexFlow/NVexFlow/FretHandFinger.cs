@@ -20,10 +20,10 @@ namespace NVexFlow
             this.finger = number;
             this.width = 7;
             this.position = Modifier.ModifierPosition.LEFT;  // Default position above stem or note head
-            this.xShift = 0;
-            this.yShift = 0;
-            this.xOffset = 0;       // Horizontal offset from default
-            this.yOffset = 0;       // Vertical offset from default
+            this.x_shift = 0;
+            this.y_shift = 0;
+            this.x_offset = 0;       // Horizontal offset from default
+            this.y_offset = 0;       // Vertical offset from default
             this.font = new Font()
             {
                 family = "sans-serif",
@@ -72,12 +72,12 @@ namespace NVexFlow
         }
         public FretHandFinger SetOffsetX(double x)
         {
-            this.xOffset = x;
+            this.x_offset = x;
             return this;
         }
         public FretHandFinger SetOffsetY(double y)
         {
-            this.xOffset = y;
+            this.x_offset = y;
             return this;
         }
 
@@ -88,8 +88,8 @@ namespace NVexFlow
         #endregion
         #region 隐含的字段
         public string finger;
-        public double xOffset;
-        public double yOffset;
+        public double x_offset;
+        public double y_offset;
         #endregion
     }
 }

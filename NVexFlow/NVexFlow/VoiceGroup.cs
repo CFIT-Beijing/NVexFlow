@@ -18,7 +18,7 @@ namespace NVexFlow
         private void Init()
         {
             this.voices = new List<Voice>();
-            this.modifierContexts = new List<ModifierContext>();
+            this.modifier_contexts = new List<ModifierContext>();
         }
         // Every tickable must be associated with a voiceGroup. This allows formatters
         // and preformatters to associate them with the right modifierContexts.
@@ -29,7 +29,7 @@ namespace NVexFlow
         }
         public IList<ModifierContext> GetModifierContexts()
         {
-            return this.modifierContexts;
+            return this.modifier_contexts;
         }
 
 
@@ -48,7 +48,7 @@ namespace NVexFlow
 
         #region 隐含字段
         public IList<Voice> voices;
-        public IList<ModifierContext> modifierContexts; 
+        public IList<ModifierContext> modifier_contexts; 
         #endregion
     }
 }

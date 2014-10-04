@@ -20,13 +20,13 @@ namespace NVexFlow
             this.x = x;
             this.y = y;
             this.width = width;
-            this.glyphStartX = x + 5;
-            this.glyphEndX = x + width;
-            this.startX = this.glyphStartX;
-            this.endX = this.glyphEndX;
+            this.glyph_start_x = x + 5;
+            this.glyph_end_x = x + width;
+            this.start_x = this.glyph_start_x;
+            this.end_x = this.glyph_end_x;
             this.context = null;
             this.glyphs = new List<Glyph>();
-            this.endGlyphs = new List<Glyph>();
+            this.end_glyphs = new List<Glyph>();
             this.modifiers = new List<object>(); ;  // non-glyph stave items (barlines, coda, segno, etc.)
             this.measure = 0;
             this.clef = "treble";
@@ -38,14 +38,14 @@ namespace NVexFlow
             };
             this.options = new StaveOpts()
             {
-                verticalBarWidth = 10,       // Width around vertical bar end-marker
-                glyphSpacingPx = 10,
-                numLines = 5,
-                fillStyle = "#999999",
-                spacingBetweenLinesPx = 10, // in pixels
-                spaceAboveStaffIn = 4,      // in staff lines
-                spaceBelowStaffIn = 4,      // in staff lines
-                topTextPosition = 1          // in staff lines
+                vertical_bar_width = 10,       // Width around vertical bar end-marker
+                glyph_spacing_px = 10,
+                num_lines = 5,
+                fill_style = "#999999",
+                spacing_between_lines_px = 10, // in pixels
+                space_above_staff_ln = 4,      // in staff lines
+                space_below_staff_ln = 4,      // in staff lines
+                top_text_position = 1          // in staff lines
             };
             this.bounds = new BoundingBox(this.x, this.y, this.width, 0);
 
@@ -62,24 +62,24 @@ namespace NVexFlow
         }
         public void ResetLines()
         {
-            this.options.lineConfig = new List<LineConfig>();
-            for (int i = 0; i < this.options.numLines; i++)
+            this.options.line_config = new List<LineConfig>();
+            for (int i = 0; i < this.options.num_lines; i++)
             {
-                this.options.lineConfig.Add(new LineConfig() { visible = true });
+                this.options.line_config.Add(new LineConfig() { visible = true });
             }
-            this.height = (this.options.numLines.Value + this.options.spaceAboveStaffIn.Value) + this.options.spacingBetweenLinesPx.Value;
-            this.options.bottomTextPosition = this.options.numLines.Value + 1;
+            this.height = (this.options.num_lines.Value + this.options.space_above_staff_ln.Value) + this.options.spacing_between_lines_px.Value;
+            this.options.bottom_text_position = this.options.num_lines.Value + 1;
         }
         public Stave SetNoteStartX(double x)
         {
-            this.startX = x;
+            this.start_x = x;
             return this;
         }
         public double GetNoteStartX()
         {
-            double startX = this.startX;
+            double startX = this.start_x;
             // Add additional space if left barline is REPEAT_BEGIN and there are other start modifiers than barlines
-            if ((this.modifiers[0] as Barline).barLine == Barline.BarlineType.REPEAT_BEGIN && this.modifiers.Count() > 2)
+            if ((this.modifiers[0] as Barline).bar_line == Barline.BarlineType.REPEAT_BEGIN && this.modifiers.Count() > 2)
             {
                 startX += 20;
             }
@@ -87,15 +87,15 @@ namespace NVexFlow
         }
         public double GetNoteEndX()
         {
-            return this.endX;
+            return this.end_x;
         }
         public double GetTieStartX()
         {
-            return this.startX;
+            return this.start_x;
         }
         public double GetTieEndX()
         {
-            return this.endX;
+            return this.end_x;
         }
         public CanvasContext GetContext()
         {
@@ -112,11 +112,11 @@ namespace NVexFlow
         }
         public int GetNumLines()
         {
-            return this.numLines;
+            return this.num_lines;
         }
         public Stave SetNumLines(int lines)
         {
-            this.options.numLines = lines;
+            this.options.num_lines = lines;
             this.ResetLines();
             return this;
         }
@@ -128,10 +128,10 @@ namespace NVexFlow
         public Stave SetWidth(double width)
         {
             this.width = width;
-            this.glyphEndX = this.x + width;
-            this.endX = this.glyphEndX;
+            this.glyph_end_x = this.x + width;
+            this.end_x = this.glyph_end_x;
             // reset the x position of the end barline
-            (this.modifiers[1] as Barline).SetX(this.endX);
+            (this.modifiers[1] as Barline).SetX(this.end_x);
             return this;
         }
         public double GetWidth()
@@ -176,7 +176,7 @@ namespace NVexFlow
             {
                 index = this.glyphs.Count() - 1;
             }
-            double x = this.glyphStartX;
+            double x = this.glyph_start_x;
             double barXShift = 0;
             for (int i = 0; i < index + 1; ++i)
             {
@@ -187,7 +187,7 @@ namespace NVexFlow
             // Add padding after clef, time sig, key sig
             if (barXShift > 0)
             {
-                barXShift += this.options.verticalBarWidth.Value + 10;
+                barXShift += this.options.vertical_bar_width.Value + 10;
             }
             return barXShift;
         }
@@ -233,7 +233,7 @@ namespace NVexFlow
         }
         public double GetSpacingBetweenLines()
         {
-            return this.options.spacingBetweenLinesPx.Value;
+            return this.options.spacing_between_lines_px.Value;
         }
         public BoundingBox GetBoundingBox()
         {
@@ -243,19 +243,19 @@ namespace NVexFlow
         public double GetBottomY()
         {
             StaveOpts options = this.options;
-            double spacing = options.spacingBetweenLinesPx.Value;
-            double scoreBottom = this.GetYForLine(options.numLines.Value) + options.spaceBelowStaffIn.Value * spacing;
+            double spacing = options.spacing_between_lines_px.Value;
+            double scoreBottom = this.GetYForLine(options.num_lines.Value) + options.space_below_staff_ln.Value * spacing;
             return scoreBottom;
         }
         public double BottomLineY()
         {
-            return this.GetYForLine(this.options.numLines.Value);
+            return this.GetYForLine(this.options.num_lines.Value);
         }
         public double GetYForLine(double line)
         {
             StaveOpts options = this.options;
-            double spacing = options.spacingBetweenLinesPx.Value;
-            double headRoom = options.spaceAboveStaffIn.Value;
+            double spacing = options.spacing_between_lines_px.Value;
+            double headRoom = options.space_above_staff_ln.Value;
 
             double y = this.y + (line * spacing + headRoom * spacing - THICKNESS / 2);
             return y;
@@ -263,18 +263,18 @@ namespace NVexFlow
         public double GetYForTopText(double? line)
         {
             double l = line ?? 0;
-            return this.GetYForLine(-l - this.options.topTextPosition.Value);
+            return this.GetYForLine(-l - this.options.top_text_position.Value);
         }
         public double GetYForBottomText(double? line)
         {
             double l = line ?? 0;
-            return this.GetYForLine(this.options.bottomTextPosition.Value + l);
+            return this.GetYForLine(this.options.bottom_text_position.Value + l);
         }
         public double GetYForNote(double line)
         {
             StaveOpts options = this.options;
-            double spacing = options.spacingBetweenLinesPx.Value;
-            double headRoom = options.spaceAboveStaffIn.Value;
+            double spacing = options.spacing_between_lines_px.Value;
+            double headRoom = options.space_above_staff_ln.Value;
             double y = this.y + headRoom * spacing + 5 * spacing - line * spacing;
             return y;
         }
@@ -286,14 +286,14 @@ namespace NVexFlow
         {
             glyph.Stave = this;//GlypySetStave方法今后改（不用Stave属性）
             this.glyphs.Add(glyph);
-            this.startX += glyph.GetMetrics().width;
+            this.start_x += glyph.GetMetrics().width;
             return this;
         }
         public Stave AddEndGlyph(Glyph glyph)
         {
             glyph.Stave = this;//GlypySetStave方法今后改（不用Stave属性）
-            this.endGlyphs.Add(glyph);
-            this.endX -= glyph.GetMetrics().width;
+            this.end_glyphs.Add(glyph);
+            this.end_x -= glyph.GetMetrics().width;
             return this;
         }
         public Stave AddModifier(StaveModifier modifier)
@@ -305,7 +305,7 @@ namespace NVexFlow
         public Stave AddEndModifier(StaveModifier modifier)
         {
             this.modifiers.Add(modifier);
-            modifier.AddToStaveEnd(this, this.endGlyphs.Count() == 0);
+            modifier.AddToStaveEnd(this, this.end_glyphs.Count() == 0);
             return this;
         }
         public Stave AddKeySignature(string keySpec)
@@ -459,7 +459,7 @@ namespace NVexFlow
     */
         public object GetConfigForLines()
         {
-            return this.options.lineConfig;
+            return this.options.line_config;
         }
         /**
  * Configure properties of the lines in the Stave
@@ -470,11 +470,11 @@ namespace NVexFlow
  */
         public Stave SetConfigForLine(int lineNumber, LineConfig lineConfig)
         {
-            if (lineNumber >= this.options.numLines || lineNumber < 0)
+            if (lineNumber >= this.options.num_lines || lineNumber < 0)
             {
                 throw new Exception("StaveConfigError,The line number must be within the range of the number of lines in the Stave.");
             }
-            this.options.lineConfig[lineNumber] = lineConfig;
+            this.options.line_config[lineNumber] = lineConfig;
             return this;
         }
         /**
@@ -510,7 +510,7 @@ namespace NVexFlow
 
         public Stave SetConfigForLines(IList<LineConfig> linesConfiguration)
         {
-            if (linesConfiguration.Count() != this.options.numLines)
+            if (linesConfiguration.Count() != this.options.num_lines)
             {
                 throw new Exception("StaveConfigError,The length of the lines configuration array must match the number of lines in the Stave");
             }
@@ -521,32 +521,32 @@ namespace NVexFlow
                 // Allow 'null' to be used if the caller just wants the default for a particular node.
                 if (linesConfiguration[lineConfig] == null)
                 {
-                    linesConfiguration[lineConfig] = this.options.lineConfig[lineConfig];
+                    linesConfiguration[lineConfig] = this.options.line_config[lineConfig];
                 }
                 //目前只发现一个属性visible
-                this.options.lineConfig[lineConfig].visible = linesConfiguration[lineConfig].visible;
+                this.options.line_config[lineConfig].visible = linesConfiguration[lineConfig].visible;
             }
-            this.options.lineConfig = linesConfiguration;
+            this.options.line_config = linesConfiguration;
             return this;
         }
         #endregion
 
 
         #region 隐含字段
-        public double startX;
-        public double endX;
+        public double start_x;
+        public double end_x;
         public double width;
         public CanvasContext context;
         public double x;
-        public int numLines;
+        public int num_lines;
         public double y;
         public int measure;
         public double height;
         public IList<Glyph> glyphs;
-        public IList<Glyph> endGlyphs;
+        public IList<Glyph> end_glyphs;
         public IList<object> modifiers;//可以保存staveModifier和modifier。。。
-        public double glyphStartX;
-        public double glyphEndX;
+        public double glyph_start_x;
+        public double glyph_end_x;
         public string clef;//keySignatrue用到
         public Font font;
         StaveOpts options;

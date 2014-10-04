@@ -4,14 +4,14 @@ namespace NVexFlow.Model
 {
     public class BeamRenderOpts:RenderOptions
     {
-        public double beamWidth;
-        public double maxSlope;
-        public double minSlope;
-        public double slopeIterations;
-        public double slopeCost;
-        public bool showStemlets;
-        public double stemletExtension;
-        public double partialBeamLength;
+        public double beam_width;
+        public double max_slope;
+        public double min_slope;
+        public double slope_iterations;
+        public double slope_cost;
+        public bool show_stemlets;
+        public double stemlet_extension;
+        public double partial_beamLength;
     }
     public class BeamLine
     { 

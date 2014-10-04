@@ -18,16 +18,16 @@ namespace NVexFlow.Model
         //    space_below_staff_ln: 4,      // in staff lines
         //    top_text_position: 1          // in staff lines
         //  };
-        public double? verticalBarWidth;
-        public double? glyphSpacingPx;
-        public int? numLines;
-        public string fillStyle;
-        public double? spacingBetweenLinesPx;
-        public double? spaceAboveStaffIn;
-        public double? spaceBelowStaffIn;
-        public int? topTextPosition;
-        public IList<LineConfig> lineConfig;
-        public double? bottomTextPosition;
+        public double? vertical_bar_width;
+        public double? glyph_spacing_px;
+        public int? num_lines;
+        public string fill_style;
+        public double? spacing_between_lines_px;
+        public double? space_above_staff_ln;
+        public double? space_below_staff_ln;
+        public int? top_text_position;
+        public IList<LineConfig> line_config;
+        public double? bottom_text_position;
     }
 
     public class LineConfig

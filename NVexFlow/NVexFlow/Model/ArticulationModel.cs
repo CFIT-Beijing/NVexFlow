@@ -4,9 +4,9 @@
     {
         public string code;
         public double width;
-        public double shiftRight;
-        public double shiftUp;
-        public double shiftDown;
-        public bool betweenLines;
+        public double shift_right;
+        public double shift_up;
+        public double shift_down;
+        public bool between_lines;
     }
 }

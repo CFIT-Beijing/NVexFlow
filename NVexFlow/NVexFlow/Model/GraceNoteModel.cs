@@ -7,6 +7,6 @@
 
     public class GraceNoteRenderOpts:StaveNoteRenderOpts
     {
-        public double stemHeight;
+        public double stem_height;
     }
 }

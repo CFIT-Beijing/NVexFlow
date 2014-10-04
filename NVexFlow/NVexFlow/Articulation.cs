@@ -24,8 +24,8 @@ namespace NVexFlow
             this.index = null;
             this.type = type;
             this.position = ModifierPosition.BELOW;
-            this.renderOptions = new RenderOptions() {
-                fontScale = 38
+            this.render_options = new RenderOptions() {
+                font_scale = 38
             };
             this.articulation = Flow.ArticulationCodes(this.type);
             if(this.articulation == null)
@@ -51,7 +51,7 @@ namespace NVexFlow
 
         #region 隐含的字段
         public string type;
-        public RenderOptions renderOptions;
+        public RenderOptions render_options;
         public ArticulationCode articulation;
         #endregion
     }

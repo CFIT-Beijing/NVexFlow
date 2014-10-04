@@ -21,7 +21,7 @@ namespace NVexFlow
 
         public int NoteToInteger(string noteString)
         {
-            return Flow.KeyProperties(noteString,"").intValue;
+            return Flow.KeyProperties(noteString,"").int_value;
         }
 
         private string tuningString;

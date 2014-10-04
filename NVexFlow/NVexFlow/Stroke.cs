@@ -28,25 +28,25 @@ namespace NVexFlow
             this.options = options;
 
             // multi voice - span stroke across all voices if true
-            if(options.allVoices.HasValue)
+            if(options.all_voices.HasValue)
             {
-                this.allVoices = this.options.allVoices;
+                this.all_voices = this.options.all_voices;
             }
             else
             {
-                this.allVoices = true;
+                this.all_voices = true;
             }
 
             //  multi voice - end note of stroke, set in draw()
-            this.noteEnd = null;
+            this.note_end = null;
             this.index = null;
             this.type = type;
             this.position = Modifier.ModifierPosition.LEFT;
 
-            this.renderOptions = new RenderOptions() {
-                fontScale = 38,
-                strokePx = 3,
-                strokeSpacing = 10
+            this.render_options = new RenderOptions() {
+                font_scale = 38,
+                stroke_px = 3,
+                stroke_spacing = 10
             };
 
             this.font = new Font() {
@@ -68,7 +68,7 @@ namespace NVexFlow
         }
         public Stroke SetEndNote(object note)
         {
-            noteEnd = note;
+            note_end = note;
             return this;
         }
         public override void Draw()
@@ -77,11 +77,11 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含的字段
-        public object noteEnd;
+        public object note_end;
         public StrokeOptions options;
-        public bool? allVoices;
+        public bool? all_voices;
         public StrokeType type;
-        public RenderOptions renderOptions;
+        public RenderOptions render_options;
         #endregion
     }
 }

@@ -2,8 +2,8 @@
 {
     public class StaveTextOpts
     {
-        public double shiftX;
-        public double shiftY;
+        public double shift_x;
+        public double shift_y;
         public TextNote.TextNoteJustification justification;
     }
 }

@@ -5,13 +5,13 @@
         public Bend.BendType type;
         public string text;
         public double? width;
-        public double drawWidth;
+        public double draw_width;
     }
     public class BendRenderOpts:RenderOptions
     {
-        public double lineWidth;
-        public string lineStyle;
-        public double bendWidth;
-        public double releaseWidth;
+        public double line_width;
+        public string line_style;
+        public double bend_width;
+        public double release_width;
     }
 }

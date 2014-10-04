@@ -51,11 +51,11 @@ namespace NVexFlow
             this.index = null;
 
             // The `textLine` is reserved space above or below a stave.
-            this.textLine = 0;
+            this.text_line = 0;
             this.position = Modifier.ModifierPosition.LEFT;
-            this.modifierContext = null;
-            this.xShift = 0;
-            this.yShift = 0;
+            this.modifier_context = null;
+            this.x_shift = 0;
+            this.y_shift = 0;
             //L("Created new modifier");
         }
         //现在先保留返回string的情况，以后看情况是否须有建立相应enum
@@ -118,11 +118,11 @@ namespace NVexFlow
         /// </summary>
         public virtual ModifierContext GetModifierContext()
         {
-            return modifierContext;
+            return modifier_context;
         }
-        public Modifier SetModifierContext(ModifierContext modifierContext)
+        public Modifier SetModifierContext(ModifierContext modifier_context)
         {
-            this.modifierContext = modifierContext;
+            this.modifier_context = modifier_context;
             return this;
         }
         /// <summary>
@@ -140,34 +140,34 @@ namespace NVexFlow
         /// <summary>
         /// Set the `text_line` for the modifier.
         /// </summary>
-        public Modifier SetTextLine(int textLine)
+        public Modifier SetTextLine(int text_line)
         {
-            this.textLine = textLine;
+            this.text_line = text_line;
             return this;
         }
         /// <summary>
         /// Shift modifier down `y` pixels. Negative values shift up.
         /// </summary>
-        public Modifier SetYShift(int yShift)
+        public Modifier SetYShift(int y)
         {
-            this.yShift = yShift;
+            this.y_shift = y;
             return this;
         }
         /// <summary>
         /// Shift modifier `x` pixels in the direction of the modifier. Negative values shift reverse.
         /// </summary>
-        public Modifier SetXShift(int xShift)
+        public Modifier SetXShift(int x)
         {
             //现在先保留这种先赋值为0在+=或-=的奇怪方式
             //以后可以改成直接=value或=-value的正常方式
-            this.xShift = 0;
+            this.x_shift = 0;
             if (this.position == Modifier.ModifierPosition.LEFT)
             {
-                this.xShift -= xShift;
+                this.x_shift -= x;
             }
             else
             {
-                this.xShift += xShift;
+                this.x_shift += x;
             }
             return this;
         }
@@ -185,11 +185,11 @@ namespace NVexFlow
         public CanvasContext context;
         public Note note;
         public int? index;
-        public int textLine;
+        public int text_line;
         public ModifierPosition position;
-        public ModifierContext modifierContext;
-        public double xShift;
-        public double yShift;
+        public ModifierContext modifier_context;
+        public double x_shift;
+        public double y_shift;
         //每个子类都有font字段，是不是放到抽象类里？还是按照js的放到每个类里？
         //放这里可以，不过这个是里程碑2的工作任务了。
         public Font font;

@@ -15,8 +15,8 @@ namespace NVexFlow
             this.section = section;
             this.position = ModifierPosition.ABOVE;
             this.x = x;
-            this.shiftX = 0;
-            this.shiftY = shift_y;
+            this.shift_x = 0;
+            this.shift_y = shift_y;
             this.font = new Font() {
                 family = "sans-serif",
                 size = 12,
@@ -34,12 +34,12 @@ namespace NVexFlow
         }
         public StaveSection SetShiftX(double shiftX)
         {
-            this.shiftX = shiftX;
+            this.shift_x = shiftX;
             return this;
         }
         public StaveSection SetShiftY(double shiftY)
         {
-            this.shiftY = shiftY;
+            this.shift_y = shiftY;
             return this;
         }
         public void Draw(object stave,double shift_x)
@@ -49,8 +49,8 @@ namespace NVexFlow
         #endregion
         #region 隐含的字段
         public object section;
-        public double shiftX;
-        public double shiftY;
+        public double shift_x;
+        public double shift_y;
         public double x;
         #endregion
     }

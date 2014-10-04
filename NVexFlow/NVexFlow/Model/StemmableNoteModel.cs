@@ -2,7 +2,7 @@
 {
     public class Glyph4StemmableNote:Glyph4Note
     {
-        public int beamCount;
+        public int beam_count;
     }
     
 }

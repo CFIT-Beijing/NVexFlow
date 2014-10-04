@@ -17,6 +17,7 @@ namespace NVexFlow
     // purposes, such as diagrams.
     public class StaveLine
     {
+        #region js直译部分
         public StaveLine(StaveLineNotes notes)
         {
             Init(notes);
@@ -55,38 +56,40 @@ namespace NVexFlow
 
             this.text = "";
 
-            this.font = new Font() { 
-            family="Arial",
-                size= 10,
-                weight=""
+            this.font = new Font()
+            {
+                family = "Arial",
+                size = 10,
+                weight = ""
             };
 
-            this.render_options = new StaveLineRenderOpts() {
-                    // space to add to the left or the right
-                    padding_left= 4,
-                    padding_right= 3,
+            this.render_options = new StaveLineRenderOpts()
+            {
+                // space to add to the left or the right
+                padding_left = 4,
+                padding_right = 3,
 
-                    // the width of the line in pixels
-                    line_width= 1,
-                    // an array of line/space lengths. unsupported with raphael (svg)
-                    line_dash= null,
-                    // can draw rounded line end, instead of a square. unsupported with raphael (svg)
-                    rounded_end= true,
-                    // the color of the line and arrowheads
-                    color= null,
+                // the width of the line in pixels
+                line_width = 1,
+                // an array of line/space lengths. unsupported with raphael (svg)
+                line_dash = null,
+                // can draw rounded line end, instead of a square. unsupported with raphael (svg)
+                rounded_end = true,
+                // the color of the line and arrowheads
+                color = null,
 
-                    // flags to draw arrows on each end of the line
-                    draw_start_arrow= false,
-                    draw_end_arrow= false,
+                // flags to draw arrows on each end of the line
+                draw_start_arrow = false,
+                draw_end_arrow = false,
 
-                    // the length of the arrowhead sides
-                    arrowhead_length= 10,
-                    // the angle of the arrowhead
-                    arrowhead_angle= Math.PI / 8,
+                // the length of the arrowhead sides
+                arrowhead_length = 10,
+                // the angle of the arrowhead
+                arrowhead_angle = Math.PI / 8,
 
-                    // the position of the text
-                    text_position_vertical = StaveLine.StaveLineTextVerticalPosition.TOP,
-                    text_justification = StaveLine.StaveLineTextJustification.CENTER
+                // the position of the text
+                text_position_vertical = StaveLine.StaveLineTextVerticalPosition.TOP,
+                text_justification = StaveLine.StaveLineTextJustification.CENTER
             };
 
             this.SetNotes(notes);
@@ -118,7 +121,7 @@ namespace NVexFlow
             }
             if (notes.first_indices == null)
             {
-                notes.first_indices = new List<int>() { 0};
+                notes.first_indices = new List<int>() { 0 };
             }
             if (notes.last_indices == null)
             {
@@ -126,7 +129,7 @@ namespace NVexFlow
             }
             if (notes.first_indices.Count() != notes.last_indices.Count())
             {
-                throw new Exception("BadArguments,Connected notes must have similar" +      " index sizes");
+                throw new Exception("BadArguments,Connected notes must have similar" + " index sizes");
             }
 
             // Success. Lets grab 'em notes.
@@ -374,7 +377,8 @@ namespace NVexFlow
             //    drawArrowHead(ctx, top_x, top_y, x1, y1, bottom_x, bottom_y);
             //  }
             //}
-        }
+        } 
+        #endregion
 
 
 

@@ -4,8 +4,8 @@
     {
         public string code;
         public double width;
-        public double gracenoteWidth;
-        public double shiftRight;
-        public double shiftDown;
+        public double gracenote_width;
+        public double shift_right;
+        public double shift_down;
     }
 }

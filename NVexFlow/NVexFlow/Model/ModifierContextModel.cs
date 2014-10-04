@@ -2,8 +2,8 @@
 {
     public class ModifierContextState
     {
-        public double leftShift = 0;
-        public double rightShift = 0;
-        public double textLine = 0;
+        public double left_shift = 0;
+        public double right_shift = 0;
+        public double text_line = 0;
     }
 }

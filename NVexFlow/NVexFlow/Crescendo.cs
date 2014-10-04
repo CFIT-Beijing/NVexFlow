@@ -29,8 +29,8 @@ namespace NVexFlow
         /// <param name="params"></param>
         private void RenderHairpin(CanvasContext ctx,RenderHairpinParams @params)
         {
-            double beginX = @params.beginX;
-            double endX = @params.endX;
+            double beginX = @params.begin_x;
+            double endX = @params.end_x;
             double y = @params.y;
             double halfHeight = @params.height / 2;
 
@@ -63,12 +63,12 @@ namespace NVexFlow
             //// The height at the open end of the cresc/decresc
             this.height = 15;
             //以后是用这种模式为需要Merge的选项类型实现并取代无强类型的Vex.Merge
-            CrescendoRenderOpts.Merge(this.renderOptions,new CrescendoRenderOpts() {
+            CrescendoRenderOpts.Merge(this.render_options,new CrescendoRenderOpts() {
                 // Extensions to the length of the crescendo on either side
-                extendLeft = 0,
-                extendRight = 0,
+                extend_left = 0,
+                extend_right = 0,
                 // Vertical shift
-                yShift = 0
+                y_shift = 0
             });
         }
         /// <summary>

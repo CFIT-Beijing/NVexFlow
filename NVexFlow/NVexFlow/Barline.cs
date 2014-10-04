@@ -28,7 +28,7 @@ namespace NVexFlow
 
         private void Init(BarlineType type, double x)
         {
-            this.barLine = type;
+            this.bar_line = type;
             this.x = x;// Left most x for the stave
         }
 
@@ -153,7 +153,7 @@ namespace NVexFlow
         #endregion
         #region 隐含字段
         public double x;
-        public BarlineType barLine;
+        public BarlineType bar_line;
         #endregion
 
 

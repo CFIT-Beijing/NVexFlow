@@ -8,7 +8,10 @@ namespace NVexFlow.Model
 {
     public class MakeSpacerRes:Glyph
     {
-        //返回一个Glyph对象，但是重写了Glyph的这几个方法。这样翻译不合适（小写代表重写后的方法，但是大写的Glyph本身的方法依然可以调用。或者把Glyph中的这几个方法改成委托类型变量？暂时没想到更好的办法），以后再说。
+        //返回一个Glyph对象，但是重写了Glyph的这几个方法。
+        //一种办法是：直接将这些方法翻译成C#写死在这个类里。
+        //另一种方法是：把这些方法定义成这个类的委托字段，将来可以比较灵活的赋值。
+        //暂时采用了委托字段的方式。
         //      return {
         //  getContext: function() {return true;},
         //  setStave: function() {},

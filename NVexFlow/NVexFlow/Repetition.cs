@@ -35,10 +35,10 @@ namespace NVexFlow
         {
             //        init: function(type, x, y_shift) {
             //  Repetition.superclass.init.call(this);
-            this.symbolType = type;
+            this.symbol_type = type;
             this.x = x;
-            this.xShift = 0;
-            this.yShift = yShift;
+            this.x_shift = 0;
+            this.y_shift = yShift;
             this.font = new Font() {
                 family = "times",
                 size=12,
@@ -52,12 +52,12 @@ namespace NVexFlow
         }
         public Repetition SetShiftX(double x)
         {
-            this.xShift = x;
+            this.x_shift = x;
             return this;
         }
         public Repetition SetShiftY(double y)
         {
-            this.yShift = y;
+            this.y_shift = y;
             return this;
         }
 
@@ -174,11 +174,11 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        public RepetitionType symbolType;
+        public RepetitionType symbol_type;
         public double x;
         public double y;
-        public double xShift;
-        public double yShift;
+        public double x_shift;
+        public double y_shift;
         public Font font;
         #endregion
     }

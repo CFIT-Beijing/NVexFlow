@@ -2,6 +2,6 @@
 {
     public class StrokeOptions
     {
-        public bool? allVoices;
+        public bool? all_voices;
     }
 }

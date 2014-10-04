@@ -20,22 +20,22 @@ namespace NVexFlow
         /// <param name="shift_y"></param>
         public StaveTempo(Tempo tempo, double x, double shift_y)
         {
-            Init(tempo, x, shiftY);
+            Init(tempo, x, shift_y);
         }
         private void Init(Tempo tempo, double x, double shiftY)
         {
               this.tempo = tempo;
               this.position =Modifier.ModifierPosition.ABOVE;
               this.x = x;
-              this.shiftX = 10;
-              this.shiftY = shiftY;
+              this.shift_x = 10;
+              this.shift_y = shiftY;
               this.font = new Font()
               {
                   family = "times",
                   size = 14,
                   weight = "bold"
               };
-              this.renderOptions = new StaveTempoRenderOpts() { glyphFontScale = 30 };// font size for note
+              this.render_options = new StaveTempoRenderOpts() { glyph_font_scale = 30 };// font size for note
         }
         public override string GetCategory()
         {
@@ -53,7 +53,7 @@ namespace NVexFlow
         }
         public StaveTempo SetShiftY(double y)
         {
-            this.shiftY= y;
+            this.shift_y= y;
             return this;
         }
         public StaveTempo Draw(Stave stave, double shift_x)
@@ -138,10 +138,10 @@ namespace NVexFlow
         public double x;
         public Modifier.ModifierPosition position;
         public Font font;
-        public RenderOptions renderOptions;
+        public RenderOptions render_options;
         public Tempo tempo;
-        public double shiftX;
-        public double shiftY;
+        public double shift_x;
+        public double shift_y;
         #endregion
 
 

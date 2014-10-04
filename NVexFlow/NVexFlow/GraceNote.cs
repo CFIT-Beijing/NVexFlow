@@ -13,10 +13,10 @@ namespace NVexFlow
         private void Init(GraceNoteStruct noteStruct)
         {
             //GraceNote.superclass.init.call(this, note_struct);
-            (this.renderOptions as GraceNoteRenderOpts).glyphFontScale = 22;
-            (this.renderOptions as GraceNoteRenderOpts).stemHeight = 20;
-            (this.renderOptions as GraceNoteRenderOpts).strokePx = 2;
-            this.glyph.headWidth = 6;
+            (this.render_options as GraceNoteRenderOpts).glyph_font_scale = 22;
+            (this.render_options as GraceNoteRenderOpts).stem_height = 20;
+            (this.render_options as GraceNoteRenderOpts).stroke_px = 2;
+            this.glyph.head_width = 6;
 
             this.slash = noteStruct.slash;
             this.slur = true;
@@ -28,14 +28,14 @@ namespace NVexFlow
         public override double GetStemExtension()
         {
             Glyph4Note glyph= this.GetGlyph();
-            if (this.stemExtensionOverride != null)
+            if (this.stem_extension_override != null)
             {
-                return this.stemExtensionOverride.Value;
+                return this.stem_extension_override.Value;
             }
 
             if (glyph != null)
             {
-                return this.GetStemExtension() == 1 ? glyph.gracenoteStemUpExtension : glyph.gracenoteStemDownExtension;
+                return this.GetStemExtension() == 1 ? glyph.gracenote_stem_up_extension : glyph.gracenote_stem_down_extension;
             }
 
             return 0;

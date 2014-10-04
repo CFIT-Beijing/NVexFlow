@@ -20,7 +20,7 @@ namespace NVexFlow
 
             this.radius = 2;
             this.SetWidth(5); 
-            this.dotShiftY = 0;
+            this.dot_shift_y = 0;
         }
         public new Dot SetNote(Note note)
         {
@@ -38,7 +38,7 @@ namespace NVexFlow
         }
         public Dot SetDotShiftY(double dotShiftY )
         {
-            this.dotShiftY=dotShiftY;
+            this.dot_shift_y=dotShiftY;
             return this;
         }
         public override void Draw()
@@ -48,7 +48,7 @@ namespace NVexFlow
         #endregion
 
         #region 隐含的字段
-        public double dotShiftY;
+        public double dot_shift_y;
         public double radius;
         #endregion
     }

@@ -22,16 +22,16 @@ namespace NVexFlow
         {
             StaveOpts tabOpts = new StaveOpts()
             {
-                spacingBetweenLinesPx = 13,
-                numLines = 6,
-                topTextPosition = 1
+                spacing_between_lines_px = 13,
+                num_lines = 6,
+                top_text_position = 1
             };
             if (options != null)
             {
                 #region 只发现options传入了num_lines。（var stave = new Vex.Flow.TabStave(10, 10, 550,{num_lines:8});）+Vex.Merge(tab_options, options);
-                if (options.numLines.HasValue)
+                if (options.num_lines.HasValue)
                 {
-                    tabOpts.numLines = options.numLines;
+                    tabOpts.num_lines = options.num_lines;
                 }
                 #endregion
             }
@@ -46,7 +46,7 @@ namespace NVexFlow
             double glyphScale=0;
             double glyphOffset=0;
 
-            switch (this.options.numLines)
+            switch (this.options.num_lines)
             {
                 case 8:
                     glyphScale = 55;

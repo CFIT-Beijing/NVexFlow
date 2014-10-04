@@ -12,6 +12,6 @@ namespace NVexFlow.Model
     }
     public class StaveTempoRenderOpts:RenderOptions
     {
-        public int glyphFontScale;
+        public int glyph_font_scale;
     }
 }

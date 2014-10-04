@@ -48,11 +48,11 @@ namespace NVexFlow
             // *  }
             // *
             // **/
-            this.renderOptions = new StaveTieRenderOpts()
+            this.render_options = new StaveTieRenderOpts()
             {
                 cp1 = 9,
                 cp2 = 11,
-                yShift = 3
+                y_shift = 3
             };
             this.SetNotes(notes);
         }

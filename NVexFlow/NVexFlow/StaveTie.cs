@@ -46,19 +46,19 @@ namespace NVexFlow
             this.notes = notes;
             this.context = null;
             this.text = text;
-            this.renderOptions = new StaveTieRenderOpts()
+            this.render_options = new StaveTieRenderOpts()
             {
                 cp1 = 8,      // Curve control point 1
                 cp2 = 12,      // Curve control point 2
-                textShiftX = 0,
-                firstXShift = 0,
-                lastXShift = 0,
-                yShift = 7,
-                tieSpacing = 0,
+                text_shift_x = 0,
+                first_x_shift = 0,
+                last_x_shift = 0,
+                y_shift = 7,
+                tie_spacing = 0,
                 font = new Font() { family = "Arial", size = 10, style = "" }
             };
 
-            this.font = (this.renderOptions as StaveTieRenderOpts).font;
+            this.font = (this.render_options as StaveTieRenderOpts).font;
             this.SetNotes(notes);
         }
         public StaveTie SetContext(CanvasContext context)
@@ -78,30 +78,30 @@ namespace NVexFlow
         /// <returns></returns>
         public StaveTie SetNotes(Notes4StaveTie notes)
         {
-            if (notes.firstNote == null && notes.lastNote == null)
+            if (notes.first_note == null && notes.last_note == null)
             {
                 throw new Exception("BadArguments,Tie needs to have either first_note or last_note set.");
             }
 
-            if (notes.firstIndices == null)
+            if (notes.first_indices == null)
             {
-                notes.firstIndices = new List<int>() { 0 };
+                notes.first_indices = new List<int>() { 0 };
             }
-            if (notes.lastIndices == null)
+            if (notes.last_indices == null)
             {
-                notes.lastIndices = new List<int>() { 0 };
+                notes.last_indices = new List<int>() { 0 };
             }
 
-            if (notes.firstIndices.Count() != notes.lastIndices.Count())
+            if (notes.first_indices.Count() != notes.last_indices.Count())
             {
                 throw new Exception("BadArguments,Tied notes must have similar, index sizes");
             }
 
             // Success. Lets grab 'em notes.
-            this.firstNote = notes.firstNote;
-            this.firstIndices = notes.firstIndices;
-            this.lastNote = notes.lastNote;
-            this.lastIndices = notes.lastIndices;
+            this.first_note = notes.first_note;
+            this.first_indices = notes.first_indices;
+            this.last_note = notes.last_note;
+            this.last_indices = notes.last_indices;
             return this;
         }
         /// <summary>
@@ -110,7 +110,7 @@ namespace NVexFlow
         /// <returns></returns>
         public bool IsPartial()
         {
-            return (this.firstNote == null || this.lastNote == null);
+            return (this.first_note == null || this.last_note == null);
         }
         public virtual void RenderTie(IList<object> @params)
         {
@@ -217,13 +217,13 @@ namespace NVexFlow
         #region 隐含字段
         protected CanvasContext context;
         protected string text;
-        protected RenderOptions renderOptions;
+        protected RenderOptions render_options;
         protected Font font;
         protected Notes4StaveTie notes;
-        protected Note firstNote;
-        protected Note lastNote;
-        protected IList<int> firstIndices;
-        protected IList<int> lastIndices;
+        protected Note first_note;
+        protected Note last_note;
+        protected IList<int> first_indices;
+        protected IList<int> last_indices;
         #endregion
     }
 }

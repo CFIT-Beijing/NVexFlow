@@ -4,8 +4,8 @@
     {
         public string code;
         public int point;
-        public double xShift;
-        public double yShift;
+        public double x_shift;
+        public double y_shift;
         public double? width;
     }
     public class TextStruct:NoteStruct

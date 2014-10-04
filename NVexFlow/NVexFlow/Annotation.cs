@@ -39,7 +39,7 @@ namespace NVexFlow
         {
             this.note = null;
             this.index = null;
-            this.textLine = 0;
+            this.text_line = 0;
             this.text = text;
             this.justification = Annotation.AnnotationJustify.CENTER;
             this.verticalJustification = Annotation.AnnotationVerticalJustify.TOP;
@@ -63,7 +63,7 @@ namespace NVexFlow
         /// </summary>
         public new Annotation SetTextLine(int textLine)
         {
-            this.textLine = textLine;
+            this.text_line = textLine;
             return this;
         }
         /// <summary>

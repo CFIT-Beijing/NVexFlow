@@ -60,7 +60,7 @@ namespace NVexFlow
         private void Init(string text,bool release,IList<PhraseModel> phrase)
         {
             this.text = text;
-            this.xShift = 0;
+            this.x_shift = 0;
             this.release = release || false;
             //字体类型不兼容父类
             //this.font="10pt Arial";
@@ -69,11 +69,11 @@ namespace NVexFlow
                 size = 10,
                 weight = string.Empty
             };
-            this.renderOptions = new BendRenderOpts() {
-                lineWidth = 1.5,
-                lineStyle = "#777777",
-                bendWidth = 8,
-                releaseWidth = 8
+            this.render_options = new BendRenderOpts() {
+                line_width = 1.5,
+                line_style = "#777777",
+                bend_width = 8,
+                release_width = 8
             };
             if(phrase != null)
             {
@@ -101,7 +101,7 @@ namespace NVexFlow
         }
         public new Bend SetXShift(int xShift)
         {
-            this.xShift = xShift;
+            this.x_shift = xShift;
             UpdateWidth();
             return this;
         }
@@ -133,14 +133,14 @@ namespace NVexFlow
                 else
                 {
                     double additionalWidth = (bend.type == BendType.UP) ?
-                      this.renderOptions.bendWidth : this.renderOptions.releaseWidth;
+                      this.render_options.bend_width : this.render_options.release_width;
                     bend.width = Math.Max(additionalWidth,MeasureText(bend.text)) + 3;
-                    bend.drawWidth = bend.width.Value / 2;
-                    bend.drawWidth = bend.width.Value / 2;
+                    bend.draw_width = bend.width.Value / 2;
+                    bend.draw_width = bend.width.Value / 2;
                     totalWidth += bend.width.Value;
                 }
             }
-            this.SetWidth(totalWidth + this.xShift);
+            this.SetWidth(totalWidth + this.x_shift);
             return this;
         }
         private double MeasureText(string text)
@@ -165,7 +165,7 @@ namespace NVexFlow
 
         #region 隐含的字段
         public string text;
-        public BendRenderOpts renderOptions;
+        public BendRenderOpts render_options;
         public IList<PhraseModel> phrase;
         public bool release;
         #endregion

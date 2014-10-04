@@ -15,7 +15,7 @@ namespace NVexFlow
         {
             this.SetClef(NVexFlow.Clef.clefTypes[clef]);
             // Note properties
-            this.ignoreTicks = true;
+            this.ignore_ticks = true;
         }
         public ClefType GetClef()
         {

@@ -27,11 +27,11 @@ namespace NVexFlow
             this.index = null;
             this.type = type;
             this.position = Modifier.ModifierPosition.LEFT;
-            this.renderOptions = new RenderOptions() {
+            this.render_options = new RenderOptions() {
                 // Font size for glyphs
-                fontScale = 38,
+                font_scale = 38,
                 // Length of stroke across heads above or below the stave.
-                strokePx = 3
+                stroke_px = 3
             };
             this.accidental = Flow.AccidentalCodes(this.type);
             if(this.accidental == null)
@@ -40,8 +40,8 @@ namespace NVexFlow
             }
             // Cautionary accidentals have parentheses around them
             this.cautionary = false;
-            this.parenLeft = null;
-            this.parenRight = null;
+            this.paren_left = null;
+            this.paren_right = null;
             // Initial width is set from table.
             this.SetWidth(this.accidental.width);
         }
@@ -64,8 +64,8 @@ namespace NVexFlow
             // Accidentals attached to grace notes are rendered smaller.
             if (this.note.GetCategory() == "gracenotes")
             {
-                this.renderOptions.fontScale = 25;
-                this.SetWidth(this.accidental.gracenoteWidth);
+                this.render_options.font_scale = 25;
+                this.SetWidth(this.accidental.gracenote_width);
             }
             return this;
         }
@@ -75,12 +75,12 @@ namespace NVexFlow
         public Accidental SetAsCautionary()
         {
             this.cautionary = true;
-            this.renderOptions.fontScale = 28;
-            this.parenLeft = Flow.AccidentalCodes("{");
-            this.parenRight = Flow.AccidentalCodes("}");
-            double widthAdjust = (this.type == "##" || this.type == "bb") ? 6 : 4;
+            this.render_options.font_scale = 28;
+            this.paren_left = Flow.AccidentalCodes("{");
+            this.paren_right = Flow.AccidentalCodes("}");
+            double width_adjust = (this.type == "##" || this.type == "bb") ? 6 : 4;
             // Make sure `width` accomodates for parentheses.
-            this.SetWidth(this.parenLeft.width + this.accidental.width + this.parenRight.width - widthAdjust);
+            this.SetWidth(this.paren_left.width + this.accidental.width + this.paren_right.width - width_adjust);
             return this;
         }
         /// <summary>
@@ -94,11 +94,11 @@ namespace NVexFlow
 
         #region 隐含的字段
         public string type;
-        public RenderOptions renderOptions;
+        public RenderOptions render_options;
         public AccidentalOpts accidental;
         public bool cautionary;
-        public AccidentalOpts parenLeft;
-        public AccidentalOpts parenRight;
+        public AccidentalOpts paren_left;
+        public AccidentalOpts paren_right;
         #endregion
     }
 }

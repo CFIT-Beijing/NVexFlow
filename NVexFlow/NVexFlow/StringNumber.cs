@@ -17,15 +17,15 @@ namespace NVexFlow
         private void Init(string number)
         {
             this.note = null;
-            this.lastNote = null;
+            this.last_note = null;
             this.index = null;
-            this.stringNumber = number;
+            this.string_number = number;
             this.SetWidth(20);
             this.position = ModifierPosition.ABOVE;  // Default position above stem or note head
-            this.xShift = 0;
-            this.yShift = 0;
-            this.xOffset = 0;                               // Horizontal offset from default
-            this.yOffset = 0;                               // Vertical offset from default
+            this.x_shift = 0;
+            this.y_shift = 0;
+            this.x_offset = 0;                               // Horizontal offset from default
+            this.y_offset = 0;                               // Vertical offset from default
             this.dashed = true;                              // true - draw dashed extension  false - no extension
             this.leg = Renderer.RendererLineEndType.NONE;   // draw upward/downward leg at the of extension line
             this.radius = 8;
@@ -79,22 +79,22 @@ namespace NVexFlow
         }
         public StringNumber SetStringNumber(string number)
         {
-            this.stringNumber = number;
+            this.string_number = number;
             return this;
         }
         public StringNumber SetXOffset(double x)
         {
-            this.xOffset = x;
+            this.x_offset = x;
             return this;
         }
         public StringNumber SetYOffset(double y)
         {
-            this.yOffset = y;
+            this.y_offset = y;
             return this;
         } 
         public StringNumber SetLastNote(object note)
         {
-            this.lastNote = note;
+            this.last_note = note;
             return this;
         }
         public StringNumber SetDashed(bool dashed)
@@ -108,12 +108,12 @@ namespace NVexFlow
         }
         #endregion
         #region 隐含的字段
-        public double xOffset;
-        public double yOffset;
-        public object lastNote;
+        public double x_offset;
+        public double y_offset;
+        public object last_note;
         public bool dashed;
         public Renderer.RendererLineEndType leg;
-        public string stringNumber;
+        public string string_number;
         public int radius;
         #endregion
     }

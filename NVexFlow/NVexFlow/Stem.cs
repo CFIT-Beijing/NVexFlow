@@ -28,43 +28,43 @@ namespace NVexFlow
         private void Init(StemOpts options)
         {
             // Default notehead x bounds
-            this.xBegin = options.xBegin ?? 0;
-            this.xEnd = options.xEnd ?? 0;
+            this.x_begin = options.x_begin ?? 0;
+            this.x_end = options.x_end ?? 0;
             // Y bounds for top/bottom most notehead
-            this.yTop = options.yTop ?? 0;
-            this.yBottom = options.yBottom ?? 0;
+            this.y_top = options.y_top ?? 0;
+            this.y_bottom = options.y_bottom ?? 0;
 
             // Stem base extension
-            this.yExtend = options.yExtend ?? 0;
+            this.y_extend = options.y_extend ?? 0;
             // Stem top extension
-            this.stemExtension = options.stemExtension ?? 0;
+            this.stem_extension = options.stem_extension ?? 0;
             // Direction of the stem
-            this.stemDirection = options.stemDirection ?? 0;
+            this.stem_direction = options.stem_direction ?? 0;
             // Flag to override all draw calls
             this.hide = false;
         }
         // Set the x bounds for the default notehead
         public Stem SetNoteHeadXBounds(double xBegin, double xEnd)
         {
-            this.xBegin = xBegin;
-            this.xEnd = xEnd;
+            this.x_begin = xBegin;
+            this.x_end = xEnd;
             return this;
         }
         // Set the direction of the stem in relation to the noteheads
         public void SetDirection(double direction)
         {
-            this.stemDirection = direction;
+            this.stem_direction = direction;
         }
         // Set the extension for the stem, generally for flags or beams
         public void SetExtension(double ext)
         {
-            this.stemExtension = ext;
+            this.stem_extension = ext;
         }
         // The the y bounds for the top and bottom noteheads
         public Stem SetYBounds(double yTop, double yBottom)
         {
-            this.yTop = yTop;
-            this.yBottom = yBottom;
+            this.y_top = yTop;
+            this.y_bottom = yBottom;
             return this;
         }
         // The category of the object
@@ -81,7 +81,7 @@ namespace NVexFlow
         // Gets the entire height for the stem
         public double GetHeight()
         {
-            return (this.yBottom - this.yTop) * this.stemDirection + (Stem.HEIGHT + this.stemExtension) * this.stemDirection;
+            return (this.y_bottom - this.y_top) * this.stem_direction + (Stem.HEIGHT + this.stem_extension) * this.stem_direction;
         }
         public BoundingBox GetBoundingBox()
         {
@@ -90,15 +90,15 @@ namespace NVexFlow
         // Get the y coordinates for the very base of the stem to the top of the extension
         public StemExtents GetExtents()
         {
-            IList<double> ys = new List<double>() { this.yTop, this.yBottom };
-            double topPixel = this.yTop;
-            double basePixel = this.yBottom;
-            double stemHeight = Stem.HEIGHT + this.stemExtension;
+            IList<double> ys = new List<double>() { this.y_top, this.y_bottom };
+            double topPixel = this.y_top;
+            double basePixel = this.y_bottom;
+            double stemHeight = Stem.HEIGHT + this.stem_extension;
             for (int i = 0; i < ys.Count(); i++)
             {
-                double stemTop = ys[i] + (stemHeight * -this.stemDirection);
+                double stemTop = ys[i] + (stemHeight * -this.stem_direction);
 
-                if (this.stemDirection == Stem.DOWN)
+                if (this.stem_direction == Stem.DOWN)
                 {
                     topPixel = topPixel > stemTop ? topPixel : stemTop;
                     basePixel = basePixel < ys[i] ? basePixel : ys[i];
@@ -109,7 +109,7 @@ namespace NVexFlow
                     basePixel = basePixel > ys[i] ? basePixel : ys[i];
                 }
             }
-            return new StemExtents() {topY=topPixel,baseY=basePixel };
+            return new StemExtents() {top_y=topPixel,base_y=basePixel };
         }
         // Render the stem onto the canvas
         public void Draw()
@@ -153,15 +153,15 @@ namespace NVexFlow
 
         #region 隐含字段
         public bool hide;
-        public double xBegin;
-        public double xEnd;
-        public double yExtend;
-        public double stemDirection;
-        public double stemExtension;
+        public double x_begin;
+        public double x_end;
+        public double y_extend;
+        public double stem_direction;
+        public double stem_extension;
         public string category;
         public CanvasContext context;
-        public double yTop;
-        public double yBottom;
+        public double y_top;
+        public double y_bottom;
         #endregion
     }
 }

@@ -41,10 +41,10 @@ namespace NVexFlow
 
 
         public double GetExtraLeftPx()
-        { return this.state.leftShift; }
+        { return this.state.left_shift; }
 
         public double GetExtraRightPx()
-        { return this.state.rightShift; }
+        { return this.state.right_shift; }
 
         public object GetMetrics()
         {

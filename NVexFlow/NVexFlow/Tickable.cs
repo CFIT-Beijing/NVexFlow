@@ -14,20 +14,20 @@ namespace NVexFlow
         }
         private void Init()
         {
-            this.intrinsicTicks = 0;
-            this.tickMultiplier = new Fraction(1, 1);
+            this.intrinsic_ticks = 0;
+            this.tick_multiplier = new Fraction(1, 1);
             this.ticks = new Fraction(0, 1);
             this.width = 0;
-            this.xShift = 0; // Shift from tick context
+            this.x_shift = 0; // Shift from tick context
             this.voice = null;
-            this.tickContext = null;
-            this.modifierContext = null;
+            this.tick_context = null;
+            this.modifier_context = null;
             this.modifiers = new List<Modifier>();
             this.preFormatted = false;
             this.postFormatted = false;
             this.tuplet = null;
             // This flag tells the formatter to ignore this tickable during formatting and justification. It is set by tickables such as BarNote.
-            this.ignoreTicks = false;
+            this.ignore_ticks = false;
             this.context = null;
         }
         public new Tickable SetContext(CanvasContext context)
@@ -45,7 +45,7 @@ namespace NVexFlow
         }
         public virtual bool GetShouldIgnoreTicks()
         {
-            return this.ignoreTicks;
+            return this.ignore_ticks;
         }
         public override double GetWidth()
         {
@@ -53,7 +53,7 @@ namespace NVexFlow
         }
         public Tickable SetXShift(double xShift)
         {
-            this.xShift = xShift;
+            this.x_shift = xShift;
             return this;
         }
         // Every tickable must be associated with a voice. This allows formatters
@@ -103,7 +103,7 @@ namespace NVexFlow
         /** optional, if tickable has modifiers **/
         public virtual void AddToModifierContext(ModifierContext mc)
         {
-            this.modifierContext = mc;
+            this.modifier_context = mc;
             // Add modifiers to modifier context (if any)
             this.preFormatted = false;
         }
@@ -116,7 +116,7 @@ namespace NVexFlow
         }
         public Tickable SetTickContext(TickContext tickContext)
         {
-            this.tickContext = tickContext;
+            this.tick_context = tickContext;
             this.preFormatted = false;
             return this;
         }
@@ -125,10 +125,10 @@ namespace NVexFlow
             if (this.preFormatted)
                 return;
             this.width = 0;
-            if (this.modifierContext != null)
+            if (this.modifier_context != null)
             {
-                this.modifierContext.PreFormat();
-                this.width += this.modifierContext.Width;
+                this.modifier_context.PreFormat();
+                this.width += this.modifier_context.Width;
             }
         }
         public virtual Tickable PostFormat()
@@ -140,35 +140,35 @@ namespace NVexFlow
         }
         public virtual Fraction GetIntrinsicTicks()
         {
-            return this.intrinsicTicks;
+            return this.intrinsic_ticks;
         }
         public virtual void SetIntrinsicTicks(Fraction intrinsicTicks)
         {
-            this.intrinsicTicks = intrinsicTicks;
-            this.ticks = this.tickMultiplier * this.intrinsicTicks;
+            this.intrinsic_ticks = intrinsicTicks;
+            this.ticks = this.tick_multiplier * this.intrinsic_ticks;
         }
         public virtual Fraction GetTickMultiplier()
         {
-            return tickMultiplier;
+            return tick_multiplier;
         }
         public virtual void ApplyTickMultiplier(int numerator, int denominator)
         {
-            this.tickMultiplier *= new Fraction(numerator, denominator);
-            this.ticks = this.tickMultiplier * this.intrinsicTicks;
+            this.tick_multiplier *= new Fraction(numerator, denominator);
+            this.ticks = this.tick_multiplier * this.intrinsic_ticks;
         }
         #endregion
 
         #region 隐含字段
         public Fraction ticks;
-        public bool ignoreTicks;
+        public bool ignore_ticks;
         public Voice voice;
         public Tuplet tuplet;
         public bool preFormatted;
         public IList<Modifier> modifiers;
-        public TickContext tickContext;
+        public TickContext tick_context;
         public bool postFormatted;
-        public Fraction intrinsicTicks;
-        public Fraction tickMultiplier;
+        public Fraction intrinsic_ticks;
+        public Fraction tick_multiplier;
         #endregion
     }
 }

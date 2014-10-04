@@ -5,7 +5,7 @@ namespace NVexFlow.Model
     public class NoteStruct
     {
         public string duration;
-        public bool? ignoreTicks;
+        public bool? ignore_ticks;
         //{ keys: ["a/3"], duration: "q", stem_direction: 1 }
         //public IList<string> keys;
         //public int stemDirection;
@@ -21,8 +21,8 @@ namespace NVexFlow.Model
     }
     public class NoteRenderOpts:RenderOptions
     {
-        public double annotationSpacing;
-        public double stavePadding;
+        public double annotation_spacing;
+        public double stave_padding;
     }
     public class NoteModifierStartXY
     {
@@ -33,30 +33,30 @@ namespace NVexFlow.Model
     {
         public Dictionary<Barline.BarlineType,int> widths;
         public double width;
-        public double noteWidth;
-        public double leftShift;
-        public double modLeftPx;
-        public double modRightPx;
-        public double extraLeftPx;
-        public double extraRightPx;
+        public double note_width;
+        public double left_shift;
+        public double mod_left_px;
+        public double mod_right_px;
+        public double extra_left_px;
+        public double extra_right_px;
     }
     public class Glyph4Note
     {
-        public double stemUpExtension = -Flow.STEM_HEIGHT;
-        public double stemDownExtension = -Flow.STEM_HEIGHT;
-        public string codeHead;
+        public double stem_up_extension = -Flow.STEM_HEIGHT;
+        public double stem_down_extension = -Flow.STEM_HEIGHT;
+        public string code_head;
         public bool rest;
         public string position;
-        public double lineAbove;
-        public double lineBelow;
+        public double line_above;
+        public double line_below;
         public bool stem;
-        public double headWidth;
+        public double head_width;
         public double dot_shiftY;
         public bool flag;
-        public double gracenoteStemUpExtension;
-        public double gracenoteStemDownExtension;
-        public double tabnoteStemUpExtension;
-        public double tabnoteStemDownExtension;
+        public double gracenote_stem_up_extension;
+        public double gracenote_stem_down_extension;
+        public double tabnote_stem_up_extension;
+        public double tabnote_stem_down_extension;
         public double stem_offset;
         //common
         //  head_width: 16,
@@ -89,9 +89,9 @@ namespace NVexFlow.Model
     {
         public double line;
         public string code;
-        public double shiftRight;
+        public double shift_right;
         public bool displaced;
-        public int intValue;
+        public int int_value;
         //  Vex.Flow.keyProperties = function(key, clef) {
         //  return {
         //  key: k,

@@ -19,10 +19,10 @@ namespace NVexFlow.Model
 
     public class TabNoteRenderOpts:NoteRenderOpts
     {
-        public int glyphFontScale;
-        public bool drawStem;
-        public bool drawDots;
-        public bool drawStemThroughStave;
+        public int glyph_font_scale;
+        public bool draw_stem;
+        public bool draw_dots;
+        public bool draw_stem_through_stave;
     }
 
     public class Glyph4TabNote : Glyph4Note
@@ -37,8 +37,8 @@ namespace NVexFlow.Model
         public string code;
         public double width;
         public double shift_y;
-        public object codeFlagDownStem;
-        public object codeFlagUpStem;
+        public object code_flag_down_stem;
+        public object code_flag_up_stem;
     }
 
     public class TabNoteModifierStartXY

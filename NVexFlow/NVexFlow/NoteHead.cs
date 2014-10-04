@@ -63,41 +63,41 @@ namespace NVexFlow
             this.index = headOptions.index;
             this.x = headOptions.x ?? 0;
             this.y = headOptions.y ?? 0;
-            this.noteType = headOptions.noteType;
+            this.note_type = headOptions.note_type;
             this.duration = headOptions.duration;
             this.displaced = headOptions.displaced ?? false;
-            this.stemDirection = headOptions.stemDirection ?? StaveNote.STEM_UP;
+            this.stem_direction = headOptions.stem_direction ?? StaveNote.STEM_UP;
             this.line = headOptions.line;
 
             // Get glyph code based on duration and note type. This could be regular notes, rests, or other custom codes.
-            this.glyph = Flow.DurationToGlyph(this.duration,this.noteType) as Glyph4NoteHead;
+            this.glyph = Flow.DurationToGlyph(this.duration,this.note_type) as Glyph4NoteHead;
             //其实Glyph4NoteHead可以写成partial的Glyph4Note，想表达的是Glyph4NoteHead比父类里使用的Glyph4Note多几个字段。你看看怎么弄吧
             //做成Glyph4NoteHead:Glyph4Note吧
             if(this.glyph == null)
             {
-                throw new Exception("BadArguments,No glyph found for duration '" + this.duration + "' and type '" + this.noteType + "'");
+                throw new Exception("BadArguments,No glyph found for duration '" + this.duration + "' and type '" + this.note_type + "'");
             }
-            this.glyphCode = (this.glyph as Glyph4NoteHead).codeHead;
-            this.xShift = headOptions.xShift;
-            if(!string.IsNullOrEmpty(headOptions.customGlyphCode))
+            this.glyph_code = (this.glyph as Glyph4NoteHead).code_head;
+            this.x_shift = headOptions.x_shift;
+            if(!string.IsNullOrEmpty(headOptions.custom_glyph_code))
             {
-                this.customGlyph = true;
-                this.glyphCode = headOptions.customGlyphCode;
+                this.custom_glyph = true;
+                this.glyph_code = headOptions.custom_glyph_code;
             }
             this.context = null;
             this.style = headOptions.style;
             this.slashed = headOptions.slashed;
             //其实NoteHeadRenderOpts可以写成partial的NoteRenderOpts，想表达的是NoteHeadRenderOpts比父类里使用的RenderOpts多几个字段。你看看怎么弄吧
             //做成NoteHeadRenderOpts:NoteRenderOpts吧。必要时仿照CrescendoRenderOpts实现NoteHeadRenderOpts.Merge静态方法。
-            this.renderOptions = new NoteHeadRenderOpts() {
-                glyphFontScale = 35,// font size for note heads
-                strokePx = 3// number of stroke px to the left and right of head
+            this.render_options = new NoteHeadRenderOpts() {
+                glyph_font_scale = 35,// font size for note heads
+                stroke_px = 3// number of stroke px to the left and right of head
             };
-            if(headOptions.glyphFontScale.HasValue)
+            if(headOptions.glyph_font_scale.HasValue)
             {
-                (this.renderOptions as NoteHeadRenderOpts).glyphFontScale = headOptions.glyphFontScale.Value;
+                (this.render_options as NoteHeadRenderOpts).glyph_font_scale = headOptions.glyph_font_scale.Value;
             }
-            this.SetWidth((this.glyph as Glyph4NoteHead).headWidth);
+            this.SetWidth((this.glyph as Glyph4NoteHead).head_width);
         }
         /// <summary>
         /// Get the `ModifierContext` category
@@ -182,7 +182,7 @@ namespace NVexFlow
         {
             // If the note has not been preformatted, then get the static x value Otherwise, it's been formatted and we should use it's x value relative to its tick context
             double x = !this.preFormatted ? this.x : base.GetAbsoluteX();
-            return x + (this.displaced ? this.width * this.stemDirection : 0);
+            return x + (this.displaced ? this.width * this.stem_direction : 0);
         }
         /// <summary>
         /// Get the `BoundingBox` for the `NoteHead`
@@ -204,14 +204,14 @@ namespace NVexFlow
         public NoteHead ApplyStyle()
         {
             NoteHeadStyle style = this.GetStyle();
-            if(style.shadowColor != null)
-            { this.context.ShadowColor = style.shadowColor; }
-            if(style.shadowBlur != null)
-            { this.context.ShadowBlur = style.shadowBlur; }
-            if(style.fillStyle != null)
-            { this.context.FillStyle = style.fillStyle; }
-            if(style.strokeStyle != null)
-            { this.context.StrokeStyle = style.strokeStyle; }
+            if(style.shadow_color != null)
+            { this.context.ShadowColor = style.shadow_color; }
+            if(style.shadow_blur != null)
+            { this.context.ShadowBlur = style.shadow_blur; }
+            if(style.fill_style != null)
+            { this.context.FillStyle = style.fill_style; }
+            if(style.stroke_style != null)
+            { this.context.StrokeStyle = style.stroke_style; }
             return this;
         }
         /// <summary>
@@ -233,7 +233,7 @@ namespace NVexFlow
             if(this.preFormatted)
                 return this;
             Glyph4NoteHead glyph = this.GetGlyph() as Glyph4NoteHead;
-            double width = glyph.headWidth + this.extraLeftPx + this.extraRightPx;
+            double width = glyph.head_width + this.extra_left_px + this.extra_right_px;
             this.SetWidth(width);
             this.SetPreFormatted(true);
             return this;
@@ -251,12 +251,12 @@ namespace NVexFlow
         #region 隐含字段
         public double y;
         public bool displaced;
-        public int stemDirection;
+        public int stem_direction;
         public double line;//可能是int。以后看到确实要改时再改。
-        public string glyphCode;
+        public string glyph_code;
         public NoteHeadStyle style;//复杂类型，目前还不清楚  `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
         public object slashed;//不清楚类型
-        public bool customGlyph;//看名字像bool
+        public bool custom_glyph;//看名字像bool
         #endregion
     }
 }

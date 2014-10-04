@@ -28,7 +28,7 @@ namespace NVexFlow
             this.volta = type;
 
             this.x = x;
-            this.yShift = yShift;
+            this.y_shift = yShift;
             this.number = number;
             this.font = new Font()
             {
@@ -43,7 +43,7 @@ namespace NVexFlow
         }
         public Volta SetShiftY(double y)
         {
-            this.yShift = y;
+            this.y_shift = y;
             return this;
         }
         public Volta Draw(Stave stave, double x)
@@ -90,7 +90,7 @@ namespace NVexFlow
         protected VoltaType volta;
         protected VoltaType type;
         protected double x;
-        protected double yShift;
+        protected double y_shift;
         protected int number;
         protected Font font;
         #endregion

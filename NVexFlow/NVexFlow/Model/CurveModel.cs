@@ -28,8 +28,8 @@ namespace NVexFlow.Model
         //  };
         public double spacing;
         public double thickness;
-        public double xShift;
-        public double yShift;
+        public double x_shift;
+        public double y_shift;
         public Curve.CurvePosition position;
         public bool invert;
         public IList<Cps> cps;

@@ -5,18 +5,18 @@ namespace NVexFlow
 {
     public class Formatter
     {
-        double minTotalWidth;
+        public double minTotalWidth;
 
         public double MinTotalWidth
         {
             get
             { return minTotalWidth; }
         }
-        bool hasMinTotalWidth;
+        public bool hasMinTotalWidth;
         public double? pixelsPerTick;
-        Fraction totalTicks;
-        object tContexts;
-        object mContexts;
+        public Fraction totalTicks;
+        public object tContexts;
+        public object mContexts;
 
 
 

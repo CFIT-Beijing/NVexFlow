@@ -13,10 +13,10 @@ namespace NVexFlow
         private void Init(string timeSpec,double customPadding)
         {
             TimeSignature timeSignature = new TimeSignature(timeSpec,customPadding);
-            this.timeSig = timeSignature.GetTimeSig();
-            this.SetWidth(this.timeSig.glyph.Metrics.Width);
+            this.time_sig = timeSignature.GetTimeSig();
+            this.SetWidth(this.time_sig.glyph.Metrics.Width);
             //// Note properties
-            this.ignoreTicks = true;
+            this.ignore_ticks = true;
         }
         public new TimeSigNote SetStave(Stave stave)
         {
@@ -45,7 +45,7 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        public TimeSig timeSig;
+        public TimeSig time_sig;
         public override string GetCategory()
         {
             throw new NotImplementedException();

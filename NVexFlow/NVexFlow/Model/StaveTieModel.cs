@@ -8,20 +8,20 @@ namespace NVexFlow.Model
 {
     public class Notes4StaveTie
     {
-        public Note firstNote;
-        public Note lastNote;
-        public IList<int> firstIndices;
-        public IList<int> lastIndices;
+        public Note first_note;
+        public Note last_note;
+        public IList<int> first_indices;
+        public IList<int> last_indices;
     }
     public class StaveTieRenderOpts:RenderOptions
     {
         public double cp1;
         public double cp2;
-        public double textShiftX;
-        public double firstXShift;
-        public double lastXShift;
-        public double yShift;
-        public double tieSpacing;
+        public double text_shift_x;
+        public double first_x_shift;
+        public double last_x_shift;
+        public double y_shift;
+        public double tie_spacing;
         public Font font;
     }
 }

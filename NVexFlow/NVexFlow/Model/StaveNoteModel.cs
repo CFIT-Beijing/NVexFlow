@@ -6,12 +6,12 @@ namespace NVexFlow.Model
     {
         public IList<string> keys;
         public string clef;
-        public int stemDirection;
-        public int? autoStem;
+        public int stem_direction;
+        public int? auto_stem;
     }
     public class StaveNoteRenderOpts:NoteRenderOpts
     {
-        public int glyphFontScale;
+        public int glyph_font_scale;
     }
     public class Glyph4StaveNote:Glyph4Note
     {
@@ -24,10 +24,10 @@ namespace NVexFlow.Model
         //  highest_line: highest_line,
         //  lowest_line: lowest_line
         //};
-        public double yTop;
-        public double yBottom;
-        public double highestLine;
-        public double lowestLine;
+        public double y_top;
+        public double y_bottom;
+        public double highest_line;
+        public double lowest_line;
     }
     public class ModifierStartXY
     {

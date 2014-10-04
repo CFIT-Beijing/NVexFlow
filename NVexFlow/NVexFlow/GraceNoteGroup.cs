@@ -17,12 +17,12 @@ namespace NVexFlow
             this.note = null;
             this.index = null;
             this.position = ModifierPosition.LEFT;
-            this.graceNotes = graceNotes;
+            this.grace_notes = graceNotes;
             this.width = 0;
 
             this.preFormatted = false;
 
-            this.showSlur = showSlur;
+            this.show_slur = showSlur;
             this.slur = null;
 
             this.formatter = new Formatter();
@@ -47,12 +47,12 @@ namespace NVexFlow
         }
         public GraceNoteGroup BeamNotes()
         {
-            if(this.graceNotes.Count > 1)
+            if(this.grace_notes.Count > 1)
             {
-                Beam beam = new Beam(this.graceNotes);
-                beam.renderOptions = new BeamRenderOpts() {
-                    beamWidth = 3,
-                    partialBeamLength = 4
+                Beam beam = new Beam(this.grace_notes);
+                beam.render_options = new BeamRenderOpts() {
+                    beam_width = 3,
+                    partial_beamLength = 4
                 };
                 this.beam = beam;
             }
@@ -78,7 +78,7 @@ namespace NVexFlow
         }
         public new GraceNoteGroup SetXShift(int xShift)
         {
-            this.xShift = xShift;
+            this.x_shift = xShift;
             return this;
         }
         public override void Draw()
@@ -90,8 +90,8 @@ namespace NVexFlow
         #region 隐含的字段
         public bool preFormatted;
         public Beam beam;
-        public IList<StemmableNote> graceNotes;
-        public bool showSlur;
+        public IList<StemmableNote> grace_notes;
+        public bool show_slur;
         public object slur;
         public Formatter formatter;
         public Voice voice;

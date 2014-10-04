@@ -8,7 +8,7 @@ namespace NVexFlow.Model
 {
     public class Acc
     {
-        public string glyphCode;
+        public string glyph_code;
         public double line;
     }
 }

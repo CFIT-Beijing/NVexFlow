@@ -24,12 +24,12 @@ namespace NVexFlow
             //JS原文是Modifier.ModifierPosition.CENTER;可是枚举里没有Center选项
             this.position = Modifier.ModifierPosition.CENTER;
             this.code = "v74";
-            this.shiftRight = -2;
-            this.ySpacing = 4;
-            this.renderOptions = new RenderOptions() {
-                fontScale = 35,
-                strokePx = 3,
-                strokeSpacing = 10
+            this.shift_right = -2;
+            this.y_spacing = 4;
+            this.render_options = new RenderOptions() {
+                font_scale = 35,
+                stroke_px = 3,
+                stroke_spacing = 10
             };
             this.font = new Font() {
                 family = "Arial",
@@ -49,11 +49,9 @@ namespace NVexFlow
         #region 隐含的字段
         public int num;
         public string code;
-        public int shiftRight;
-        public int ySpacing;
-        public RenderOptions renderOptions;
-        //搬到modifier中统一定义过了
-        //protected Font font;
+        public int shift_right;
+        public int y_spacing;
+        public RenderOptions render_options;
         #endregion
     }
 }

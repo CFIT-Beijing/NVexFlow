@@ -53,44 +53,44 @@ namespace NVexFlow
             }
 
             // Recalculate total ticks.
-            this.totalTicks = new Fraction(this.time.num_beats.Value * this.time.resolution.Value / this.time.beat_value.Value, 1);
-            this.resolutionMultiplier = 1;
+            this.total_ticks = new Fraction(this.time.num_beats.Value * this.time.resolution.Value / this.time.beat_value.Value, 1);
+            this.resolution_multiplier = 1;
 
             // Set defaults
             this.tickables = new List<StemmableNote>();
-            this.ticksUsed = new Fraction(0, 1);
-            this.smallestTickCount = this.totalTicks;
-            this.largestTickWidth = 0;
+            this.ticks_used = new Fraction(0, 1);
+            this.smallest_tick_count = this.total_ticks;
+            this.largest_tick_width = 0;
             this.stave = null;
             this.boundingBox = null;
             // Do we care about strictly timed notes
             this.mode = VoiceMode.STRICT;
 
             // This must belong to a VoiceGroup
-            this.voiceGroup = null;
+            this.voice_group = null;
         }
 
         // Get the total ticks in the voice
         public Fraction GetTotalTicks()
         {
-            return this.totalTicks;
+            return this.total_ticks;
         }
 
         // Get the total ticks used in the voice by all the tickables
         public Fraction GetTicksUsed()
         {
-            return this.ticksUsed;
+            return this.ticks_used;
         }
 
         //// Get the largest width of all the tickables
         public double GetLargestTickWidth()
         {
-            return this.largestTickWidth;
+            return this.largest_tick_width;
         }
         //// Get the tick count for the shortest tickable
         public Fraction GetSmallestTickCount()
         {
-            return this.smallestTickCount;
+            return this.smallest_tick_count;
         }
         //// Get the tickables in the voice
         public IList<StemmableNote> GetTickables()
@@ -109,12 +109,12 @@ namespace NVexFlow
         //// Get the resolution multiplier for the voice
         public int GetResolutionMultiplier()
         {
-            return this.resolutionMultiplier;
+            return this.resolution_multiplier;
         }
         //// Get the actual tick resolution for the voice
         public int GetActualResolution()
         {
-            return this.resolutionMultiplier * this.time.resolution.Value;
+            return this.resolution_multiplier * this.time.resolution.Value;
         }
         //// Set the voice's stave
         public Voice SetStave(Stave stave)
@@ -162,16 +162,16 @@ namespace NVexFlow
         //// and preformatters to associate them with the right modifierContexts.
         public object GetVoiceGroup()
         {
-            if (this.voiceGroup == null)
+            if (this.voice_group == null)
             {
                 throw new Exception("NoVoiceGroup,No voice group for voice.");
             }
-            return this.voiceGroup;
+            return this.voice_group;
         }
         //// Set the voice group
         public Voice SetVoiceGroup(VoiceGroup g)
         {
-            this.voiceGroup = g; return this; 
+            this.voice_group = g; return this; 
         }
         //// Set the voice mode to strict or soft 
         public Voice SetStrict(bool strict)
@@ -184,7 +184,7 @@ namespace NVexFlow
         {
             if (this.mode == VoiceMode.STRICT || this.mode == VoiceMode.FULL)
             {
-                return this.ticksUsed == this.totalTicks;
+                return this.ticks_used == this.total_ticks;
             }
             else
             {
@@ -203,22 +203,22 @@ namespace NVexFlow
             {
                 Fraction ticks= tickable.GetTicks();
                 // Update the total ticks for this line
-                this.ticksUsed += ticks;
+                this.ticks_used += ticks;
 
                 if ((this.mode == VoiceMode.STRICT || this.mode == VoiceMode.FULL) &&
-                this.ticksUsed > this.totalTicks)
+                this.ticks_used > this.total_ticks)
                 {
-                    this.totalTicks -= ticks;
+                    this.total_ticks -= ticks;
                     throw new Exception("BadArgument,Too many ticks.");
                 }
 
                 // Track the smallest tickable for formatting
-                if (ticks < this.smallestTickCount)
+                if (ticks < this.smallest_tick_count)
                 {
-                    this.smallestTickCount = ticks;
+                    this.smallest_tick_count = ticks;
                 }
 
-                this.resolutionMultiplier = ticksUsed.Denominator;
+                this.resolution_multiplier = ticks_used.Denominator;
                 // Expand total ticks using denominator from ticks used
                 // this.totalTicks.add(0, this.ticksUsed.denominator);
             }
@@ -295,17 +295,17 @@ namespace NVexFlow
 
         #region 隐含字段
         public VoiceTime time;
-        public Fraction totalTicks;
-        public Fraction ticksUsed;
-        public double largestTickWidth;
-        public Fraction smallestTickCount;
+        public Fraction total_ticks;
+        public Fraction ticks_used;
+        public double largest_tick_width;
+        public Fraction smallest_tick_count;
         public IList<StemmableNote> tickables;
         public VoiceMode mode;
-        public int resolutionMultiplier;
-        public object actualResolution;
+        public int resolution_multiplier;
+        public object actual_resolution;
         public Stave stave;
         public BoundingBox boundingBox;
-        public VoiceGroup voiceGroup;
+        public VoiceGroup voice_group;
         public VoiceMode strict;
         public bool preFormatted;
         #endregion

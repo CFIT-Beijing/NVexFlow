@@ -51,11 +51,11 @@ namespace NVexFlow
             // Set note properties from parameters.
             this.duration = initData.duration;
             this.dots = initData.dots;
-            this.noteType = initData.type;
+            this.note_type = initData.type;
             this.SetIntrinsicTicks(initData.ticks); 
             this.modifiers = new List<Modifier>();
             // Get the glyph code for this note from the font.
-            this.glyph = Flow.DurationToGlyph(this.duration,this.noteType);
+            this.glyph = Flow.DurationToGlyph(this.duration,this.note_type);
             /*
             if (this.positions != null)
             {
@@ -67,18 +67,18 @@ namespace NVexFlow
             *///C#无需类型检查。但如果!this.positions.length等价于this.positions.Count <= 0
               //需要保留this.positions.Count <= 0检验。
               // Note to play for audio players.
-            this.playNote = null;
+            this.play_note = null;
             // Positioning contexts used by the Formatter.
-            this.tickContext = null;    // The current tick context.
-            this.modifierContext = null;
-            this.ignoreTicks = false;
+            this.tick_context = null;    // The current tick context.
+            this.modifier_context = null;
+            this.ignore_ticks = false;
             // Positioning variables
             this.width = 0;             // Width in pixels calculated after preFormat
-            this.extraLeftPx = 0;       // Extra room on left for offset note head
-            this.extraRightPx = 0;      // Extra room on right for offset note head
-            this.xShift = 0;           // X shift from tick context X
-            this.leftModPx = 0;        // Max width of left modifiers
-            this.rightModPx = 0;       // Max width of right modifiers
+            this.extra_left_px = 0;       // Extra room on left for offset note head
+            this.extra_right_px = 0;      // Extra room on right for offset note head
+            this.x_shift = 0;           // X shift from tick context X
+            this.left_mod_px = 0;        // Max width of left modifiers
+            this.right_mod_px = 0;       // Max width of right modifiers
             this.voice = null;          // The voice that this note is in
             this.preFormatted = false;  // Is this note preFormatted?
             this.ys = new List<double>();               // list of y coordinates for each note
@@ -86,9 +86,9 @@ namespace NVexFlow
                                                         // The render surface.
             this.context = null;
             this.stave = null;
-            this.renderOptions = new NoteRenderOpts() {
-                annotationSpacing = 5,
-                stavePadding = 12
+            this.render_options = new NoteRenderOpts() {
+                annotation_spacing = 5,
+                stave_padding = 12
             };
         }
         /// <summary>
@@ -96,11 +96,11 @@ namespace NVexFlow
         /// </summary>
         public virtual object GetPlayNote()
         {
-            return this.playNote;
+            return this.play_note;
         }
         public Note SetPlayNote(object playNote)
         {
-            this.playNote = playNote;
+            this.play_note = playNote;
             return this;
         }
         /// <summary>
@@ -146,20 +146,20 @@ namespace NVexFlow
         /// </summary>
         public virtual double GetExtraLeftPx()
         {
-            return this.extraLeftPx; 
+            return this.extra_left_px; 
         }
         public Note SetExtraLeftPx(double extraLeftPx)
         {
-            this.extraLeftPx = extraLeftPx;
+            this.extra_left_px = extraLeftPx;
             return this;
         }
         public virtual double GetExtraRightPx()
         {
-            return this.extraRightPx;
+            return this.extra_right_px;
         }
         public Note SetExtraRightPx(double extraRightPx)
         {
-            this.extraRightPx = extraRightPx;
+            this.extra_right_px = extraRightPx;
             return this;
         }
         /// <summary>
@@ -168,7 +168,7 @@ namespace NVexFlow
         /// <returns></returns>
         public bool ShouldIgnoreTicks()
         {//不增加override或new关键词以提示潜在重复implement
-                return this.ignoreTicks;
+                return this.ignore_ticks;
         }
         /// <summary>
         /// Get the stave line number for the note.
@@ -249,11 +249,11 @@ namespace NVexFlow
         /// </summary>
         public TickContext GetTickContext()
         {
-            return this.tickContext;
+            return this.tick_context;
         }
         public new Note SetTickContext(TickContext tickContext)
         {
-            this.tickContext = tickContext;
+            this.tick_context = tickContext;
             this.preFormatted = false;
             return this;
         }
@@ -279,7 +279,7 @@ namespace NVexFlow
         }
         public string GetNoteType()
         {
-            return this.noteType;
+            return this.note_type;
         }
         public Note SetBeam()
         {
@@ -291,7 +291,7 @@ namespace NVexFlow
          /// </summary>
         public new Note SetModifierContext(ModifierContext modifierContext)
         {
-            this.modifierContext = modifierContext;
+            this.modifier_context = modifierContext;
             return this;
         }
         /// <summary>
@@ -338,23 +338,23 @@ namespace NVexFlow
             }
             double modLeftPx = 0;
             double modRightPx = 0;
-            if (this.modifierContext != null)
+            if (this.modifier_context != null)
             {
-                modLeftPx = this.modifierContext.state.leftShift;
-                modRightPx = this.modifierContext.state.rightShift;
+                modLeftPx = this.modifier_context.state.left_shift;
+                modRightPx = this.modifier_context.state.right_shift;
             }
             double width = this.GetWidth();
             return new NoteMetrics()
             {
                 width = width,
-                noteWidth = width -
+                note_width = width -
                             modLeftPx - modRightPx - // used by accidentals and modifiers
-                                    this.extraLeftPx - this.extraRightPx,
-                leftShift = this.xShift,// TODO(0xfe): Make style consistent
-                modLeftPx = modLeftPx,
-                modRightPx = modRightPx,
-                extraLeftPx = this.extraLeftPx,
-                extraRightPx = this.extraRightPx
+                                    this.extra_left_px - this.extra_right_px,
+                left_shift = this.x_shift,// TODO(0xfe): Make style consistent
+                mod_left_px = modLeftPx,
+                mod_right_px = modRightPx,
+                extra_left_px = this.extra_left_px,
+                extra_right_px = this.extra_right_px
             };
         }
         /// <summary>
@@ -366,7 +366,7 @@ namespace NVexFlow
             {
                 throw new Exception("UnformattedNote,Can't call GetWidth on an unformatted note.");
             }
-            return this.width + (this.modifierContext != null ? this.modifierContext.Width : 0);
+            return this.width + (this.modifier_context != null ? this.modifier_context.Width : 0);
         } 
         public new Note SetWidth(double width)
         {
@@ -378,7 +378,7 @@ namespace NVexFlow
         /// </summary>
         public new Note SetXShift(double x)
         {
-            this.xShift = x;
+            this.x_shift = x;
             return this;
         }
         /// <summary>
@@ -386,25 +386,25 @@ namespace NVexFlow
         /// </summary>
         public virtual double GetX()
         {
-            if (this.tickContext == null)
+            if (this.tick_context == null)
             {
                 throw new Exception("NoTickContext,Note needs a TickContext assigned for an X-Value");
             }
-            return this.tickContext.X + this.xShift;
+            return this.tick_context.X + this.x_shift;
         }
         /// <summary>
         /// Get the absolute `X` position of this note relative to the stave.
         /// </summary>
         public virtual double GetAbsoluteX()
         {
-            if (this.tickContext == null)
+            if (this.tick_context == null)
             {
                 throw new Exception("NoTickContext,Note needs a TickContext assigned for an X-Value");
             }
-            double x = this.tickContext.X;
+            double x = this.tick_context.X;
             if (this.stave != null)
             {
-                x += this.stave.GetNoteStartX() + this.renderOptions.stavePadding;
+                x += this.stave.GetNoteStartX() + this.render_options.stave_padding;
             }
             return x;
         }
@@ -414,9 +414,9 @@ namespace NVexFlow
             // Maintain the width of left and right modifiers in pixels.
             if (this.preFormatted)
             {
-                TickContextExtraPx extra = this.tickContext.ExtraPx;
-                this.leftModPx = Math.Max(this.leftModPx, extra.left);
-                this.rightModPx = Math.Max(this.rightModPx, extra.right);
+                TickContextExtraPx extra = this.tick_context.ExtraPx;
+                this.left_mod_px = Math.Max(this.left_mod_px, extra.left);
+                this.right_mod_px = Math.Max(this.right_mod_px, extra.right);
             }
             return this;
         }
@@ -424,21 +424,21 @@ namespace NVexFlow
 
         #region 隐含字段
         public double x;
-        public double leftModPx;
-        public double rightModPx;
-        public object playNote;
+        public double left_mod_px;
+        public double right_mod_px;
+        public object play_note;
         public Stave stave;
-        public double extraLeftPx;
-        public double extraRightPx;
-        public object lineNumber;
-        public object lineForRest;
+        public double extra_left_px;
+        public double extra_right_px;
+        public object line_number;
+        public object line_for_rest;
         public Glyph4Note glyph;
         public IList<double> ys;
         public IList<object> positions;
         public string duration;//里程碑2阶段duration改用Fraction类型。
         public int dots;
-        public string noteType;
-        public NoteRenderOpts renderOptions;
+        public string note_type;
+        public NoteRenderOpts render_options;
         #endregion
     }
 }

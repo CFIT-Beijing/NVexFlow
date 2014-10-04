@@ -8,13 +8,16 @@ namespace NVexFlow.Model
         public int line;
         public Glyph glyph;
     }
-    //他对这个glyph对象进行了改造，不再遵守Glyph的方法。这里暂时采用子类继承改写父类的方式。
+    //返回一个Glyph对象，但是重写了Glyph的这几个方法。
+    //一种办法是：直接将这些方法翻译成C#写死在这个类里。
+    //另一种方法是：把这些方法定义成这个类的委托字段，将来可以比较灵活的赋值。
+    //暂时采用了写死的方式。
     public class Glyph4TimeSignature : Glyph
     {
         public Glyph4TimeSignature(string code, double point):base(code,point)
         { }
-        public IList<Glyph> topGlyphs;
-        public IList<Glyph> botGlyphs;
+        public IList<Glyph> top_glyphs;
+        public IList<Glyph> bot_glyphs;
         public NVexFlow.Metrics GetMetrics(double xMin,double xMax,double width)
         {
             //你看是这样写死的好，还是把Glyph的GetMetrics写成委托好
@@ -25,7 +28,7 @@ namespace NVexFlow.Model
             //      width: width
             //    };
             //  };
-            return new Metrics() { xMin=xMin,xMax=xMin+width,width=width};
+            return new Metrics() { x_min=xMin,x_max=xMin+width,width=width};
         }
 
         //*****************下面这个你看看怎么改吧************************
@@ -57,17 +60,17 @@ namespace NVexFlow.Model
             double startX = x + topStartX;
             int i;
             Glyph g;
-            for ( i = 0; i < this.topGlyphs.Count(); ++i)
+            for ( i = 0; i < this.top_glyphs.Count(); ++i)
             {
-                g = this.topGlyphs[i];
-                Glyph.RenderOutline(this.Context, g.metrics.outline, g.scale, startX + g.xShift, this.stave.GetYForLine(that.topLine) + 1);
+                g = this.top_glyphs[i];
+                Glyph.RenderOutline(this.Context, g.metrics.outline, g.scale, startX + g.xShift, this.stave.GetYForLine(that.top_line) + 1);
                 startX += g.GetMetrics().width;
             }
-            startX = x + botStartX; for (i = 0; i < this.botGlyphs.Count(); ++i)
+            startX = x + botStartX; for (i = 0; i < this.bot_glyphs.Count(); ++i)
             {
-                g = this.botGlyphs[i];
+                g = this.bot_glyphs[i];
                 //      that.placeGlyphOnLine(g, this.stave, g.line); 这句不会写，怀疑他写错了。。。可能是that.line吧？
-                Glyph.RenderOutline(this.Context,g.metrics.outline,g.scale,startX+g.xShift,this.stave.GetYForLine(that.bottomLine)+1);
+                Glyph.RenderOutline(this.Context,g.metrics.outline,g.scale,startX+g.xShift,this.stave.GetYForLine(that.bottom_line)+1);
                 startX += g.GetMetrics().width;
             }
         }

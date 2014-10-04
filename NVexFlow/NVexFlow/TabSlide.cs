@@ -53,13 +53,13 @@ namespace NVexFlow
             if (direction == null)
             {
                 //此处有可能Null异常吧
-                double firstFret= (notes.firstNote as TabNote).GetPositions()[0].fret;
-                double lastFret = (notes.lastNote as TabNote).GetPositions()[0].fret;
+                double firstFret= (notes.first_note as TabNote).GetPositions()[0].fret;
+                double lastFret = (notes.last_note as TabNote).GetPositions()[0].fret;
                 direction = firstFret > lastFret ? TabSlide.SLIDE_DOWN : TabSlide.SLIDE_UP;
             }
-            this.slideDirection = direction.Value;
-            this.renderOptions = new StaveTieRenderOpts() { 
-            cp1=11,cp2=14,yShift=0.5
+            this.slide_direction = direction.Value;
+            this.render_options = new StaveTieRenderOpts() { 
+            cp1=11,cp2=14,y_shift=0.5
             };
 
             this.SetFont(new Font() {font="Times", size=10, style= "bold italic" });
@@ -104,7 +104,7 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        protected int slideDirection;
+        protected int slide_direction;
         #endregion
     }
 }

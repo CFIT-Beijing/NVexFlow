@@ -34,7 +34,7 @@ namespace NVexFlow
             this.metrics.widths.Add(Barline.BarlineType.REPEAT_BOTH,18);
             this.metrics.widths.Add(Barline.BarlineType.NONE,0);
             //// Tell the formatter that bar notes have no duration
-            this.ignoreTicks = true;
+            this.ignore_ticks = true;
             this.type = Barline.BarlineType.SINGLE;
             // Set width to width of relevant `Barline`.
             this.SetWidth(this.metrics.widths[this.type]);

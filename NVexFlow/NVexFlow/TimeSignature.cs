@@ -37,9 +37,9 @@ namespace NVexFlow
             double padding = customPadding ?? 15;
             this.SetPadding(padding);
             this.point = 40;
-            this.topLine = 2;
-            this.bottomLine = 4;
-            this.timeSig = this.ParseTimeSpec(timeSpec);
+            this.top_line = 2;
+            this.bottom_line = 4;
+            this.time_sig = this.ParseTimeSpec(timeSpec);
         }
         public TimeSig ParseTimeSpec(string timeSpec)
         {
@@ -103,8 +103,8 @@ namespace NVexFlow
         public Glyph4TimeSignature MakeTimeSignatureGlyph(IList<char> topNums,IList<char> botNums)
         {
             Glyph4TimeSignature glyph = new Glyph4TimeSignature("v0",this.point);
-            glyph.topGlyphs = new List<Glyph>();
-            glyph.botGlyphs = new List<Glyph>();
+            glyph.top_glyphs = new List<Glyph>();
+            glyph.bot_glyphs = new List<Glyph>();
             double topWidth = 0;
             int i;
             char num;
@@ -115,7 +115,7 @@ namespace NVexFlow
                 num = topNums[i];
                 Glyph topGlyph = new Glyph("v" + num,this.point);
 
-                glyph.topGlyphs.Add(topGlyph);
+                glyph.top_glyphs.Add(topGlyph);
                 topWidth += topGlyph.GetMetrics().width;
             }
 
@@ -127,12 +127,12 @@ namespace NVexFlow
                 num = botNums[i];
                 Glyph botGlyph = new Glyph("v" + num,this.point);
 
-                glyph.botGlyphs.Add(botGlyph);
+                glyph.bot_glyphs.Add(botGlyph);
                 botWidth += botGlyph.GetMetrics().width;
             }
 
             double width = (topWidth > botWidth ? topWidth : botWidth);
-            double xMin = (glyph as Glyph).GetMetrics().xMin;
+            double xMin = (glyph as Glyph).GetMetrics().x_min;
 
             double topStartX = (width - topWidth) / 2.0;
             double botStartX = (width - botWidth) / 2.0;
@@ -142,32 +142,32 @@ namespace NVexFlow
         }
         public TimeSig GetTimeSig()
         {
-            return this.timeSig;
+            return this.time_sig;
         }
         public override void AddModifier(Stave stave)
         {
-            if(!this.timeSig.num)
+            if(!this.time_sig.num)
             {
-                this.PlaceGlyphOnLine(this.timeSig.glyph,stave,this.timeSig.line);
+                this.PlaceGlyphOnLine(this.time_sig.glyph,stave,this.time_sig.line);
             }
-            stave.AddGlyph(this.timeSig.glyph);
+            stave.AddGlyph(this.time_sig.glyph);
         }
         public override void AddEndModifier(Stave stave)
         {
-            if(!this.timeSig.num)
+            if(!this.time_sig.num)
             {
-                this.PlaceGlyphOnLine(this.timeSig.glyph,stave,this.timeSig.line);
+                this.PlaceGlyphOnLine(this.time_sig.glyph,stave,this.time_sig.line);
             }
-            stave.AddEndGlyph(this.timeSig.glyph);
+            stave.AddEndGlyph(this.time_sig.glyph);
         }
         #endregion
 
 
         #region 隐含字段
         public double point;
-        public double topLine;
-        public double bottomLine;
-        public TimeSig timeSig;
+        public double top_line;
+        public double bottom_line;
+        public TimeSig time_sig;
         #endregion
 
 

@@ -31,17 +31,17 @@ namespace NVexFlow
         }
         private void Init(StaveNote from, StaveNote to, CurveOpts options)
         {
-            this.renderoptions = new CurveRenderOpts()
+            this.render_options = new CurveRenderOpts()
             {
                 spacing = 2,
                 thickness = 2,
-                xShift = 0,
-                yShift = 10,
+                x_shift = 0,
+                y_shift = 10,
                 position = Curve.CurvePosition.NEAR_HEAD,
                 invert = false,
                 cps = new List<Cps>() { new Cps() { x = 0, y = 10 }, new Cps() { x = 0, y = 10 } }
             };
-            this.renderoptions.cps = options.cps;
+            this.render_options.cps = options.cps;
             this.SetNotes(from, to);
         }
 
@@ -165,7 +165,7 @@ namespace NVexFlow
         public CanvasContext context;
         public StaveNote from;
         public StaveNote to;
-        public CurveRenderOpts renderoptions;
+        public CurveRenderOpts render_options;
         #endregion
     }
 }

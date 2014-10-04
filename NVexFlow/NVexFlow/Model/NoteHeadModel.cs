@@ -6,24 +6,24 @@
         public int index;
         public double? x;
         public double? y;
-        public string noteType;
+        public string note_type;
         public bool? displaced;
-        public int? stemDirection;
-        public double xShift;
-        public string customGlyphCode;
+        public int? stem_direction;
+        public double x_shift;
+        public string custom_glyph_code;
         public NoteHeadStyle style;
         public object slashed;
-        public int? glyphFontScale;
+        public int? glyph_font_scale;
     }
     /// <summary>
     /// `style` is an `object` with the following properties: `shadowColor`, `shadowBlur`, `fillStyle`, `strokeStyle`
     /// </summary>
     public class NoteHeadStyle
     {
-        public object shadowColor;
-        public object shadowBlur;
-        public object fillStyle;
-        public object strokeStyle;
+        public object shadow_color;
+        public object shadow_blur;
+        public object fill_style;
+        public object stroke_style;
     }
     /// <summary>
     ///table.js  Vex.Flow.durationToGlyph.duration_codes
@@ -33,6 +33,6 @@
     }
     public class NoteHeadRenderOpts:NoteRenderOpts
     {
-        public int glyphFontScale;// font size for note heads
+        public int glyph_font_scale;// font size for note heads
     }
 }

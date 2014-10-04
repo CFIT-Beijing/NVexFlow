@@ -21,7 +21,7 @@ namespace NVexFlow
         private void Init(NoteStruct noteStruct)
         {
             this.stem = null;
-            this.stemExtensionOverride = null;
+            this.stem_extension_override = null;
             this.beam = null;
         }
         /// <summary>
@@ -56,7 +56,7 @@ namespace NVexFlow
         public StemmableNote SetStemLength(double height)
         {
             //js中setStemLength在getStemExtension后面
-            this.stemExtensionOverride = height - Stem.HEIGHT;
+            this.stem_extension_override = height - Stem.HEIGHT;
             return this;
         }
         /// <summary>
@@ -68,7 +68,7 @@ namespace NVexFlow
             Glyph4StemmableNote glyph = this.GetGlyph() as Glyph4StemmableNote;
             if (glyph != null)
             {
-                return glyph.beamCount;
+                return glyph.beam_count;
             }
             else
             {
@@ -121,7 +121,7 @@ namespace NVexFlow
         /// </summary>
         /// <returns></returns>
         public int? GetStemDirection()
-        { return stemDirection; }
+        { return stem_direction; }
         public StemmableNote SetStemDirection(int? direction)
         {
             if (!direction.HasValue)
@@ -133,7 +133,7 @@ namespace NVexFlow
             {
                 throw new Exception("BadArgument,Invalid stem direction: " + direction);
             }
-            this.stemDirection = direction;
+            this.stem_direction = direction;
             if (this.stem != null)
             {
                 this.stem.SetDirection(direction.Value);
@@ -154,10 +154,10 @@ namespace NVexFlow
         /// </summary>
         public virtual double GetStemX()
         {
-            double xBegin = this.GetAbsoluteX() + this.xShift;
-            double xEnd = this.GetAbsoluteX() + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth;
-            double stemX = this.stemDirection == Stem.DOWN ? xBegin : xEnd;
-            stemX -= (Stem.WIDTH / 2) * this.stemDirection.Value;
+            double xBegin = this.GetAbsoluteX() + this.x_shift;
+            double xEnd = this.GetAbsoluteX() + this.x_shift + (this.glyph as Glyph4StemmableNote).head_width;
+            double stemX = this.stem_direction == Stem.DOWN ? xBegin : xEnd;
+            stemX -= (Stem.WIDTH / 2) * this.stem_direction.Value;
             return stemX;
         }
         /// <summary>
@@ -165,7 +165,7 @@ namespace NVexFlow
         /// </summary>
         public double GetCenterGlyphX()
         {
-            return this.GetAbsoluteX() + this.xShift + (this.glyph as Glyph4StemmableNote).headWidth / 2;
+            return this.GetAbsoluteX() + this.x_shift + (this.glyph as Glyph4StemmableNote).head_width / 2;
         }
         /// <summary>
         /// Get the stem extension for the current duration
@@ -173,13 +173,13 @@ namespace NVexFlow
         public virtual double GetStemExtension()
         {
             Glyph4StemmableNote glyph = this.GetGlyph() as Glyph4StemmableNote;
-            if (this.stemExtensionOverride.HasValue)
+            if (this.stem_extension_override.HasValue)
             {
-                return this.stemExtensionOverride.Value;
+                return this.stem_extension_override.Value;
             }
             if (glyph != null)
             {
-                return this.stemDirection == 1 ? glyph.stemUpExtension : glyph.stemDownExtension;
+                return this.stem_direction == 1 ? glyph.stem_up_extension : glyph.stem_down_extension;
             }
             return 0;
         }
@@ -201,10 +201,10 @@ namespace NVexFlow
             i < this.ys.Count();
             i++)
             {
-                double stemTop = this.ys[i] + (stemHeight * -this.stemDirection.Value);
+                double stemTop = this.ys[i] + (stemHeight * -this.stem_direction.Value);
                 //上面这句可看出stemDirection只能是1或-1，对应UP和DOWN
                 //里程碑2时考虑将stemDirection改成bool的isStemUp
-                if (this.stemDirection == Stem.DOWN)
+                if (this.stem_direction == Stem.DOWN)
                 {
                     topPixel = (topPixel > stemTop) ? topPixel : stemTop;
                     basePixel = (basePixel < this.ys[i]) ? basePixel : this.ys[i];
@@ -215,14 +215,14 @@ namespace NVexFlow
                     basePixel = (basePixel > this.ys[i]) ? basePixel : this.ys[i];
                 }
 
-                if (this.noteType == "s" || this.noteType == "x")
+                if (this.note_type == "s" || this.note_type == "x")
                 //里程碑2时这部分的7做成常量放在Flow类里，noteType改成枚举类型或数值类型
                 {
-                    topPixel -= this.stemDirection.Value * 7;
-                    basePixel -= this.stemDirection.Value * 7;
+                    topPixel -= this.stem_direction.Value * 7;
+                    basePixel -= this.stem_direction.Value * 7;
                 }
             }
-            return new StemExtents() { topY = topPixel, baseY = basePixel };
+            return new StemExtents() { top_y = topPixel, base_y = basePixel };
         }
         /// <summary>
         /// Sets the current note's beam
@@ -242,7 +242,7 @@ namespace NVexFlow
             {
                 return Math.Min(
                     this.stave.GetYForTopText(textLine),
-                    extents.topY - (this.renderOptions.annotationSpacing * (textLine + 1))
+                    extents.top_y - (this.render_options.annotation_spacing * (textLine + 1))
                 );
                 //暂时猜测textLine是数字,但是看变量名不太像
             }
@@ -258,7 +258,7 @@ namespace NVexFlow
             {
                 return Math.Max(
                     this.stave.GetYForTopText(textLine),
-                    extents.baseY + (this.renderOptions.annotationSpacing * (textLine))
+                    extents.base_y + (this.render_options.annotation_spacing * (textLine))
                 );
                 //暂时猜测textLine是数字,但是看变量名不太像
                 //js专门给textLine加括号，很可能是将string解析成数值
@@ -299,8 +299,8 @@ namespace NVexFlow
 
         #region 隐含字段
         public Stem stem;
-        public double? stemExtensionOverride;
-        public int? stemDirection;
+        public double? stem_extension_override;
+        public int? stem_direction;
         public Beam beam;
         public override string GetCategory()
         {

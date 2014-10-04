@@ -44,13 +44,13 @@ namespace NVexFlow
 
             int i;// shared iterator
             StemmableNote note;
-            this.stemDirection = 1;
+            this.stem_direction = 1;
             for (i = 0; i < notes.Count(); ++i)
             {
                 note = notes[i];
                 if (note.HasStem())
                 {
-                    this.stemDirection = note.GetStemDirection().Value;
+                    this.stem_direction = note.GetStemDirection().Value;
                     break;
                 }
             }
@@ -59,7 +59,7 @@ namespace NVexFlow
             if (autoStem != null && notes[0].GetCategory() == "stavenotes")
             {
                 // Auto Stem StaveNotes
-                this.minLine = 1000;
+                this.min_line = 1000;
 
                 for (i = 0; i < notes.Count(); ++i)
                 {
@@ -68,10 +68,10 @@ namespace NVexFlow
                     {
                         IList<NoteProps> props = (note as StaveNote).GetKeyProps();
                         double centerLine = (props[0].line + props[props.Count() - 1].line) / 2;
-                        this.minLine = Math.Min(centerLine, this.minLine);
+                        this.min_line = Math.Min(centerLine, this.min_line);
                     }
                 }
-                if (this.minLine < 3)
+                if (this.min_line < 3)
                 {
                     stemDirection = 1;
                 }
@@ -82,7 +82,7 @@ namespace NVexFlow
                 int stemWeight = 0;
                 foreach (var noteCurrent in notes)
                 {
-                    stemWeight += noteCurrent.stemDirection.Value;
+                    stemWeight += noteCurrent.stem_direction.Value;
                 }
                 stemDirection = stemWeight > -1 ? 1 : -1;
             }
@@ -94,25 +94,25 @@ namespace NVexFlow
                 if (autoStem != null)
                 {
                     note.SetStemDirection(stemDirection);
-                    this.stemDirection = stemDirection;
+                    this.stem_direction = stemDirection;
                 }
                 note.SetBeam(this);
             }
-            this.postFormatted = false;
+            this.post_formatted = false;
             this.notes = notes;
-            this.beamCount = this.GetBeamCount();
-            this.breakOnIndices = new List<int>();
-            this.renderOptions = new BeamRenderOpts()
+            this.beam_count = this.GetBeamCount();
+            this.break_on_indices = new List<int>();
+            this.render_options = new BeamRenderOpts()
             {
                 //    beam_width: 5,
-                beamWidth = 5,
-                maxSlope = 0.25,
-                minSlope = -0.25,
-                slopeIterations = 20,
-                slopeCost = 25,
-                showStemlets = false,
-                stemletExtension = 7,
-                partialBeamLength = 10
+                beam_width = 5,
+                max_slope = 0.25,
+                min_slope = -0.25,
+                slope_iterations = 20,
+                slope_cost = 25,
+                show_stemlets = false,
+                stemlet_extension = 7,
+                partial_beamLength = 10
             };
         }
         //        // The the rendering `context`
@@ -140,7 +140,7 @@ namespace NVexFlow
                     //throw new Exception("?"); 
                 }
                 else
-                { beamCounts.Add(glyph4StemmableNote.beamCount); }
+                { beamCounts.Add(glyph4StemmableNote.beam_count); }
             }
 
             int maxBeamCount = beamCounts[0];
@@ -153,7 +153,7 @@ namespace NVexFlow
         // Set which note `indices` to break the secondary beam at
         public Beam BreakSecondaryAt(IList<int> indices)
         {
-            this.breakOnIndices = indices;
+            this.break_on_indices = indices;
             return this;
         }
         // Return the y coordinate for linear function
@@ -165,15 +165,15 @@ namespace NVexFlow
         public void CalculateSlope()
         {
             StemmableNote firstNote = this.notes[0];
-            double firstYPx = firstNote.GetStemExtents().topY;
+            double firstYPx = firstNote.GetStemExtents().top_y;
             double firstXPx = firstNote.GetStemX();
-            double inc = (this.renderOptions.maxSlope - this.renderOptions.minSlope) / this.renderOptions.slopeIterations;
+            double inc = (this.render_options.max_slope - this.render_options.min_slope) / this.render_options.slope_iterations;
 
             double min_cost = double.MaxValue;//先这么写着
             double best_slope = 0;
             double y_shift = 0;
             // iterate through slope values to find best weighted fit
-            for (double slope = this.renderOptions.minSlope; slope <= this.renderOptions.maxSlope; slope += inc)
+            for (double slope = this.render_options.min_slope; slope <= this.render_options.max_slope; slope += inc)
             {
                 double total_stem_extension = 0;
                 double y_shift_tmp = 0;
@@ -183,19 +183,19 @@ namespace NVexFlow
                     StemmableNote note = notes[i];
 
                     double x_px = note.GetStemX();
-                    double y_px = note.GetStemExtents().topY;
+                    double y_px = note.GetStemExtents().top_y;
                     double slope_y_px = this.GetSlopeY(x_px, firstXPx, firstYPx, slope) + y_shift_tmp;
 
                     // beam needs to be shifted up to accommodate note
-                    if (y_px * this.stemDirection < slope_y_px * this.stemDirection)
+                    if (y_px * this.stem_direction < slope_y_px * this.stem_direction)
                     {
                         double diff = Math.Abs(y_px - slope_y_px);
-                        y_shift_tmp += diff * -this.stemDirection;
-                        total_stem_extension += (y_px - slope_y_px) * this.stemDirection;
+                        y_shift_tmp += diff * -this.stem_direction;
+                        total_stem_extension += (y_px - slope_y_px) * this.stem_direction;
                     }
                     else
                     { // beam overshoots note, account for the difference
-                        total_stem_extension += (y_px - slope_y_px) * this.stemDirection;
+                        total_stem_extension += (y_px - slope_y_px) * this.stem_direction;
                     }
                 }
 
@@ -225,7 +225,7 @@ namespace NVexFlow
         public void ApplyStemExtensions()
         {
             StemmableNote first_note = this.notes[0];
-            double first_y_px = first_note.GetStemExtents().topY;
+            double first_y_px = first_note.GetStemExtents().top_y;
             double first_x_px = first_note.GetStemX();
 
             for (int i = 0; i < this.notes.Count(); ++i)
@@ -233,38 +233,38 @@ namespace NVexFlow
                 StemmableNote note = this.notes[i];
                 double x_px = note.GetStemX();
                 StemExtents y_extents = note.GetStemExtents();
-                double base_y_px = y_extents.baseY;
-                double top_y_px = y_extents.topY;
+                double base_y_px = y_extents.base_y;
+                double top_y_px = y_extents.top_y;
 
                 // For harmonic note heads, shorten stem length by 3 pixels
-                base_y_px += this.stemDirection * note.GetGlyph().stem_offset;
+                base_y_px += this.stem_direction * note.GetGlyph().stem_offset;
                 // Don't go all the way to the top (for thicker stems)
                 double y_displacement = Flow.STEM_WIDTH;
                 if (!note.HasStem())
                 {
-                    if (note.IsRest() && this.renderOptions.showStemlets)
+                    if (note.IsRest() && this.render_options.show_stemlets)
                     {
                         double centerGlyphX = note.GetCenterGlyphX();
 
-                        double width = this.renderOptions.beamWidth;
-                        double total_width = (this.beamCount - 1) * width * 1.5 + width;
+                        double width = this.render_options.beam_width;
+                        double total_width = (this.beam_count - 1) * width * 1.5 + width;
 
-                        double stemlet_height = total_width - y_displacement + this.renderOptions.stemletExtension;
+                        double stemlet_height = total_width - y_displacement + this.render_options.stemlet_extension;
                         double beam_y = this.GetSlopeY(centerGlyphX, first_x_px, first_y_px, this.slope) + this.y_shift;
-                        double start_y = beam_y + Stem.HEIGHT * this.stemDirection;
-                        double end_y = beam_y + stemlet_height * this.stemDirection;
+                        double start_y = beam_y + Stem.HEIGHT * this.stem_direction;
+                        double end_y = beam_y + stemlet_height * this.stem_direction;
 
                         // Draw Stemlet
                         note.SetStem(new Stem(
                             new StemOpts()
                             {
-                                xBegin = centerGlyphX,
-                                xEnd = centerGlyphX,
-                                yBottom = this.stemDirection == 1 ? end_y : start_y,
-                                yTop = this.stemDirection == 1 ? start_y : end_y,
-                                yExtend = y_displacement,
-                                stemExtension = -1,// To avoid protruding through the beam
-                                stemDirection = this.stemDirection
+                                x_begin = centerGlyphX,
+                                x_end = centerGlyphX,
+                                y_bottom = this.stem_direction == 1 ? end_y : start_y,
+                                y_top = this.stem_direction == 1 ? start_y : end_y,
+                                y_extend = y_displacement,
+                                stem_extension = -1,// To avoid protruding through the beam
+                                stem_direction = this.stem_direction
                             }
                             ));
 
@@ -277,13 +277,13 @@ namespace NVexFlow
                 note.SetStem(new Stem(
                     new StemOpts()
                     {
-                        xBegin = x_px - Flow.STEM_WIDTH / 2,
-                        xEnd = x_px,
-                        yBottom = this.stemDirection == 1 ? top_y_px : base_y_px,
-                        yTop = this.stemDirection == 1 ? base_y_px : top_y_px,
-                        yExtend = y_displacement,
-                        stemExtension = Math.Abs(top_y_px - slope_y) - Stem.HEIGHT - 1,
-                        stemDirection = this.stemDirection
+                        x_begin = x_px - Flow.STEM_WIDTH / 2,
+                        x_end = x_px,
+                        y_bottom = this.stem_direction == 1 ? top_y_px : base_y_px,
+                        y_top = this.stem_direction == 1 ? base_y_px : top_y_px,
+                        y_extend = y_displacement,
+                        stem_extension = Math.Abs(top_y_px - slope_y) - Stem.HEIGHT - 1,
+                        stem_direction = this.stem_direction
                     }
                     ));
             }
@@ -296,7 +296,7 @@ namespace NVexFlow
             IList<BeamLine> beam_lines = new List<BeamLine>();
             bool beam_started = false;
             BeamLine current_beam;
-            double partial_beam_length = this.renderOptions.partialBeamLength;
+            double partial_beam_length = this.render_options.partial_beamLength;
 
             //for (var i = 0; i < this.notes.length; ++i)  原文js数组超出索引返回undefind，c#报错所以做了修改，不知道该没改业务涵义你再查查。
             for (int i = 1; i < this.notes.Count() - 1; ++i)
@@ -328,7 +328,7 @@ namespace NVexFlow
                         current_beam = beam_lines[beam_lines.Count() - 1];//有可能超出索引？
                         current_beam.end = stem_x;
                         // Should break secondary beams on note
-                        bool should_break = this.breakOnIndices.IndexOf(i) != -1;
+                        bool should_break = this.break_on_indices.IndexOf(i) != -1;
                         // Shorter than or eq an 8th note duration
                         bool can_break = int.Parse(duration) >= 8;//严谨一点可以用TryParse
                         if (should_break && can_break)
@@ -459,7 +459,7 @@ namespace NVexFlow
         // Post-format the beam. This can only be called after the notes in the beam have both `x` and `y` values. ie: they've been formatted and have staves
         public void PostFormat()
         {
-            if (this.postFormatted)
+            if (this.post_formatted)
             {
                 return;
             }
@@ -467,7 +467,7 @@ namespace NVexFlow
             this.CalculateSlope();
             this.ApplyStemExtensions();
 
-            this.postFormatted = true;
+            this.post_formatted = true;
         }
         // Render the beam to the canvas context
         public void Draw()
@@ -822,15 +822,15 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        public BeamRenderOpts renderOptions;
+        public BeamRenderOpts render_options;
         public object context;
         public IList<StemmableNote> notes;
-        public IList<int> breakOnIndices;
-        public int beamCount;
+        public IList<int> break_on_indices;
+        public int beam_count;
         public Fraction? ticks;
-        public int stemDirection;
-        public double minLine;
-        public bool postFormatted;
+        public int stem_direction;
+        public double min_line;
+        public bool post_formatted;
         public double slope;
         public double y_shift;
         #endregion

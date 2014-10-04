@@ -20,26 +20,26 @@ namespace NVexFlow
         }
         private void Init(string keySpec)
         {
-            this.glyphFontScale = 38;// TODO(0xFE): Should this match StaveNote?
-            this.accList = Flow.keySignature(keySpec);
+            this.glyph_font_scale = 38;// TODO(0xFE): Should this match StaveNote?
+            this.acc_list = Flow.keySignature(keySpec);
         }
         public void AddAccToStave(Stave stave, Acc acc)
         {
-            Glyph glyph = new Glyph(acc.glyphCode, this.glyphFontScale);
+            Glyph glyph = new Glyph(acc.glyph_code, this.glyph_font_scale);
             this.PlaceGlyphOnLine(glyph, stave, acc.line);
             stave.AddGlyph(glyph);
         }
         public override void AddModifier(Stave stave)
         {
-            this.ConvertAccLines(stave.clef, this.accList[0].glyphCode);
-            for (int i = 0; i < this.accList.Count(); ++i)
+            this.ConvertAccLines(stave.clef, this.acc_list[0].glyph_code);
+            for (int i = 0; i < this.acc_list.Count(); ++i)
             {
-                this.AddAccToStave(stave, this.accList[i]);
+                this.AddAccToStave(stave, this.acc_list[i]);
             }
         }
         public KeySignature AddToStave(Stave stave, bool firstGlyph)
         {
-            if (this.accList.Count <= 0)
+            if (this.acc_list.Count <= 0)
             {
                 return this;
             }
@@ -76,18 +76,18 @@ namespace NVexFlow
             if (isTenorSharps)
             {
                 tenorSharps = new List<double>() { 3, 1, 2.5, 0.5, 2, 0, 1.5 };
-                for (i = 0; i < this.accList.Count(); ++i)
+                for (i = 0; i < this.acc_list.Count(); ++i)
                 {
-                    this.accList[i].line = tenorSharps[i];
+                    this.acc_list[i].line = tenorSharps[i];
                 }
             }
             else
             {
                 if (clef != "treble")
                 {
-                    for (i = 0; i < this.accList.Count(); ++i)
+                    for (i = 0; i < this.acc_list.Count(); ++i)
                     {
-                        this.accList[i].line += offset;
+                        this.acc_list[i].line += offset;
                     }
                 }
             }
@@ -96,8 +96,8 @@ namespace NVexFlow
 
 
         #region 隐含字段
-        public IList<Acc> accList;
-        public int glyphFontScale;
+        public IList<Acc> acc_list;
+        public int glyph_font_scale;
         #endregion
     }
 }
