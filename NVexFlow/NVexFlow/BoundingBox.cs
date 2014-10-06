@@ -56,15 +56,15 @@ namespace NVexFlow
             //mergeWith: function(boundingBox, ctx) {
             //  var that = boundingBox;
             BoundingBox that = boundingBox;
-            double newX = this.x < that.x ? this.x : that.x;
-            double newY = this.y < that.y ? this.y : that.y;
-            double newW = this.x + this.w < that.x + that.w ? that.x + that.w - this.x : this.x + this.w - Math.Min(this.x, that.x);
-            double newH = this.y + this.h < that.y + that.h ? that.y + that.h - this.y : this.y + this.h - Math.Min(this.y, that.y);
+            double new_x = this.x < that.x ? this.x : that.x;
+            double new_y = this.y < that.y ? this.y : that.y;
+            double new_w = this.x + this.w < that.x + that.w ? that.x + that.w - this.x : this.x + this.w - Math.Min(this.x, that.x);
+            double new_h = this.y + this.h < that.y + that.h ? that.y + that.h - this.y : this.y + this.h - Math.Min(this.y, that.y);
 
-            this.x = newX;
-            this.y = newY;
-            this.w = newW;
-            this.h = newH;
+            this.x = new_x;
+            this.y = new_y;
+            this.w = new_w;
+            this.h = new_h;
 
             if (ctx != null)
             {

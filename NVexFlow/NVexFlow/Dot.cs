@@ -36,9 +36,9 @@ namespace NVexFlow
         {
             return "dots";
         }
-        public Dot SetDotShiftY(double dotShiftY )
+        public Dot SetDotShiftY(double dot_shift_y )
         {
-            this.dot_shift_y=dotShiftY;
+            this.dot_shift_y=dot_shift_y;
             return this;
         }
         public override void Draw()

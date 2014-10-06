@@ -43,35 +43,35 @@ namespace NVexFlow
         public TabStave AddTabGlyph()
         {
             //         addTabGlyph: function() {
-            double glyphScale=0;
-            double glyphOffset=0;
+            double glyph_scale=0;
+            double glyph_offset=0;
 
             switch (this.options.num_lines)
             {
                 case 8:
-                    glyphScale = 55;
-                    glyphOffset = 14;
+                    glyph_scale = 55;
+                    glyph_offset = 14;
                     break;
                 case 7:
-                    glyphScale = 47;
-                    glyphOffset = 8;
+                    glyph_scale = 47;
+                    glyph_offset = 8;
                     break;
                 case 6:
-                    glyphScale = 40;
-                    glyphOffset = 1;
+                    glyph_scale = 40;
+                    glyph_offset = 1;
                     break;
                 case 5:
-                    glyphScale = 30;
-                    glyphOffset = -6;
+                    glyph_scale = 30;
+                    glyph_offset = -6;
                     break;
                 case 4:
-                    glyphScale = 23;
-                    glyphOffset = -12;
+                    glyph_scale = 23;
+                    glyph_offset = -12;
                     break;
             }
-            Glyph tabGlyph = new Glyph("v2f", glyphScale);
-            tabGlyph.yShift = glyphOffset;
-            this.AddGlyph(tabGlyph);
+            Glyph tab_glyph = new Glyph("v2f", glyph_scale);
+            tab_glyph.yShift = glyph_offset;
+            this.AddGlyph(tab_glyph);
             return this;
         }
         #endregion

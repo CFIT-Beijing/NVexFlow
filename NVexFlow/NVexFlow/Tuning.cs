@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 
 namespace NVexFlow
-{//Tuning
+{
+    //这个类的参数命名js也是这样写的，你检查过之后再改一致性吧
     public class Tuning
     {
         public Tuning(string tuningString)

@@ -31,14 +31,14 @@ namespace NVexFlow
             DS_AL_FINE,// D.S. al Fine at end of stave
             FINE// Fine at end of stave
         }
-        private void Init(RepetitionType type, double x, double yShift)
+        private void Init(RepetitionType type, double x, double y_shift)
         {
             //        init: function(type, x, y_shift) {
             //  Repetition.superclass.init.call(this);
             this.symbol_type = type;
             this.x = x;
             this.x_shift = 0;
-            this.y_shift = yShift;
+            this.y_shift = y_shift;
             this.font = new Font() {
                 family = "times",
                 size=12,

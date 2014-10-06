@@ -8,10 +8,10 @@ namespace NVexFlow
     public class NoteHead:Note
     {
         #region js直译部分
-        public NoteHead(NoteHeadStruct headOptions)
-            : base(headOptions)
+        public NoteHead(NoteHeadStruct head_options)
+            : base(head_options)
         {
-            Init(headOptions);
+            Init(head_options);
         }
         /// <summary>
         /// Draw slashnote head manually. No glyph exists for this.
@@ -22,7 +22,7 @@ namespace NVexFlow
         // * `x`: the x coordinate to draw at
         // * `y`: the y coordinate to draw at
         // * `stem_direction`: the direction of the stem
-        private void DrawSlashNoteHead(CanvasContext ctx,string duration,double x,double y,int stemDirection)
+        private void DrawSlashNoteHead(CanvasContext ctx,string duration,double x,double y,int stem_direction)
         {
             //应该是和界面canvas相关的方法，暂时不写？
             //var width = 15 + (Vex.Flow.STEM_WIDTH / 2);
@@ -58,16 +58,16 @@ namespace NVexFlow
             //ctx.setLineWidth(1);
         }
 
-        private void Init(NoteHeadStruct headOptions)
+        private void Init(NoteHeadStruct head_options)
         {
-            this.index = headOptions.index;
-            this.x = headOptions.x ?? 0;
-            this.y = headOptions.y ?? 0;
-            this.note_type = headOptions.note_type;
-            this.duration = headOptions.duration;
-            this.displaced = headOptions.displaced ?? false;
-            this.stem_direction = headOptions.stem_direction ?? StaveNote.STEM_UP;
-            this.line = headOptions.line;
+            this.index = head_options.index;
+            this.x = head_options.x ?? 0;
+            this.y = head_options.y ?? 0;
+            this.note_type = head_options.note_type;
+            this.duration = head_options.duration;
+            this.displaced = head_options.displaced ?? false;
+            this.stem_direction = head_options.stem_direction ?? StaveNote.STEM_UP;
+            this.line = head_options.line;
 
             // Get glyph code based on duration and note type. This could be regular notes, rests, or other custom codes.
             this.glyph = Flow.DurationToGlyph(this.duration,this.note_type) as Glyph4NoteHead;
@@ -78,24 +78,24 @@ namespace NVexFlow
                 throw new Exception("BadArguments,No glyph found for duration '" + this.duration + "' and type '" + this.note_type + "'");
             }
             this.glyph_code = (this.glyph as Glyph4NoteHead).code_head;
-            this.x_shift = headOptions.x_shift;
-            if(!string.IsNullOrEmpty(headOptions.custom_glyph_code))
+            this.x_shift = head_options.x_shift;
+            if(!string.IsNullOrEmpty(head_options.custom_glyph_code))
             {
                 this.custom_glyph = true;
-                this.glyph_code = headOptions.custom_glyph_code;
+                this.glyph_code = head_options.custom_glyph_code;
             }
             this.context = null;
-            this.style = headOptions.style;
-            this.slashed = headOptions.slashed;
+            this.style = head_options.style;
+            this.slashed = head_options.slashed;
             //其实NoteHeadRenderOpts可以写成partial的NoteRenderOpts，想表达的是NoteHeadRenderOpts比父类里使用的RenderOpts多几个字段。你看看怎么弄吧
             //做成NoteHeadRenderOpts:NoteRenderOpts吧。必要时仿照CrescendoRenderOpts实现NoteHeadRenderOpts.Merge静态方法。
             this.render_options = new NoteHeadRenderOpts() {
                 glyph_font_scale = 35,// font size for note heads
                 stroke_px = 3// number of stroke px to the left and right of head
             };
-            if(headOptions.glyph_font_scale.HasValue)
+            if(head_options.glyph_font_scale.HasValue)
             {
-                (this.render_options as NoteHeadRenderOpts).glyph_font_scale = headOptions.glyph_font_scale.Value;
+                (this.render_options as NoteHeadRenderOpts).glyph_font_scale = head_options.glyph_font_scale.Value;
             }
             this.SetWidth((this.glyph as Glyph4NoteHead).head_width);
         }
@@ -194,9 +194,9 @@ namespace NVexFlow
                 throw new Exception("UnformattedNote,Can't call getBoundingBox on an unformatted note.");
             }
             double spacing = this.stave.GetSpacingBetweenLines();
-            double halfSpacing = spacing / 2;
-            double minY = this.y - halfSpacing;
-            return new BoundingBox(this.GetAbsoluteX(),minY,this.width,spacing);
+            double half_spacing = spacing / 2;
+            double min_y = this.y - half_spacing;
+            return new BoundingBox(this.GetAbsoluteX(),min_y,this.width,spacing);
         }
         /// <summary>
         /// Apply current style to Canvas `context`

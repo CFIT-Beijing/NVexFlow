@@ -29,36 +29,36 @@ namespace NVexFlow
         /// <param name="params"></param>
         private void RenderHairpin(CanvasContext ctx,RenderHairpinParams @params)
         {
-            double beginX = @params.begin_x;
-            double endX = @params.end_x;
+            double begin_x = @params.begin_x;
+            double end_x = @params.end_x;
             double y = @params.y;
-            double halfHeight = @params.height / 2;
+            double half_height = @params.height / 2;
 
             ctx.BeginPath();
 
             if(@params.reverse)
             {
-                ctx.MoveTo(beginX,y - halfHeight);
-                ctx.LineTo(endX,y);
-                ctx.LineTo(beginX,y + halfHeight);
+                ctx.MoveTo(begin_x,y - half_height);
+                ctx.LineTo(end_x,y);
+                ctx.LineTo(begin_x,y + half_height);
             }
             else
             {
-                ctx.MoveTo(endX,y - halfHeight);
-                ctx.LineTo(beginX,y);
-                ctx.LineTo(endX,y + halfHeight);
+                ctx.MoveTo(end_x,y - half_height);
+                ctx.LineTo(begin_x,y);
+                ctx.LineTo(end_x,y + half_height);
             }
 
             ctx.Stroke();
             ctx.ClosePath();
         }
         // Initialize the crescendo's properties
-        private void Init(CrescendoStruct noteStruct)
+        private void Init(CrescendoStruct note_struct)
         {
             //// Whether the object is a decrescendo
             this.decrescendo = false;
             //// The staff line to be placed on
-            this.line = noteStruct.line ?? 0;
+            this.line = note_struct.line ?? 0;
 
             //// The height at the open end of the cresc/decresc
             this.height = 15;

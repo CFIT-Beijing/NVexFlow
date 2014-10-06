@@ -34,25 +34,25 @@ namespace NVexFlow
             Init(note_struct);
         }
         // See constructor above for how to create a note.
-        private void Init(NoteStruct noteStruct)
+        private void Init(NoteStruct note_struct)
         {
-            if(noteStruct == null)
+            if(note_struct == null)
             {
                 throw new Exception("BadArguments,Note must have valid initialization data to identifyduration and type.");
             }
             // Parse `note_struct` and get note properties.
-            NoteInitData initData = Flow.ParseNoteData(noteStruct);
-            if(initData == null)
+            NoteInitData init_data = Flow.ParseNoteData(note_struct);
+            if(init_data == null)
             {
                 throw new Exception("BadArguments,Invalid note initialization object: ");
                 //  throw new Vex.RuntimeError("BadArguments",
                 //      "Invalid note initialization object: " + JSON.stringify(note_struct));
             }
             // Set note properties from parameters.
-            this.duration = initData.duration;
-            this.dots = initData.dots;
-            this.note_type = initData.type;
-            this.SetIntrinsicTicks(initData.ticks); 
+            this.duration = init_data.duration;
+            this.dots = init_data.dots;
+            this.note_type = init_data.type;
+            this.SetIntrinsicTicks(init_data.ticks); 
             this.modifiers = new List<Modifier>();
             // Get the glyph code for this note from the font.
             this.glyph = Flow.DurationToGlyph(this.duration,this.note_type);
@@ -98,9 +98,9 @@ namespace NVexFlow
         {
             return this.play_note;
         }
-        public Note SetPlayNote(object playNote)
+        public Note SetPlayNote(object play_note)
         {
-            this.play_note = playNote;
+            this.play_note = play_note;
             return this;
         }
         /// <summary>
@@ -125,7 +125,9 @@ namespace NVexFlow
         /// Get and set the target stave.
         /// </summary>
         public virtual Stave GetStave()
-        { return this.stave; }
+        { 
+            return this.stave; 
+        }
         public virtual Note SetStave(Stave stave)
         {
             this.stave = stave;
@@ -167,7 +169,8 @@ namespace NVexFlow
         /// </summary>
         /// <returns></returns>
         public bool ShouldIgnoreTicks()
-        {//不增加override或new关键词以提示潜在重复implement
+        {
+            //不增加override或new关键词以提示潜在重复implement
                 return this.ignore_ticks;
         }
         /// <summary>
@@ -210,13 +213,13 @@ namespace NVexFlow
         /// <summary>
         /// Get the Y position of the space above the stave onto which text can be rendered.
         /// </summary>
-        public virtual double GetYForTopText(double textLine)
+        public virtual double GetYForTopText(double text_line)
         {
             if(this.stave == null)
             {
                 throw new Exception("NoStave,No stave attached to this note.");
             }
-            return this.stave.GetYForTopText(textLine);
+            return this.stave.GetYForTopText(text_line);
         }
         /// <summary>
         /// Get a `BoundingBox` for this note.
@@ -243,7 +246,6 @@ namespace NVexFlow
             this.preFormatted = false;
             return this;
         }
-        #region GetTickContext无法被getter替代比较麻烦需要以后优化
         /// <summary>
         /// Get and set the `TickContext` for this note.
         /// </summary>
@@ -251,13 +253,12 @@ namespace NVexFlow
         {
             return this.tick_context;
         }
-        public new Note SetTickContext(TickContext tickContext)
+        public new Note SetTickContext(TickContext tick_context)
         {
-            this.tick_context = tickContext;
+            this.tick_context = tick_context;
             this.preFormatted = false;
             return this;
         }
-        #endregion
         /// <summary>
         /// Accessors for the note type.
         /// </summary>
@@ -289,9 +290,9 @@ namespace NVexFlow
          /// <summary>
          /// Attach this note to a modifier context.
          /// </summary>
-        public new Note SetModifierContext(ModifierContext modifierContext)
+        public new Note SetModifierContext(ModifierContext modifier_context)
         {
-            this.modifier_context = modifierContext;
+            this.modifier_context = modifier_context;
             return this;
         }
         /// <summary>
@@ -336,23 +337,23 @@ namespace NVexFlow
             {
                 throw new Exception("UnformattedNote,Can't call getMetrics on an unformatted note.");
             }
-            double modLeftPx = 0;
-            double modRightPx = 0;
+            double mod_left_px = 0;
+            double mod_right_px = 0;
             if (this.modifier_context != null)
             {
-                modLeftPx = this.modifier_context.state.left_shift;
-                modRightPx = this.modifier_context.state.right_shift;
+                mod_left_px = this.modifier_context.state.left_shift;
+                mod_right_px = this.modifier_context.state.right_shift;
             }
             double width = this.GetWidth();
             return new NoteMetrics()
             {
                 width = width,
                 note_width = width -
-                            modLeftPx - modRightPx - // used by accidentals and modifiers
+                            mod_left_px - mod_right_px - // used by accidentals and modifiers
                                     this.extra_left_px - this.extra_right_px,
                 left_shift = this.x_shift,// TODO(0xfe): Make style consistent
-                mod_left_px = modLeftPx,
-                mod_right_px = modRightPx,
+                mod_left_px = mod_left_px,
+                mod_right_px = mod_right_px,
                 extra_left_px = this.extra_left_px,
                 extra_right_px = this.extra_right_px
             };

@@ -14,14 +14,14 @@ namespace NVexFlow
     public class KeySignature : StaveModifier
     {
         #region js直译部分
-        public KeySignature(string keySpec)
+        public KeySignature(string key_spec)
         {
-            Init(keySpec);
+            Init(key_spec);
         }
-        private void Init(string keySpec)
+        private void Init(string key_spec)
         {
             this.glyph_font_scale = 38;// TODO(0xFE): Should this match StaveNote?
-            this.acc_list = Flow.keySignature(keySpec);
+            this.acc_list = Flow.keySignature(key_spec);
         }
         public void AddAccToStave(Stave stave, Acc acc)
         {
@@ -37,13 +37,13 @@ namespace NVexFlow
                 this.AddAccToStave(stave, this.acc_list[i]);
             }
         }
-        public KeySignature AddToStave(Stave stave, bool firstGlyph)
+        public KeySignature AddToStave(Stave stave, bool first_glyph)
         {
             if (this.acc_list.Count <= 0)
             {
                 return this;
             }
-            if (!firstGlyph)
+            if (!first_glyph)
             {
                 stave.AddGlyph(this.MakeSpacer(this.padding));
             }
@@ -53,8 +53,8 @@ namespace NVexFlow
         public void ConvertAccLines(string clef, string code)
         {
             double offset = 0.0; // if clef === "treble"
-            IList<double> tenorSharps;
-            bool isTenorSharps = ((clef == "tenor") && (code == "v18")) ? true : false;
+            IList<double> tenor_sharps;
+            bool is_tenor_sharps = ((clef == "tenor") && (code == "v18")) ? true : false;
             switch (clef)
             {
                 case "bass":
@@ -64,7 +64,7 @@ namespace NVexFlow
                     offset = 0.5;
                     break;
                 case "tenor":
-                    if (!isTenorSharps)
+                    if (!is_tenor_sharps)
                     {
                         offset = -0.5;
                     }
@@ -73,12 +73,12 @@ namespace NVexFlow
 
             // Special-case for TenorSharps
             int i;
-            if (isTenorSharps)
+            if (is_tenor_sharps)
             {
-                tenorSharps = new List<double>() { 3, 1, 2.5, 0.5, 2, 0, 1.5 };
+                tenor_sharps = new List<double>() { 3, 1, 2.5, 0.5, 2, 0, 1.5 };
                 for (i = 0; i < this.acc_list.Count(); ++i)
                 {
-                    this.acc_list[i].line = tenorSharps[i];
+                    this.acc_list[i].line = tenor_sharps[i];
                 }
             }
             else

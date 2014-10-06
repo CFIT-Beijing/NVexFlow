@@ -22,120 +22,120 @@ namespace NVexFlow
         ///* to align key/time signature (in pixels), optional
         ///* @constructor
         /// </summary>
-        /// <param name="timeSpec"></param>
-        /// <param name="customPadding"></param>
-        public TimeSignature(string timeSpec,double? customPadding)
+        /// <param name="time_spec"></param>
+        /// <param name="custom_padding"></param>
+        public TimeSignature(string time_spec,double? custom_padding)
         {
-            Init(timeSpec,customPadding);
+            Init(time_spec,custom_padding);
         }
         public static IDictionary<string,GlyphsModel> glyphs = new Dictionary<string,GlyphsModel>() {
                  {"C",new GlyphsModel(){code="v41",point=40,line=2}},
                  {"C|",new GlyphsModel(){code="vb6",point=40,line=2}}
                 };
-        private void Init(string timeSpec,double? customPadding)
+        private void Init(string time_spec,double? custom_padding)
         {
-            double padding = customPadding ?? 15;
+            double padding = custom_padding ?? 15;
             this.SetPadding(padding);
             this.point = 40;
             this.top_line = 2;
             this.bottom_line = 4;
-            this.time_sig = this.ParseTimeSpec(timeSpec);
+            this.time_sig = this.ParseTimeSpec(time_spec);
         }
-        public TimeSig ParseTimeSpec(string timeSpec)
+        public TimeSig ParseTimeSpec(string time_spec)
         {
-            if(timeSpec == "C" || timeSpec == "C|")
+            if(time_spec == "C" || time_spec == "C|")
             {
-                GlyphsModel glyphInfo = TimeSignature.glyphs[timeSpec];
-                return new TimeSig() { num = false,line = glyphInfo.line,glyph = new Glyph(glyphInfo.code,glyphInfo.point) };
+                GlyphsModel glyph_info = TimeSignature.glyphs[time_spec];
+                return new TimeSig() { num = false,line = glyph_info.line,glyph = new Glyph(glyph_info.code,glyph_info.point) };
             }
-            IList<char> topNums = new List<char>();
+            IList<char> top_nums = new List<char>();
             int i;
             char c;
             for(i = 0;
-            i < timeSpec.Length;
+            i < time_spec.Length;
             i++)
             {
-                c = timeSpec.ToCharArray()[i];
+                c = time_spec.ToCharArray()[i];
                 if(c == '/')
                 {
                     break;
                 }
                 else if(Regex.IsMatch(c.ToString(),"[0-9]"))
                 {
-                    topNums.Add(c);
+                    top_nums.Add(c);
                 }
                 else
                 {
-                    throw new Exception("BadTimeSignature,Invalid time spec: " + timeSpec);
+                    throw new Exception("BadTimeSignature,Invalid time spec: " + time_spec);
                 }
             }
             if(i == 0)
             {
-                throw new Exception("BadTimeSignature,Invalid time spec: " + timeSpec);
+                throw new Exception("BadTimeSignature,Invalid time spec: " + time_spec);
             }
 
 
             //skip the "/"
             ++i;
-            if(i == timeSpec.Length)
+            if(i == time_spec.Length)
             {
-                throw new Exception("BadTimeSignature,Invalid time spec: " + timeSpec);
+                throw new Exception("BadTimeSignature,Invalid time spec: " + time_spec);
             }
-            IList<char> botNums = new List<char>();
+            IList<char> bot_nums = new List<char>();
             for(;
-            i < timeSpec.Length;
+            i < time_spec.Length;
             i++)
             {
-                c = timeSpec.ToCharArray()[i];
+                c = time_spec.ToCharArray()[i];
                 if(Regex.IsMatch(c.ToString(),"[0-9]"))
                 {
-                    botNums.Add(c);
+                    bot_nums.Add(c);
                 }
                 else
                 {
-                    throw new Exception("BadTimeSignature,Invalid time spec: " + timeSpec);
+                    throw new Exception("BadTimeSignature,Invalid time spec: " + time_spec);
                 }
             }
 
-            return new TimeSig() { num = true,glyph = this.MakeTimeSignatureGlyph(topNums,botNums) };
+            return new TimeSig() { num = true,glyph = this.MakeTimeSignatureGlyph(top_nums,bot_nums) };
         }
         //这个方法写的时候脑子有点儿乱，可以仔细查一下。有关他对glyph对象方法的重新赋值在方法内部忽略了，直接写在了TimeSignatureModel里。即：方法内部的glyph对象已经是子类对象。
-        public Glyph4TimeSignature MakeTimeSignatureGlyph(IList<char> topNums,IList<char> botNums)
+        public Glyph4TimeSignature MakeTimeSignatureGlyph(IList<char> top_nums,IList<char> bot_nums)
         {
             Glyph4TimeSignature glyph = new Glyph4TimeSignature("v0",this.point);
             glyph.top_glyphs = new List<Glyph>();
             glyph.bot_glyphs = new List<Glyph>();
-            double topWidth = 0;
+            double top_width = 0;
             int i;
             char num;
             for(i = 0;
-            i < topNums.Count();
+            i < top_nums.Count();
             ++i)
             {
-                num = topNums[i];
-                Glyph topGlyph = new Glyph("v" + num,this.point);
+                num = top_nums[i];
+                Glyph top_glyph = new Glyph("v" + num,this.point);
 
-                glyph.top_glyphs.Add(topGlyph);
-                topWidth += topGlyph.GetMetrics().width;
+                glyph.top_glyphs.Add(top_glyph);
+                top_width += top_glyph.GetMetrics().width;
             }
 
-            double botWidth = 0;
+            double bot_width = 0;
             for(i = 0;
-            i < botNums.Count();
+            i < bot_nums.Count();
             ++i)
             {
-                num = botNums[i];
-                Glyph botGlyph = new Glyph("v" + num,this.point);
+                num = bot_nums[i];
+                Glyph bot_glyph = new Glyph("v" + num,this.point);
 
-                glyph.bot_glyphs.Add(botGlyph);
-                botWidth += botGlyph.GetMetrics().width;
+                glyph.bot_glyphs.Add(bot_glyph);
+                bot_width += bot_glyph.GetMetrics().width;
             }
 
-            double width = (topWidth > botWidth ? topWidth : botWidth);
-            double xMin = (glyph as Glyph).GetMetrics().x_min;
+            double width = (top_width > bot_width ? top_width : bot_width);
+            double x_min = (glyph as Glyph).GetMetrics().x_min;
 
-            double topStartX = (width - topWidth) / 2.0;
-            double botStartX = (width - botWidth) / 2.0;
+            double top_start_x = (width - top_width) / 2.0;
+            double bot_start_x = (width - bot_width) / 2.0;
 
 
             return glyph;

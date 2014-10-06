@@ -5,12 +5,12 @@ namespace NVexFlow
     public class GraceNote:StaveNote
     {
         #region js直译部分
-        public GraceNote(GraceNoteStruct noteStruct)
-            : base(noteStruct)
+        public GraceNote(GraceNoteStruct note_struct)
+            : base(note_struct)
         {
-            Init(noteStruct);
+            Init(note_struct);
         }
-        private void Init(GraceNoteStruct noteStruct)
+        private void Init(GraceNoteStruct note_struct)
         {
             //GraceNote.superclass.init.call(this, note_struct);
             (this.render_options as GraceNoteRenderOpts).glyph_font_scale = 22;
@@ -18,7 +18,7 @@ namespace NVexFlow
             (this.render_options as GraceNoteRenderOpts).stroke_px = 2;
             this.glyph.head_width = 6;
 
-            this.slash = noteStruct.slash;
+            this.slash = note_struct.slash;
             this.slur = true;
 
             this.BuildNoteHeads();

@@ -51,9 +51,9 @@ namespace NVexFlow
         {
             return this.width;
         }
-        public Tickable SetXShift(double xShift)
+        public Tickable SetXShift(double x_shift)
         {
-            this.x_shift = xShift;
+            this.x_shift = x_shift;
             return this;
         }
         // Every tickable must be associated with a voice. This allows formatters
@@ -79,22 +79,22 @@ namespace NVexFlow
         public virtual Tickable SetTuplet(Tuplet tuplet)
         {
             // Detach from previous tuplet
-            int noteCount;
-            int beatsOccupied;
+            int note_count;
+            int beats_occupied;
             if (this.tuplet != null)
             {
-                noteCount = this.tuplet.GetNoteCount();
-                beatsOccupied = this.tuplet.GetBeatsOccupied();
+                note_count = this.tuplet.GetNoteCount();
+                beats_occupied = this.tuplet.GetBeatsOccupied();
                 // Revert old multiplier
-                this.ApplyTickMultiplier(noteCount, beatsOccupied);
+                this.ApplyTickMultiplier(note_count, beats_occupied);
             }
 
             // Attach to new tuplet
             if (tuplet != null)
             {
-                noteCount = tuplet.GetNoteCount();
-                beatsOccupied = tuplet.GetBeatsOccupied();
-                this.ApplyTickMultiplier(beatsOccupied, noteCount);
+                note_count = tuplet.GetNoteCount();
+                beats_occupied = tuplet.GetBeatsOccupied();
+                this.ApplyTickMultiplier(beats_occupied, note_count);
             }
 
             this.tuplet = tuplet;
@@ -114,9 +114,9 @@ namespace NVexFlow
             this.preFormatted = false;
             return this;
         }
-        public Tickable SetTickContext(TickContext tickContext)
+        public Tickable SetTickContext(TickContext tick_context)
         {
-            this.tick_context = tickContext;
+            this.tick_context = tick_context;
             this.preFormatted = false;
             return this;
         }
@@ -142,9 +142,9 @@ namespace NVexFlow
         {
             return this.intrinsic_ticks;
         }
-        public virtual void SetIntrinsicTicks(Fraction intrinsicTicks)
+        public virtual void SetIntrinsicTicks(Fraction intrinsic_ticks)
         {
-            this.intrinsic_ticks = intrinsicTicks;
+            this.intrinsic_ticks = intrinsic_ticks;
             this.ticks = this.tick_multiplier * this.intrinsic_ticks;
         }
         public virtual Fraction GetTickMultiplier()

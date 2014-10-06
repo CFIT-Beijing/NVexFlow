@@ -22,13 +22,13 @@ namespace NVexFlow
         {
             Init(tempo, x, shift_y);
         }
-        private void Init(Tempo tempo, double x, double shiftY)
+        private void Init(Tempo tempo, double x, double shift_y)
         {
               this.tempo = tempo;
               this.position =Modifier.ModifierPosition.ABOVE;
               this.x = x;
               this.shift_x = 10;
-              this.shift_y = shiftY;
+              this.shift_y = shift_y;
               this.font = new Font()
               {
                   family = "times",

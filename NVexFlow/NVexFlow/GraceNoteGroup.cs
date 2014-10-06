@@ -8,21 +8,21 @@ namespace NVexFlow
     public class GraceNoteGroup:Modifier
     {
         #region js直译部分
-        public GraceNoteGroup(IList<StemmableNote> graceNotes, bool config)
+        public GraceNoteGroup(IList<StemmableNote> grace_notes, bool config)
         {
-            Init(graceNotes,config);
+            Init(grace_notes,config);
         }
-        private void Init(IList<StemmableNote> graceNotes, bool showSlur)
+        private void Init(IList<StemmableNote> grace_notes, bool show_slur)
         {
             this.note = null;
             this.index = null;
             this.position = ModifierPosition.LEFT;
-            this.grace_notes = graceNotes;
+            this.grace_notes = grace_notes;
             this.width = 0;
 
             this.preFormatted = false;
 
-            this.show_slur = showSlur;
+            this.show_slur = show_slur;
             this.slur = null;
 
             this.formatter = new Formatter();
@@ -32,7 +32,7 @@ namespace NVexFlow
                 resolution = Flow.RESOLUTION
             });
             this.voice.SetStrict(false);
-            this.voice.AddTickables(graceNotes);
+            this.voice.AddTickables(grace_notes);
         }
         public void PreFormat()
         {

@@ -41,9 +41,9 @@ namespace NVexFlow
         {
             this.padding = padding;
         }
-        public StaveModifier AddToStave(Stave stave, bool? firstGlyph=null)
+        public StaveModifier AddToStave(Stave stave, bool? first_glyph=null)
         {
-            if (!firstGlyph.HasValue||firstGlyph.Value==false)
+            if (!first_glyph.HasValue||first_glyph.Value==false)
             {
                 stave.AddGlyph(this.MakeSpacer(this.padding));
             }
@@ -51,9 +51,9 @@ namespace NVexFlow
             this.AddModifier(stave);
             return this;
         }
-        public StaveModifier AddToStaveEnd(Stave stave, bool firstGlyph)
+        public StaveModifier AddToStaveEnd(Stave stave, bool first_glyph)
         {
-            if (!firstGlyph)
+            if (!first_glyph)
             {
                 stave.AddEndGlyph(this.MakeSpacer(this.padding));
             }

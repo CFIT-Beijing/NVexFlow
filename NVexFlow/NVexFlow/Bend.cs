@@ -99,9 +99,9 @@ namespace NVexFlow
             }
             this.UpdateWidth();
         }
-        public new Bend SetXShift(int xShift)
+        public new Bend SetXShift(int x_shift)
         {
-            this.x_shift = xShift;
+            this.x_shift = x_shift;
             UpdateWidth();
             return this;
         }
@@ -120,7 +120,7 @@ namespace NVexFlow
         }
         public Bend UpdateWidth()
         {
-            double totalWidth = 0;
+            double total_width = 0;
             for(int i = 0;
             i < this.phrase.Count();
             i++)
@@ -128,33 +128,33 @@ namespace NVexFlow
                 var bend = this.phrase[i];
                 if(bend.width.HasValue)
                 {
-                    totalWidth += bend.width.Value;
+                    total_width += bend.width.Value;
                 }
                 else
                 {
-                    double additionalWidth = (bend.type == BendType.UP) ?
+                    double additional_width = (bend.type == BendType.UP) ?
                       this.render_options.bend_width : this.render_options.release_width;
-                    bend.width = Math.Max(additionalWidth,MeasureText(bend.text)) + 3;
+                    bend.width = Math.Max(additional_width,MeasureText(bend.text)) + 3;
                     bend.draw_width = bend.width.Value / 2;
                     bend.draw_width = bend.width.Value / 2;
-                    totalWidth += bend.width.Value;
+                    total_width += bend.width.Value;
                 }
             }
-            this.SetWidth(totalWidth + this.x_shift);
+            this.SetWidth(total_width + this.x_shift);
             return this;
         }
         private double MeasureText(string text)
         {
-            double textWidth;
+            double text_width;
             if(this.GetContext() != null)
             {
-                textWidth = this.context.MeasureText(text).width;
+                text_width = this.context.MeasureText(text).width;
             }
             else
             {
-                textWidth = Flow.TextWidth(text);
+                text_width = Flow.TextWidth(text);
             }
-            return textWidth;
+            return text_width;
         }
 
         public override void Draw()

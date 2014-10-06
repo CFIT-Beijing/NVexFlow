@@ -23,12 +23,12 @@ namespace NVexFlow
             END,
             BEGIN_END
         }
-        private void Init(VoltaType type, int number, double x, double yShift)
+        private void Init(VoltaType type, int number, double x, double y_shift)
         {
             this.volta = type;
 
             this.x = x;
-            this.y_shift = yShift;
+            this.y_shift = y_shift;
             this.number = number;
             this.font = new Font()
             {

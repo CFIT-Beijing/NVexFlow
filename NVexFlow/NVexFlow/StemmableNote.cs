@@ -13,12 +13,12 @@ namespace NVexFlow
     public class StemmableNote : Note
     {
         #region js直译部分
-        public StemmableNote(NoteStruct noteStruct)
-            : base(noteStruct)
+        public StemmableNote(NoteStruct note_struct)
+            : base(note_struct)
         {
-            Init(noteStruct);
+            Init(note_struct);
         }
-        private void Init(NoteStruct noteStruct)
+        private void Init(NoteStruct note_struct)
         {
             this.stem = null;
             this.stem_extension_override = null;
@@ -154,11 +154,11 @@ namespace NVexFlow
         /// </summary>
         public virtual double GetStemX()
         {
-            double xBegin = this.GetAbsoluteX() + this.x_shift;
-            double xEnd = this.GetAbsoluteX() + this.x_shift + (this.glyph as Glyph4StemmableNote).head_width;
-            double stemX = this.stem_direction == Stem.DOWN ? xBegin : xEnd;
-            stemX -= (Stem.WIDTH / 2) * this.stem_direction.Value;
-            return stemX;
+            double x_begin = this.GetAbsoluteX() + this.x_shift;
+            double x_end = this.GetAbsoluteX() + this.x_shift + (this.glyph as Glyph4StemmableNote).head_width;
+            double stem_x = this.stem_direction == Stem.DOWN ? x_begin : x_end;
+            stem_x -= (Stem.WIDTH / 2) * this.stem_direction.Value;
+            return stem_x;
         }
         /// <summary>
         /// Get the `x` coordinate for the center of the glyph. Used for `TabNote` stems and stemlets over rests
@@ -194,35 +194,35 @@ namespace NVexFlow
             {
                 throw new Exception("NoYValues,Can't get top stem Y when note has no Y values.");
             }
-            double topPixel = this.ys[0];
-            double basePixel = this.ys[0];
-            double stemHeight = Stem.HEIGHT + this.GetStemExtension();
+            double top_pixel = this.ys[0];
+            double base_pixel = this.ys[0];
+            double stem_height = Stem.HEIGHT + this.GetStemExtension();
             for (int i = 0;
             i < this.ys.Count();
             i++)
             {
-                double stemTop = this.ys[i] + (stemHeight * -this.stem_direction.Value);
+                double stem_top = this.ys[i] + (stem_height * -this.stem_direction.Value);
                 //上面这句可看出stemDirection只能是1或-1，对应UP和DOWN
                 //里程碑2时考虑将stemDirection改成bool的isStemUp
                 if (this.stem_direction == Stem.DOWN)
                 {
-                    topPixel = (topPixel > stemTop) ? topPixel : stemTop;
-                    basePixel = (basePixel < this.ys[i]) ? basePixel : this.ys[i];
+                    top_pixel = (top_pixel > stem_top) ? top_pixel : stem_top;
+                    base_pixel = (base_pixel < this.ys[i]) ? base_pixel : this.ys[i];
                 }
                 else
                 {
-                    topPixel = (topPixel < stemTop) ? topPixel : stemTop;
-                    basePixel = (basePixel > this.ys[i]) ? basePixel : this.ys[i];
+                    top_pixel = (top_pixel < stem_top) ? top_pixel : stem_top;
+                    base_pixel = (base_pixel > this.ys[i]) ? base_pixel : this.ys[i];
                 }
 
                 if (this.note_type == "s" || this.note_type == "x")
                 //里程碑2时这部分的7做成常量放在Flow类里，noteType改成枚举类型或数值类型
                 {
-                    topPixel -= this.stem_direction.Value * 7;
-                    basePixel -= this.stem_direction.Value * 7;
+                    top_pixel -= this.stem_direction.Value * 7;
+                    base_pixel -= this.stem_direction.Value * 7;
                 }
             }
-            return new StemExtents() { top_y = topPixel, base_y = basePixel };
+            return new StemExtents() { top_y = top_pixel, base_y = base_pixel };
         }
         /// <summary>
         /// Sets the current note's beam
@@ -235,30 +235,30 @@ namespace NVexFlow
         /// <summary>
         /// Get the `y` value for the top/bottom modifiers at a specific `text_line`
         /// </summary>
-        public override double GetYForTopText(double textLine)
+        public override double GetYForTopText(double text_line)
         {
             StemExtents extents = this.GetStemExtents();
             if (this.HasStem())
             {
                 return Math.Min(
-                    this.stave.GetYForTopText(textLine),
-                    extents.top_y - (this.render_options.annotation_spacing * (textLine + 1))
+                    this.stave.GetYForTopText(text_line),
+                    extents.top_y - (this.render_options.annotation_spacing * (text_line + 1))
                 );
                 //暂时猜测textLine是数字,但是看变量名不太像
             }
             else
             {
-                return this.stave.GetYForTopText(textLine);
+                return this.stave.GetYForTopText(text_line);
             }
         }
-        public double GetYForBottomText(int textLine)
+        public double GetYForBottomText(int text_line)
         {
             StemExtents extents = this.GetStemExtents();
             if (this.HasStem())
             {
                 return Math.Max(
-                    this.stave.GetYForTopText(textLine),
-                    extents.base_y + (this.render_options.annotation_spacing * (textLine))
+                    this.stave.GetYForTopText(text_line),
+                    extents.base_y + (this.render_options.annotation_spacing * (text_line))
                 );
                 //暂时猜测textLine是数字,但是看变量名不太像
                 //js专门给textLine加括号，很可能是将string解析成数值
@@ -267,7 +267,7 @@ namespace NVexFlow
             }
             else
             {
-                return this.stave.GetYForBottomText(textLine);
+                return this.stave.GetYForBottomText(text_line);
             }
         }
         /// <summary>
@@ -285,13 +285,13 @@ namespace NVexFlow
         /// <summary>
         /// Render the stem onto the canvas
         /// </summary>
-        public virtual void DrawStem(StemOpts stemStruct)
+        public virtual void DrawStem(StemOpts stem_struct)
         {
             if (this.context == null)
             {
                 throw new Exception("NoCanvasContext,Can't draw without a canvas context.");
             }
-            this.SetStem(new Stem(stemStruct));
+            this.SetStem(new Stem(stem_struct));
             this.stem.SetContext(this.context);
             this.stem.Draw();
         }

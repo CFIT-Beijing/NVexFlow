@@ -44,10 +44,10 @@ namespace NVexFlow
             this.hide = false;
         }
         // Set the x bounds for the default notehead
-        public Stem SetNoteHeadXBounds(double xBegin, double xEnd)
+        public Stem SetNoteHeadXBounds(double x_begin, double x_end)
         {
-            this.x_begin = xBegin;
-            this.x_end = xEnd;
+            this.x_begin = x_begin;
+            this.x_end = x_end;
             return this;
         }
         // Set the direction of the stem in relation to the noteheads
@@ -61,10 +61,10 @@ namespace NVexFlow
             this.stem_extension = ext;
         }
         // The the y bounds for the top and bottom noteheads
-        public Stem SetYBounds(double yTop, double yBottom)
+        public Stem SetYBounds(double y_top, double y_bottom)
         {
-            this.y_top = yTop;
-            this.y_bottom = yBottom;
+            this.y_top = y_top;
+            this.y_bottom = y_bottom;
             return this;
         }
         // The category of the object

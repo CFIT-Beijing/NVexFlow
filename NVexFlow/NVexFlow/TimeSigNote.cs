@@ -7,12 +7,12 @@ namespace NVexFlow
     public class TimeSigNote:Note
     {
         #region js直译部分
-        public TimeSigNote(string timeSpec,double customPadding)
+        public TimeSigNote(string time_spec,double custom_padding)
             : base(new NoteStruct() { duration = "b" })
         { }
-        private void Init(string timeSpec,double customPadding)
+        private void Init(string time_spec,double custom_padding)
         {
-            TimeSignature timeSignature = new TimeSignature(timeSpec,customPadding);
+            TimeSignature timeSignature = new TimeSignature(time_spec,custom_padding);
             this.time_sig = timeSignature.GetTimeSig();
             this.SetWidth(this.time_sig.glyph.Metrics.Width);
             //// Note properties

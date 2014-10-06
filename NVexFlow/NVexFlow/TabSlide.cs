@@ -53,9 +53,9 @@ namespace NVexFlow
             if (direction == null)
             {
                 //此处有可能Null异常吧
-                double firstFret= (notes.first_note as TabNote).GetPositions()[0].fret;
-                double lastFret = (notes.last_note as TabNote).GetPositions()[0].fret;
-                direction = firstFret > lastFret ? TabSlide.SLIDE_DOWN : TabSlide.SLIDE_UP;
+                double first_fret= (notes.first_note as TabNote).GetPositions()[0].fret;
+                double last_fret = (notes.last_note as TabNote).GetPositions()[0].fret;
+                direction = first_fret > last_fret ? TabSlide.SLIDE_DOWN : TabSlide.SLIDE_UP;
             }
             this.slide_direction = direction.Value;
             this.render_options = new StaveTieRenderOpts() { 

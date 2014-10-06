@@ -77,13 +77,13 @@ namespace NVexFlow
         }
         public double GetNoteStartX()
         {
-            double startX = this.start_x;
+            double start_x = this.start_x;
             // Add additional space if left barline is REPEAT_BEGIN and there are other start modifiers than barlines
             if ((this.modifiers[0] as Barline).bar_line == Barline.BarlineType.REPEAT_BEGIN && this.modifiers.Count() > 2)
             {
-                startX += 20;
+                start_x += 20;
             }
-            return startX;
+            return start_x;
         }
         public double GetNoteEndX()
         {
@@ -177,19 +177,19 @@ namespace NVexFlow
                 index = this.glyphs.Count() - 1;
             }
             double x = this.glyph_start_x;
-            double barXShift = 0;
+            double bar_x_shift = 0;
             for (int i = 0; i < index + 1; ++i)
             {
                 Glyph glyph = this.glyphs[i];
                 x += glyph.GetMetrics().width;
-                barXShift += glyph.GetMetrics().width;
+                bar_x_shift += glyph.GetMetrics().width;
             }
             // Add padding after clef, time sig, key sig
-            if (barXShift > 0)
+            if (bar_x_shift > 0)
             {
-                barXShift += this.options.vertical_bar_width.Value + 10;
+                bar_x_shift += this.options.vertical_bar_width.Value + 10;
             }
-            return barXShift;
+            return bar_x_shift;
         }
         // Coda & Segno Symbol functions
         public Stave SetRepetitionTypeLeft(Repetition.RepetitionType type, double y)
@@ -244,8 +244,8 @@ namespace NVexFlow
         {
             StaveOpts options = this.options;
             double spacing = options.spacing_between_lines_px.Value;
-            double scoreBottom = this.GetYForLine(options.num_lines.Value) + options.space_below_staff_ln.Value * spacing;
-            return scoreBottom;
+            double score_bottom = this.GetYForLine(options.num_lines.Value) + options.space_below_staff_ln.Value * spacing;
+            return score_bottom;
         }
         public double BottomLineY()
         {
@@ -255,9 +255,9 @@ namespace NVexFlow
         {
             StaveOpts options = this.options;
             double spacing = options.spacing_between_lines_px.Value;
-            double headRoom = options.space_above_staff_ln.Value;
+            double head_room = options.space_above_staff_ln.Value;
 
-            double y = this.y + (line * spacing + headRoom * spacing - THICKNESS / 2);
+            double y = this.y + (line * spacing + head_room * spacing - THICKNESS / 2);
             return y;
         }
         public double GetYForTopText(double? line)
@@ -274,8 +274,8 @@ namespace NVexFlow
         {
             StaveOpts options = this.options;
             double spacing = options.spacing_between_lines_px.Value;
-            double headRoom = options.space_above_staff_ln.Value;
-            double y = this.y + headRoom * spacing + 5 * spacing - line * spacing;
+            double head_room = options.space_above_staff_ln.Value;
+            double y = this.y + head_room * spacing + 5 * spacing - line * spacing;
             return y;
         }
         public virtual double GetYForGlyphs()
@@ -308,9 +308,9 @@ namespace NVexFlow
             modifier.AddToStaveEnd(this, this.end_glyphs.Count() == 0);
             return this;
         }
-        public Stave AddKeySignature(string keySpec)
+        public Stave AddKeySignature(string key_spec)
         {
-            this.AddModifier(new KeySignature(keySpec));
+            this.AddModifier(new KeySignature(key_spec));
             return this;
         }
         public Stave AddClef(string clef)
@@ -324,14 +324,14 @@ namespace NVexFlow
             this.AddEndModifier(new Clef(clef));
             return this;
         }
-        public Stave AddTimeSignature(string timeSpec, double? customPadding = null)
+        public Stave AddTimeSignature(string time_spec, double? custom_padding = null)
         {
-            this.AddModifier(new TimeSignature(timeSpec, customPadding));
+            this.AddModifier(new TimeSignature(time_spec, custom_padding));
             return this;
         }
-        public void AddEndTimeSignature(string timeSpec, double? customPadding = null)
+        public void AddEndTimeSignature(string time_spec, double? custom_padding = null)
         {
-            this.AddEndModifier(new TimeSignature(timeSpec, customPadding));
+            this.AddEndModifier(new TimeSignature(time_spec, custom_padding));
         }
         public Stave AddTrebleGlyph()
         {
@@ -414,14 +414,14 @@ namespace NVexFlow
 
         // Draw Simple barlines for backward compatability
         // Do not delete - draws the beginning bar of the stave
-        public void DrawVertical(double x, object isDouble)
+        public void DrawVertical(double x, object is_double)
         {
             //        drawVertical: function(x, isDouble) {
             //  this.drawVerticalFixed(this.x + x, isDouble);
             //},
         }
 
-        public void DrawVerticalFixed(double x, object isDouble)
+        public void DrawVerticalFixed(double x, object is_double)
         {
             //        drawVerticalFixed: function(x, isDouble) {
             //  if (!this.context) throw new Vex.RERR("NoCanvasContext",
@@ -468,13 +468,13 @@ namespace NVexFlow
  * @throws Vex.RERR "StaveConfigError" When the specified line number is out of
  *   range of the number of lines specified in the constructor.
  */
-        public Stave SetConfigForLine(int lineNumber, LineConfig lineConfig)
+        public Stave SetConfigForLine(int line_number, LineConfig line_config)
         {
-            if (lineNumber >= this.options.num_lines || lineNumber < 0)
+            if (line_number >= this.options.num_lines || line_number < 0)
             {
                 throw new Exception("StaveConfigError,The line number must be within the range of the number of lines in the Stave.");
             }
-            this.options.line_config[lineNumber] = lineConfig;
+            this.options.line_config[line_number] = line_config;
             return this;
         }
         /**
@@ -508,25 +508,25 @@ namespace NVexFlow
         //  return this;
         //}
 
-        public Stave SetConfigForLines(IList<LineConfig> linesConfiguration)
+        public Stave SetConfigForLines(IList<LineConfig> lines_configuration)
         {
-            if (linesConfiguration.Count() != this.options.num_lines)
+            if (lines_configuration.Count() != this.options.num_lines)
             {
                 throw new Exception("StaveConfigError,The length of the lines configuration array must match the number of lines in the Stave");
             }
             // Make sure the defaults are present in case an incomplete set of  configuration options were supplied.
             //以下代码的逻辑挺吓人的。。。你看看吧
-            for (int lineConfig = 0; lineConfig < linesConfiguration.Count(); lineConfig++)
+            for (int line_config = 0; line_config < lines_configuration.Count(); line_config++)
             {
                 // Allow 'null' to be used if the caller just wants the default for a particular node.
-                if (linesConfiguration[lineConfig] == null)
+                if (lines_configuration[line_config] == null)
                 {
-                    linesConfiguration[lineConfig] = this.options.line_config[lineConfig];
+                    lines_configuration[line_config] = this.options.line_config[line_config];
                 }
                 //目前只发现一个属性visible
-                this.options.line_config[lineConfig].visible = linesConfiguration[lineConfig].visible;
+                this.options.line_config[line_config].visible = lines_configuration[line_config].visible;
             }
-            this.options.line_config = linesConfiguration;
+            this.options.line_config = lines_configuration;
             return this;
         }
         #endregion

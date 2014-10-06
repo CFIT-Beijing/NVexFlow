@@ -44,25 +44,25 @@ namespace NVexFlow
             // DEPRECATED - please use "mordent_upper" or "mordent_lower"
             {"mordent",new Glyph4TextNote(){code="v1e",point=40,x_shift=0,y_shift=0}}
                 };
-        public TextNote(TextStruct textStruct)
-            : base(textStruct)
+        public TextNote(TextStruct text_struct)
+            : base(text_struct)
         {
-            Init(textStruct);
+            Init(text_struct);
         }
-        private void Init(TextStruct textStruct)
+        private void Init(TextStruct text_struct)
         {
             // Note properties
 
-            this.text = textStruct.text;
-            this.superscript = textStruct.superscript;
-            this.subscript = textStruct.subscript;
-            this.glyph_type = textStruct.glyph;
+            this.text = text_struct.text;
+            this.superscript = text_struct.superscript;
+            this.subscript = text_struct.subscript;
+            this.glyph_type = text_struct.glyph;
             this.glyph = null;
             this.font = new Font() { family = "Arial",size = 12,weight = "" };
             // Set font
-            if(textStruct.font != null)
+            if(text_struct.font != null)
             {
-                this.font = textStruct.font;
+                this.font = text_struct.font;
             }
 
             //// Determine and set initial note width. Note that the text width is an approximation and isn't very accurate. The only way to accurately measure the length of text is with `canvasContext.measureText()`
@@ -88,9 +88,9 @@ namespace NVexFlow
             {
                 this.SetWidth(Flow.TextWidth(this.text));
             }
-            this.line = textStruct.line ?? 0;
-            this.smooth = textStruct.smooth ?? false;
-            this.ignore_ticks = textStruct.ignore_ticks ?? false;
+            this.line = text_struct.line ?? 0;
+            this.smooth = text_struct.smooth ?? false;
+            this.ignore_ticks = text_struct.ignore_ticks ?? false;
             this.justification = TextNote.TextNoteJustification.LEFT;
         }
         /// <summary>

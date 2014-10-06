@@ -79,12 +79,12 @@ namespace NVexFlow
             else if (autoStem != null && notes[0].GetCategory() == "tabnotes")
             {
                 // Auto Stem TabNotes
-                int stemWeight = 0;
+                int stem_weight = 0;
                 foreach (var noteCurrent in notes)
                 {
-                    stemWeight += noteCurrent.stem_direction.Value;
+                    stem_weight += noteCurrent.stem_direction.Value;
                 }
-                stemDirection = stemWeight > -1 ? 1 : -1;
+                stemDirection = stem_weight > -1 ? 1 : -1;
             }
 
             // Apply stem directions and attach beam to notes
@@ -143,12 +143,12 @@ namespace NVexFlow
                 { beamCounts.Add(glyph4StemmableNote.beam_count); }
             }
 
-            int maxBeamCount = beamCounts[0];
+            int max_beam_count = beamCounts[0];
             for (int i = 1; i < beamCounts.Count(); i++)
             {
-                maxBeamCount += beamCounts[i] > maxBeamCount ? beamCounts[i] : maxBeamCount;
+                max_beam_count += beamCounts[i] > max_beam_count ? beamCounts[i] : max_beam_count;
             }
-            return maxBeamCount;
+            return max_beam_count;
         }
         // Set which note `indices` to break the secondary beam at
         public Beam BreakSecondaryAt(IList<int> indices)
@@ -157,16 +157,16 @@ namespace NVexFlow
             return this;
         }
         // Return the y coordinate for linear function
-        public double GetSlopeY(double x, double firstXPx, double firstYPx, double slope)
+        public double GetSlopeY(double x, double first_x_px, double first_y_px, double slope)
         {
-            return firstYPx + (x - firstXPx) * slope;
+            return first_y_px + (x - first_x_px) * slope;
         }
         // Calculate the best possible slope for the provided notes
         public void CalculateSlope()
         {
             StemmableNote firstNote = this.notes[0];
-            double firstYPx = firstNote.GetStemExtents().top_y;
-            double firstXPx = firstNote.GetStemX();
+            double first_y_px = firstNote.GetStemExtents().top_y;
+            double first_x_px = firstNote.GetStemX();
             double inc = (this.render_options.max_slope - this.render_options.min_slope) / this.render_options.slope_iterations;
 
             double min_cost = double.MaxValue;//先这么写着
@@ -184,7 +184,7 @@ namespace NVexFlow
 
                     double x_px = note.GetStemX();
                     double y_px = note.GetStemExtents().top_y;
-                    double slope_y_px = this.GetSlopeY(x_px, firstXPx, firstYPx, slope) + y_shift_tmp;
+                    double slope_y_px = this.GetSlopeY(x_px, first_x_px, first_y_px, slope) + y_shift_tmp;
 
                     // beam needs to be shifted up to accommodate note
                     if (y_px * this.stem_direction < slope_y_px * this.stem_direction)
@@ -527,23 +527,23 @@ namespace NVexFlow
             if (groups == null)
             {
                 // If no beam groups found, naively determine the beam groupings from the time signature
-                int beatTotal = int.Parse(timeSig.Split('/')[0]);
-                int beatValue = int.Parse(timeSig.Split('/')[1]);
+                int beat_total = int.Parse(timeSig.Split('/')[0]);
+                int beat_value = int.Parse(timeSig.Split('/')[1]);
 
-                bool tripleMeter = beatTotal % 3 == 0;
-                if (tripleMeter)
+                bool triple_meter = beat_total % 3 == 0;
+                if (triple_meter)
                 {
-                    return new List<Fraction>() { new Fraction(3, beatValue) };
+                    return new List<Fraction>() { new Fraction(3, beat_value) };
                 }
                 else
                 {
-                    if (beatValue > 4)
+                    if (beat_value > 4)
                     {
-                        return new List<Fraction>() { new Fraction(2, beatValue) };
+                        return new List<Fraction>() { new Fraction(2, beat_value) };
                     }
                     else
                     {
-                        return new List<Fraction>() { new Fraction(1, beatValue) };
+                        return new List<Fraction>() { new Fraction(1, beat_value) };
                     }
                 }
             }

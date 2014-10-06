@@ -20,11 +20,11 @@ namespace NVexFlow
     public class StaveNote:StemmableNote
     {
         #region js直译部分
-        public StaveNote(StaveNoteStruct noteStruct)
-            : base(noteStruct)
+        public StaveNote(StaveNoteStruct note_struct)
+            : base(note_struct)
         {
 
-            Init(noteStruct);
+            Init(note_struct);
 
         }
         /// <summary>
@@ -32,10 +32,10 @@ namespace NVexFlow
         /// </summary>
         public static int STEM_UP = Stem.UP;
         public static int STEM_DOWN = Stem.DOWN;
-        private void Init(StaveNoteStruct noteStruct)
+        private void Init(StaveNoteStruct note_struct)
         {
-            this.keys = noteStruct.keys;
-            this.clef = noteStruct.clef;
+            this.keys = note_struct.keys;
+            this.clef = note_struct.clef;
             this.beam = null;
             // Pull note rendering properties
             this.glyph = Flow.DurationToGlyph(this.duration,this.note_type);
@@ -68,13 +68,13 @@ namespace NVexFlow
             this.BuildStem();
 
             // Set the stem direction
-            if(noteStruct.auto_stem.HasValue)
+            if(note_struct.auto_stem.HasValue)
             {
                 this.AutoStem();
             }
             else
             {
-                this.SetStemDirection(noteStruct.stem_direction);
+                this.SetStemDirection(note_struct.stem_direction);
             }
             this.BuildNoteHeads();
             // Calculate left/right padding
@@ -107,39 +107,39 @@ namespace NVexFlow
         /// </summary>
         public void BuildNoteHeads()
         {
-            int? stemDirection = this.GetStemDirection();
+            int? stem_direction = this.GetStemDirection();
             IList<string> keys = this.GetKeys();
 
-            double? lastLine = null;
-            double? lineDiff = null;
+            double? last_line = null;
+            double? line_diff = null;
             bool displaced = false;
 
             // Draw notes from bottom to top.
-            int startI = 0;
-            int endI = keys.Count();
-            int stepI = 1;
+            int start_i = 0;
+            int end_i = keys.Count();
+            int step_i = 1;
 
             // For down-stem notes, we draw from top to bottom.
-            if(stemDirection.Value == Stem.DOWN)
+            if(stem_direction.Value == Stem.DOWN)
             {
-                startI = keys.Count() - 1;
-                endI = -1;
-                stepI = -1;
+                start_i = keys.Count() - 1;
+                end_i = -1;
+                step_i = -1;
             }
             //这里!=不能用用<替代，因为stepI可以是负数，<判断会导致几乎遍历所有32位整数
-            for(int i = startI;i != endI;i += stepI)
+            for(int i = start_i;i != end_i;i += step_i)
             {
-                NoteProps noteProps = this.key_props[i];
-                double line = noteProps.line;
+                NoteProps note_props = this.key_props[i];
+                double line = note_props.line;
                 // Keep track of last line with a note head, so that consecutive heads are correctly displaced.
-                if(lastLine == null)
+                if(last_line == null)
                 {
-                    lastLine = line;
+                    last_line = line;
                 }
                 else
                 {
-                    lineDiff = Math.Abs(lastLine.Value - line);
-                    if(lineDiff == 0 || lineDiff == 0.5)
+                    line_diff = Math.Abs(last_line.Value - line);
+                    if(line_diff == 0 || line_diff == 0.5)
                     {
                         displaced = !displaced;
                     }
@@ -149,17 +149,17 @@ namespace NVexFlow
                         this.use_default_head_x = true;
                     }
                 }
-                lastLine = line;
+                last_line = line;
 
                 NoteHead noteHead = new NoteHead(new NoteHeadStruct() {
                     duration = this.duration,
                     note_type = this.note_type,
                     displaced = displaced,
-                    stem_direction = stemDirection,
-                    custom_glyph_code = noteProps.code,
+                    stem_direction = stem_direction,
+                    custom_glyph_code = note_props.code,
                     glyph_font_scale = (this.render_options as StaveNoteRenderOpts).glyph_font_scale,
-                    x_shift = noteProps.shift_right,
-                    line = noteProps.line
+                    x_shift = note_props.shift_right,
+                    line = note_props.line
                 });
                 this.note_heads[i] = noteHead;
             }
@@ -169,7 +169,7 @@ namespace NVexFlow
         /// </summary>
         public void AutoStem()
         {
-            int autoStemDirection;
+            int auto_stem_direction;
 
             // Figure out optimal stem direction based on given notes
             this.min_line = this.key_props[0].line;
@@ -179,20 +179,20 @@ namespace NVexFlow
             //让人这个3可能和五线谱中线对应，那就可以写死，除非要做不是5线的谱
             if(decider < 3)
             {
-                autoStemDirection = Stem.UP;
+                auto_stem_direction = Stem.UP;
             }
             else
             {
-                autoStemDirection = Stem.DOWN;
+                auto_stem_direction = Stem.DOWN;
             }
-            this.SetStemDirection(autoStemDirection);
+            this.SetStemDirection(auto_stem_direction);
         }
         /// <summary>
         /// Calculates and stores the properties for each key in the note
         /// </summary>
         public void CalculateKeyProps()
         {
-            double? lastLine = null;
+            double? last_line = null;
             for(int i = 0;i < this.keys.Count();i++)
             {
                 string key = this.keys[i];
@@ -208,15 +208,15 @@ namespace NVexFlow
 
                 // Calculate displacement of this note
                 double line = props.line;
-                if(lastLine == null)
+                if(last_line == null)
                 {
-                    lastLine = line;
+                    last_line = line;
                 }
                 else
                 {
                     //一个double等于0.5不是一个好的判别
                     //里程碑2时考虑使用Fraction类型判断是否等于new Fracion(1,2)
-                    if(Math.Abs(lastLine.Value - line) == 0.5)
+                    if(Math.Abs(last_line.Value - line) == 0.5)
                     {
                         this.displaced = true;
                         props.displaced = true;
@@ -228,7 +228,7 @@ namespace NVexFlow
                         }
                     }
                 }
-                lastLine = line;
+                last_line = line;
                 this.key_props.Add(props);
             }
 
@@ -257,10 +257,10 @@ namespace NVexFlow
             double w = metrics.width;
             double x = this.GetAbsoluteX() - metrics.mod_left_px - metrics.extra_left_px;
 
-            double? minY = 0;
-            double? maxY = 0;
-            double halfLineSpacing = this.GetStave().GetSpacingBetweenLines() / 2;
-            double lineSpacing = halfLineSpacing * 2;
+            double? min_y = 0;
+            double? max_y = 0;
+            double half_line_spacing = this.GetStave().GetSpacingBetweenLines() / 2;
+            double line_spacing = half_line_spacing * 2;
 
             if (this.IsRest())
             {
@@ -268,66 +268,66 @@ namespace NVexFlow
                 //里程碑2阶段duration改用Fraction类型。
                 if (this.duration == "w" || this.duration == "h" || this.duration == "1" || this.duration == "2")
                 {
-                    minY = y - halfLineSpacing;
-                    maxY = y + halfLineSpacing;
+                    min_y = y - half_line_spacing;
+                    max_y = y + half_line_spacing;
                 }
                 else
                 {
-                    minY = y - this.glyph.line_above * lineSpacing;
-                    maxY = y + this.glyph.line_below * lineSpacing;
+                    min_y = y - this.glyph.line_above * line_spacing;
+                    max_y = y + this.glyph.line_below * line_spacing;
                 }
             }
             else if (this.glyph.stem)
             {
                 StemExtents ys = this.GetStemExtents();
-                ys.base_y += halfLineSpacing * this.stem_direction.Value;
-                minY = Math.Min(ys.top_y, ys.base_y);
-                maxY = Math.Max(ys.top_y, ys.base_y);
+                ys.base_y += half_line_spacing * this.stem_direction.Value;
+                min_y = Math.Min(ys.top_y, ys.base_y);
+                max_y = Math.Max(ys.top_y, ys.base_y);
             }
             else
             {
-                minY = null;
-                maxY = null;
+                min_y = null;
+                max_y = null;
                 for (int i = 0; i < this.ys.Count(); i++)
                 {
                     double yy = this.ys[i];
                     if (i == 0)
                     {
-                        minY = yy;
-                        maxY = yy;
+                        min_y = yy;
+                        max_y = yy;
                     }
                     else
                     {
-                        minY = Math.Min(yy, minY.Value);
-                        maxY = Math.Max(yy, maxY.Value);
+                        min_y = Math.Min(yy, min_y.Value);
+                        max_y = Math.Max(yy, max_y.Value);
                     }
-                    minY -= halfLineSpacing;
-                    maxY += halfLineSpacing;
+                    min_y -= half_line_spacing;
+                    max_y += half_line_spacing;
                 }
             }
-            return new BoundingBox(x, minY.Value, w, maxY.Value - minY.Value);
+            return new BoundingBox(x, min_y.Value, w, max_y.Value - min_y.Value);
         }
         /// <summary>
         /// Gets the line number of the top or bottom note in the chord. If `is_top_note` is `true` then get the top note
         /// </summary>
-        public double GetLineNumber(bool isTopNote)
+        public double GetLineNumber(bool is_top_note)
         {
             if(this.key_props.Count() <= 0)
             {
                 throw new Exception("NoKeyProps,Can't get bottom note line, because note is not initialized properly.");
             }
-            double resultLine = this.key_props[0].line;
+            double result_line = this.key_props[0].line;
             // No precondition assumed for sortedness of keyProps array
             for(int i = 0;i < this.key_props.Count();i++)
             {
-                double thisLine = this.key_props[i].line;
+                double this_line = this.key_props[i].line;
                 //原js太容易歧义了，VS的嵌套层次识别和作者本意就不同
                 //下面这样才是本意
-                if((isTopNote && thisLine > resultLine) ||
-                    (!isTopNote && thisLine < resultLine))
-                    resultLine = thisLine;
+                if((is_top_note && this_line > result_line) ||
+                    (!is_top_note && this_line < result_line))
+                    result_line = this_line;
             }
-            return resultLine;
+            return result_line;
         }
         /// <summary>
         /// Determine if current note is a rest
@@ -353,17 +353,17 @@ namespace NVexFlow
         /// <summary>
         /// Get the `y` coordinate for text placed on the top/bottom of a note at a desired `text_line`
         /// </summary>
-        public override double GetYForTopText(double textLine)
+        public override double GetYForTopText(double text_line)
         {
             StemExtents extents = this.GetStemExtents();
-            return Math.Min(this.stave.GetYForTopText(textLine),
-                extents.top_y - (this.render_options.annotation_spacing * (textLine + 1)));
+            return Math.Min(this.stave.GetYForTopText(text_line),
+                extents.top_y - (this.render_options.annotation_spacing * (text_line + 1)));
         }
-        public double GetYForBottomText(double textLine)
+        public double GetYForBottomText(double text_line)
         {
             StemExtents extents = this.GetStemExtents();
-            return Math.Max(this.stave.GetYForTopText(textLine),
-                extents.base_y + (this.render_options.annotation_spacing * textLine));
+            return Math.Max(this.stave.GetYForTopText(text_line),
+                extents.base_y + (this.render_options.annotation_spacing * text_line));
         }
         /// <summary>
         /// Sets the current note to the provided `stave`. This applies `y` values to the `NoteHeads`.
@@ -417,39 +417,39 @@ namespace NVexFlow
         /// </summary>
         public double GetTieRightX()
         {
-            double tieStartX = this.GetAbsoluteX();
-            tieStartX += this.glyph.head_width + this.x_shift + this.extra_right_px;
+            double tie_start_x = this.GetAbsoluteX();
+            tie_start_x += this.glyph.head_width + this.x_shift + this.extra_right_px;
             if(this.modifier_context != null)
             {
-                tieStartX += this.modifier_context.GetExtraRightPx();
+                tie_start_x += this.modifier_context.GetExtraRightPx();
             }
-            return tieStartX;
+            return tie_start_x;
         }
         /// <summary>
         /// Get the ending `x` coordinate for a `StaveTie`
         /// </summary>
         public double GetTieLeftX()
         {
-            double tieEndX = this.GetAbsoluteX();
-            tieEndX += this.x_shift = this.extra_left_px;
-            return tieEndX;
+            double tie_end_x = this.GetAbsoluteX();
+            tie_end_x += this.x_shift = this.extra_left_px;
+            return tie_end_x;
         }
         /// <summary>
         /// Get the stave line on which to place a rest
         /// </summary>
         public override double GetLineForRest()
         {
-            double restLine = this.key_props[0].line;
+            double rest_line = this.key_props[0].line;
             if(this.key_props.Count() > 1)
             {
                 //提前做了里程碑2阶段的事情，一个小优化，增加代码可读性
-                double lastLine = this.key_props.Last().line;
+                double last_line = this.key_props.Last().line;
                 //double lastLine = this.keyProps[this.keyProps.Count() - 1].line;
-                double top = Math.Max(restLine,lastLine);
-                double bot = Math.Min(restLine,lastLine);
-                restLine = Vex.MidLine(top,bot);
+                double top = Math.Max(rest_line,last_line);
+                double bot = Math.Min(rest_line,last_line);
+                rest_line = Vex.MidLine(top,bot);
             }
-            return restLine;
+            return rest_line;
         }
         /// <summary>
         /// Get the default `x` and `y` coordinates for the provided `position` and key `index`
@@ -622,32 +622,32 @@ namespace NVexFlow
         public NoteHeadBounds GetNoteHeadBounds()
         {
             // Top and bottom Y values for stem.
-            double? yTop = null;
-            double? yBottom = null;
+            double? y_top = null;
+            double? y_bottom = null;
 
-            double highestLine = this.stave.GetNumLines();
-            double lowestLine = 1;
+            double highest_line = this.stave.GetNumLines();
+            double lowest_line = 1;
 
-            foreach(var noteHead in this.note_heads)
+            foreach(NoteHead note_head in this.note_heads)
             {
-                double line = noteHead.GetLine();
-                double y = noteHead.GetY();
-                if(yTop == null || y < yTop.Value)
+                double line = note_head.GetLine();
+                double y = note_head.GetY();
+                if(y_top == null || y < y_top.Value)
                 {
-                    yTop = y;
+                    y_top = y;
                 }
-                if(yBottom == null || y > yBottom)
+                if(y_bottom == null || y > y_bottom)
                 {
-                    yBottom = y;
+                    y_bottom = y;
                 }
-                highestLine = line > highestLine ? line : highestLine;
-                lowestLine = line < lowestLine ? line : lowestLine;
+                highest_line = line > highest_line ? line : highest_line;
+                lowest_line = line < lowest_line ? line : lowest_line;
             }
             return new NoteHeadBounds() {
-                y_top = yTop.Value,
-                y_bottom = yBottom.Value,
-                highest_line = highestLine,
-                lowest_line = lowestLine
+                y_top = y_top.Value,
+                y_bottom = y_bottom.Value,
+                highest_line = highest_line,
+                lowest_line = lowest_line
             };
         }
         /// <summary>
@@ -662,8 +662,8 @@ namespace NVexFlow
         /// </summary>
         public double GetNoteHeadEndX()
         {
-            double xBegin = this.GetNoteHeadBeginX();
-            return xBegin + this.glyph.head_width - (Flow.STEM_WIDTH / 2);
+            double x_begin = this.GetNoteHeadBeginX();
+            return x_begin + this.glyph.head_width - (Flow.STEM_WIDTH / 2);
         }
         /// <summary>
         /// Draw the ledger lines between the stave and the highest/lowest keys

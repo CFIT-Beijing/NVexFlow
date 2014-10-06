@@ -37,14 +37,14 @@ namespace NVexFlow
             this.text = text;
             return this;
         }
-        public StaveText SetShiftX(double shiftX)
+        public StaveText SetShiftX(double shift_x)
         {
-            this.shift_x = shiftX;
+            this.shift_x = shift_x;
             return this;
         }
-        public StaveText SetShiftY(double shiftY)
+        public StaveText SetShiftY(double shift_y)
         {
-            this.shift_y = shiftY;
+            this.shift_y = shift_y;
             return this;
         }
         public StaveText SetFont(Font font)
